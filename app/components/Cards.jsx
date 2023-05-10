@@ -2,7 +2,7 @@ import Card from "./Card";
 
 export default function Cards({ especialidad }) {
     return (
-        <div className="flex  items-center justify-center min-h-screen container mx-auto">
+        <div className="px-5 py-24 container mx-auto w-full">
             {especialidad.map(({ name, image, description }, index) => {
                 return <Card 
                 key={index}
