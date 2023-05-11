@@ -34,7 +34,7 @@ export default function Forms(){
           <Input type='number' />
         </Form.Item>
         <Form.Item label="Especialidades" name="speciality">
-          <TreeSelect
+          <TreeSelect 
             treeData={[
               {
                 title: 'Cardiología',
