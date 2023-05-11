@@ -1,56 +1,76 @@
 "use client"
+import {Button,Cascader,Checkbox,DatePicker,Form,Input,InputNumber,Radio,Select,Switch,TreeSelect,Upload,} from 'antd';
+import FormItem from 'antd/es/form/FormItem';
 
-import {useForm} from 'react-hook-form';
-import {useState} from 'react';
+export default function Forms(){
 
-export default function NewAppointment() {
-  const {handleSubmit, register, formState: {errors}} = useForm();
-  const [registered, setRegistered] = useState(false);
-
-  const onSubmit = (values, event) => {
-    event.preventDefault(); // Evitar que el formulario recargue la página
+  const onSubmit = (values) => {
     console.log(values);
-    setRegistered(!registered);
-    // Código para procesar los datos del formulario
-  };
-  
+  }
 
   return (
-    <div className="h-screen bg-slate-800">
-      <form class='flex flex-col h-3/4' onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="user">Usuario</label>
-        <input
-        type="text"
-        name="user"
-        placeholder="Usuario"
-          {...register("user", {
-            required: "El usuario es obligatorio",
-            pattern: {
-              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/,
-              message: "El usuario es inválido",
+    <>
+      <Form labelCol={{   span: 6, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+        
+        <Form.Item name="fullName" label="Nombre completo" rules={[
+          {required:true,
+          message:"Por favor ingrese su nombre"},
+          {
+            validator: (_, value) => {
+              return new Promise((resolve, reject) => {
+                if (value && /\s(.{3,})/.test(value)) {
+                  resolve(); // Resuelve la promesa si la contraseña es válida
+                } else {
+                  reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                }
+              });
             },
-          })}
-        />
-        {errors.user && <span>{errors.user.message}</span>}
-        <label htmlFor="password">Contraseña</label>
-        <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-          {...register("password", {
-          required:"La contraseña es obligatoria",
-            pattern: {
-              value:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
-              message:"La contraseña debe tener entre 8 y 20 caracteres, al menos 1 mayúscula, 1 minúscula y 1 número"
-            }
-          })}
-        />
-        {errors.password && (
-          <span>{errors.password.message}</span>
-        )}
-        <button type="submit">Registrarse</button>
-    </form>
-    </div>
-
+            message: "Ingrese su nombre completo"
+          }
+        ]} hasFeedback>
+          <Input name="fullName" />
+        </Form.Item>
+        <Form.Item label="Edad">
+          <Input type='number' />
+        </Form.Item>
+        <Form.Item label="Especialidades" name="speciality">
+          <TreeSelect
+            treeData={[
+              {
+                title: 'Cardiología',
+                value: 'Cardiología',
+                children: [
+                  {
+                    title: 'estudio1',
+                    value: 'estudio1',
+                  },
+                ],
+              },
+              {
+                title: 'Ecografía',
+                value: 'Ecografía',
+                children: [
+                  {
+                    title: 'estudio2',
+                    value: 'estudio2',
+                  },
+                ],
+              },
+            ]}
+          />
+        </Form.Item>
+        <FormItem label="Médico" name="medic">
+          <Select>
+            
+          </Select>
+        </FormItem>
+        <Form.Item label="DatePicker">
+          <DatePicker />
+        </Form.Item>
+        
+        <Button block htmlType='submit'>boton</Button>
+      </Form>
+    </>
   );
 }
+ 
