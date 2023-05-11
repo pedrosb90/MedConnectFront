@@ -1,8 +1,10 @@
+'use client';
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
-
+import Navbar from './components/navBar/page';
 const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,29 +20,23 @@ const links = [{
   route:"/UserLogin"
 }]
 
-export default function RootLayout({
+
+export default function RootLayout(
+  {
   children,
 }: {
   children: React.ReactNode
-}) {
+}) 
+{
+  
   return (
     <html lang="en">
       <body className={inter.className}>
         <header>
-          <nav>
-          <ul>
-          {links.map(({label,route})=>{
-            return (
-              <li key={route}>
-                <Link href={route}>{label}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-          </nav>
+          <Navbar/>
         </header>
         <main>
+          
           <section>
             {children}
           </section>
