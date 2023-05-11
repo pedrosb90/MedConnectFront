@@ -28,7 +28,7 @@ export default function Admin(){
   <button className={showMenu.speciality ? styles.button_on : styles.button_of} onClick={toggleMenu} name='speciality'>Especialidades</button>
   {showMenu.speciality && (
     <ul className={styles.mini_menu}>
-      <li>Registro</li>
+      <Link href={'/components/administration/records/speciality'}><li>Registro</li></Link>
       <Link href={'/components/administration/forms/speciality'}><li>Crear especialidad</li></Link>
       <li>Remover especialidad</li>
     </ul>
