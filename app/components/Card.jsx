@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Card({ name, image, description, index }) {
   return (
 
-    <section class="md:h-full flex items-center text-gray-600">
+    
     <div  key={index}>
 
         {/* GRID */}
@@ -12,7 +12,6 @@ export default function Card({ name, image, description, index }) {
         {/* CARD */}
           <div className="p-4 sm:w-1/2 lg:w-1/3">
            
-              
             <div className="h-full border-2 border-gray-800 border-opacity-60 rounded-lg overflow-hidden ">
               <img
                 className="lg:h-72 md:h-48 w-full object-cover object-center"
@@ -34,6 +33,5 @@ export default function Card({ name, image, description, index }) {
       </div>
         {/* END:GRID */}
     </div>
-    </section>
-  );
+  )
 }
