@@ -17,6 +17,7 @@
 }
 body{
   margin-top:15vh;
+  
 }
 
 @media only screen and (max-width: 500px) {
@@ -28,6 +29,14 @@ body{
   body{
     margin-top: 10vh;
   }
+}
+.admin_main{
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.main{
+  display: none;
+  width: 100%;
 }
 
 

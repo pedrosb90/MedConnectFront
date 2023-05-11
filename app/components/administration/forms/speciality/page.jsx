@@ -2,7 +2,7 @@
 import {useForm} from 'react-hook-form';
 import {useState} from 'react';
 import styles from './page.module.css'
-
+import axios from 'axios';
 export default function SpecialtyForm() {
   const {handleSubmit, register, formState: {errors}} = useForm();
   const [registered, setRegistered] = useState(false);
@@ -10,16 +10,32 @@ export default function SpecialtyForm() {
 
   const onSubmit = (values, event) => {
     event.preventDefault(); // Evitar que el formulario recargue la página
-    console.log(values);
-    setRegistered(!registered);
-    // Código para procesar los datos del formulario
+  setRegistered(!registered);
+
+  const formData = new FormData();
+
+  // Iterar sobre los valores del objeto values y agregarlos al formData
+  Object.entries(values).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+    axios.post('http://localhost:3001/specializations', formData)
+      .then((response) => {
+        // Código para manejar la respuesta en caso de éxito
+        alert('Registro exitoso');
+      })
+      .catch((error) => {
+        // Código para manejar la respuesta en caso de error
+        alert('Error al registrar:', error);
+      });
   };
   
 
   return (
     <div className={styles.global_box}>
+      
       <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
-        
+      <h1 className={styles.title}>Añadir Especialidad</h1>
         <label htmlFor="name">Nombre: </label>
         <input
         id='name'
@@ -32,32 +48,33 @@ export default function SpecialtyForm() {
           })}
         />
         {errors.name && <span>{errors.name.message}</span>}
-        <label htmlFor="image">Imagen: </label>
+        <label htmlFor="url">Imagen: </label>
         <input
-        id='image'
-        type="text"
-        name="image"
+        id='url'
+        type="file"
+        name="url"
+        accept="image/*"
         placeholder="imagen..."
-          {...register("image", {
+          {...register("url", {
           required:"La imagen es obligatoria",
            
           })}
         />
-        {errors.image && (
-          <span>{errors.image.message}</span>
+        {errors.url && (
+          <span>{errors.url.message}</span>
         )}
-        <label htmlFor="summary">Resumen: </label>
+        <label htmlFor="description">Descripción: </label>
         <textarea className={styles.text_area}
-        id='summary'
-        name='summary'
-        placeholder='resumen...'
-        {...register('summary',{
+        id='description'
+        name='description'
+        placeholder='description...'
+        {...register('description',{
           required:'El resumen es obligatorio',
           
         })}
         />
-        {errors.summary && (
-          <span>{errors.summary.message}</span>
+        {errors.description && (
+          <span>{errors.description.message}</span>
         )}
         <button>Registrar</button>
         
