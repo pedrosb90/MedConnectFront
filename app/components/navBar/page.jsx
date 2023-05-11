@@ -24,10 +24,16 @@ const links = [{
 {
   label:'administration',
   route:'/components/administration'
+},
+{
+  label:'Especialidades',
+  route:'/Especialidades'
+
 }]
 const home = links[0];
 const UserLogin= links[1];
 const admin = links[2];
+const espe = links[3]
 
 
     return (
@@ -39,7 +45,7 @@ const admin = links[2];
             <h1 className={styles.title}>Medicina & Salud Berazategui</h1>
             <nav className={styles.nav_link}>
             <Link className={styles.links} href={home.route}><span>Home</span></Link>
-              <span>Especialidades</span>
+              <Link href={espe.route} className={styles.links}><span>Especialidades</span></Link>
               <Link href={admin.route} className={styles.links}><span>{admin.label}</span></Link>
             </nav>
             <Link href={UserLogin.route}><button className={styles.nav_button}>{UserLogin.label}</button></Link>
