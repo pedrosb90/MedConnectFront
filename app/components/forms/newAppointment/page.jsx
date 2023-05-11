@@ -3,7 +3,7 @@ import {Button,Cascader,Checkbox,DatePicker,Form,Input,InputNumber,Radio,Select,
 import FormItem from 'antd/es/form/FormItem';
 
 export default function Forms(){
-
+  
   const onSubmit = (values) => {
     console.log(values);
   }
@@ -34,7 +34,7 @@ export default function Forms(){
           <Input type='number' />
         </Form.Item>
         <Form.Item label="Especialidades" name="speciality">
-          <TreeSelect
+          <TreeSelect 
             treeData={[
               {
                 title: 'Cardiología',

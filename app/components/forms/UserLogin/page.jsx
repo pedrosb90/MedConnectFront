@@ -43,7 +43,7 @@ export default function UserLogin() {
                 }
               });
             },
-            message: "El email no es válido"
+            message: "El usuario no es válido"
           }
         ]}
         hasFeedback>
