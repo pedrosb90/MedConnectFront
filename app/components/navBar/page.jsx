@@ -20,9 +20,16 @@ const links = [{
 {
   label:"UserLogin",
   route:"/components/forms/UserLogin"
+},
+{
+  label:'administration',
+  route:'/components/administration'
 }]
-const UserLogin= links[1];
 const home = links[0];
+const UserLogin= links[1];
+const admin = links[2];
+
+
     return (
         
           
@@ -33,7 +40,7 @@ const home = links[0];
             <nav className={styles.nav_link}>
             <Link className={styles.links} href={home.route}><span>Home</span></Link>
               <span>Especialidades</span>
-              <span>Mis Turnos</span>
+              <Link href={admin.route} className={styles.links}><span>{admin.label}</span></Link>
             </nav>
             <Link href={UserLogin.route}><button className={styles.nav_button}>{UserLogin.label}</button></Link>
             <div></div>
@@ -44,7 +51,7 @@ const home = links[0];
             <nav className={click ? styles.nav_link_mobile : styles.nav_link_off}>
               <Link href={home.route}><span>Home</span></Link>
               <span>Especialidades</span>
-              <span>Mis Turnos</span>
+              <Link href={admin.route}>{admin.label}<span></span></Link>
               <Link href={UserLogin.route}><button className={styles.nav_button_link}>{UserLogin.label}</button></Link>
             </nav>
     

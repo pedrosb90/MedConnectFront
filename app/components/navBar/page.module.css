@@ -141,7 +141,7 @@
       flex-direction: column;
       position: absolute;
       right: 0;
-      z-index: 5;
+      
       top: -10px;
       width: 200px;
       display: flex;
