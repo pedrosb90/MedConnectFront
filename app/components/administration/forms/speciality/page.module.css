@@ -1,0 +1,28 @@
+.global_box{
+    display: flex;
+    background-color: cyan;
+    width: 50%;
+    margin:  auto;
+    height: 50vh;
+    position: relative;
+    margin-top: 10%;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.form_box{
+    display: flex;
+    flex-direction: column;
+    
+    
+
+}
+
+.text_area{
+    resize: none;
+}
+.container{
+    width: 200px;
+    background-color: aquamarine;
+}
