@@ -3,7 +3,7 @@ import {Button,Cascader,Checkbox,DatePicker,Form,Input,InputNumber,Radio,Select,
 import FormItem from 'antd/es/form/FormItem';
 
 export default function Forms(){
-
+  
   const onSubmit = (values) => {
     console.log(values);
   }
