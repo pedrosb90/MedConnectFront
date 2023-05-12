@@ -23,7 +23,7 @@ const links = [{
   route:"/components/forms/UserLogin"
 },
 {
-  label:'administration',
+  label:'Administration',
   route:'/components/administration'
 },
 {

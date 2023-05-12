@@ -28,8 +28,8 @@ export default function Admin(){
   <button className={showMenu.speciality ? styles.button_on : styles.button_of} onClick={toggleMenu} name='speciality'>Especialidades</button>
   {showMenu.speciality && (
     <ul className={styles.mini_menu}>
-      <Link href={'/components/administration/records/speciality' }as='registro' ><li>Registro</li></Link>
-      <Link href={'/components/administration/forms/speciality' }as="especialidad"><li>Crear especialidad</li></Link>
+      <Link href={'/components/administration/records/speciality' }><li>Registro</li></Link>
+      <Link href={'/components/administration/forms/speciality' }><li>Crear especialidad</li></Link>
       <li>Remover especialidad</li>
     </ul>
   )}
@@ -39,7 +39,7 @@ export default function Admin(){
   {showMenu.medico && (
     <ul className={styles.mini_menu}>
       <li>Registro</li>
-      <Link href={'/components/administration/forms/medicos'} as="medico"><li>Añadir medico</li></Link>
+      <Link href={'/components/administration/forms/medicos'} ><li>Añadir medico</li></Link>
       <li>Remover medico</li>
     </ul>
   )}
