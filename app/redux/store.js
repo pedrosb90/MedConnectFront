@@ -1,9 +1,10 @@
 'use client'
 import { configureStore } from "@reduxjs/toolkit";
 import medicalReducer from './reducer';
-
+import logInStatus from "./LogReducer"
 export const store = configureStore({
     reducer:{
-        speciality: medicalReducer // Agregar el reducer de especialidades
+        speciality: medicalReducer,
+        logStatus : logInStatus
     }
 });
