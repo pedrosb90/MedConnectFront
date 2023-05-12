@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Card2({ name, image, description, id, index }) {
+export default function Card2({ name, image, description, index }) {
   return (
     <div key={index}>
       <div className="h-full border-2 border-gray-800 border-opacity-60 rounded-lg overflow-hidden ">
@@ -15,7 +15,7 @@ export default function Card2({ name, image, description, id, index }) {
           </h1>
           <h3 className="text-cimPallete-900 text-left">{description}</h3>
           <div className="flex border-t border-solid border-slate-400 justify-between pt-3 mt-3 items-center ">
-            <Link href={`/specializations/${id}`}>
+            <Link href="/Detail">
               <button>Conocer mas </button>
             </Link>
             <button>Ver Staff</button>
