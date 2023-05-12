@@ -5,7 +5,7 @@ import Navbar from './components/navBar/page';
 import { usePathname } from 'next/navigation';
 import Admin from './components/administration/panel/page'
 import { useEffect, useState } from 'react';
-
+import { Providers } from './redux/provider';
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -36,11 +36,8 @@ export default function RootLayout(
   const pathAdmin = pathname.includes('administration')
   useEffect(() => {
     setAdmin(pathAdmin)
-    console.log(admin);
     
 
-    
-    
   }, [pathname]);
   
   return (
@@ -53,7 +50,11 @@ export default function RootLayout(
         {admin && <Admin/>}
           
           <section>
-            {children}
+         <Providers>
+         {children}
+         </Providers>
+            
+            
           </section>
         </main>
         </body>

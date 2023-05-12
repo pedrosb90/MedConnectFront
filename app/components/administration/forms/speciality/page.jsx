@@ -12,16 +12,13 @@ export default function SpecialtyForm() {
   const [registered, setRegistered] = useState(false);
 
   const onSubmit = (values, event) => {
-    console.log(values);
+    
     event.preventDefault(); // Evitar que el formulario recargue la página
     setRegistered(!registered);
 
     const formData = new FormData();
 
-    // Iterar sobre los valores del objeto values y agregarlos al formData
-    // Object.entries(values).forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
+    
     formData.append("name", values.name);
     formData.append("image", values.image[0]);
     formData.append("description", values.description);
@@ -31,6 +28,7 @@ export default function SpecialtyForm() {
       .then((response) => {
         // Código para manejar la respuesta en caso de éxito
         alert("Registro exitoso");
+        event.target.reset()
       })
       .catch((error) => {
         // Código para manejar la respuesta en caso de error

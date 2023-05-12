@@ -1,6 +1,6 @@
 "use client"
 import {useForm} from 'react-hook-form';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './page.module.css'
 
 export default function MedForm() {
@@ -14,6 +14,7 @@ export default function MedForm() {
 
     // Código para procesar los datos del formulario
   };
+  useEffect({})
   
 
   return (

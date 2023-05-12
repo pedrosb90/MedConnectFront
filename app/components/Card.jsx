@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export default function Card({ name, image, description, index }) {
+export default function Card({ name, url, description, index }) {
   return (
     <div key={index}>
         {/* GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div >
 
         {/* CARD */}
           <div className=" rounded-xl shadow-lg">
@@ -13,8 +13,8 @@ export default function Card({ name, image, description, index }) {
             <div className="rounded-xl overflow-hidden ">
               <img
                 className="lg:h-72 md:h-48 w-full object-cover object-center"
-                src={image}
-                alt=""
+                src={url}
+                alt="img"
                 />
             </div>
 
