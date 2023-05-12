@@ -7,7 +7,6 @@ import { useState } from 'react';
 export default function Admin(){
   
   const {logStatus} = useSelector(state => state)
-  console.log("estado",logStatus);
 
   const [showMenu, setShowMenu] = useState({
     speciality: false,

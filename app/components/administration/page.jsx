@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import styles from './page.module.css'
 export default function administration(){
     const {logStatus} = useSelector(state => state)
-    console.log("estado",logStatus);
     if(logStatus.logStatus === "master" ){
         return(
             <div className={styles.container}>
