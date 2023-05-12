@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-export default function Card({ name, image, description, index }) {
+export default function Card({ name, url, description, index }) {
   return (
 
     
     <div  key={index}>
 
         {/* GRID */}
+      <div >
       <div className="flex flex-wrap -m-4">
 
         {/* CARD */}
@@ -15,8 +16,8 @@ export default function Card({ name, image, description, index }) {
             <div className="h-full border-2 border-gray-800 border-opacity-60 rounded-lg overflow-hidden ">
               <img
                 className="lg:h-72 md:h-48 w-full object-cover object-center"
-                src={image}
-                alt=""
+                src={url}
+                alt="img"
                 />
             <div>
               <h1>{name}</h1>

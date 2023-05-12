@@ -2,6 +2,10 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from './components/navBar/page';
+import { usePathname } from 'next/navigation';
+import Admin from './components/administration/panel/page'
+import { useEffect, useState } from 'react';
+import { Providers } from './redux/provider';
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -17,18 +21,30 @@ export default function RootLayout(
   children: React.ReactNode
 }) 
 {
+  const [admin, setAdmin] = useState(false)
+  const pathname = usePathname()
+  const pathAdmin = pathname.includes('administration')
+  useEffect(() => {
+    setAdmin(pathAdmin)
+    
+
+  }, [pathname]);
   
   return (
     <html lang="en">
-      {/* //! aca va el provider encerrando el body */}
       <body className={inter.className}>
         <header>
           <Navbar/>
         </header>
-        <main>
+        <main className={admin ? 'admin_main': inter.className}>
+        {admin && <Admin/>}
           
           <section>
-            {children}
+         <Providers>
+         {children}
+         </Providers>
+            
+            
           </section>
         </main>
         </body>
