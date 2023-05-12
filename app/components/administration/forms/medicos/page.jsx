@@ -1,24 +1,26 @@
 "use client"
 import {useForm} from 'react-hook-form';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './page.module.css'
 
 export default function MedForm() {
   const {handleSubmit, register, formState: {errors}} = useForm();
   const [registered, setRegistered] = useState(false);
-  console.log(errors);
+  
   const onSubmit = (values, event) => {
     event.preventDefault(); // Evitar que el formulario recargue la página
     
     setRegistered(!registered);
+
     // Código para procesar los datos del formulario
   };
+  useEffect({})
   
 
   return (
     <div className={styles.global_box}>
       <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
-        
+        <h1 className={styles.title}>Añadir Medico</h1>
         <label htmlFor="first_name">Nombre: </label>
         <input
         id='first_name'
@@ -55,7 +57,7 @@ export default function MedForm() {
         <input className={styles.text_area}
         id='phone'
         name='phone'
-        placeholder='resumen...'
+        placeholder='555-555-555...'
         {...register('phone',{
           required:'El numero de telefono es obligatorio',
           pattern: {
