@@ -5,6 +5,7 @@ import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 
+
 export default function Especialidades() {
   const dispatch = useDispatch()
   const especialidades = useSelector((state)=>state.speciality.AllSpecial)
@@ -55,6 +56,7 @@ export default function Especialidades() {
             </button>
           )}
         </div>
+        
       </>
     
   );

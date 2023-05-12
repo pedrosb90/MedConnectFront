@@ -2,14 +2,10 @@ import Link from "next/link";
 
 export default function Card({ name, url, description, index }) {
   return (
-
-    
     <div  key={index}>
-
         {/* GRID */}
-      <div >
-      <div className="flex flex-wrap -m-4">
 
+      <div className="flex flex-wrap -m-4">
         {/* CARD */}
           <div className="p-4 sm:w-1/2 lg:w-1/3">
            
@@ -26,13 +22,10 @@ export default function Card({ name, url, description, index }) {
                 <button>Conocer mas</button>
               </Link>
             </div>
-            </div>
-
-                
-          
+          </div>
         </div>
       </div>
-        {/* END:GRID */}
+      {/* END:GRID */}
     </div>
-  )
+  );
 }
