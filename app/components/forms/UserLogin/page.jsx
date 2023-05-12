@@ -2,26 +2,26 @@
 import {Button,Form,Input,Radio} from 'antd';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLogStatus } from "../../../redux/reducer";
 import { useEffect } from 'react';
+import { getLogStatus } from '@/app/redux/LogReducer';
 
 export default function UserLogin() {
-  // const {AllSpecial} = useSelector(state => state)
+  const {logStatus} = useSelector(state => state)
+  const dispatch = useDispatch()
 
-  // useEffect(()=>{
-  //   console.log(AllSpecial);
-  // },[AllSpecial])
+  useEffect(()=>{
+    console.log(logStatus);
+  },[logStatus])
 
   const onSubmit = async (values) => {
     const {userType,email,password} = values
-    axios.post("http://localhost:3001/login",{userType,email,password})
+    axios.create({ withCredentials: true }).post("http://localhost:3001/login",{userType,email,password})
     .then((res)=>{
-      console.log(res.data);
       if(res.data){
-        axios.get("http://localhost:3001/").then((res)=>console.log(res))
+        axios.create({ withCredentials: true }).get("http://localhost:3001/user").then((res)=>dispatch(getLogStatus(res.data.role)))
       } 
     })
-    .catch((error)=> console.log(error.response.data))
+    .catch((error)=> console.log(error))
     
 
     //! this info must be send to the backend
