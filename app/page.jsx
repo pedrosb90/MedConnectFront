@@ -1,4 +1,5 @@
 import CardsObras from "./components/CardsObras";
+import HomeSearchBar from "./components/search/HomeSearchBar";
 import { array } from "./components/ObrasSociales";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <div className="flex flex-col gap-20">
         <div className="text-center ">
           <h1 className="m-8 text-4xl">NUESTRAS OBRAS SOCIALES</h1>
+          <HomeSearchBar />
           <CardsObras obras={array}></CardsObras>
         </div>
         <div className="flex justify-between">
