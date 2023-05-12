@@ -21,6 +21,7 @@ export default function Especialidades() {
   async function fetchData() {
     try {
       const response = await axios.get('http://localhost:3001/specializations');
+      console.log(response.data);
       dispatch(getSpeciality(response.data));
     } catch (error) {
       alert(error.message);

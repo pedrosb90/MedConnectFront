@@ -22,14 +22,14 @@ export default function Admin(){
     return (
      <div className={styles.container}>
   <h1 className={styles.title}>Administración</h1>
-  <Link href={'/components/administration'}><button className={styles.button_inicio}>Inicio</button></Link>
+  <Link href={'/components/administration'} as='inicio'><button className={styles.button_inicio}>Inicio</button></Link>
   <div className={styles.box_selector}>
     
   <button className={showMenu.speciality ? styles.button_on : styles.button_of} onClick={toggleMenu} name='speciality'>Especialidades</button>
   {showMenu.speciality && (
     <ul className={styles.mini_menu}>
-      <Link href={'/components/administration/records/speciality'}><li>Registro</li></Link>
-      <Link href={'/components/administration/forms/speciality'}><li>Crear especialidad</li></Link>
+      <Link href={'/components/administration/records/speciality' }as='registro' ><li>Registro</li></Link>
+      <Link href={'/components/administration/forms/speciality' }as="especialidad"><li>Crear especialidad</li></Link>
       <li>Remover especialidad</li>
     </ul>
   )}
@@ -39,7 +39,7 @@ export default function Admin(){
   {showMenu.medico && (
     <ul className={styles.mini_menu}>
       <li>Registro</li>
-      <Link href={'/components/administration/forms/medicos'}><li>Añadir medico</li></Link>
+      <Link href={'/components/administration/forms/medicos'} as="medico"><li>Añadir medico</li></Link>
       <li>Remover medico</li>
     </ul>
   )}
