@@ -20,7 +20,7 @@ export default function RootLayout(
   
   return (
     <html lang="en">
-      //! aca va el provider encerrando el body
+      {/* // aca va el provider encerrando el body */}
       <body className={inter.className}>
         <header>
           <Navbar/>

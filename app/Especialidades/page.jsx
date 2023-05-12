@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Cards from "../components/Cards"
 
+
 export default function Especialidades() {
   
 
@@ -56,6 +57,7 @@ export default function Especialidades() {
             </button>
           )}
         </div>
+        
       </>
     
   );
