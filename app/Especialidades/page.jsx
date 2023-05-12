@@ -23,10 +23,12 @@ export default function Especialidades() {
     try {
       const response = await axios.get('http://localhost:3001/specializations');
       dispatch(getSpeciality(response.data));
+     
     } catch (error) {
       alert(error.message);
     }
   }
+
   
   useEffect(() => {
     fetchData();
@@ -38,6 +40,8 @@ export default function Especialidades() {
 
   const especialidad = data.slice(0, currentEsp + 1);
 
+
+  
   return (
    
       <>
