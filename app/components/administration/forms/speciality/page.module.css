@@ -5,7 +5,7 @@
     margin:  auto;
     height: 50vh;
     position: relative;
-    margin-top: 10%;
+    margin-top: 6%;
     padding: 10px;
     justify-content: center;
     align-items: center;
@@ -25,4 +25,10 @@
 .container{
     width: 200px;
     background-color: aquamarine;
+}
+.title{
+    font-size: 1.3em;
+    font-weight: 600;
+    align-self: center;
+    margin: 8px;
 }
