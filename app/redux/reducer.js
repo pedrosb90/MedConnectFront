@@ -1,8 +1,10 @@
 'use client';
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState={
-    AllSpecial:[]
+    AllSpecial:[],
+    AllMedicos:[]
 }
 export const medicalReducer = createSlice({
     name:'speciality',
@@ -13,9 +15,13 @@ export const medicalReducer = createSlice({
             const data= action.payload;
             state.AllSpecial= [...data];
             
+        },
+        getMedicos:(state, action)=>{
+            const response=action.payload;
+            state.AllMedicos=[...response]
         }
     }
 
 })
-export const {getSpeciality} = medicalReducer.actions
+export const {getSpeciality,getMedicos} = medicalReducer.actions
 export default medicalReducer.reducer
