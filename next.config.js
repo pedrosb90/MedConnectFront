@@ -5,6 +5,5 @@ const nextConfig = {
   },
   reactStrictMode: true,
 };
-console.log("a");
 
 module.exports = nextConfig;

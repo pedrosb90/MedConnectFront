@@ -1,4 +1,4 @@
-export const data = [
+const data = [
   {
     first_name: "Krisha",
     last_name: "Jakubovski",
@@ -4578,3 +4578,5 @@ export const data = [
     },
   },
 ];
+
+export default data;

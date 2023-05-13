@@ -1,16 +1,19 @@
-import { useState } from "react";
-import data from "../../MOCK_DATA.json";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateSearchTerm,
+  updateSearchResults,
+} from "../../redux/searchReducer";
 
 export default function HomeSearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state) => state.search.searchTerm);
+  const searchResults = useSelector((state) => state.search.searchResults);
 
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+    dispatch(updateSearchTerm(event.target.value));
+    dispatch(updateSearchResults());
   };
-
-  const filteredData = data.filter((medic) =>
-    medic.last_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div>
@@ -18,10 +21,10 @@ export default function HomeSearchBar() {
         type="text"
         value={searchTerm}
         onChange={handleInputChange}
-        placeholder="Search by last name"
+        placeholder="Search by doctor name or surname.."
       />
       <ul>
-        {filteredData.map((medic) => (
+        {searchResults.map((medic) => (
           <li key={medic.id}>
             {medic.first_name} {medic.last_name}
           </li>
