@@ -4,11 +4,17 @@ import img from './img/Logo.jpg'
 import {  useState } from "react";
 import styles from "./page.module.css"
 import Link from 'next/link';
+<<<<<<< HEAD
 import { userInfo } from 'os';
+=======
+import { useSelector } from 'react-redux';
+>>>>>>> develop
 
 
 export default function Navbar(){
   const [click, setClick] = useState(false);
+  const {logStatus} = useSelector(state => state)
+
 
 const onActive = () => {
   setClick(!click);
@@ -45,9 +51,15 @@ const espe = links[3]
             
             <h1 className={styles.title}>Medicina & Salud Berazategui</h1>
             <nav className={styles.nav_link}>
+<<<<<<< HEAD
             <Link  className={styles.links} href={home.route} as={home.route}><span>Home</span></Link>
               <Link  href={espe.route} className={styles.links} as={espe.route}><span>Especialidades</span></Link>
               <Link  href={admin.route} className={styles.links} as={admin.route}><span>{admin.label}</span></Link>
+=======
+            <Link className={styles.links} href={home.route}><span>Home</span></Link>
+              <Link href={espe.route} className={styles.links}><span>Especialidades</span></Link>
+              {logStatus.logStatus === "master" ? <Link href={admin.route} className={styles.links}><span>{admin.label}</span></Link> : null}
+>>>>>>> develop
             </nav>
             <Link as={UserLogin.route} href={UserLogin.route}><button className={styles.nav_button}>{UserLogin.label}</button></Link>
             <div></div>

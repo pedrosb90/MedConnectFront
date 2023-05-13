@@ -1,17 +1,30 @@
 "use client"
-import {useState} from 'react';
 import {Button,Form,Input,Radio} from 'antd';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getLogStatus } from '@/app/redux/LogReducer';
 
 export default function UserLogin() {
-  const [data,setData] = useState({
-    user:null,
-    password:null
-  })
- 
-  const onSubmit = (values) => {
-    const {userType,user,password} = values
+  const {logStatus} = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    console.log(logStatus);
+  },[logStatus])
+
+  const onSubmit = async (values) => {
+    const {userType,email,password} = values
+    axios.create({ withCredentials: true }).post("http://localhost:3001/login",{userType,email,password})
+    .then((res)=>{
+      if(res.data){
+        axios.create({ withCredentials: true }).get("http://localhost:3001/user").then((res)=>dispatch(getLogStatus(res.data.role)))
+      } 
+    })
+    .catch((error)=> console.log(error))
+    
+
     //! this info must be send to the backend
-    console.log({userType,user,password});
   }
 
   return (
@@ -28,7 +41,7 @@ export default function UserLogin() {
               <Radio value="admin">Administrador</Radio>
             </Radio.Group>
         </Form.Item>
-        <Form.Item name="user" label="Usuario"
+        <Form.Item name="email" label="Usuario"
         rules={[
           {required:true,
             message:"Por favor ingrese su usuario"

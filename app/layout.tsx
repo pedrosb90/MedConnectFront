@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 import Navbar from './components/navBar/page';
 import { usePathname } from 'next/navigation';
 import Admin from './components/administration/panel/page'
-import { useEffect, useState } from 'react';
 import { Providers } from './redux/provider';
+import { useSelector } from 'react-redux';
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -16,38 +16,29 @@ export const metadata = {
 
 export default function RootLayout(
   {
-  children,
-}: {
-  children: React.ReactNode
-}) 
-{
-  const [admin, setAdmin] = useState(false)
+    children,
+  }: {
+    children: React.ReactNode
+  }) 
+  {
   const pathname = usePathname()
   const pathAdmin = pathname.includes('administration')
-  useEffect(() => {
-    setAdmin(pathAdmin)
-    
-
-  }, [pathname]);
   
   return (
+    <Providers>
     <html lang="en">
       <body className={inter.className}>
         <header>
           <Navbar/>
         </header>
-        <main className={admin ? 'admin_main': inter.className}>
-        {admin && <Admin/>}
-          
+        <main className={pathAdmin ? 'admin_main': inter.className}>
+        {pathAdmin  && <Admin/>}
           <section>
-         <Providers>
          {children}
-         </Providers>
-            
-            
           </section>
         </main>
         </body>
     </html>
+    </Providers>
   )
 }
