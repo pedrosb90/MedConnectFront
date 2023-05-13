@@ -24,7 +24,7 @@ export default function Home() {
             Medicos
           </button>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-full w-full">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
@@ -59,20 +59,20 @@ export default function Home() {
                 alt=""
               />
             </div>
-            <div class="flex items-center justify-center">
-              <div class="flex flex-col justify-center">
-                <h3 class="text-center text-cimPallete-blue font-sans">
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col justify-center">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Cno. Gral. Manuel Belgrano 6511, Gutierrez
                 </h3>
-                <h3 class="text-center text-cimPallete-blue font-sans">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Teléfono fijo: 1122039682
                 </h3>
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
-                  <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
-                    Envianos tu CV berazategui@gmail.com
-                  </h1>
+                </h1>
+                <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
+                  Envianos tu CV berazategui@gmail.com
                 </h1>
                 <br />
                 <iframe
