@@ -31,8 +31,7 @@ const links = [{
 {
   label:'Especialidades',
   route:'/Especialidades'
-
-}]
+},]
 const home = links[0];
 const UserLogin= links[1];
 const admin = links[2];

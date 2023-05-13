@@ -4,9 +4,12 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getLogStatus } from '@/app/redux/LogReducer';
+import { useRouter } from 'next/navigation';
+
 
 export default function UserLogin() {
   const {logStatus} = useSelector(state => state)
+  const { push } = useRouter();
   const dispatch = useDispatch()
 
   useEffect(()=>{
@@ -19,6 +22,7 @@ export default function UserLogin() {
     .then((res)=>{
       if(res.data){
         axios.create({ withCredentials: true }).get("http://localhost:3001/user").then((res)=>dispatch(getLogStatus(res.data.role)))
+        push('http://localhost:3000/');
       } 
     })
     .catch((error)=> console.log(error))
@@ -93,6 +97,7 @@ export default function UserLogin() {
           </Form.Item>
           {/* {errors.password && (<span>{errors.password}</span>)} */}
           <Button block htmlType='submit'>boton</Button>
+          <p>Una vez que inicie sesión será redirigido al inicio!</p>
         </Form>
     </div>
     
