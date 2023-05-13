@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       <div className="flex flex-col gap-20">
         <div className="text-center ">
-          <h1 className="m-8 text-4xl text-cimPallete-blue font-sans">
+          <h1 className="m-8 text-4xl text-cimPallete-blue font-sans bg-gray-900 text-white py-4 px-6 rounded-lg shadow-lg">
             NUESTRAS OBRAS SOCIALES
           </h1>
           {/* <HomeSearchBar /> */}
