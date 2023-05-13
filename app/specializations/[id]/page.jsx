@@ -34,27 +34,19 @@ useEffect(()=>{
   setData(detail);
 },[detail])    
 
-// const Detail = () => {
-//   const { id } = useParams();
-//   const dispatch = useDispatch();
-//   const detail = useSelector((state) => state.speciality.Detail);
 
+console.log(detail);
   return (
     <div>
-      {/* {data.name && (
-        <>
-          <img src={data.url} alt="img" />
-          <h1>{data.name}</h1>
-          <h1>{data.description}</h1>
-        </>
-      )} */}
+      
 
       {data.name? (
-        <>
+        
+        <section>
         <img src={data.url} alt="img" />
         <h1>{data.name}</h1>
         <h1>{data.description}</h1>
-        </>
+        </section>
       ):(
         <img
             src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"

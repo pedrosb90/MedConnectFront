@@ -59,21 +59,21 @@ export default function Home() {
                 alt=""
               />
             </div>
-            <div class="flex items-center justify-center">
-              <div class="flex flex-col justify-center">
-                <h3 class="text-center text-cimPallete-blue font-sans">
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col justify-center">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Cno. Gral. Manuel Belgrano 6511, Gutierrez
                 </h3>
-                <h3 class="text-center text-cimPallete-blue font-sans">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Teléfono fijo: 1122039682
                 </h3>
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
+                </h1>
                   <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
                     Envianos tu CV berazategui@gmail.com
                   </h1>
-                </h1>
                 <br />
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1947.6150797869561!2d-58.196227546980765!3d-34.81889447489231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a328738980375f%3A0x2fac7c5d3ccc50d5!2sMedicina%20y%20Salud%20Berazategui%20Centros%20Medicos!5e0!3m2!1ses!2sco!4v1683889179017!5m2!1ses!2sco"
@@ -82,7 +82,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div class="flex flex-col justify-center items-center"></div>
+          <div className="flex flex-col justify-center items-center"></div>
         </div>
       </div>
 
