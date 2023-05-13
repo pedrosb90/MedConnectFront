@@ -32,8 +32,9 @@ export default function Medicos({data}){
     const MedFilter = med.filter(med=> med.specializations.includes(data.name) )
     console.log(MedFilter);
     return (
-        <div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <div class="  relative overflow-x-auto">
+            <h1 ><b>Staff de medicos: </b></h1>
+  <table class=" text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
         <th scope="col" class="px-6 py-3">
@@ -42,9 +43,7 @@ export default function Medicos({data}){
         <th scope="col" class="px-6 py-3">
           Apellido
         </th>
-        <th scope="col" class="px-6 py-3">
-          Especialización
-        </th>
+        
       </tr>
     </thead>
     <tbody>
@@ -56,13 +55,7 @@ export default function Medicos({data}){
         <td class="px-6 py-4">
           {med.last_name}
         </td>
-        <td class="px-6 py-4">
-          
-            {med.specializations.map((spec) => (
-            <p key={spec.name}>{spec}</p>
-            ))}
-          
-        </td>
+        
       </tr>
       ))}
     </tbody>
