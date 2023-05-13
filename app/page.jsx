@@ -1,7 +1,15 @@
+'use client'
 import CardsObras from "./components/CardsObras";
 import { array } from "./components/ObrasSociales";
+import CardMed from './components/CardMedicos/page'
+import { useState } from "react";
 
 export default function Home() {
+  const [showMenu, setShowMenu] = useState(false)
+  const toggleMenu=()=>{
+    setShowMenu(!showMenu)
+  }
+
   return (
     <main>
       <div className="flex flex-col gap-20">
@@ -33,7 +41,9 @@ export default function Home() {
                   src="https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
                   alt=""
                 />
+                
               </div>
+              
               <h3>Cno. Gral. Manuel Belgrano 6511, Gutierrez</h3>
               <h3>Teléfono fijo: 1122039682</h3>
             </div>
@@ -44,6 +54,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <button className='buttonMed' onClick={toggleMenu}>Medicos</button>
+      <CardMed showMenu={showMenu}></CardMed>
+             
     </main>
   );
 }
