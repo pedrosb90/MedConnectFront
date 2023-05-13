@@ -63,12 +63,7 @@ const espe = links[3]
               <Link  href={admin.route} as='admin'>{admin.label}<span></span></Link>
               <Link  href={UserLogin.route} as='login'><button className={styles.nav_button_link}>{UserLogin.label}</button></Link>
             </nav>
-    
-    
-           
-            
-            
-              
+
         </div>
         
     )

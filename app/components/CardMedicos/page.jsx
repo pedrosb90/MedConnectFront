@@ -11,7 +11,7 @@ export default function CardMed ({showMenu}){
   const dispatch = useDispatch()
 
   const estadoMed = useSelector((state)=>state.speciality.AllMedicos)
-  console.log(medicos);
+  
   const fetchMedicos = async () => {
     try {
       const response = await axios.get('http://localhost:3001/medics');
@@ -25,7 +25,7 @@ export default function CardMed ({showMenu}){
     !medicos?.length && fetchMedicos();
   }, [medicos]);
     return(
-        <div className={showMenu ? styles.cont_on:styles.container}>
+        <div className={showMenu ? styles.container:styles.cont_on}>
           
           <div className={styles.med_box}>
             <ul >

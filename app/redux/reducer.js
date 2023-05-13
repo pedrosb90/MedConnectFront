@@ -1,5 +1,6 @@
-'use client';
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
+
 
 
 const initialState={
@@ -34,4 +35,3 @@ export const {getSpeciality,getMedicos,getId} = medicalReducer.actions
 
 
 export default medicalReducer.reducer
-

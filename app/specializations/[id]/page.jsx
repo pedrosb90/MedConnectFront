@@ -35,6 +35,10 @@ useEffect(()=>{
   setData(detail);
 },[detail])    
 
+// const Detail = () => {
+//   const { id } = useParams();
+//   const dispatch = useDispatch();
+//   const detail = useSelector((state) => state.speciality.Detail);
 
   return (
     <div>
@@ -60,4 +64,4 @@ useEffect(()=>{
       )}
     </div>
   );
-}
+      }
