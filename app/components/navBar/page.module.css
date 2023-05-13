@@ -107,8 +107,8 @@
   height: 50px;
 }
 .nav_button:hover {
-  background-color: rgb(102, 171, 249);
-  color: black;
+  background-color: #f2d083;
+  color: rgb(255, 254, 254);
   transform: scale(0.95);
 }
 
