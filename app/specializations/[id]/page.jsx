@@ -29,6 +29,8 @@ const Detail = () => {
   useEffect(() => {
     fetchData(id);
   }, [dispatch, id]);
+
+  console.log(data);
   return (
     <div className={style.containAll}>
       {data && (

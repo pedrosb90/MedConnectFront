@@ -6,7 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     AllSpecial:[],
     AllMedicos:[],
-    Datail: []
+    Detail: []
 
 }
 export const medicalReducer = createSlice({
@@ -25,7 +25,7 @@ export const medicalReducer = createSlice({
         },
         getId : (state, action) => {
             const data = action.payload;
-            state.Datail = [...data]
+            state.Detail = [...data]
 
         }
     }
