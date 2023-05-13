@@ -13,7 +13,7 @@ module.exports = {
       },
       colors: {
         cimPallete: {
-          blue: "#1da3c1",
+          blue: "#002237",
           DEFAULT: "#91c4cd",
           100: "#9bccbb",
           200: "#73aeac",
