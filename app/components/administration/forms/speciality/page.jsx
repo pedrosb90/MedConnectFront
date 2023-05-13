@@ -1,27 +1,22 @@
 "use client";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
+import {Button,Form,Input,Upload} from 'antd';
 export default function SpecialtyForm() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
   const [registered, setRegistered] = useState(false);
 
-  const onSubmit = (values, event) => {
-    
-    event.preventDefault(); // Evitar que el formulario recargue la página
+
+
+  const onSubmit = (values) => {
     setRegistered(!registered);
+    const {description,name,image} = values
+    console.log(image.fileList[0].originFileObj);
 
     const formData = new FormData();
-
-    
-    formData.append("name", values.name);
-    formData.append("image", values.image[0]);
-    formData.append("description", values.description);
+    formData.append("name", name);
+    formData.append("image", image.fileList[0].originFileObj);
+    formData.append("description", description);
 
     axios
       .post("http://localhost:3001/specializations", formData)
@@ -36,46 +31,65 @@ export default function SpecialtyForm() {
       });
   };
 
-return (
-    <div className={styles.global_box}>
-      <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
+
+  return(
+
+  <div >
         <h1 className={styles.title}>Añadir Especialidad</h1>
-        <label htmlFor="name">Nombre: </label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="nombre..."
-          {...register("name", {
-            required: "El usuario es obligatorio",
-          })}
-        />
-        {errors.name && <span>{errors.name.message}</span>}
-        <label htmlFor="image">Imagen: </label>
-        <input
-          id="url"
-          type="file"
-          name="image"
-          accept="image/*"
-          placeholder="imagen..."
-          {...register("image", {
-            required: "La imagen es obligatoria",
-          })}
-        />
-        {errors.url && <span>{errors.url.message}</span>}
-        <label htmlFor="description">Descripción: </label>
-        <textarea
-          className={styles.text_area}
-          id="description"
-          name="description"
-          placeholder="description..."
-          {...register("description", {
-            required: "El resumen es obligatorio",
-          })}
-        />
-        {errors.description && <span>{errors.description.message}</span>}
-        <button>Registrar</button>
-      </form>
-    </div>
-  );
+          <Form labelCol={{   span: 4, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+    
+          <Form.Item name="name" label="Especialidad"
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese una especialidad"},
+                ]}
+                hasFeedback
+              >
+                  <Input
+                    name="name"
+                    placeholder="Descripción"/>
+              </Form.Item>
+
+                <Form.Item  name="image">
+                <Upload
+                  name="image"
+                  type="file"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                >
+                  <div>
+                    <img
+                      src={"https://i.pinimg.com/originals/73/7e/c2/737ec290471f789e58b8e1e10cd45789.png"}
+                      alt="img"
+                      style={{
+                        width: '35%',
+                        aspectRatio: 1,
+                        margin: "0 auto",
+                        mixBlendMode:"color-burn",
+                        opacity: "0.8"
+                      }}
+                    />
+                  <p>Subir imagen</p>
+                  </div>
+              </Upload>
+                </Form.Item>
+              
+      
+
+              <Form.Item name="description" label="Descripción"
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese una descripción"},
+                ]}
+                hasFeedback
+              >
+                  <Input
+                    name="description"
+                    placeholder="Descripción"/>
+              </Form.Item> 
+              <Button block htmlType='submit'>boton</Button>
+            </Form>
+        </div>
+  )
+
 }
