@@ -14,7 +14,7 @@ export default function MedForm() {
 
     // Código para procesar los datos del formulario
   };
-  useEffect({})
+  
   
 
   return (

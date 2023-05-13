@@ -38,6 +38,18 @@ body{
   display: none;
   width: 100%;
 }
+.buttonMed{
+  margin-top: 10px;
+  background-color: aliceblue;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 5px 10px;
+  position: fixed;
+  top:15vh;
+  left: 4%;
+  z-index: 15;
+  
+}
 
 
 
