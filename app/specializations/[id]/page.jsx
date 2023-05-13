@@ -24,7 +24,6 @@ export default function page() {
       } catch (error) {
         alert(error.message);
       }
-      
     }
     useEffect(() => {
      fetchData(id) ;
