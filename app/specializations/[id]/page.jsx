@@ -1,45 +1,66 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { getId } from "@/app/redux/reducer";
-import style from "app/detail.module.css";
 
-const Detail = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
+import { getId } from "../../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
+
+export default function page() {
   const detail = useSelector((state) => state.speciality.Detail);
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({});
-  console.log(data);
 
-  const fetchData = async (id) => {
+  const { id } = useParams();
+
+  async function fetchData(id) {
     try {
-      const res = await axios.get(
+      const response = await axios.get(
         `http://localhost:3001/specializations/${id}`
-      );
-      dispatch(getId(res.data.data));
-      setData(detail);
-    } catch (error) {
-      console.error(error);
+        );
+        dispatch(getId(response.data.data));
+        
+      } catch (error) {
+        alert(error.message);
+      }
     }
-  };
+    useEffect(() => {
+     fetchData(id) ;
 
-  useEffect(() => {
-    fetchData(id);
-  }, [dispatch, id]);
+    }, [id]);
+
+useEffect(()=>{
+  setData(detail);
+},[detail])    
+
+// const Detail = () => {
+//   const { id } = useParams();
+//   const dispatch = useDispatch();
+//   const detail = useSelector((state) => state.speciality.Detail);
+
   return (
-    <div className={style.containAll}>
-      {data && (
-        <div>
-          <img src={data?.url} alt="NOT FOUND" />
-          <h1>{data?.name}</h1>
-          <h4>{data?.description}</h4>
-        </div>
+    <div>
+      {/* {data.name && (
+        <>
+          <img src={data.url} alt="img" />
+          <h1>{data.name}</h1>
+          <h1>{data.description}</h1>
+        </>
+      )} */}
+
+      {data.name? (
+        <>
+        <img src={data.url} alt="img" />
+        <h1>{data.name}</h1>
+        <h1>{data.description}</h1>
+        </>
+      ):(
+        <img
+            src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
+            alt="loading"
+          />
       )}
     </div>
   );
-};
-
-export default Detail;
+      }
