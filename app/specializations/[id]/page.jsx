@@ -1,86 +1,63 @@
-"use client"
-import { useEffect, useState } from 'react';
-import axios from 'axios'
-import { useParams } from 'next/navigation';
-import {useRouter} from 'next/router'
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "next/navigation";
+
+import { getId } from "../../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
+
+export default function page() {
+  const detail = useSelector((state) => state.speciality.Detail);
+  const dispatch = useDispatch();
+
+  const [data, setData] = useState({});
+
+  const { id } = useParams();
+
+  async function fetchData(id) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/specializations/${id}`
+        );
+        dispatch(getId(response.data.data));
+        
+      } catch (error) {
+        alert(error.message);
+      }
+      
+    }
+    useEffect(() => {
+     fetchData(id) ;
+
+    }, [id]);
+
+useEffect(()=>{
+  setData(detail);
+},[detail])    
 
 
-
-
-const getId = () => {
-
-  const {id} = useParams();
-  
-  console.log(id)
-  
   return (
     <div>
-      <h1>
-      estamos en el getId {id}
+      {/* {data.name && (
+        <>
+          <img src={data.url} alt="img" />
+          <h1>{data.name}</h1>
+          <h1>{data.description}</h1>
+        </>
+      )} */}
 
-      </h1>
-      </div>
-  )
+      {data.name? (
+        <>
+        <img src={data.url} alt="img" />
+        <h1>{data.name}</h1>
+        <h1>{data.description}</h1>
+        </>
+      ):(
+        <img
+            src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
+            alt="loading"
+          />
+      )}
+    </div>
+  );
 }
-
-export default getId;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { getId } from "../redux/reducer";
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useRouter } from 'next/navigation';
-// import { useEffect } from "react";
-
-
-
-// export default function page() {
-
-//   const router = useRouter()
-//   const {id} = router.query
-  
-//   const detail = useSelector((state)=>state.Detail)
-//   const dispatch = useDispatch();
-
-  
-//   async function fetchData() {
-//     try {
-//       const response = await axios.get(`http://localhost:3001/specializations/${id}`);
-//       dispatch(getId(response.data));
-      
-//     } catch (error) {
-//       alert(error.message);
-//     }
-//   }
-//   useEffect(()=>{
-//     fetchData()
-//   },[])
-
-//   return (
-//     <div>
-//       {detail.name? (
-//         <>
-//         <img src={detail.url} alt="img" />
-//         <h1>{detail.name}</h1>
-//         <h1>{detail.description}</h1>
-//         </>
-//       ):(
-//         <img
-//             src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
-//             alt="loading"
-//           />
-//       )}
-//     </div>
-//   )
-// }
