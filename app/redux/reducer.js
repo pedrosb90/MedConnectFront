@@ -34,4 +34,3 @@ export const {getSpeciality,getMedicos,getId} = medicalReducer.actions
 
 
 export default medicalReducer.reducer
-
