@@ -8,7 +8,6 @@
 }
 .links {
   display: flex;
-  border-radius: 5px;
 }
 .nav_button_link {
   font-size: 0.8em;
