@@ -17,11 +17,11 @@ export default function Home() {
         <div className="relative">
           {" "}
           <button
-            className=" absolute top-14 left-8 text-sm bg-cimPallete-blue text-white rounded-lg px-4 py-2"
+            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${showMenu ? "text-black bg-white" : "text-white bg-cimPallete-blue left-10"}`}
             onClick={toggleMenu}
-            style={{ left: "47%" }}
+            
           >
-            Medicos
+            {showMenu ? ' Cerrar ': 'Medicos'}
           </button>
         </div>
         <div className="flex items-center justify-center h-screen">
