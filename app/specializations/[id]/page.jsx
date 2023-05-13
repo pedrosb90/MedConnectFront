@@ -19,7 +19,7 @@ const Detail = () => {
       const res = await axios.get(
         `http://localhost:3001/specializations/${id}`
       );
-      dispatch(getId(res.data));
+      dispatch(getId(res.data.data));
       setData(detail);
     } catch (error) {
       console.error(error);
