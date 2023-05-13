@@ -59,7 +59,7 @@
   align-items: center;
   height: 22vh;
   background-image: url("./img/fondo.jpeg");
-
+  z-index: 25;
   background-size: cover;
   background-position: center;
 
