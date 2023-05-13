@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         cimPallete: {
           blue: "#002237",
+          gold: "#f2d083",
           DEFAULT: "#91c4cd",
           100: "#9bccbb",
           200: "#73aeac",

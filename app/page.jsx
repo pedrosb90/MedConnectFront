@@ -2,6 +2,7 @@
 import CardsObras from "./components/CardsObras";
 import { array } from "./components/ObrasSociales";
 import CardMed from "./components/CardMedicos/page";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
@@ -16,15 +17,23 @@ export default function Home() {
         <div className="relative">
           {" "}
           <button
-            className=" absolute top-14 left-8 text-sm bg-blue-500 text-white rounded-lg px-4 py-2"
+            className=" absolute top-14 left-8 text-sm bg-cimPallete-blue text-white rounded-lg px-4 py-2"
             onClick={toggleMenu}
             style={{ left: "47%" }}
           >
             Medicos
           </button>
         </div>
+        <div className="flex items-center justify-center h-screen">
+          <Image
+            src="/image/pexels-migs-reyes-4205505.jpeg"
+            alt="My Image"
+            width={1000}
+            height={500}
+          />
+        </div>
         <div className="text-center ">
-          <h1 className="m-8 text-4xl text-cimPallete-blue font-sans bg-gray-900 text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+          <h1 className="m-8 text-4xl text-cimPallete-blue font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
             {" "}
             NUESTRAS OBRAS SOCIALES
           </h1>
