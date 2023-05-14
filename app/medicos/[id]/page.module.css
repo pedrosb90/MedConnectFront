@@ -1,17 +1,13 @@
-.container{
-    position: absolute;
-    top: 13vh;
-    
+.container {
+  position: absolute;
+  top: 13vh;
 }
-.btn_return{
-    
-    position: absolute;
-    bottom: 8%;  
-    right: 18%;
-    
+.btn_return {
+  position: absolute;
+  bottom: 8%;
+  right: 18%;
 }
-.btn_return:active{
-    background-color: transparent;
-    color: black;
-
+.btn_return:active {
+  background-color: transparent;
+  color: black;
 }

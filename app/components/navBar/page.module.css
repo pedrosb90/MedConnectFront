@@ -19,7 +19,7 @@
 
   background-color: rgba(203, 203, 203, 0.336);
   list-style-type: none;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   border: none;
   transition: 0.2s ease;
   border: 2px solid white;
@@ -35,7 +35,7 @@
   display: flex;
   align-self: center;
   color: aliceblue;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: none;
   font-size: 0.9em;
   text-shadow: 9px;
@@ -100,7 +100,7 @@
   background-color: rgba(129, 129, 129, 0.5);
   border-radius: 8px;
   list-style-type: none;
-  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 12pt;
   margin: 10px;
   border: none;
@@ -140,7 +140,7 @@
     display: flex;
 
     color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-color: rgba(30, 30, 30, 0.8);
     font-size: 1em;
     text-align: start;
@@ -196,7 +196,7 @@
     display: flex;
 
     color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-color: rgba(30, 30, 30, 0.8);
     font-size: 1em;
     text-align: start;
