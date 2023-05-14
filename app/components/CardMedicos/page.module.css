@@ -1,8 +1,8 @@
 .container{
     background-color: rgb(30 41 59);
     position: fixed;
-    top: 15vh;
-    width: 200px;
+    top: 22vh;
+    width: 16%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,11 +10,14 @@
     z-index: 0;
     transition: 0.3s ease-out;
     
+     
+      
+    
 }
 .cont_on{
     background-color: rgb(30 41 59);
     position: fixed;
-    top: 15vh;
+    top: 22vh;
     width: 200px;
     display: flex;
     flex-direction: column;
@@ -23,6 +26,7 @@
     z-index: 0;
     transition: 0.3s ease-out;
    width: 0;
+  
 
 }
 .cont_on div{
@@ -34,6 +38,9 @@
     height: 60%;
     padding-top:  60px;
     color: white;
+    overflow: auto;
+    width: 100%;
+    padding-left: 5px;
     
 
 }
@@ -49,4 +56,19 @@
     padding-bottom: 10px;
 
 }
-    
+/* Estilo para la barra de desplazamiento */
+
+.med_box::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .med_box::-webkit-scrollbar-thumb {
+    background: #d6d6d6;
+    border-radius: 3px;
+  }
+  .med_box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  
+  

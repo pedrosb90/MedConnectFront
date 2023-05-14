@@ -13,15 +13,16 @@ export default function Home() {
 
   return (
     <main>
+
       <div className="flex flex-col gap-20">
         <div className="relative">
           {" "}
           <button
-            className=" absolute top-14 left-8 text-sm bg-cimPallete-blue text-white rounded-lg px-4 py-2"
+            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${showMenu ? "text-black bg-white" : "text-white bg-cimPallete-blue left-10"}`}
             onClick={toggleMenu}
-            style={{ left: "47%" }}
+            
           >
-            Medicos
+            {showMenu ? ' Cerrar ': 'Medicos'}
           </button>
         </div>
         <div className="flex items-center justify-center h-full w-full">
@@ -70,9 +71,15 @@ export default function Home() {
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
+<<<<<<< HEAD
                 </h1>
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
                   Envianos tu CV berazategui@gmail.com
+=======
+                  <span className="text-center text-cimPallete-blue text-xs font-sans mb-5">
+                    Envianos tu CV berazategui@gmail.com
+                  </span>
+>>>>>>> develop
                 </h1>
                 <br />
                 <iframe
@@ -82,7 +89,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div class="flex flex-col justify-center items-center"></div>
+          <div className="flex flex-col justify-center items-center"></div>
         </div>
       </div>
 
