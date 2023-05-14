@@ -45,13 +45,13 @@ export default function Especialidades() {
         </h1>
         <Cards especialidad={especialidad}></Cards>
       </div>
-      <div className="mt-8">
+      <div className="flex justify-start">
         {currentEsp < data.length - 1 && (
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-sans py-2 px-4 rounded "
+            className="bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-sans py-2 px-4 rounded "
             onClick={handleClick}
           >
-            Ver más
+            Ver otras especialidades ..
           </button>
         )}
       </div>

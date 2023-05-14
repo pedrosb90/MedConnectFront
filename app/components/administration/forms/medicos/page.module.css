@@ -1,32 +1,30 @@
-.global_box{
-    display: flex;
-    background-color: cyan;
-    width: 50%;
-    margin:  auto;
-    height: 50vh;
-    position: relative;
-    margin-top: 6%;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    
+.global_box {
+  display: flex;
+  background-color: cyan;
+  width: 50%;
+  margin: auto;
+  height: 50vh;
+  position: relative;
+  margin-top: 6%;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
 }
-.form_box{
-    display: flex;
-    flex-direction: column;
-
+.form_box {
+  display: flex;
+  flex-direction: column;
 }
 
-.text_area{
-    resize: none;
+.text_area {
+  resize: none;
 }
-.error{
-    color: brown;
-    font-weight: 600;
+.error {
+  color: brown;
+  font-weight: 600;
 }
-.title{
-    font-size: 1.3em;
-    font-weight: 600;
-    align-self: center;
-    margin: 8px;
+.title {
+  font-size: 1.3em;
+  font-weight: 600;
+  align-self: center;
+  margin: 8px;
 }
