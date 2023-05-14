@@ -48,10 +48,10 @@ export default function page() {
           </div>
           <div className="grid grid-cols-2 bg-cimPallete-100 w-3/4 shadow-2xl shadow-cimPallete-500 h-full ml-40 mb-12 justify-center rounded-lg">
             <div>
-              <h1 className="p-5 text-cimPallete-900 text-2xl mb-4 ml-10 mt-5 font-bold ">
+              <h1 className="p-5 text-white text-2xl mb-4 ml-10 mt-5 font-bold ">
                 {data.name}
               </h1>
-              <h4 className="text-cimPallete-900 text-left ml-10 mr-24 mb-6">
+              <h4 className="text-white text-left ml-10 mr-24 mb-6">
                 {data.description}
               </h4>
             </div>
