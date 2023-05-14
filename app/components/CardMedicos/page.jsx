@@ -32,13 +32,22 @@ export default function CardMed ({showMenu}){
             <ul >
             {medicos.map(med =>{
               return(
-                <Link href={`/medicos/${med.id}`}><li className="flex flex-wrap">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h0.01"/><path d="M13 12h2"/><path d="M9 16h0.01"/><path d="M13 16h2"/></svg>
-
-                   Dr. {med.first_name}<br></br>
-                  {med.last_name}
-                </li>
-                </Link> 
+                <span key={med.id}>
+                <Link href={`/medicos/${med.id}`}>
+  <li className="flex flex-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2"/>
+      <rect x="9" y="3" width="6" height="4" rx="2"/>
+      <path d="M9 12h0.01"/>
+      <path d="M13 12h2"/>
+      <path d="M9 16h0.01"/>
+      <path d="M13 16h2"/>
+    </svg>
+    Dr. {med.first_name}<br></br>
+    {med.last_name}
+  </li>
+</Link>
+</span>
               )
             })}
             </ul>

@@ -41,7 +41,7 @@ export default function page() {
 
             <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
             <div className="relative">
-              <img className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full" alt="hero" src="https://img.freepik.com/vector-gratis/ilustracion-clinica-doctor_1270-69.jpg?w=2000"/>
+              <img className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full" alt="NOT_FOUNT" src="https://img.freepik.com/vector-gratis/ilustracion-clinica-doctor_1270-69.jpg?w=2000"/>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function page() {
   
   
 </section>
-<Link href='/'><button type="button" className={`btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return}`}>Regresar</button></Link>
+<Link href='/' as="/"><button type="button" className={`btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return}`}>Regresar</button></Link>
 </div>
   );
       }
