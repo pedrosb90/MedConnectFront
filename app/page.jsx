@@ -17,11 +17,14 @@ export default function Home() {
         <div className="relative">
           {" "}
           <button
-            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${showMenu ? "text-black bg-white" : "text-white bg-cimPallete-blue left-10"}`}
+            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${
+              showMenu
+                ? "text-black bg-white"
+                : "text-white bg-cimPallete-blue left-10"
+            }`}
             onClick={toggleMenu}
-            
           >
-            {showMenu ? ' Cerrar ': 'Medicos'}
+            {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
         <div className="flex items-center justify-center h-screen">
@@ -70,9 +73,9 @@ export default function Home() {
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
-                  <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
-                    Envianos tu CV berazategui@gmail.com
-                  </h1>
+                </h1>
+                <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
+                  Envianos tu CV berazategui@gmail.com
                 </h1>
                 <br />
                 <iframe
