@@ -45,7 +45,7 @@ export default function page() {
               </div>
             </div>
             <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
-              <h1 className="mb-8 text-4xl font-bold leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+              <h1 className="mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
                 {data.id
                   ? `Dr. ${data.first_name} ${data.last_name}`
                   : "...Loading"}
@@ -54,7 +54,7 @@ export default function page() {
                 Especialidades:{" "}
                 {data.id &&
                   espe.map((data) => (
-                    <li className="font-normal" key={data}>
+                    <li className="font-sans" key={data}>
                       <span>{data}</span>
                     </li>
                   ))}
@@ -63,7 +63,7 @@ export default function page() {
                 <dl className="grid grid-cols-1 gap-12 md:grid-cols-2">
                   <div>
                     <dd className="flex-grow">
-                      <h2 className="mb-3 text-lg font-medium tracking-tighter text-neutral-600">
+                      <h2 className="mb-3 text-lg font-sans tracking-tighter text-neutral-600">
                         Titulo:{" "}
                         {data.medicoCalification
                           ? data.medicoCalification.academic_degree
@@ -80,7 +80,7 @@ export default function page() {
                   </div>
                   <div>
                     <dd className="flex-grow">
-                      <h2 className="mb-3 text-lg font-medium tracking-tighter text-neutral-600">
+                      <h2 className="mb-3 text-lg font-sans tracking-tighter text-neutral-600">
                         Contactos:{" "}
                       </h2>
                       <p className="text-base leading-relaxed text-gray-400">
