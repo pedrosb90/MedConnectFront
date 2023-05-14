@@ -1,43 +1,57 @@
 "use client";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import style from "./page.module.css";
+import { List,Skeleton,Avatar } from "antd";
 
 export default function Registro() {
   const [medicos, setMedicos] = useState([]);
+  const [array,setArray] = useState([])
+
+  const test = async () => {
+    await axios.get("http://localhost:3001/medics")
+    .then((res)=>{
+      res.data?.map(async(obj)=>{
+        setArray(...array,obj)
+      })
+    })
+  }
 
   useEffect(() => {
-    async function fetchMedicos() {
-      const res = await fetch("localhost:3001/medics"); // endpoint para obtener los datos de los médicos
-      const data = await res.json();
-      setMedicos(data);
-    }
-    fetchMedicos();
+    test()
+    console.log(array);
+     // endpoint para obtener los datos de los médicos
   }, []);
 
-  return (
-    <div className={style.divContainer}>
-      <table className={style.table}>
-        <thead className={style.tableHead}>
-          <tr>
-            <th className={style.idBox}>ID</th>
-            <th className={style.nameBox}>Nombre</th>
-            <th className={style.lastNameBox}>Apellido</th>
-            <th className={style.phoneBox}>Teléfono</th>
-            <th className={style.addressBox}>Dirección</th>
-          </tr>
-        </thead>
-        <tbody>
-          {medicos.map((medico) => (
-            <tr key={medico.id} className={style.tableRow}>
-              <td>{medico.id}</td>
-              <td>{medico.nombre}</td>
-              <td>{medico.apellido}</td>
-              <td>{medico.telefono}</td>
-              <td>{medico.direccion}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  
+  if(array.length){
+    return (
+      <List
+        className="demo-loadmore-list"
+        // loading={initLoading}
+        itemLayout="horizontal"
+        // loadMore={loadMore}
+        dataSource={array}
+        renderItem={(array) => (
+          <List.Item
+            actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
+          >
+            <Skeleton avatar title={false} loading={"item.loading"} active>
+              <List.Item.Meta
+                avatar={<Avatar  />}
+                title={<a href="https://ant.design">{array.specializations.name}</a>}
+                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              />
+              {console.log("array",array)}
+              <div>content</div>
+            </Skeleton>
+          </List.Item>
+        )}
+      />
+    );
+  }
+  
+  
 }
+
+

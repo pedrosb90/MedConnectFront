@@ -8,21 +8,18 @@
 }
 .links {
   display: flex;
-  border-radius: 5px;
+  background-color: #fbe5b0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 .nav_button_link {
   font-size: 0.8em;
   margin-top: 10px;
   color: white;
   padding: 4px 15px;
-  border-radius: 5px;
 
-  background-color: rgba(164, 164, 164, 0.5);
-  border-radius: 5px;
+  background-color: rgba(203, 203, 203, 0.336);
   list-style-type: none;
-
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-
+  font-family: "Montserrat", sans-serif;
   border: none;
   transition: 0.2s ease;
   border: 2px solid white;
@@ -30,7 +27,6 @@
 .nav_button_link:hover {
   background-color: rgb(41, 187, 255);
   color: black;
-  border-radius: 5px;
 }
 .nav_link_off {
   display: none;
@@ -39,10 +35,11 @@
   display: flex;
   align-self: center;
   color: aliceblue;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: none;
   font-size: 0.9em;
-  border-radius: 5px;
+  text-shadow: 9px;
+  border-radius: 6px;
   margin-left: -5%;
   margin-top: 80px;
 }
@@ -50,8 +47,14 @@
   padding: 20px;
 }
 .nav_link span:hover {
-  background-color: white;
-  color: black;
+  background-color: rgb(135, 135, 135);
+  color: #f2d083;
+}
+.links:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.links:last-child {
+  border-radius: 0 10px 10px 0;
 }
 
 .navbar_scroll {
@@ -60,7 +63,7 @@
   align-items: center;
   height: 22vh;
   background-image: url("./img/fondo.jpeg");
-
+  z-index: 25;
   background-size: cover;
   background-position: center;
 
@@ -97,7 +100,7 @@
   background-color: rgba(129, 129, 129, 0.5);
   border-radius: 8px;
   list-style-type: none;
-  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 12pt;
   margin: 10px;
   border: none;
@@ -137,7 +140,7 @@
     display: flex;
 
     color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-color: rgba(30, 30, 30, 0.8);
     font-size: 1em;
     text-align: start;
@@ -193,7 +196,7 @@
     display: flex;
 
     color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-color: rgba(30, 30, 30, 0.8);
     font-size: 1em;
     text-align: start;

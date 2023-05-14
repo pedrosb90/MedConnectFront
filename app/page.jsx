@@ -3,28 +3,41 @@ import CardsObras from "./components/CardsObras";
 import { array } from "./components/ObrasSociales";
 import CardMed from "./components/CardMedicos/page";
 import Image from "next/image";
-import { useState } from "react";
+import {useState} from "react";
+import Carrusel from "./components/Carrusel"
+
+
+
 
 export default function Home() {
+
   const [showMenu, setShowMenu] = useState(false);
+
+  
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
   return (
     <main>
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-10">
+
+        <Carrusel></Carrusel>
+
         <div className="relative">
           {" "}
           <button
-            className=" absolute top-14 left-8 text-sm bg-cimPallete-blue text-white rounded-lg px-4 py-2"
+            className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
+              showMenu
+                ? "font-size text-white bg-cimPallete-600"
+                : "font-size text-white bg-cimPallete-800 left-10"
+            }`}
             onClick={toggleMenu}
-            style={{ left: "47%" }}
           >
-            Medicos
+            {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-full w-full p--20 m--20">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
@@ -59,20 +72,20 @@ export default function Home() {
                 alt=""
               />
             </div>
-            <div class="flex items-center justify-center">
-              <div class="flex flex-col justify-center">
-                <h3 class="text-center text-cimPallete-blue font-sans">
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col justify-center">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Cno. Gral. Manuel Belgrano 6511, Gutierrez
                 </h3>
-                <h3 class="text-center text-cimPallete-blue font-sans">
+                <h3 className="text-center text-cimPallete-blue font-sans">
                   Teléfono fijo: 1122039682
                 </h3>
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
-                  <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
+                  <span className="text-center text-cimPallete-blue text-xs font-sans mb-5">
                     Envianos tu CV berazategui@gmail.com
-                  </h1>
+                  </span>
                 </h1>
                 <br />
                 <iframe
@@ -82,7 +95,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div class="flex flex-col justify-center items-center"></div>
+          <div className="flex flex-col justify-center items-center"></div>
         </div>
       </div>
 
