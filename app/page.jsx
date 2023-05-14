@@ -3,6 +3,7 @@ import CardsObras from "./components/CardsObras";
 import { array } from "./components/ObrasSociales";
 import CardMed from "./components/CardMedicos/page";
 import Image from "next/image";
+<<<<<<< HEAD
 import { useState, useEffect, useCallback } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
@@ -15,11 +16,19 @@ export default function Home() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [showMenu, setShowMenu] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+=======
+import { useState } from "react";
+import Carrusel from "./components/Carrusel";
+
+export default function Home() {
+  const [showMenu, setShowMenu] = useState(false);
+>>>>>>> develop
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
+<<<<<<< HEAD
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
     const nextIndex = isFirstSlide
@@ -87,6 +96,13 @@ export default function Home() {
             ))}
           </div>
         </div>
+=======
+  return (
+    <main>
+      <div className="flex flex-col gap-10">
+        <Carrusel></Carrusel>
+
+>>>>>>> develop
         <div className="relative">
           {" "}
           <button
