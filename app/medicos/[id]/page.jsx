@@ -31,9 +31,9 @@ export default function page() {
             <div className="w-full lg:max-w-lg lg:w-1/2 rounded-xl">
               <div>
                 <div className="relative w-full max-w-lg">
-                  <div className="absolute top-0 rounded-full bg-violet-300 -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                  <div className="absolute top-0 rounded-full bg-cimPallete-100 -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
 
-                  <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                  <div className="absolute rounded-full bg-cimPallete-100 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                   <div className="relative">
                     <img
                       className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full"
