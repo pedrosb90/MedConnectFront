@@ -13,19 +13,21 @@ export default function Home() {
 
   return (
     <main>
-
       <div className="flex flex-col gap-20">
         <div className="relative">
           {" "}
           <button
-            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${showMenu ? "text-black bg-white" : "text-white bg-cimPallete-blue left-10"}`}
+            className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
+              showMenu
+                ? "text-white bg-cimPallete-600"
+                : "text-white bg-cimPallete-800 left-10"
+            }`}
             onClick={toggleMenu}
-            
           >
-            {showMenu ? ' Cerrar ': 'Medicos'}
+            {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-full w-full p--20 m--20">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
