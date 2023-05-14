@@ -34,12 +34,8 @@ export default function page() {
   useEffect(() => {
     setData(detail);
   }, [detail]);
-useEffect(()=>{
-  setData(detail);
-},[detail])    
 
-
-console.log(detail);
+  console.log(detail);
   return (
     <div className="h-full w-full justify-center items-center ">
       {data.name ? (
@@ -64,21 +60,6 @@ console.log(detail);
           </div>
         </>
       ) : (
-    <div>
-      
-
-      {data.name? (
-        
-        <section>
-        <img src={data.url} alt="img" />
-        <h1>{data.name}</h1>
-        <h1>{data.description}</h1>
-        <Medicos data={data}/>
-        </section>
-
-        
-
-      ):(
         <img
           src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
           alt="loading"
