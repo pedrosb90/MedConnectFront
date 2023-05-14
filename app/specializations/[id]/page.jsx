@@ -4,8 +4,8 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { getId } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
 import Medicos from "../Medicos";
-// import style from "../../detail.module.css";
 
 export default function page() {
   const detail = useSelector((state) => state.speciality.Detail);
@@ -35,7 +35,6 @@ export default function page() {
     setData(detail);
   }, [detail]);
 
-  console.log(detail);
   return (
     <div className="h-full w-full justify-center items-center ">
       {data.name ? (
@@ -65,6 +64,14 @@ export default function page() {
           alt="loading"
         />
       )}
+      <Link href="/" as="/">
+        <button
+          type="button"
+          className="btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 fixed right-0 bottom-0"
+        >
+          Regresar
+        </button>
+      </Link>
     </div>
   );
 }
