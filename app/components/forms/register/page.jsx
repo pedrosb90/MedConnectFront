@@ -18,7 +18,7 @@ export default function UserLogin() {
   const onSubmit = async (values) => {
     setLoading(true);
     const {firstName,lastName,phone,userType,email,password} = values
-    axios.create({ withCredentials: true }).post("http://localhost:3001/register",{firstName,lastName,phone,userType,email,password})
+    axios.create({ withCredentials: true }).post(userType === "medic" ? "http://localhost:3001/medics/create":"http://localhost:3001/register",{firstName,lastName,phone,userType,email,password})
     .then((res)=>{
         console.log(res.data);
       if(res.data){
@@ -112,7 +112,7 @@ export default function UserLogin() {
                         }
                       });
                     },
-                    message: "La contraseña no es válida"
+                    message: "La contraseña debe contener 1 mayúscula, 1 minúscula y un número"
                   }
                 ]}
                 hasFeedback

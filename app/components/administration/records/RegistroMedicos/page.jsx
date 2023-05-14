@@ -3,47 +3,69 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import style from "./page.module.css";
 import { List,Skeleton,Avatar } from "antd";
+import { DeleteOutlined } from '@ant-design/icons';
+import { getMedicos } from "@/app/redux/reducer";
+import { useSelector,useDispatch } from "react-redux";
 
 export default function Registro() {
   const [medicos, setMedicos] = useState([]);
-  const [array,setArray] = useState([])
+  const [loading,setLoading] = useState(true)
+  const {AllMedicos} = useSelector(state => state.speciality)
+  const dispatch = useDispatch()
 
-  const test = async () => {
-    await axios.get("http://localhost:3001/medics")
+  const request = async () => {
+    try {
+      await axios.get("http://localhost:3001/medics")
     .then((res)=>{
-      res.data?.map(async(obj)=>{
-        setArray(...array,obj)
-      })
+      dispatch(getMedicos(res.data))
+      setLoading(false);
     })
+    } catch (error) {
+      alert(error)
+    }
+     
+  }
+  console.log(AllMedicos);
+
+  const specializations = (value) => {
+    const values = value.map((speciality)=>{
+      console.log(speciality);
+      return speciality
+    })
+    return values.join(" ")
   }
 
   useEffect(() => {
-    test()
-    console.log(array);
+    request()
      // endpoint para obtener los datos de los médicos
   }, []);
 
   
-  if(array.length){
+  if(AllMedicos){
     return (
       <List
         className="demo-loadmore-list"
-        // loading={initLoading}
+        loading={loading}
         itemLayout="horizontal"
         // loadMore={loadMore}
-        dataSource={array}
-        renderItem={(array) => (
+        dataSource={AllMedicos}
+        split={true}
+        renderItem={(AllMedicos) => (
           <List.Item
-            actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
+            actions={[<a key="list-loadmore-edit">more</a>, <a key="list-loadmore-more"><DeleteOutlined /></a>]}
           >
-            <Skeleton avatar title={false} loading={"item.loading"} active>
+            <Skeleton avatar title={false} loading={loading} active>
               <List.Item.Meta
                 avatar={<Avatar  />}
-                title={<a href="https://ant.design">{array.specializations.name}</a>}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                title={<a href="https://ant.design">{`${AllMedicos.first_name} ${AllMedicos.last_name}`}</a>}
+                description={specializations(AllMedicos.specializations)}
               />
-              {console.log("array",array)}
-              <div>content</div>
+              <div>
+                <div>
+                  <h3>Teléfono: {AllMedicos.phone}</h3>
+                  <h3>Dirección:{AllMedicos.direccion}</h3>
+                </div>
+              </div>
             </Skeleton>
           </List.Item>
         )}
