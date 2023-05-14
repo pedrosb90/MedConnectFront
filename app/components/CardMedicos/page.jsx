@@ -25,6 +25,11 @@ export default function CardMed ({showMenu}){
   useEffect(() => {
     !medicos?.length && fetchMedicos();
   }, [medicos]);
+
+
+
+
+  
     return(
         <div className={showMenu ? styles.container:styles.cont_on}>
           

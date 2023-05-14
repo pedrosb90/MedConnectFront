@@ -68,7 +68,9 @@ export default function Carrusel() {
   return (
     <div>
         <div className="max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
-          <div style={{backgroundImage: `url(${espec[currentIndex].url})`}} className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-4xl font-bold ">  {espec[currentIndex].name} <Link href={`/Especialidades`} className="font-normal rounded-lg bg-cimPallete-300 opacity-60 text-2xl cursor-pointer"><h1>Ver Mas Especialidades</h1></Link></div>
+        <div style={{backgroundImage: `url(${espec.length && espec[currentIndex].url})`}} className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-4xl font-bold "> 
+  {espec.length && espec[currentIndex].name} <Link href={`/Especialidades`} className="font-normal rounded-lg bg-cimPallete-300 opacity-60 text-2xl cursor-pointer"><h1>Ver Mas Especialidades</h1></Link>
+</div>
         
           <div className="hidden group-hover:block absolute top-[40%] -translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer ">
             <BsChevronCompactLeft onClick={handlerPrev} size={30}/>
