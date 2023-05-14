@@ -81,14 +81,17 @@ export default function Home() {
         <div className="relative">
           {" "}
           <button
-            className={`buttonMed absolute top-14 left-8 text-sm rounded-lg px-4 py-2 ${showMenu ? "text-black bg-white" : "text-white bg-cimPallete-blue left-10"}`}
+            className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
+              showMenu
+                ? "text-white bg-cimPallete-600"
+                : "text-white bg-cimPallete-800 left-10"
+            }`}
             onClick={toggleMenu}
-            
           >
-            {showMenu ? ' Cerrar ': 'Medicos'}
+            {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-full w-full p--20 m--20">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
@@ -134,10 +137,10 @@ export default function Home() {
                 <br />
                 <h1 className="text-center text-cimPallete-blue text-xs font-sans px-4 py-2 rounded-md border border-black">
                   SE PARTE DEL EQUIPO:
-                </h1>
-                  <h1 className="text-center text-cimPallete-blue text-xs font-sans mb-5">
+                  <span className="text-center text-cimPallete-blue text-xs font-sans mb-5">
                     Envianos tu CV berazategui@gmail.com
-                  </h1>
+                  </span>
+                </h1>
                 <br />
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1947.6150797869561!2d-58.196227546980765!3d-34.81889447489231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a328738980375f%3A0x2fac7c5d3ccc50d5!2sMedicina%20y%20Salud%20Berazategui%20Centros%20Medicos!5e0!3m2!1ses!2sco!4v1683889179017!5m2!1ses!2sco"
