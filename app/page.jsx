@@ -3,17 +3,12 @@ import CardsObras from "./components/CardsObras";
 import { array } from "./components/ObrasSociales";
 import CardMed from "./components/CardMedicos/page";
 import Image from "next/image";
-import {useState} from "react";
-import Carrusel from "./components/Carrusel"
-
-
-
+import { useState } from "react";
+import Carrusel from "./components/Carrusel";
 
 export default function Home() {
-
   const [showMenu, setShowMenu] = useState(false);
 
-  
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -21,7 +16,6 @@ export default function Home() {
   return (
     <main>
       <div className="flex flex-col gap-10">
-
         <Carrusel></Carrusel>
 
         <div className="relative">
@@ -29,8 +23,8 @@ export default function Home() {
           <button
             className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
               showMenu
-                ? "text-white bg-cimPallete-600"
-                : "text-white bg-cimPallete-800 left-10"
+                ? "font-size text-white bg-cimPallete-600"
+                : "font-size text-white bg-cimPallete-800 left-10"
             }`}
             onClick={toggleMenu}
           >
