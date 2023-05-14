@@ -44,10 +44,10 @@ export default function page() {
             <img
               src={data.url}
               alt="img"
-              className="w-full object-cover  object-center rounded-lg"
+              className="w-full object-cover  object-center shadow-2xl shadow-cimPallete-100 rounded-lg"
             />
           </div>
-          <div className="grid grid-cols-2 bg-cimPallete-400 w-3/4 h-full ml-40 mb-12 justify-center rounded-lg">
+          <div className="grid grid-cols-2 bg-cimPallete-100 w-3/4 shadow-2xl shadow-cimPallete-500 h-full ml-40 mb-12 justify-center rounded-lg">
             <div>
               <h1 className="p-5 text-cimPallete-900 text-2xl mb-4 ml-10 mt-5 font-bold ">
                 {data.name}
