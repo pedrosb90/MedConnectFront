@@ -18,7 +18,7 @@ export default function Card({ name, url, description, index }) {
               <h1>{name}</h1>
               <h3>{description}</h3>
               <Link href="/Detail">
-                <button className="font-sans">Conocer mas</button>
+                <button>Conocer mas</button>
               </Link>
             </div>
           </div>
