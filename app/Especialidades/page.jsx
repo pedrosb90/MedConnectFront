@@ -40,7 +40,9 @@ export default function Especialidades() {
   return (
     <>
       <div className="w-full">
-        <h1 className="font-sans text-5xl">ESPECIALIDADES</h1>
+        <h1 className="bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-50">
+          ESPECIALIDADES
+        </h1>
         <Cards especialidad={especialidad}></Cards>
       </div>
       <div className="mt-8">
