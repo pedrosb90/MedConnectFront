@@ -2,14 +2,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import Medicos from '../Medicos'
-import { getId } from "../../redux/reducer";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function page() {
-  const detail = useSelector((state) => state.speciality.Detail);
-  
-  const dispatch = useDispatch();
 
   const [data, setData] = useState({});
 
@@ -18,9 +12,9 @@ export default function page() {
   async function fetchData(id) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/specializations/${id}`
+        `http://localhost:3001/medics/${id}`
         );
-        dispatch(getId(response.data.data));
+        setData(response.data);
         
       } catch (error) {
         alert(error.message);
@@ -31,26 +25,20 @@ export default function page() {
 
     }, [id]);
 
-useEffect(()=>{
-  setData(detail);
-},[detail])    
+ 
 
 
-console.log(detail);
   return (
     <div>
-      
 
       {data.name? (
-        
-        <section>
+        <>
         <img src={data.url} alt="img" />
         <h1>{data.name}</h1>
         <h1>{data.description}</h1>
-        <Medicos data={data}/>
-        </section>
 
-        
+        <Medicos data={data}/>
+        </>
 
       ):(
         <img
