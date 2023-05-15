@@ -31,7 +31,7 @@ export default function Home() {
             {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
-        <div className="flex items-center justify-center h-full w-full p--20 m--20">
+        <div className="flex items-center justify-center h-full w-full p--20 m--20 rounded-lg ">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
