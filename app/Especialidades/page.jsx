@@ -1,5 +1,5 @@
 "use client";
-import Cards from "../components/Cards";
+import Cards_Especialidades_Display from "../components/Cards_Especialidades_Display";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from "react";
@@ -43,7 +43,7 @@ export default function Especialidades() {
         <h1 className="bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-50">
           ESPECIALIDADES
         </h1>
-        <Cards especialidad={especialidad}></Cards>
+        <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
       <div className="flex justify-start">
         {currentEsp < data.length - 1 && (
