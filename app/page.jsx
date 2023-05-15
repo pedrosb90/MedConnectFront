@@ -4,7 +4,7 @@ import { array } from "./components/ObrasSociales";
 import Menu_Medicos from "./components/Menu_Medicos/page";
 import Image from "next/image";
 import { useState } from "react";
-import Carrusel from "./components/Carrusel";
+import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main>
       <div className="flex flex-col gap-10">
-        <Carrusel></Carrusel>
+        <Carrusel_Especialidades />
 
         <div className="relative">
           {" "}

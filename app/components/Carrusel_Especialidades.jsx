@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 
-export default function Carrusel() {
+export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
   const timerRef = useRef(null);
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
