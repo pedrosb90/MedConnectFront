@@ -64,6 +64,7 @@
   background-color: #f2d083;
   width: 130px;
   transition: 0.1s ease;
+
 }
 .button_inicio:focus {
   background-color: #91c4cd;

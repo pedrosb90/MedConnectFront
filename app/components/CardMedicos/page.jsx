@@ -25,6 +25,7 @@ export default function CardMed({ showMenu }) {
   useEffect(() => {
     !medicos?.length && fetchMedicos();
   }, [medicos]);
+
   return (
     <div className={showMenu ? styles.container : styles.cont_on}>
       <div className={styles.med_box}>
@@ -32,6 +33,7 @@ export default function CardMed({ showMenu }) {
           {medicos.map((med) => {
             return (
               <span key={med.id}>
+
                 <Link href={`/medicos/${med.id}`}>
                   <li className="flex flex-wrap">
                     <svg

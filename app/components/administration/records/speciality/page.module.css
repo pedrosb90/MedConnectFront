@@ -5,6 +5,7 @@
   display: grid;
   grid-column: 15% 25% 60%;
   grid-column-gap: 5px;
+  margin: 20px auto;
 }
 .table {
   table-layout: fixed;
