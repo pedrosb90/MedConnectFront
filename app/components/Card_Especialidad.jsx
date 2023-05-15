@@ -9,7 +9,7 @@ export default function Card_Especialidad({
 }) {
   return (
     <div key={index}>
-      <div className="h-full border-2 border-gray-800 border-opacity-60 rounded-lg overflow-hidden ">
+      <div className="h-full border-2 border-transparent  rounded-lg overflow-hidden ">
         <img
           className="lg:h-72 md:h-48 w-full object-cover object-center"
           src={image}
