@@ -1,6 +1,5 @@
 "use client"
 import {Button,Form,Input,Radio,Alert} from 'antd';
-import { CheckOutlined } from '@ant-design/icons'; 
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -17,8 +16,8 @@ export default function UserLogin() {
 
   const onSubmit = async (values) => {
     setLoading(true);
-    const {firstName,lastName,phone,userType,email,password} = values
-    axios.create({ withCredentials: true }).post(userType === "medic" ? "http://localhost:3001/medics/create":"http://localhost:3001/register",{firstName,lastName,phone,userType,email,password})
+    const {first_name,last_name,phone,userType,email,password} = values
+    axios.create({ withCredentials: true }).post(userType === "medic" ? "http://localhost:3001/medics/create":"http://localhost:3001/register",{first_name,last_name,phone,userType,email,password})
     .then((res)=>{
         console.log(res.data);
       if(res.data){
@@ -51,14 +50,14 @@ export default function UserLogin() {
                   {logStatus.logStatus === "master" ?<Radio value="admin">Administrador</Radio>:null}
                 </Radio.Group>
             </Form.Item>
-            <FormItem name="firstName" label="Nombre" rules={[
+            <FormItem name="first_name" label="Nombre" rules={[
                 {required:true,
                 message:"Por favor ingrese su nombre"
             }
             ]}>
                 <Input/>
             </FormItem>
-            <FormItem name="lastName" label="Apellido" rules={[
+            <FormItem name="last_name" label="Apellido" rules={[
                 {required:true,
                 message:"Por favor ingrese su apellido"
             }
