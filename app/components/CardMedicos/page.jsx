@@ -36,7 +36,7 @@ export default function CardMed({ showMenu }) {
                   <li className="flex flex-wrap">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 font-sans text-white"
+                      className="h-5 w-5 font-sans text-white font-thin"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
                       stroke="currentColor"
@@ -52,7 +52,7 @@ export default function CardMed({ showMenu }) {
                       <path d="M13 16h2" />
                     </svg>
                     Dr. {med.first_name}
-                    <br></br>
+                    <br />
                     {med.last_name}
                   </li>
                 </Link>
@@ -63,23 +63,8 @@ export default function CardMed({ showMenu }) {
       </div>
       <div className={styles.contacto}>
         <h1>Contactos:</h1>
-        <div className="flex justify-evenly gap-5">
-          <img
-            className="h-10 w-10"
-            src="https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM"
-            alt=""
-          />
-          <img
-            className="h-10 w-10"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Logo_de_Facebook.png/220px-Logo_de_Facebook.png"
-            alt=""
-          />
-          <img
-            className="h-10 w-10"
-            src="https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
-            alt=""
-          />
-        </div>
+        <h5> Cno. Gral. Manuel Belgrano 6511, Gutierrez</h5>
+        <h5> Teléfono fijo: 1122039682</h5>
       </div>
     </div>
   );
