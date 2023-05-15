@@ -18,6 +18,7 @@ export default function UserLogin() {
 
   const onSubmit = async (values) => {
     const {userType,email,password} = values
+    console.log({userType,email,password});
     axios.create({ withCredentials: true }).post("http://localhost:3001/login",{userType,email,password})
     .then((res)=>{
       if(res.data){
