@@ -23,7 +23,7 @@ export default function Admin(){
   if(logStatus.logStatus === "master" ){
         return(
           <div className={styles.container}>
-          <h1 className={styles.title}>Administración</h1>
+          <h1 className={styles.title}>Panel de administrador</h1>
           <Link href={'/components/administration'}><button className={styles.button_inicio}>Inicio</button></Link>
           <div className={styles.box_selector}>
             
