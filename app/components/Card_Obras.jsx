@@ -1,4 +1,4 @@
-export default function CardObras({ name, img, index }) {
+export default function Card_Obras({ name, img, index }) {
   return (
     <div key={index}>
       {/* GRID */}

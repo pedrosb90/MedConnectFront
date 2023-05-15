@@ -1,7 +1,7 @@
 "use client";
-import CardsObras from "./components/CardsObras";
+import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
-import CardMed from "./components/CardMedicos/page";
+import Menu_Medicos from "./components/Menu_Medicos/page";
 import Image from "next/image";
 import { useState } from "react";
 import Carrusel from "./components/Carrusel";
@@ -45,7 +45,7 @@ export default function Home() {
             NUESTRAS OBRAS SOCIALES
           </h1>
 
-          <CardsObras obras={array}></CardsObras>
+          <Cards_Obras_Display obras={array} />
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center">
@@ -93,7 +93,7 @@ export default function Home() {
         </div>
       </div>
 
-      <CardMed showMenu={showMenu}></CardMed>
+      <Menu_Medicos showMenu={showMenu} />
     </main>
   );
 }

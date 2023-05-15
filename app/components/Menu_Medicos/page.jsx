@@ -33,7 +33,6 @@ export default function CardMed({ showMenu }) {
           {medicos.map((med) => {
             return (
               <span key={med.id}>
-
                 <Link href={`/medicos/${med.id}`}>
                   <li className="flex flex-wrap">
                     <svg
