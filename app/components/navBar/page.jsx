@@ -70,15 +70,17 @@ export default function Navbar() {
       </button>
 
       <nav className={click ? styles.nav_link_mobile : styles.nav_link_off}>
-        <Link href={home.route} as="home">
-          <span>Home</span>
+        <Link href={home.route} >
+          <span>{home.label}</span>
         </Link>
-        <span>Especialidades</span>
-        <Link href={admin.route} as="admin">
+        <Link href={espe.route} >
+          <span>{espe.label}</span>
+        </Link>
+        <Link href={admin.route}>
           {admin.label}
           <span></span>
         </Link>
-        <Link href={UserLogin.route} as="login">
+        <Link href={UserLogin.route} >
           <button className={styles.nav_button_link}>{UserLogin.label}</button>
         </Link>
       </nav>
