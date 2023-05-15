@@ -1,5 +1,7 @@
-.container{
-    font-size: 1.6em;
-    width: fit-content;
-    margin: 20px;
+.container {
+  font-family: "Montserrat", sans-serif;
+
+  font-size: 1.6em;
+  width: fit-content;
+  margin: 20px;
 }
