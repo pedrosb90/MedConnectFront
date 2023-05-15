@@ -1,7 +1,7 @@
 "use client";
 import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
-import Menu_Medicos from "./components/Menu_Medicos/page";
+import Menu_Medicos from "./components/menu_medicos/page";
 import Image from "next/image";
 import { useState } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
