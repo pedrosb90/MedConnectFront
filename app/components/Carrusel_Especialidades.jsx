@@ -70,7 +70,7 @@ export default function Carrusel_Especialidades() {
           {espec.length && espec[currentIndex].name}
           <Link
             href={`/Especialidades`}
-            className="font-sans p-4 rounded-lg bg-cimPallete-gold opacity-60 text-lg text-white cursor-pointer"
+            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-lg cursor-pointer"
           >
             <h1>Ver Mas Especialidades</h1>
           </Link>
