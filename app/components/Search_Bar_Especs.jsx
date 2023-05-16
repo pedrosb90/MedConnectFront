@@ -1,4 +1,4 @@
-export default function SearchBar() {
+export default function Search_Bar_Especs() {
   return (
     <div className="bg-gray-200 py-2 px-6 flex items-center space-x-4">
       <h3 className="text-lg text-white bg-gray-400 rounded-md font-sans py-2 px-4">
