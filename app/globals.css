@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap");
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -15,13 +16,31 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin-top: 22vh;
+}
+
+@media only screen and (max-width: 500px) {
+  body {
+    margin-top: 8vh;
+  }
+}
+@media only screen and (max-width: 900px) {
+  body {
+    margin-top: 10vh;
+  }
+}
+.admin_main {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.main {
+  display: none;
+  width: 100%;
+}
+.buttonMed {
+  z-index: 30;
+  position: fixed;
+  top: 24vh;
+  font-weight: 600;
 }
