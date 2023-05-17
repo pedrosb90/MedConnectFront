@@ -52,7 +52,7 @@ export default function Especialidades() {
     <div>
       <div className="w-full">
         <h1 className="text-5xl">ESPECIALIDADES</h1>
-        <SearchBar></SearchBar>
+        <SearchBar />
       </div>
       <div>
         <Cards_Especialidades_Display especialidad={especialidad} />
