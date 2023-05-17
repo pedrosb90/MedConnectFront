@@ -6,6 +6,7 @@ const initialState = {
   AllMedicos: [],
   Detail: {},
   deletedMedic: null,
+  sortOrder: "asc",
 };
 export const medicalReducer = createSlice({
   name: "speciality",
@@ -27,9 +28,30 @@ export const medicalReducer = createSlice({
       console.log(action.payload);
       state.deletedMedic = action.payload;
     },
+    setSortOrder: (state, action) => {
+      state.sortOrder = action.payload;
+    },
+    sortMedicos: (AllMedicos, sortOrder) => {
+      if (sortOrder === "asc") {
+        return [...AllMedicos].sort((a, b) =>
+          a.last_name.localeCompare(b.last_name)
+        );
+      } else if (sortOrder === "desc") {
+        return [...AllMedicos].sort((a, b) =>
+          b.last_name.localeCompare(a.last_name)
+        );
+      }
+      return medicos;
+    },
   },
 });
-export const { getSpeciality, getMedicos, getId, deleteMedic } =
-  medicalReducer.actions;
+export const {
+  getSpeciality,
+  getMedicos,
+  getId,
+  deleteMedic,
+  setSortOrder,
+  sortMedicos,
+} = medicalReducer.actions;
 
 export default medicalReducer.reducer;
