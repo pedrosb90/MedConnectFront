@@ -1,12 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { setSortOrder } from "@/app/redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
-  const currentSortOrder = useSelector((state) => state.speciality.sortOrder);
   const dispatch = useDispatch();
 
   const handleSearch = async () => {
@@ -24,10 +22,6 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
     setSearchValue(e.target.value);
   };
 
-  const handleSort = () => {
-    const newSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
-    dispatch(setSortOrder(newSortOrder));
-  };
   const handleReset = () => {
     setSearchValue("");
     setSearchResult([]);
@@ -39,7 +33,6 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
   };
 
   const isSearchDisabled = searchValue === "";
-  const sortButtonLabel = currentSortOrder === "asc" ? "A a Z" : "Z a A";
 
   return (
     <div className="flex justify-center">
@@ -77,11 +70,8 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
           <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
             Disponibilidad
           </button>
-          <button
-            onClick={handleSort}
-            className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
-          >
-            {sortButtonLabel}
+          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
+            A - Z{" "}
           </button>
         </div>
       </div>

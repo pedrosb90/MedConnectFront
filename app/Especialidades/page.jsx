@@ -8,7 +8,6 @@ import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/SearchBar";
 
-
 export default function Especialidades() {
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
@@ -16,9 +15,7 @@ export default function Especialidades() {
   const [currentEsp, setCurrentEsp] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState([]);
-  const [especialidad, setEspecialidad]=useState([])
-
-  const [data, setData] = useState([]);
+  const [especialidad, setEspecialidad] = useState([]);
 
   async function fetchData() {
     try {
@@ -31,46 +28,39 @@ export default function Especialidades() {
   }
 
   const next = () => {
-    
     if (especialidad.length < data.length) {
       setCurrentEsp(currentEsp + 4);
-      setEspecialidad(data.slice(0, especialidad.length + 4))
+      setEspecialidad(data.slice(0, especialidad.length + 4));
     } else {
       setHasMore(false);
     }
   };
 
-
   useEffect(() => {
     fetchData();
-    
   }, []);
 
   useEffect(() => {
     setData(especialidades);
   }, [especialidades]);
 
-  useEffect(()=>{
-    setEspecialidad(data.slice(0, currentEsp + 4))
-  },[data])
-
-  
+  useEffect(() => {
+    setEspecialidad(data.slice(0, currentEsp + 4));
+  }, [data]);
 
   return (
-    <div >
+    <div>
       <div className="w-full">
         <h1 className="text-5xl">ESPECIALIDADES</h1>
         <SearchBar></SearchBar>
-        
       </div>
       <div>
-
         <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
-      <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto" >
+      <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto">
         <InfiniteScroll
           dataLength={especialidad.length}
-          next={()=>setTimeout(next, 250)}
+          next={() => setTimeout(next, 250)}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
           endMessage={<h4>NO HAY MAS INFO</h4>}
@@ -78,6 +68,5 @@ export default function Especialidades() {
         />
       </div>
     </div>
-
   );
 }

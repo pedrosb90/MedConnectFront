@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getMedicos, sortMedicos } from "@/app/redux/reducer";
+import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 
@@ -11,7 +11,6 @@ export default function CardMed({ showMenu, searchResult }) {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
-  const currentSortOrder = useSelector((state) => state.speciality.sortOrder);
 
   const fetchMedicos = async () => {
     try {
@@ -25,14 +24,7 @@ export default function CardMed({ showMenu, searchResult }) {
     !estadoMed?.length && fetchMedicos();
   }, [estadoMed]);
 
-  const handleSort = () => {
-    const newSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
-    dispatch(setSortOrder(newSortOrder));
-  };
-
-  const sortedMedicos = sortMedicos(estadoMed);
-  const renderMedicos =
-    searchResult.length > 0 ? searchResult : sortedMedicos || estadoMed;
+  const renderMedicos = searchResult.length > 0 ? searchResult : estadoMed;
 
   return (
     <div className={showMenu ? styles.container : styles.cont_on}>
