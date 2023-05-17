@@ -2,13 +2,12 @@
 
 import styles from "./page.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 
-export default function CardMed({ showMenu }) {
-  const [medicos, setMedicos] = useState([]);
+export default function CardMed({ showMenu, searchResult }) {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
@@ -17,27 +16,28 @@ export default function CardMed({ showMenu }) {
     try {
       const response = await axios.get("http://localhost:3001/medics");
       dispatch(getMedicos(response.data));
-      setMedicos(estadoMed);
     } catch (error) {
       alert(error);
     }
   };
   useEffect(() => {
-    !medicos?.length && fetchMedicos();
-  }, [medicos]);
+    !estadoMed?.length && fetchMedicos();
+  }, [estadoMed]);
+
+  const renderMedicos = searchResult.length > 0 ? searchResult : estadoMed;
 
   return (
     <div className={showMenu ? styles.container : styles.cont_on}>
       <div className={styles.med_box}>
         <ul>
-          {medicos.map((med) => {
+          {renderMedicos.map((med) => {
             return (
               <span key={med.id}>
                 <Link href={`/medicos/${med.id}`}>
-                  <li className="flex flex-wrap">
+                  <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 font-sans text-white font-thin"
+                      className="h-5 w-14 font-sans text-white font-thin"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
                       stroke="currentColor"
@@ -65,7 +65,8 @@ export default function CardMed({ showMenu }) {
       <div className={styles.contacto}>
         <h1>Contactos:</h1>
         <h5> Cno. Gral. Manuel Belgrano 6511, Gutierrez</h5>
-        <h5> Teléfono fijo: 1122039682</h5>
+        <br />
+        <h5> Teléfono: 1122039682</h5>
       </div>
     </div>
   );

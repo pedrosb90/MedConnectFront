@@ -5,9 +5,11 @@ import Menu_Medicos from "./components/menu_medicos/page";
 import Image from "next/image";
 import { useState } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
+import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -15,6 +17,8 @@ export default function Home() {
 
   return (
     <main>
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
+
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
 
@@ -93,7 +97,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Menu_Medicos showMenu={showMenu} />
+      <Menu_Medicos showMenu={showMenu} searchResult={searchResult} />
     </main>
   );
 }

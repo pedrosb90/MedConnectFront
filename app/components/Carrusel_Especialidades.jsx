@@ -65,12 +65,12 @@ export default function Carrusel_Especialidades() {
           style={{
             backgroundImage: `url(${espec.length && espec[currentIndex].url})`,
           }}
-          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-4xl font-sans "
+          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans "
         >
           {espec.length && espec[currentIndex].name}
           <Link
             href={`/Especialidades`}
-            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-2xl cursor-pointer"
+            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-lg cursor-pointer"
           >
             <h1>Ver Mas Especialidades</h1>
           </Link>
