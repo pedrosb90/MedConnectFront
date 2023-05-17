@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSearch = async () => {
     try {
@@ -16,7 +18,6 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
       alert(error);
     }
   };
-
   const handleChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -70,7 +71,7 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
             Disponibilidad
           </button>
           <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            Alfabetico{" "}
+            A - Z{" "}
           </button>
         </div>
       </div>

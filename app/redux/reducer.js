@@ -8,7 +8,6 @@ const initialState = {
   deletedMedic: null,
 };
 export const medicalReducer = createSlice({
-
   name: "speciality",
   initialState,
   reducers: {
@@ -28,10 +27,10 @@ export const medicalReducer = createSlice({
       console.log(action.payload);
       state.deletedMedic = action.payload;
     },
-        searchBar:(state, action)=>{
-            const data= action.payload;
-            state.AllSpecial= [...data];
-        }
+    searchBar: (state, action) => {
+      const data = action.payload;
+      state.AllSpecial = [...data];
+    },
   },
 });
 export const { getSpeciality, getMedicos, getId, deleteMedic, searchBar } =
