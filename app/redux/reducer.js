@@ -26,12 +26,16 @@ export const medicalReducer = createSlice({
         getId : (state, action) => {
             const data = action.payload;
             state.Detail = {...data}
+        },
 
+        searchBar:(state, action)=>{
+            const data= action.payload;
+            state.AllSpecial= [...data];
         }
     }
 
 })
-export const {getSpeciality,getMedicos,getId} = medicalReducer.actions
+export const {getSpeciality,getMedicos,getId,searchBar} = medicalReducer.actions
 
 
 export default medicalReducer.reducer
