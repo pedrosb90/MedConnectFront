@@ -1,43 +1,41 @@
 "use client";
-import CardsObras from "./components/CardsObras";
+import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
-import CardMed from "./components/CardMedicos/page";
+import Menu_Medicos from "./components/menu_medicos/page";
 import Image from "next/image";
-import {useState} from "react";
-import Carrusel from "./components/Carrusel"
-
-
-
+import { useState } from "react";
+import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
+import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 
 export default function Home() {
-
   const [showMenu, setShowMenu] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
-  
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
   return (
     <main>
-      <div className="flex flex-col gap-10">
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
 
-        <Carrusel></Carrusel>
+      <div className="flex flex-col gap-10">
+        <Carrusel_Especialidades />
 
         <div className="relative">
           {" "}
           <button
             className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
               showMenu
-                ? "text-white bg-cimPallete-600"
-                : "text-white bg-cimPallete-800 left-10"
+                ? "font-size text-white bg-cimPallete-600"
+                : "font-size text-white bg-cimPallete-800 left-10"
             }`}
             onClick={toggleMenu}
           >
             {showMenu ? " Cerrar " : "Medicos"}
           </button>
         </div>
-        <div className="flex items-center justify-center h-full w-full p--20 m--20">
+        <div className="flex items-center justify-center h-full w-full p--20 m--20 rounded-lg ">
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
@@ -51,7 +49,7 @@ export default function Home() {
             NUESTRAS OBRAS SOCIALES
           </h1>
 
-          <CardsObras obras={array}></CardsObras>
+          <Cards_Obras_Display obras={array} />
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center">
@@ -99,7 +97,7 @@ export default function Home() {
         </div>
       </div>
 
-      <CardMed showMenu={showMenu}></CardMed>
+      <Menu_Medicos showMenu={showMenu} searchResult={searchResult} />
     </main>
   );
 }

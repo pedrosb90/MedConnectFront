@@ -1,11 +1,13 @@
 "use client";
-import Cards from "../components/Cards";
+
+import Cards_Especialidades_Display from "../components/Cards_Especialidades_Display";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/SearchBar";
+
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -15,6 +17,8 @@ export default function Especialidades() {
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState([]);
   const [especialidad, setEspecialidad]=useState([])
+
+  const [data, setData] = useState([]);
 
   async function fetchData() {
     try {
@@ -35,6 +39,7 @@ export default function Especialidades() {
       setHasMore(false);
     }
   };
+
 
   useEffect(() => {
     fetchData();
@@ -60,7 +65,7 @@ export default function Especialidades() {
       </div>
       <div>
 
-        <Cards especialidad={especialidad}></Cards>
+        <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
       <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto" >
         <InfiniteScroll
@@ -73,5 +78,6 @@ export default function Especialidades() {
         />
       </div>
     </div>
+
   );
 }
