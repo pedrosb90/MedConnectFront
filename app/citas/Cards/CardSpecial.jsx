@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { getSpeciality } from "../../redux/reducer";
 import { useEffect, useState } from "react";
+import CardMedics from './CardMedics';
 import Link from 'next/link';
 export default function CardSpecial(){
   const dispatch = useDispatch();
@@ -26,8 +27,10 @@ export default function CardSpecial(){
 
   }
   const handleClickMed =(event)=>{
-    const nameME = event.target.name;
-    setEspecial()
+    
+    const espeMed = event.specializations.map(espe=>espe.name)
+    const data = especialidades.filter(espe => espeMed.includes(espe.name));
+    setEspecial(data)
   }
 
   useEffect(() => {
@@ -38,6 +41,10 @@ export default function CardSpecial(){
     
   return(
     <div>
+      <h2 className={styles.subTitle}>¿Quieres agendar con un profesional en particular?</h2>
+      <CardMedics handleClickMed={handleClickMed}></CardMedics>
+      
+      <h2 className={styles.subTitle}>Selecciona los servicios que deseas agendar:</h2>
       <BottonEspe especialidades={especialidades} handleClick={handleClick}></BottonEspe>
       <div className={styles.box_espe}> 
         

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import img from './img/fondo.jpg'
 import styles from './Cards/page.module.css'
-import CardMedics from './Cards/CardMedics'
+
 import CardSpecial from './Cards/CardSpecial'
 
 export default function Citas() {
@@ -30,9 +30,9 @@ export default function Citas() {
           </div>
           
         </div>
-        <h2 className={styles.subTitle}>¿Quieres agendar con un profesional en particular?</h2>
-        <CardMedics></CardMedics>
-        <h2 className={styles.subTitle}>Selecciona los servicios que deseas agendar:</h2>
+        
+        
+        
         
         
 

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
 import styles from './page.module.css'
 import Link from "next/link";
-export default function CardMedics(){
+export default function CardMedics({handleClickMed}){
     const [medicos, setMedicos] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export default function CardMedics(){
 
         return(
           
-          <div key={med.id} className="w-36 h-34 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <button  onClick={()=>handleClickMed(med)} key={med.id} className={`w-36 h-34 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardMed}`}>
 
           
       <div className="flex justify-end px-4 pt-4"></div>
@@ -74,7 +74,7 @@ export default function CardMedics(){
         </div>
       </div>
       
-    </div>
+    </button>
         )
       }):'Cargado medicos....'}
        
