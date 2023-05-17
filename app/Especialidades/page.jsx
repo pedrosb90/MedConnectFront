@@ -13,6 +13,7 @@ export default function Especialidades() {
   const [currentEsp, setCurrentEsp] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState([]);
+  const [especialidad, setEspecialidad]=useState([])
 
   async function fetchData() {
     try {
@@ -25,38 +26,46 @@ export default function Especialidades() {
   }
 
   const next = () => {
-    setCurrentEsp((prevCurrentEsp) => prevCurrentEsp + 4);
+    
+    if (especialidad.length < data.length) {
+      setCurrentEsp(currentEsp + 4);
+      setEspecialidad(data.slice(0, especialidad.length + 4))
+    } else {
+      setHasMore(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
+    
   }, []);
 
   useEffect(() => {
     setData(especialidades);
   }, [especialidades]);
 
-  const especialidad = data.slice(0, currentEsp + 4);
+  useEffect(()=>{
+    setEspecialidad(data.slice(0, currentEsp + 4))
+  },[data])
 
-  if (especialidad.length > data.length) {
-    setHasMore(false);
-  }
-
-  console.log("CurrentEsp:", currentEsp);
+  
 
   return (
-    <>
+    <div >
       <div className="w-full">
         <h1 className="text-5xl">ESPECIALIDADES</h1>
         <Cards especialidad={especialidad}></Cards>
       </div>
-      <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto">
+      <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto" >
         <InfiniteScroll
-          dataLength={data.length}
-          next={next}
+          dataLength={especialidad.length}
+          next={()=>setTimeout(next, 250)}
           hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={<h4>NO HAY MAS INFO</h4>}
+          // scrollableTarget="scrollableDiv"
         />
       </div>
-    </>
+    </div>
   );
 }
