@@ -14,7 +14,7 @@ export default function Registro() {
 
   const request = async () => {
     try {
-      await axios.get("http://localhost:3001/medics")
+      await axios.get("http://localhost:3001/medics",{ withCredentials: true,credentials: 'include'})
     .then((res)=>{
       dispatch(getMedicos(res.data))
       setLoading(false);

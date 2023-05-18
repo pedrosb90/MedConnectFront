@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    logStatus:"master"
+    logStatus:null
 }
 
 export const logInStatus = createSlice({

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import styles from './page.module.css'
 export default function administration(){
     const {logStatus} = useSelector(state => state)
-    if(logStatus.logStatus === "master" ){
+    if(logStatus.logStatus === "admin" ){
         return(
             <div className={`bg-white py-24 sm:py-32 ${styles.container}`} >
             <div className="mx-auto max-w-7xl px-6 lg:px-8">

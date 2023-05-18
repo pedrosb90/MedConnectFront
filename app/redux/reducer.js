@@ -16,7 +16,7 @@ export const medicalReducer = createSlice({
     reducers:{
         getSpeciality:(state, action)=>{
             const data= action.payload;
-            state.AllSpecial= [...data];
+            state.AllSpecial= [data];
 
             
         },

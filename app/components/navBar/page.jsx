@@ -48,7 +48,7 @@ export default function Navbar() {
         <Link href={espe.route} className={styles.links}>
           <span>Especialidades</span>
         </Link>
-        {logStatus.logStatus === "master" ? (
+        {logStatus.logStatus === "admin" ? (
           <Link href={admin.route} className={styles.links}>
             <span>{admin.label}</span>
           </Link>

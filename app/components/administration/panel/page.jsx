@@ -20,7 +20,7 @@ export default function Admin(){
     
   };
 
-  if(logStatus.logStatus === "master" ){
+  if(logStatus.logStatus === "admin" ){
         return(
           <div className={styles.container}>
           <h1 className={styles.title}>Panel de administrador</h1>
