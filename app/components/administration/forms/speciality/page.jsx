@@ -1,25 +1,36 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
 import {Button,Form,Input,Upload} from 'antd';
+import { Container } from "reactstrap";
+import Dropzone from "react-dropzone";
+
+
 export default function SpecialtyForm() {
   const [registered, setRegistered] = useState(false);
+  const [image, setImage] = useState({array:[]})
+  const [loading, setLoading] = useState ("")
+  const [url, setUrl] = useState("")
 
 
+  
 
   const onSubmit = (values) => {
     setRegistered(!registered);
-    const {description,name,image} = values
-    console.log(image.fileList[0].originFileObj);
+    const {description,name} = values
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("image", image.fileList[0].originFileObj);
-    formData.append("description", description);
+    const body = {
+      description, name, url
+    }
+    console.log(body);
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("image", image.fileList[0].originFileObj);
+    // formData.append("description", description);
 
     axios
-      .post("http://localhost:3001/specializations", formData)
+      .post("http://localhost:3001/specializations", body)
       .then((response) => {
         // Código para manejar la respuesta en caso de éxito
         alert("Registro exitoso");
@@ -31,6 +42,61 @@ export default function SpecialtyForm() {
       });
   };
 
+  const handleDrop =  (files)=>{
+    const uploaders = files.map(async (file)=>{
+      const formData =  new  FormData();
+      formData.append("file", file);
+      formData.append("tags", `codeinfuse, medium, gist`);
+      formData.append("upload_preset", "MedConnect");
+      formData.append("api_key", "977319699313977");
+      formData.append("timestamp", (Date.now() /1000) | 0);
+      setLoading("true");
+      return  axios.post("https://api.cloudinary.com/v1_1/dipgqcdtq/image/upload", formData, {
+        headers: {"X-Requested-With": "XMLHttpRequest"},
+      }).then((response)=>{
+        const data = response.data
+        console.log(data)
+        const fileURL = data.secure_url;
+        setUrl(data.secure_url)
+        console.log(fileURL);
+        let specificArrayInObject = image.array;
+        specificArrayInObject.push(fileURL);
+        const newobj ={...image, specificArrayInObject};
+        setImage(newobj)
+        
+        
+      })
+    })
+    axios.all(uploaders).then(()=>{
+  setLoading("false")
+})
+
+  }
+
+  function imagePreview (){
+    if(loading === "true"){
+      return <h3>Cargando Imagenes...</h3>
+
+    }
+    if (loading === "false"){
+      return (
+        <h3>
+          {image.array.length <=0
+          ?"No Hay imagenes"
+          : image.array.map((items, index) => (
+              <img
+              alt= "Imagen"
+              // className="h-16 w-28 pr-4 bg-cover "
+              style={{width: "125px", height: "70px", backgroundSize: "cover", paddingRight: "15px"}}
+              src = {items}
+              ></img>
+            ))
+        }
+        </h3>
+      ) 
+
+    }
+  }
 
   return(
 
@@ -50,7 +116,7 @@ export default function SpecialtyForm() {
                     placeholder="Descripción"/>
               </Form.Item>
 
-                <Form.Item  name="image">
+                {/* <Form.Item  name="image">
                 <Upload
                   name="image"
                   type="file"
@@ -72,8 +138,28 @@ export default function SpecialtyForm() {
                   <p>Subir imagen</p>
                   </div>
               </Upload>
-                </Form.Item>
-              
+                </Form.Item> */}
+              <Container>
+                <Dropzone
+                className="dropzone"
+                onDrop={handleDrop}
+                onChange={(e)=>setImage(e.target.value)}
+                value={image}
+                >
+                  {({getRootProps, getInputProps}) => (
+                    <section>
+                      <div {...getRootProps({className:"dropzone"})}>
+
+                    <input {...getInputProps()} />
+                    <span className="cursor-pointer text-3xl">📂</span>
+                    <p className="cursor-pointer" >Suelta tu imagen aqui, O da click para seleccionar</p>
+
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+                {imagePreview()}
+              </Container>
       
 
               <Form.Item name="description" label="Descripción"

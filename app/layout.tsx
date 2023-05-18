@@ -7,6 +7,7 @@ import Admin from "./components/administration/panel/page";
 import { Providers } from "./redux/provider";
 import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // export const metadata = {
 //   title: 'Create Next App',
