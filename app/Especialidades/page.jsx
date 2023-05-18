@@ -35,7 +35,6 @@ export default function Especialidades() {
       setHasMore(false);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);

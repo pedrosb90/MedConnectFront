@@ -54,20 +54,26 @@ export default function Home() {
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center">
             <div className="flex justify-evenly gap-5">
-              <img
+              <Image
                 className="h-10 w-10 rounded-full"
                 src="https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM"
                 alt=""
+                width={10}
+                height={10}
               />
-              <img
+              <Image
                 className="h-10 w-10 rounded-full"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Logo_de_Facebook.png/220px-Logo_de_Facebook.png"
                 alt=""
+                width={10}
+                height={10}
               />
-              <img
+              <Image
                 className="h-10 w-10 rounded-full mb-3"
                 src="https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
                 alt=""
+                width={10}
+                height={10}
               />
             </div>
             <div className="flex items-center justify-center">
