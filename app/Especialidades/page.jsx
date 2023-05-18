@@ -37,7 +37,7 @@ export default function Especialidades() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData, currentEsp]);
 
   useEffect(() => {
     setData(especialidades);

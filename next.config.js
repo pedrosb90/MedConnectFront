@@ -8,6 +8,7 @@ const nextConfig = {
       "play-lh.googleusercontent.com",
       "upload.wikimedia.org",
       "res.cloudinary.com",
+      "cdn.pixabay.com",
     ],
   },
   reactStrictMode: true,

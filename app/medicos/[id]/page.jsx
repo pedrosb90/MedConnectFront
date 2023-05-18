@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
+import Image from "next/image";
 export default function page() {
   const [data, setData] = useState({});
 
@@ -35,10 +36,12 @@ export default function page() {
 
                   <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                   <div className="relative">
-                    <img
+                    <Image
                       className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full"
                       alt="NOT_FOUNT"
                       src="https://img.freepik.com/vector-gratis/ilustracion-clinica-doctor_1270-69.jpg?w=2000"
+                      width={500}
+                      height={500}
                     />
                   </div>
                 </div>

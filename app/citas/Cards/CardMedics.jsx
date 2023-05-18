@@ -25,7 +25,7 @@ export default function CardMedics({ handleClickMed }) {
   };
   useEffect(() => {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
-  }, [estadoMed]);
+  }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
     if (currentIndex + 5 === medicos.length) {
       return; // No avanzar más si es el último médico

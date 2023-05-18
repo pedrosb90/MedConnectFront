@@ -30,7 +30,7 @@ export default function Carrusel_Especialidades() {
 
   useEffect(() => {
     !espec?.length && getEspec();
-  }, [espec]);
+  }, [espec, getEspec]);
 
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
@@ -56,7 +56,7 @@ export default function Carrusel_Especialidades() {
       handlerNext();
     }, 3000);
     return () => clearTimeout(timerRef.current);
-  }, []);
+  }, [handlerNext]);
 
   return (
     <div>

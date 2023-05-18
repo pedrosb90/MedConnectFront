@@ -30,7 +30,7 @@ export default function page() {
   }
   useEffect(() => {
     fetchData(id);
-  }, [id]);
+  }, [id, useSelector, useDispatch, useState, useParams]);
 
   useEffect(() => {
     setData(detail);
@@ -45,6 +45,8 @@ export default function page() {
               src={data.url}
               alt="img"
               className="w-full object-cover  object-center shadow-2xl shadow-cimPallete-100 rounded-lg"
+              width={500}
+              height={300}
             />
           </div>
           <div className="grid grid-cols-2 bg-cimPallete-100 w-3/4 shadow-2xl shadow-cimPallete-500 h-full ml-40 mb-12 justify-center rounded-lg">
@@ -60,9 +62,11 @@ export default function page() {
           </div>
         </>
       ) : (
-        <img
+        <Image
           src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
           alt="loading"
+          width={500}
+          height={500}
         />
       )}
       <Link href="/Especialidades" as="/Especialidades">
