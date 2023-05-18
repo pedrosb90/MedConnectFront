@@ -44,3 +44,22 @@ body {
   top: 24vh;
   font-weight: 600;
 }
+.buttonAgendar{
+  z-index: 30;
+  position: fixed;
+  top: 24vh;
+  right: 3%;
+  font-weight: 600;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.2s ease;
+
+}
+.buttonAgendar:hover{
+  background-color: #d6d6d6;
+  color: black;
+}
+.buttonAgendar:active{
+  transform: scale(0.95);
+}

@@ -32,9 +32,9 @@ export default function CardMed({ showMenu, searchResult }) {
         <ul>
           {renderMedicos.map((med) => {
             return (
-              <span key={med.id}>
-                <Link href={`/medicos/${med.id}`}>
-                  <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
+              <li key={med.id} className={styles.medico} >
+                <Link href={`/medicos/${med.id}`} >
+                  <p className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-14 font-sans text-white font-thin"
@@ -55,9 +55,9 @@ export default function CardMed({ showMenu, searchResult }) {
                     Dr. {med.first_name}
                     <br />
                     {med.last_name}
-                  </li>
+                  </p>
                 </Link>
-              </span>
+              </li>
             );
           })}
         </ul>
