@@ -1,5 +1,4 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import style from "./page.module.css";
 import { List, Skeleton, Avatar } from "antd";
@@ -12,16 +11,15 @@ export default function Registro() {
   const { AllMedicos, deletedMedic } = useSelector((state) => state.speciality);
   const dispatch = useDispatch();
 
-  const request = async () => {
+  const request = useCallback(async () => {
     try {
-      await axios.get("http://localhost:3001/medics").then((res) => {
-        dispatch(getMedicos(res.data));
-        setLoading(false);
-      });
+      const res = await axios.get("http://localhost:3001/medics");
+      dispatch(getMedicos(res.data));
+      setLoading(false);
     } catch (error) {
       alert(error);
     }
-  };
+  }, [dispatch]);
 
   const specializations = (value) => {
     const values = value.map((speciality) => {
@@ -66,9 +64,9 @@ export default function Registro() {
               <List.Item.Meta
                 avatar={<UserOutlined />}
                 title={
-                  <a
-                    href={`http://localhost:3000/medicos/${AllMedicos.id}`}
-                  >{`${AllMedicos.first_name} ${AllMedicos.last_name}`}</a>
+                  <a href={`http://localhost:3000/medicos/${AllMedicos.id}`}>
+                    {`${AllMedicos.first_name} ${AllMedicos.last_name}`}
+                  </a>
                 }
                 description={specializations(AllMedicos.specializations)}
               />
