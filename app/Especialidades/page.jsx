@@ -1,22 +1,22 @@
 "use client";
-import Cards from "../components/Cards";
+
+import Cards_Especialidades_Display from "../components/Cards_Especialidades_Display";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
+import SearchBar from "../components/Search_Bar_Especialidades";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
 
   const [currentEsp, setCurrentEsp] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState([]);
+  const [especialidad, setEspecialidad] = useState([]);
 
-  function handleClick() {
-    if (currentEsp < data.length - 1) {
-      setCurrentEsp(currentEsp + 1);
-    }
-  }
   async function fetchData() {
     try {
       const response = await axios.get("http://localhost:3001/specializations");
@@ -27,6 +27,15 @@ export default function Especialidades() {
     }
   }
 
+  const next = () => {
+    if (especialidad.length < data.length) {
+      setCurrentEsp(currentEsp + 4);
+      setEspecialidad(data.slice(0, especialidad.length + 4));
+    } else {
+      setHasMore(false);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -35,26 +44,29 @@ export default function Especialidades() {
     setData(especialidades);
   }, [especialidades]);
 
-  const especialidad = data.slice(0, currentEsp + 1);
+  useEffect(() => {
+    setEspecialidad(data.slice(0, currentEsp + 4));
+  }, [data]);
 
   return (
-    <>
+    <div>
       <div className="w-full">
-        <h1 className="bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-50">
-          ESPECIALIDADES
-        </h1>
-        <Cards especialidad={especialidad}></Cards>
+        <h1 className="text-5xl">ESPECIALIDADES</h1>
+        <SearchBar />
       </div>
-      <div className="flex justify-start">
-        {currentEsp < data.length - 1 && (
-          <button
-            className="bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-sans py-2 px-4 rounded "
-            onClick={handleClick}
-          >
-            Ver otras especialidades ..
-          </button>
-        )}
+      <div>
+        <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
-    </>
+      <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto">
+        <InfiniteScroll
+          dataLength={especialidad.length}
+          next={() => setTimeout(next, 250)}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={<h4>NO HAY MAS INFO</h4>}
+          // scrollableTarget="scrollableDiv"
+        />
+      </div>
+    </div>
   );
 }

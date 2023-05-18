@@ -11,9 +11,12 @@ export const logInStatus = createSlice({
     reducers:{
         getLogStatus:(state,action)=>{
             state.logStatus = action.payload
+        },
+        cookieChequer:(state,action)=>{
+            state.logStatus = action.payload;
         }
     }
 })
 
-export const {getLogStatus} = logInStatus.actions
+export const {getLogStatus,cookieChequer} = logInStatus.actions
 export default logInStatus.reducer

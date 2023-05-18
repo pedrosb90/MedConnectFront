@@ -1,13 +1,15 @@
 "use client";
-import CardsObras from "./components/CardsObras";
+import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
-import CardMed from "./components/CardMedicos/page";
+import Menu_Medicos from "./components/menu_medicos/page";
 import Image from "next/image";
 import { useState } from "react";
-import Carrusel from "./components/Carrusel";
+import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
+import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -15,8 +17,10 @@ export default function Home() {
 
   return (
     <main>
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
+
       <div className="flex flex-col gap-10">
-        <Carrusel></Carrusel>
+        <Carrusel_Especialidades />
 
         <div className="relative">
           {" "}
@@ -45,7 +49,7 @@ export default function Home() {
             NUESTRAS OBRAS SOCIALES
           </h1>
 
-          <CardsObras obras={array}></CardsObras>
+          <Cards_Obras_Display obras={array} />
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center">
@@ -93,7 +97,7 @@ export default function Home() {
         </div>
       </div>
 
-      <CardMed showMenu={showMenu}></CardMed>
+      <Menu_Medicos showMenu={showMenu} searchResult={searchResult} />
     </main>
   );
 }

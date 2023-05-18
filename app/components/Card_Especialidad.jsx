@@ -1,9 +1,15 @@
 import Link from "next/link";
 
-export default function Card2({ name, image, description, id, index }) {
+export default function Card_Especialidad({
+  name,
+  image,
+  description,
+  id,
+  index,
+}) {
   return (
     <div key={index}>
-      <div className="h-full border-2 border-gray-800 border-opacity-60 rounded-lg overflow-hidden ">
+      <div className="h-full border-2 border-transparent  rounded-lg overflow-hidden ">
         <img
           className="lg:h-72 md:h-48 w-full object-cover object-center"
           src={image}

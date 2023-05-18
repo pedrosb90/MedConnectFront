@@ -9,8 +9,6 @@ import Link from 'next/link';
 
 export default function UserLogin() {
   const dispatch = useDispatch()
-
-
   //! hacer el navigate al home, aviso de login y 1 seg despues al home
   const onSubmit = async (values) => {
     const {email,password} = values
