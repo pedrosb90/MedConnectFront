@@ -1,30 +1,40 @@
-.global_box {
+.container {
   display: flex;
-  background-color: cyan;
+  flex-direction: column;
+  background-color:#91c4cd;
   width: 50%;
   margin: auto;
-  height: 50vh;
+  height: fit-content;
   position: relative;
-  margin-top: 6%;
+  margin-top: 1%;
   padding: 10px;
   justify-content: center;
   align-items: center;
-}
-.form_box {
-  display: flex;
-  flex-direction: column;
-}
-
-.text_area {
-  resize: none;
-}
-.error {
-  color: brown;
+  border-radius: 10px;
   font-weight: 600;
 }
 .title {
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-weight: 600;
   align-self: center;
-  margin: 8px;
+  margin: 3px;
+  text-align: center;
+  
+  font-family: "Montserrat", sans-serif;
+  
 }
+.Button{
+  display: flex;
+  color: white;
+  background-color:rgb(30 41 59) ;
+  width: 40%;
+  margin: auto;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  align-items: center;
+  
+  
+}
+
+
