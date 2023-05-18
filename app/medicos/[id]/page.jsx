@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-export default function page() {
+export default function Page() {
   const [data, setData] = useState({});
 
   const { id } = useParams();
