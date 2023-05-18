@@ -1,12 +1,10 @@
-"use client";
-import { useState } from "react";
+"use Client";
 import styles from "./page.module.css";
 import axios from "axios";
 import { Button, Form, Input, Upload } from "antd";
 import Image from "next/image";
 export default function SpecialtyForm() {
   const [registered, setRegistered] = useState(false);
-
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name, image } = values;

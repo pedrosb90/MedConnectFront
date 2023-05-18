@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Medicos from "../Medicos";
 
-export default function page() {
+export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);
 
   const dispatch = useDispatch();
