@@ -19,13 +19,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(()=>{
-    axios.get("http://localhost:3001/medics",{ withCredentials: true})
-    .then((res)=>{
-      console.log(res.data);
+  // useEffect(()=>{
+  //   axios.get("http://localhost:3001/medics",{ withCredentials: true})
+  //   .then((res)=>{
+  //     console.log(res.data);
       
-    })
-  },[])
+  //   })
+  // },[])
   const pathname = usePathname();
   const pathAdmin = pathname.includes("administration");
 

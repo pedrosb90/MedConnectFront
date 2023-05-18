@@ -10,7 +10,7 @@ export const logInStatus = createSlice({
     initialState,
     reducers:{
         getLogStatus:(state,action)=>{
-            state.logStatus = action.payload
+            state.logStatus = action.payload;
         },
         cookieChequer:(state,action)=>{
             state.logStatus = action.payload;

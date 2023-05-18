@@ -14,7 +14,7 @@ export default function CardMed({ showMenu, searchResult }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics");
+      const response = await axios.get("http://localhost:3001/medics",{email,password},{ withCredentials: true,credentials: 'include'});
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
