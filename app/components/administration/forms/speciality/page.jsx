@@ -73,6 +73,11 @@ export default function SpecialtyForm() {
 
   }
 
+  // const deleteImag = ()=>{
+  //   axios.delete("https://api.cloudinary.com/v1_1/dipgqcdtq/image/upload")
+  //   setImage([])
+  // }
+
   function imagePreview (){
     if(loading === "true"){
       return <h3>Cargando Imagenes...</h3>
@@ -158,6 +163,7 @@ export default function SpecialtyForm() {
                     </section>
                   )}
                 </Dropzone>
+                {/* <button onClick={deleteImag} >Delete</button> */}
                 {imagePreview()}
               </Container>
       
