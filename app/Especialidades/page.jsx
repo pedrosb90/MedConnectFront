@@ -6,7 +6,7 @@ import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/Search_Bar_Especialidades";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
