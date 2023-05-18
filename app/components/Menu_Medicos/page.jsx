@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "../Menu_Medicos/page.module.css";
+import styles from "./page.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getMedicos } from "@/app/redux/reducer";
