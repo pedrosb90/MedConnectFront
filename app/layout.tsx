@@ -5,7 +5,6 @@ import Navbar from "./components/navBar/page";
 import { usePathname } from "next/navigation";
 import Admin from "./components/administration/panel/page";
 import { Providers } from "./redux/provider";
-import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
