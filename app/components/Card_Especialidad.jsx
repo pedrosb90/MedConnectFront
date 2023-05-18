@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Image from "next/image";
 export default function Card_Especialidad({
   name,
   image,
@@ -10,7 +10,7 @@ export default function Card_Especialidad({
   return (
     <div key={index}>
       <div className="h-full border-2 border-transparent  rounded-lg overflow-hidden ">
-        <img
+        <Image
           className="lg:h-72 md:h-48 w-full object-cover object-center"
           src={image}
           alt=""

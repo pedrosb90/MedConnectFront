@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { getId } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
 import Medicos from "../Medicos";
 
 export default function page() {
@@ -40,7 +41,7 @@ export default function page() {
       {data.name ? (
         <>
           <div className="w-3/4 mt-52 ml-40 mb-10">
-            <img
+            <Image
               src={data.url}
               alt="img"
               className="w-full object-cover  object-center shadow-2xl shadow-cimPallete-100 rounded-lg"
