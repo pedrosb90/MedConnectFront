@@ -6,7 +6,7 @@ import { getSpeciality } from "../redux/reducer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/Search_Bar_Especialidades";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ export default function Especialidades() {
     <div>
       <div className="w-full">
         <h1 className="text-5xl">ESPECIALIDADES</h1>
-        <SearchBar></SearchBar>
+        <SearchBar />
       </div>
 
       

@@ -105,11 +105,11 @@ export default function SpecialtyForm() {
 
   return(
 
-  <div >
+  <div className={styles.container}>
         <h1 className={styles.title}>Añadir Especialidad</h1>
-          <Form labelCol={{   span: 4, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+          <Form labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
     
-          <Form.Item name="name" label="Especialidad"
+          <Form.Item name="name" label="Especialidad" 
                 rules={[
                   {required:true,
                   message:"Por favor ingrese una especialidad"},
@@ -118,7 +118,7 @@ export default function SpecialtyForm() {
               >
                   <Input
                     name="name"
-                    placeholder="Descripción"/>
+                    placeholder="nombre..."/>
               </Form.Item>
 
                 {/* <Form.Item  name="image">
@@ -128,7 +128,7 @@ export default function SpecialtyForm() {
                   listType="picture-card"
                   className="avatar-uploader"
                 >
-                  <div>
+                  <div className={styles.icono}>
                     <img
                       src={"https://i.pinimg.com/originals/73/7e/c2/737ec290471f789e58b8e1e10cd45789.png"}
                       alt="img"
@@ -179,7 +179,7 @@ export default function SpecialtyForm() {
                     name="description"
                     placeholder="Descripción"/>
               </Form.Item> 
-              <Button block htmlType='submit'>boton</Button>
+              <Button  htmlType='submit' className={styles.Button}>Enviar</Button>
             </Form>
         </div>
   )

@@ -5,7 +5,7 @@
 .btn_return {
   position: absolute;
   bottom: 8%;
-  right: 18%;
+  right: 12%;
 }
 .btn_return:active {
   background-color: transparent;
