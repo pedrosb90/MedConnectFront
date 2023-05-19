@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Medicos from "../Medicos";
 import styles from './page.module.css'
-import Image from "next/image";
+
 export default function page() {
   const detail = useSelector((state) => state.speciality.Detail);
 
@@ -50,27 +50,31 @@ export default function page() {
                   <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                   <div className="relative">
                   <img
-  className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full"
+                  
+  className= {styles.img +' object-cover max-w-[85%] object-center mx-auto rounded-lg shadow-2xl sm:w-full md:w-full'}
   alt="NOT_FOUND"
-  src={data.url ? data.url : '/img/Logo.jpg'}
+  src={data.url ? data.url : 'https://w7.pngwing.com/pngs/270/376/png-transparent-hospital-drawing-coloring-book-clinic-others-angle-text-rectangle-thumbnail.png'}
 />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
-              <h1 className="mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+            <div className="flex flex-col items-start mt-12 mb-2 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
+              <h1 className="mb-2 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
                 {data.name
-                  ? `Dr. ${data.name}`
+                  ? data.name
                   : "...Loading"}
               </h1>
-              <Medicos data={data} className="m-10"></Medicos>
+
+              
               <div className="flex-col mt-0 lg:mt-6 max-w-7xl sm:flex">
-                <dl className="grid grid-cols-1 gap-12 md:grid-cols-2">
-                  
-                  
-                </dl>
-              </div>
+  <dl className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <div className={`${styles.description} md:col-span-2`}>
+      {data.description}
+    </div>
+    {data.name?<Medicos data={data} className="m-10"></Medicos>:'...Loading medicos'}
+  </dl>
+</div>
             </div>
           </div>
         </div>
