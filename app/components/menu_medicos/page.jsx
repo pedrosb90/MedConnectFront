@@ -6,10 +6,15 @@ import { useEffect } from "react";
 import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
+import PropTypes from "prop-types";
+
+Menu_Medicos.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
+  searchResult: PropTypes.array.isRequired,
+};
 
 export default function Menu_Medicos({ showMenu, searchResult }) {
   const dispatch = useDispatch();
-
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const fetchMedicos = async () => {
