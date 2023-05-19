@@ -2,7 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    logStatus:null
+    logStatus:null,
+    userStatus:null
 }
 
 export const logInStatus = createSlice({
@@ -12,11 +13,11 @@ export const logInStatus = createSlice({
         getLogStatus:(state,action)=>{
             state.logStatus = action.payload;
         },
-        cookieChequer:(state,action)=>{
-            state.logStatus = action.payload;
+        userChequer:(state,action)=>{
+            state.userStatus = action.payload.user;
         }
     }
 })
 
-export const {getLogStatus,cookieChequer} = logInStatus.actions
+export const {getLogStatus,userChequer} = logInStatus.actions
 export default logInStatus.reducer
