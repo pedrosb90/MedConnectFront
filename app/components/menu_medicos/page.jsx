@@ -7,7 +7,7 @@ import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 
-const Menu_Medicos = ({ showMenu, searchResult }) => {
+const Menu_Medicos = (props) => {
   const dispatch = useDispatch();
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
@@ -23,10 +23,11 @@ const Menu_Medicos = ({ showMenu, searchResult }) => {
     !estadoMed?.length && fetchMedicos();
   }, [estadoMed]);
 
-  const renderMedicos = searchResult.length > 0 ? searchResult : estadoMed;
+  const renderMedicos =
+    props.searchResult.length > 0 ? props.searchResult : estadoMed;
 
   return (
-    <div className={showMenu ? styles.container : styles.cont_on}>
+    <div className={props.showMenu ? styles.container : styles.cont_on}>
       <div className={styles.med_box}>
         <ul>
           {renderMedicos.map((med) => {
