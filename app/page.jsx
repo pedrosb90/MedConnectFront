@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
-import Menu_Medicos from "./components/menu_medicos/page";
+// import Menu_Medicos from "./components/menu_medicos/page";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
@@ -103,7 +103,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Menu_Medicos showMenu={showMenu} searchResult={searchResult} />
+      {/* <Menu_Medicos showMenu={showMenu} searchResult={searchResult} /> */}
     </main>
   );
 }
