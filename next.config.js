@@ -9,6 +9,7 @@ const nextConfig = {
       "upload.wikimedia.org",
       "res.cloudinary.com",
       "cdn.pixabay.com",
+      "img.freepik.com",
     ],
   },
   reactStrictMode: true,
