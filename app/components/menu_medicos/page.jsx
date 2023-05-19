@@ -28,12 +28,12 @@ const Menu_Medicos = (props) => {
 
   return (
     <div className={props.showMenu ? styles.container : styles.cont_on}>
-      <div className={styles.med_box}>
+      {/* <div className={styles.med_box}>
         <ul>
           {renderMedicos.map((med) => {
             return (
-              <span key={med.id}>
-                <Link href={`/medicos/${med.id}`}>
+              <span key={med.id}> */}
+      {/* <Link href={`/medicos/${med.id}`}>
                   <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +56,8 @@ const Menu_Medicos = (props) => {
                     <br />
                     {med.last_name}
                   </li>
-                </Link>
-              </span>
+                </Link> */}
+      {/* </span>
             );
           })}
         </ul>
@@ -67,7 +67,7 @@ const Menu_Medicos = (props) => {
         <h5> Cno. Gral. Manuel Belgrano 6511, Gutierrez</h5>
         <br />
         <h5> Teléfono: 1122039682</h5>
-      </div>
+      </div> */}
     </div>
   );
 };
