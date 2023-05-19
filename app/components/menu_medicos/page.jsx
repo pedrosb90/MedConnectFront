@@ -24,7 +24,7 @@ const Menu_Medicos = (props) => {
   }, [estadoMed]);
 
   const renderMedicos =
-    props.searchResult.length > 0 ? props.searchResult : estadoMed;
+    props.searchResult.length > 0 ? props.searchResult : estadoMed || [];
 
   return (
     <div className={props.showMenu ? styles.container : styles.cont_on}>
