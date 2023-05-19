@@ -10,11 +10,8 @@ import styles from './page.module.css'
 
 export default function page() {
   const detail = useSelector((state) => state.speciality.Detail);
-
   const dispatch = useDispatch();
-
   const [data, setData] = useState({});
-
   const { id } = useParams();
 
   async function fetchData(id) {
@@ -28,13 +25,21 @@ export default function page() {
       alert(error.message);
     }
   }
+
   useEffect(() => {
     fetchData(id);
   }, [id]);
 
   useEffect(() => {
-    setData(detail);
+    detail.name && setData(detail);
   }, [detail]);
+
+  useEffect(() => {
+    // Limpiar el estado detail cuando se desmonte el componente
+    return () => {
+      dispatch(getId(null));
+    };
+  }, []);
 
   return (
     <div >
