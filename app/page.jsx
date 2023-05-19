@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
+import Link from "next/link";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
@@ -34,6 +35,7 @@ export default function Home() {
           >
             {showMenu ? " Cerrar " : "Medicos"}
           </button>
+         <Link href='/citas'><button className='buttonAgendar bg-cimPallete-800'>Agendar cita</button></Link> 
         </div>
         <div className="flex items-center justify-center h-full w-full p--20 m--20 rounded-lg ">
           <Image

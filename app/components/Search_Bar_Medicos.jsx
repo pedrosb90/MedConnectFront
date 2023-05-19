@@ -35,11 +35,11 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
   const isSearchDisabled = searchValue === "";
 
   return (
-    <div className="flex justify-center">
-      <div className="bg-gray-200 py-2 px-6 flex items-center space-x-4">
+    <div className="flex  z-20 fixed left-96">
+      <div className="bg-gray-800 py-2 px-6 flex items-center space-x-4 gap-5 rounded-md">
         <form onSubmit={handleSubmit}>
           <input
-            className="py-1 px-2 rounded-md"
+            className="py-1 px-2 rounded-md "
             type="text"
             placeholder="Medico.."
             value={searchValue}
@@ -56,7 +56,8 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
             </button>
           ) : (
             <button
-              className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+            className=" bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+
               type="button"
               onClick={handleSearch}
               disabled={isSearchDisabled}
