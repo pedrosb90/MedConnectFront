@@ -1,29 +1,24 @@
 "use client"
-import {Button,Form,Input,Radio} from 'antd';
+import {Button,Form,Input} from 'antd';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getLogStatus } from '@/app/redux/LogReducer';
+import { getLogStatus,userChequer } from '@/app/redux/LogReducer';
 import { useRouter } from 'next/navigation';
-
+import style from "./login.module.css"
+import Link from 'next/link';
 
 export default function UserLogin() {
-  const {logStatus} = useSelector(state => state)
-  const { push } = useRouter();
   const dispatch = useDispatch()
-
-  useEffect(()=>{
-    console.log(logStatus);
-  },[logStatus])
-
+  const router = useRouter()
+  //! hacer el navigate al home, aviso de login y 1 seg despues al home
   const onSubmit = async (values) => {
-    const {userType,email,password} = values
-    console.log({userType,email,password});
-    axios.create({ withCredentials: true }).post("http://localhost:3001/login",{userType,email,password})
+    const {email,password} = values
+    axios.post("http://localhost:3001/auth/login",{email,password},{ withCredentials: true,credentials: 'include'})
     .then((res)=>{
       if(res.data){
-        axios.create({ withCredentials: true }).get("http://localhost:3001/user").then((res)=>dispatch(getLogStatus(res.data.role)))
-        push('http://localhost:3000/');
+        dispatch(getLogStatus(res.data.data.user.role))
+        dispatch(userChequer(res.data.data))
+        router.push("/")
       } 
     })
     .catch((error)=> console.log(error))
@@ -33,19 +28,15 @@ export default function UserLogin() {
   }
 
   return (
-    <div >
-      <Form labelCol={{   span: 4, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
-        <Form.Item name="userType" label="Usuario" 
-        rules={[
-          {required:true,
-          message:"Por favor seleccione una opción"}
-        ]}>
-          <Radio.Group >
-              <Radio value="pacient" defaultChecked>Paciente</Radio>
-              <Radio value="medic">Médico</Radio>
-              <Radio value="admin">Administrador</Radio>
-            </Radio.Group>
-        </Form.Item>
+  <div className={style.masterContainer}>
+    <div className={style.container}>
+    <div className={style.components}>
+      <div className={style.buttonContainer}>
+        <button id={style.google} className={style.button}>Google</button>
+        <button id={style.facebook} className={style.button}>Facebook</button>
+      </div>
+      <div className={style.formContainer}>
+      <Form className={style.form} layout="vertical" onFinish={(values)=>onSubmit(values)} >
         <Form.Item name="email" label="Usuario"
         rules={[
           {required:true,
@@ -65,7 +56,8 @@ export default function UserLogin() {
           }
         ]}
         hasFeedback>
-            <Input 
+            <Input
+            className={style.input} 
             type="text"
             name="user"
             placeholder="Usuario"
@@ -75,24 +67,24 @@ export default function UserLogin() {
           <Form.Item name="password" label="Contraseña" 
             rules={[
               {required:true,
-              message:"Por favor ingrese su contraseña"},
-              {
-                validator: (_, value) => {
-                  return new Promise((resolve, reject) => {
-                    if (value && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(value)) {
-                      resolve(); // Resuelve la promesa si la contraseña es válida
-                    } else {
-                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                    }
-                  });
-                },
-                message: "La contraseña no es válida"
-              }
-            ]}
-            hasFeedback
-          >
+                message:"Por favor ingrese su contraseña"},
+                {
+                  validator: (_, value) => {
+                    return new Promise((resolve, reject) => {
+                      if (value && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(value)) {
+                        resolve(); // Resuelve la promesa si la contraseña es válida
+                      } else {
+                        reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                      }
+                    });
+                  },
+                  message: "La contraseña no es válida"
+                }
+              ]}
+              hasFeedback
+              >
               <Input.Password
-                
+                className={style.input} 
                 name="password"
                 placeholder="Contraseña"/>
           </Form.Item>
@@ -100,7 +92,11 @@ export default function UserLogin() {
           <Button block htmlType='submit'>boton</Button>
           <p>Una vez que inicie sesión será redirigido al inicio!</p>
         </Form>
+      </div>
     </div>
+    <h2 className={style.h2}>¿No tiene un usuario? <Link className={style.link} href='/components/forms/register'>Cree uno!</Link></h2>
+    </div>
+  </div>
     
 
   );

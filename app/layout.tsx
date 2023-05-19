@@ -5,9 +5,10 @@ import Navbar from "./components/navBar/page";
 import { usePathname } from "next/navigation";
 import Admin from "./components/administration/panel/page";
 import { Providers } from "./redux/provider";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -19,6 +20,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // useEffect(()=>{
+  //   axios.get("http://localhost:3001/medics",{ withCredentials: true})
+  //   .then((res)=>{
+  //     console.log(res.data);
+      
+  //   })
+  // },[])
   const pathname = usePathname();
   const pathAdmin = pathname.includes("administration");
 

@@ -46,7 +46,7 @@ export default function Home() {
           />
         </div>
         <div className="text-center ">
-          <h1 className="m-8 text-4xl text-cimPallete-blue font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+          <h1 className="m-8 text-4xl font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
             {" "}
             NUESTRAS OBRAS SOCIALES
           </h1>
