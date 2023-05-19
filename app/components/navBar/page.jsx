@@ -77,8 +77,8 @@ export default function Navbar() {
           <span>{espe.label}</span>
         </Link>
         <Link href={admin.route}>
-          {admin.label}
-          <span></span>
+        <span>{admin.label}
+          </span>
         </Link>
         <Link href={UserLogin.route} >
           <button className={styles.nav_button_link}>{UserLogin.label}</button>

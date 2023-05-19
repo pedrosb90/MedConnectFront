@@ -6,7 +6,8 @@ import { getId } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Medicos from "../Medicos";
-
+import styles from './page.module.css'
+import Image from "next/image";
 export default function page() {
   const detail = useSelector((state) => state.speciality.Detail);
 
@@ -36,42 +37,55 @@ export default function page() {
   }, [detail]);
 
   return (
-    <div className="h-full w-full justify-center items-center ">
-      {data.name ? (
-        <>
-          <div className="w-3/4 mt-52 ml-40 mb-10">
-            <img
-              src={data.url}
-              alt="img"
-              className="w-full object-cover  object-center shadow-2xl shadow-cimPallete-100 rounded-lg"
-            />
-          </div>
-          <div className="grid grid-cols-2 bg-cimPallete-100 w-3/4 shadow-2xl shadow-cimPallete-500 h-full ml-40 mb-12 justify-center rounded-lg">
-            <div>
-              <h1 className="p-5 text-white text-2xl mb-4 ml-10 mt-5 font-bold ">
-                {data.name}
-              </h1>
-              <h4 className="text-white text-left ml-10 mr-24 mb-6">
-                {data.description}
-              </h4>
+    <div >
+      <div>
+      <section className={styles.container}>
+        <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
+          <div className="flex flex-wrap items-center mx-auto max-w-7xl">
+            <div className="w-full lg:max-w-lg lg:w-1/2 rounded-xl">
+              <div>
+                <div className="relative w-full max-w-lg">
+                  <div className="absolute top-0 rounded-full bg-violet-300 -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+
+                  <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                  <div className="relative">
+                  <img
+  className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full"
+  alt="NOT_FOUND"
+  src={data.url ? data.url : '/img/Logo.jpg'}
+/>
+                  </div>
+                </div>
+              </div>
             </div>
-            <Medicos data={data} className="m-10" />
+            <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
+              <h1 className="mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+                {data.name
+                  ? `Dr. ${data.name}`
+                  : "...Loading"}
+              </h1>
+              <Medicos data={data} className="m-10"></Medicos>
+              <div className="flex-col mt-0 lg:mt-6 max-w-7xl sm:flex">
+                <dl className="grid grid-cols-1 gap-12 md:grid-cols-2">
+                  
+                  
+                </dl>
+              </div>
+            </div>
           </div>
-        </>
-      ) : (
-        <img
-          src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif"
-          alt="loading"
-        />
-      )}
+        </div>
+      </section>
       <Link href="/Especialidades" as="/Especialidades">
         <button
           type="button"
-          className="btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 fixed right-0 bottom-0"
+          className={`btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return}`}
         >
           Regresar
         </button>
       </Link>
     </div>
-  );
+      
+  </div>
+  )
 }
+
