@@ -29,7 +29,7 @@ export default function Administration() {
   const { logStatus } = useSelector((state) => state);
   if (logStatus.logStatus === "master") {
     return (
-      <div className={`bg-white   ${styles.container}`}>
+      <div className={`bg-white ${styles.container}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base font-semibold leading-7 text-indigo-600">
