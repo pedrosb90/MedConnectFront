@@ -20,7 +20,7 @@ const Menu_Medicos = (props) => {
     }
   };
   useEffect(() => {
-    !estadoMed?.length && fetchMedicos();
+    !estadoMed || (estadoMed.length === 0 && fetchMedicos());
   }, [estadoMed]);
 
   const renderMedicos =
