@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
@@ -14,8 +15,9 @@ export default function Registro() {
 
   const request = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:3001/medics");
-      dispatch(getMedicos(res.data));
+      await axios.get("http://localhost:3001/medics",{ withCredentials: true,credentials: 'include'})
+    .then((res)=>{
+      dispatch(getMedicos(res.data))
       setLoading(false);
     } catch (error) {
       alert(error);

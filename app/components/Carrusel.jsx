@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 
-export default function Carrusel_Especialidades() {
+export default function Carrusel() {
   const dispatch = useDispatch();
   const timerRef = useRef(null);
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
@@ -30,7 +30,7 @@ export default function Carrusel_Especialidades() {
 
   useEffect(() => {
     !espec?.length && getEspec();
-  }, [espec, getEspec]);
+  }, [espec]);
 
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
@@ -56,7 +56,7 @@ export default function Carrusel_Especialidades() {
       handlerNext();
     }, 3000);
     return () => clearTimeout(timerRef.current);
-  }, [handlerNext]);
+  }, []);
 
   return (
     <div>
@@ -65,12 +65,12 @@ export default function Carrusel_Especialidades() {
           style={{
             backgroundImage: `url(${espec.length && espec[currentIndex].url})`,
           }}
-          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans "
+          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-4xl font-sans "
         >
           {espec.length && espec[currentIndex].name}
           <Link
             href={`/Especialidades`}
-            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-lg cursor-pointer"
+            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-2xl cursor-pointer"
           >
             <h1>Ver Mas Especialidades</h1>
           </Link>

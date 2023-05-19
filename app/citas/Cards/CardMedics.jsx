@@ -77,6 +77,8 @@ export default function CardMedics({ handleClickMed }) {
                     className="w-10 h-10 mb-2 rounded-full shadow-lg"
                     src="https://thumbs.dreamstime.com/b/imagen-an%C3%B3nima-del-perfil-del-hombre-de-negocios-57594504.jpg"
                     alt="Bonnie image"
+                    width={500}
+                    height={500}
                   />
                   <Link href={`/medicos/${med.id}`}>
                     <h5

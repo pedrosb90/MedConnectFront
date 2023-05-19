@@ -154,8 +154,9 @@
     padding-bottom: 50px;
   }
   .nav_link_mobile span {
-    padding: 8px;
-    width: 120px;
+    
+    padding: 5px;
+    
   }
   .nav_link_mobile span:hover {
     background-color: white;
@@ -174,8 +175,15 @@
   .navbar_scroll {
     height: 10vh;
   }
+  .nav_button_link{
+    font-size: 13px;
+    width: 110%;
+  }
 }
 @media only screen and (max-width: 500px) {
+  .nav_button_link{
+    font-size: 12px;
+  }
   .title {
     font-size: 1em;
 

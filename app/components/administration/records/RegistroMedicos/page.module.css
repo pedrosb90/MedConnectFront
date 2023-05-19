@@ -1,48 +1,19 @@
-.divContainer {
+.container {
   width: 80%;
-  margin-top: 15%;
+  
+  border: 1px solid black;
   margin-left: 10%;
   display: grid;
   grid-column: 15% 25% 60%;
   grid-column-gap: 5px;
+  padding: 0px 15px;
+  border-radius: 10px;
+  background-color: #c7ebf8;
 }
-.table {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  border: 2px solid black;
-}
-.tableHead {
-  border-collapse: collapse;
-  border: 2px solid black;
-  background-color: #032d49;
-  color: #ffffff;
-}
-.idBox {
-  width: 10%;
-  text-align: left;
-}
-.nameBox {
-  width: 20%;
-  text-align: left;
-}
-.lastNameBox {
-  width: 20%;
-  text-align: left;
-}
-.phoneBox {
-  width: 15%;
-}
-.addressBox {
-  width: 35%;
-}
-.tableRow {
-  border-collapse: collapse;
-  border: 1px solid black;
-}
-.tableRow:nth-child(odd) {
-  background-color: #498a94;
-}
-.tableRow:nth-child(even) {
-  background-color: #91c4cd;
+
+.title{
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  margin: 20px;
 }

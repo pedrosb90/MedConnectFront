@@ -53,6 +53,8 @@ export default function Especialidades() {
         <h1 className="text-5xl">ESPECIALIDADES</h1>
         <SearchBar />
       </div>
+
+      
       <div>
         <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
