@@ -21,7 +21,7 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "leaflet": "^1.9.3",
-    "next": "^13.2.3",
+    "next": "^13.4.0",
     "postcss": "^8.4.23",
     "postcss-preset-env": "^8.3.2",
     "rc-field-form": "^1.30.0",
