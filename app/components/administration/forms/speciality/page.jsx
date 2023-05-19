@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 import styles from "./page.module.css";
 import axios from "axios";
 import { Button, Form, Input, Upload } from "antd";
