@@ -2,7 +2,7 @@
 import {Button,Form,Input} from 'antd';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLogStatus } from '@/app/redux/LogReducer';
+import { getLogStatus,userChequer } from '@/app/redux/LogReducer';
 import { useRouter } from 'next/navigation';
 import style from "./login.module.css"
 import Link from 'next/link';
@@ -17,6 +17,7 @@ export default function UserLogin() {
     .then((res)=>{
       if(res.data){
         dispatch(getLogStatus(res.data.data.user.role))
+        dispatch(userChequer(res.data.data))
         router.push("/")
       } 
     })
