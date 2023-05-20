@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const medicsURL = `${backendURL}/medics`;
 
 export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
@@ -10,7 +13,9 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/medics?first_name=${searchValue}`,{email,password},{ withCredentials: true,credentials: 'include'}
+        `${medicsURL}?first_name=${searchValue}`,
+        { email, password },
+        { withCredentials: true, credentials: "include" }
       );
       setSearchResult(response.data);
       setSearchPerformed(true);
@@ -56,8 +61,7 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
             </button>
           ) : (
             <button
-            className=" bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
-
+              className=" bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
               type="button"
               onClick={handleSearch}
               disabled={isSearchDisabled}

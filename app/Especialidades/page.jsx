@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const specializationsURL = `${backendURL}/specializations`;
+console.log(backendURL);
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -19,14 +23,13 @@ export default function Especialidades() {
 
   async function fetchData() {
     try {
-      const response = await axios.get("http://localhost:3001/specializations");
+      const response = await axios.get(specializationsURL);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {
       alert(error.message);
     }
   }
-
   const next = () => {
     if (especialidad.length < data.length) {
       setCurrentEsp(currentEsp + 4);
@@ -35,10 +38,9 @@ export default function Especialidades() {
       setHasMore(false);
     }
   };
-
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData, currentEsp]);
 
   useEffect(() => {
     setData(especialidades);
@@ -55,7 +57,6 @@ export default function Especialidades() {
         <SearchBar />
       </div>
 
-      
       <div>
         <Cards_Especialidades_Display especialidad={especialidad} />
       </div>

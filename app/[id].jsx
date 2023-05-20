@@ -3,7 +3,7 @@ import style from "detail.module.css";
 export default function Detail({ data }) {
   return (
     <div className={style.containAll}>
-      <img src={data.image} alt="NOT FOUND" />
+      <img src={data.image} alt="NOT FOUND" width={500} height={300} />
       <h1>{data.name}</h1>
       <h4>{data.description}</h4>
     </div>

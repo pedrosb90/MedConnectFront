@@ -5,7 +5,7 @@ import Navbar from "./components/navBar/page";
 import { usePathname } from "next/navigation";
 import Admin from "./components/administration/panel/page";
 import { Providers } from "./redux/provider";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +24,7 @@ export default function RootLayout({
   //   axios.get("http://localhost:3001/medics",{ withCredentials: true})
   //   .then((res)=>{
   //     console.log(res.data);
-      
+
   //   })
   // },[])
   const pathname = usePathname();

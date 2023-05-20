@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
+
 export default function Medicos({ data }) {
   const medicosRE = useSelector((state) => state.speciality.AllMedicos);
 
