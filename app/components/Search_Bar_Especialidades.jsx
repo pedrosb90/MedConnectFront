@@ -29,7 +29,6 @@ export default function SearchBar() {
   const handleReset = () => {
     setName("");
     setSearchPerformed(false);
-    dispatch(clearSearch());
     window.location.reload();
   };
   const handleSubmit = (e) => {
