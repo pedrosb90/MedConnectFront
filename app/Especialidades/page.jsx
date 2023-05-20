@@ -10,7 +10,7 @@ import SearchBar from "../components/Search_Bar_Especialidades";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
-console.log(backendURL);
+const local = "http://localhost:3001/specializations";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function Especialidades() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(specializationsURL);
+      const response = await axios.get(local);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {

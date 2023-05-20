@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
+const local = "http://localhost:3001/specializations";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
@@ -17,7 +18,7 @@ export default function CardSpecial() {
   const [especial, setEspecial] = useState([]);
   async function fetchData() {
     try {
-      const response = await axios.get(specializationsURL);
+      const response = await axios.get(local);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {

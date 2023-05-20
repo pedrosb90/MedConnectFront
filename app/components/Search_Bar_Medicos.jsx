@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
+const local = "http://localhost:3001/medics";
 
 export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
@@ -13,7 +14,7 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${medicsURL}?first_name=${searchValue}`,
+        `${local}?first_name=${searchValue}`,
         { email, password },
         { withCredentials: true, credentials: "include" }
       );
