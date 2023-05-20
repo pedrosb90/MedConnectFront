@@ -5,6 +5,7 @@ import axios from "axios";
 import {Button,Form,Input,Upload} from 'antd';
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
+import { SHA1 } from 'crypto-js';
 
 
 export default function SpecialtyForm() {
@@ -13,7 +14,6 @@ export default function SpecialtyForm() {
   const [loading, setLoading] = useState ("")
   const [url, setUrl] = useState("")
   const [publicId, setPublicId] = useState("")
-  const [signature, setSignature] = useState("")
 
 
   
@@ -62,8 +62,7 @@ export default function SpecialtyForm() {
         specificArrayInObject.push(fileURL);
         const newobj ={...image, specificArrayInObject};
         setImage(newobj)
-        setPublicId(JSON.stringify(data.public_id))
-        setSignature(JSON.stringify(data.signature))
+        setPublicId(data.public_id)
         
       })
     })
@@ -73,17 +72,41 @@ export default function SpecialtyForm() {
 
   }
 
+  const generateSHA1 = (data) => {
+    return SHA1(data).toString();
+  };
+
+  const generateSinature = (publicId, apiSecret) =>{
+    const timestamp = new Date().getTime()
+    return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`
+  }
+
 
   const  deleteImag = async ()=>{
-    const formData =  new  FormData();
-    formData.append("public_id", `${publicId}`)
-    formData.append("signature", `${signature}`)
-    formData.append("api_key", "977319699313977");
-    formData.append("timestamp", (Date.now() /1000) | 0);
-    return await axios.post("https://api.cloudinary.com/v1_1/dipgqcdtq/image/destroy", formData)
+    
+      const url = "https://api.cloudinary.com/v1_1/dipgqcdtq/image/destroy";
+      const timestamp = new Date().getTime();
+      const apiKey ="977319699313977";
+      const apiSecret ="45snDqDmumENYPAmz0UET_PYGH4";
+      const signature = generateSHA1(generateSinature(publicId, apiSecret));
+
+
+      try {
+        const response = await axios.post(url, {
+          public_id: publicId,
+          signature: signature,
+          api_key: apiKey,
+          timestamp: timestamp,
+        });
+        setImage({array:[]})
+        console.log(response);
+      } catch (error) {
+        console.error(error)
+        
+      }
     
     
-  }
+  };
 
   function imagePreview (){
     if(loading === "true"){

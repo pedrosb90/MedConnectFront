@@ -10,6 +10,8 @@ export default function Navbar() {
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
 
+  console.log("estado usuario",logStatus.userStatus);
+
   const onActive = () => {
     setClick(!click);
   };
@@ -48,15 +50,15 @@ export default function Navbar() {
         <Link href={espe.route} className={styles.links}>
           <span>Especialidades</span>
         </Link>
-        {logStatus.logStatus === "master" ? (
+        {logStatus.logStatus === "admin" ? (
           <Link href={admin.route} className={styles.links}>
             <span>{admin.label}</span>
           </Link>
         ) : null}
       </nav>
-      <Link as={UserLogin.route} href={UserLogin.route}>
+      {logStatus.userStatus ? <p style={{color:"white"}}>{`${logStatus.userStatus.first_name} ${logStatus.userStatus.last_name}`}</p>: <Link as={UserLogin.route} href={UserLogin.route}>
         <button className={styles.nav_button}>{UserLogin.label}</button>
-      </Link>
+      </Link>}
       <div></div>
       <button className={styles.barras} onClick={onActive}>
         <svg
