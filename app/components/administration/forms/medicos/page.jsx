@@ -7,7 +7,7 @@ import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
 const backendURL = process.env.PUBLIC_BACKEND_URL;
 const createMedicURL = `${backendURL}/medics/create`;
-const registerURL = `${backendURL}/medics/create`;
+const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
   const { logStatus } = useSelector((state) => state);

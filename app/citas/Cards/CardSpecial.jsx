@@ -7,13 +7,16 @@ import { getSpeciality } from "../../redux/reducer";
 import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
+
 export default function CardSpecial() {
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [especial, setEspecial] = useState([]);
   async function fetchData() {
     try {
-      const response = await axios.get("http://localhost:3001/specializations");
+      const response = await axios.get(specializationsURL);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {
