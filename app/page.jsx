@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <main>
-      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
+      {showMenu && <Search_Bar_Medicos />}
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
 

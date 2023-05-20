@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { searchMedic, getMedicos, clearSearchMedic } from "../redux/reducer";
+
 import { useDispatch, useSelector } from "react-redux";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 const local = "http://localhost:3001/medics";
 
-export default function Search_Bar_Medicos({ setSearchResult }) {
+export default function Search_Bar_Medicos() {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
   const dispatch = useDispatch();
@@ -14,11 +16,11 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${local}?first_name=${searchValue}`,
-        { email, password },
-        { withCredentials: true, credentials: "include" }
+        `${local}?first_name=${searchValue}`
+        // { email, password },
+        // { withCredentials: true, credentials: "include" }
       );
-      setSearchResult(response.data);
+      dispatch(searchMedic(response.data));
       setSearchPerformed(true);
     } catch (error) {
       alert(error);
@@ -30,8 +32,9 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
 
   const handleReset = () => {
     setSearchValue("");
-    setSearchResult([]);
     setSearchPerformed(false);
+    dispatch(clearSearchMedic());
+    dispatch(getMedicos());
   };
   const handleSubmit = (e) => {
     e.preventDefault();
