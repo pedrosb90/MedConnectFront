@@ -11,6 +11,7 @@ import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
+const local = "http://localhost:3001/specializations";
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);
@@ -20,7 +21,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`${specializationsURL}/${id}`);
+      const response = await axios.get(`${local}/${id}`);
 
       dispatch(getId(response.data.data));
     } catch (error) {

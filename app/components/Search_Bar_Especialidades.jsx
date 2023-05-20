@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
+const local = "http://localhost:3001/specializations";
 
 export default function SearchBar() {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ export default function SearchBar() {
   async function fetchData(e) {
     try {
       e.preventDefault();
-      const response = await axios.get(`${specializationsURL}?name=${name}`);
+      const response = await axios.get(`${local}?name=${name}`);
       dispatch(searchBar(response.data));
     } catch (error) {
       alert(error.message);
