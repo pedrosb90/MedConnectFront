@@ -5,6 +5,9 @@ import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+
 export default function Page() {
   const [data, setData] = useState({});
 
@@ -12,7 +15,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`http://localhost:3001/medics/${id}`);
+      const response = await axios.get(`${medicsURL}/${id}`);
       setData(response.data);
     } catch (error) {
       alert(error.message);

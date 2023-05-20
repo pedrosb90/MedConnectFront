@@ -18,8 +18,11 @@ export default function Carrusel_Especialidades() {
 
   async function getEspec() {
     try {
-      const URL = "http://localhost:3001";
-      const respo = await axios.get(`${URL}/specializations`,{ withCredentials: true,credentials: 'include'});
+      const backendURL = process.env.PUBLIC_BACKEND_URL;
+      const respo = await axios.get(`${backendURL}/specializations`, {
+        withCredentials: true,
+        credentials: "include",
+      });
       console.log(respo.data);
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);

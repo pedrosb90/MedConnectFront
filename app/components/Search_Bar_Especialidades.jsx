@@ -2,6 +2,8 @@ import { useState } from "react";
 import { searchBar } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
 
 export default function SearchBar() {
   const [name, setName] = useState("");
@@ -15,9 +17,7 @@ export default function SearchBar() {
   async function fetchData(e) {
     try {
       e.preventDefault();
-      const response = await axios.get(
-        `http://localhost:3001/specializations?name=${name}`
-      );
+      const response = await axios.get(`${specializationsURL}?name=${name}`);
       dispatch(searchBar(response.data));
     } catch (error) {
       alert(error.message);
