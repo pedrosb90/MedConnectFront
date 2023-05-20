@@ -15,10 +15,9 @@ export default function Registro() {
 
   const request = async () => {
     try {
-      await axios.get("http://localhost:3001/medics").then((res) => {
-        dispatch(getMedicos(res.data));
-        setLoading(false);
-      });
+      const response = await axios.get("http://localhost:3001/medics");
+      dispatch(getMedicos(response.data));
+      setLoading(false);
     } catch (error) {
       alert(error);
     }
