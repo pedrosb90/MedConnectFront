@@ -13,14 +13,12 @@ export default function Home() {
   const [searchResult, setSearchResult] = useState([]);
 
   const toggleMenu = () => {
-    setShowMenu(!props.showMenu);
+    setShowMenu(!showMenu);
   };
 
   return (
     <main>
-      {props.showMenu && (
-        <Search_Bar_Medicos setSearchResult={setSearchResult} />
-      )}
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
 
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
@@ -29,13 +27,13 @@ export default function Home() {
           {" "}
           <button
             className={`buttonMed absolute top-16 left-14 text-sm rounded-lg w-24 h-10 ${
-              props.showMenu
+              showMenu
                 ? "font-size text-white bg-cimPallete-600"
                 : "font-size text-white bg-cimPallete-800 left-10"
             }`}
             onClick={toggleMenu}
           >
-            {props.showMenu ? " Cerrar " : "Medicos"}
+            {showMenu ? " Cerrar " : "Medicos"}
           </button>
           <Link href="/citas">
             <button className="buttonAgendar bg-cimPallete-800">
