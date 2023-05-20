@@ -72,7 +72,6 @@ export default function Registro() {
             </div>
           </button>
         )}
-
         <List
           className={style.container + " demo-loadmore-list"}
           loading={loading}
