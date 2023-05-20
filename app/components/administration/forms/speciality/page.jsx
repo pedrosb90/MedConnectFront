@@ -90,6 +90,7 @@ export default function SpecialtyForm() {
             ? "No Hay imagenes"
             : image.array.map((items, index) => (
                 <img
+                  key={index}
                   alt="Imagen"
                   // className="h-16 w-28 pr-4 bg-cover "
                   style={{
