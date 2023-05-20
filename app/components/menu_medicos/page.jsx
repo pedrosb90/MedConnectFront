@@ -7,7 +7,7 @@ import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 
-export default function Menu_Medicos({ showMenu, searchResult }) {
+export default function Menu_Medicos() {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
