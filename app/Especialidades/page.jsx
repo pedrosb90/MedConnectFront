@@ -40,7 +40,7 @@ export default function Especialidades() {
   };
   useEffect(() => {
     fetchData();
-  }, [fetchData, currentEsp]);
+  }, [currentEsp]);
 
   useEffect(() => {
     setData(especialidades);
@@ -53,7 +53,9 @@ export default function Especialidades() {
   return (
     <div>
       <div className="w-full">
-        <h1 className="text-5xl">ESPECIALIDADES</h1>
+        <h1 className="m-8 text-4xl font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+          ESPECIALIDADES
+        </h1>
         <SearchBar />
       </div>
 
