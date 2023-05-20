@@ -9,9 +9,6 @@ import { useSelector } from "react-redux";
 export default function Navbar() {
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
-
-  console.log("estado usuario",logStatus.userStatus);
-
   const onActive = () => {
     setClick(!click);
   };
