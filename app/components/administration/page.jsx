@@ -2,9 +2,6 @@
 import { useSelector } from "react-redux";
 import styles from "./page.module.css";
 
-import { useSelector } from "react-redux";
-import styles from "./page.module.css";
-
 export default function Administration() {
   const { logStatus } = useSelector((state) => state);
 
