@@ -5,7 +5,8 @@ import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Page() {

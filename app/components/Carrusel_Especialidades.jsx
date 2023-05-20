@@ -8,7 +8,8 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function Carrusel_Especialidades() {
         withCredentials: true,
         credentials: "include",
       });
+
       console.log(respo.data);
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
