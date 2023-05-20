@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
+const local = "http://localhost:3001/medics";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 
@@ -20,7 +21,7 @@ export default function CardMedics({ handleClickMed }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(medicsURL);
+      const response = await axios.get(local);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);

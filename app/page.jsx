@@ -107,8 +107,7 @@ export default function Home() {
           <div className="flex flex-col justify-center items-center"></div>
         </div>
       </div>
-      <Menu_Medicos />
-      {/* showMenu={showMenu} searchResult={searchResult} */}
+      <Menu_Medicos showMenu={showMenu} />
     </main>
   );
 }

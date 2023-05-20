@@ -10,6 +10,7 @@ import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
+const local = "http://localhost:3001";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function Carrusel_Especialidades() {
 
   async function getEspec() {
     try {
-      const respo = await axios.get(`${backendURL}/specializations`, {
+      const respo = await axios.get(`${local}/specializations`, {
         withCredentials: true,
         credentials: "include",
       });

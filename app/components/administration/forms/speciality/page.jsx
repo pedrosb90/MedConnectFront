@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
+const local = "http://localhost:3001/specializations";
 const backendURL = process.env.PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;
 
@@ -30,7 +31,7 @@ export default function SpecialtyForm() {
     // formData.append("description", description);
 
     axios
-      .post(specializationsURL, body)
+      .post(local, body)
       .then((response) => {
         // Código para manejar la respuesta en caso de éxito
         alert("Registro exitoso");
