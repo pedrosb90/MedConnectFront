@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+// const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 console.log(backendURL);
 

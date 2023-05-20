@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
+// const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 
-const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Medicos({ data }) {

@@ -7,8 +7,8 @@ import { getMedicos } from "@/app/redux/reducer";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+// const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 
 export default function CardMedics({ handleClickMed }) {
