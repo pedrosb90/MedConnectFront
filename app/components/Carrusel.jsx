@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 
 export default function Carrusel() {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ export default function Carrusel() {
 
   async function getEspec() {
     try {
-      const backendURL = process.env.PUBLIC_BACKEND_URL;
       const respo = await axios.get(`${backendURL}/specializations`, {
         withCredentials: true,
         credentials: "include",
