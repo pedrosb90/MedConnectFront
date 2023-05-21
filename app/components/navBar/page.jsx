@@ -56,7 +56,7 @@ export default function Navbar() {
           </Link>
         ) : null}
       </nav>
-      {logStatus.userStatus ? <p style={{color:"white"}}>{`${logStatus.userStatus.first_name} ${logStatus.userStatus.last_name}`}</p>: <Link as={UserLogin.route} href={UserLogin.route}>
+      {logStatus.userStatus ? <Link href=""><p style={{color:"white"}}>{`${logStatus.userStatus.first_name} ${logStatus.userStatus.last_name}`}</p></Link>: <Link as={UserLogin.route} href={UserLogin.route}>
         <button className={styles.nav_button}>{UserLogin.label}</button>
       </Link>}
       <div></div>
