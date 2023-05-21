@@ -11,7 +11,6 @@ export default function Navbar() {
   const { logStatus } = useSelector((state) => state);
   const userGoogle = useSelector((state) => state.login.userGoogle);
   const userLocal = useSelector((state) => state.login.userLocal);
-
   const onActive = () => {
     setClick(!click);
   };

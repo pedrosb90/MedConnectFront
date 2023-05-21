@@ -7,14 +7,14 @@ import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 
-export default function CardMed({ showMenu, searchResult }) {
+export default function Menu_Medicos({ showMenu }) {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics",{email,password},{ withCredentials: true,credentials: 'include'});
+      const response = await axios.get("http://localhost:3001/medics");
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
@@ -24,17 +24,15 @@ export default function CardMed({ showMenu, searchResult }) {
     !estadoMed?.length && fetchMedicos();
   }, [estadoMed]);
 
-  const renderMedicos = searchResult.length > 0 ? searchResult : estadoMed;
-
   return (
     <div className={showMenu ? styles.container : styles.cont_on}>
       <div className={styles.med_box}>
         <ul>
-          {renderMedicos.map((med) => {
+          {estadoMed.map((med) => {
             return (
-              <li key={med.id} className={styles.medico} >
-                <Link href={`/medicos/${med.id}`} >
-                  <p className="font-normal font-sans text-sm flex flex-wrap my-2 ">
+              <span key={med.id}>
+                <Link href={`/medicos/${med.id}`}>
+                  <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-14 font-sans text-white font-thin"
@@ -55,9 +53,9 @@ export default function CardMed({ showMenu, searchResult }) {
                     Dr. {med.first_name}
                     <br />
                     {med.last_name}
-                  </p>
+                  </li>
                 </Link>
-              </li>
+              </span>
             );
           })}
         </ul>

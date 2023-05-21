@@ -8,6 +8,9 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const local = "http://localhost:3001";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -18,8 +21,11 @@ export default function Carrusel_Especialidades() {
 
   async function getEspec() {
     try {
-      const URL = "http://localhost:3001";
-      const respo = await axios.get(`${URL}/specializations`,{ withCredentials: true,credentials: 'include'});
+      const respo = await axios.get(`${local}/specializations`, {
+        withCredentials: true,
+        credentials: "include",
+      });
+
       console.log(respo.data);
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
@@ -30,7 +36,7 @@ export default function Carrusel_Especialidades() {
 
   useEffect(() => {
     !espec?.length && getEspec();
-  }, [espec]);
+  }, [espec, getEspec]);
 
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
@@ -56,7 +62,7 @@ export default function Carrusel_Especialidades() {
       handlerNext();
     }, 3000);
     return () => clearTimeout(timerRef.current);
-  }, []);
+  }, [handlerNext]);
 
   return (
     <div>
