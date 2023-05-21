@@ -10,6 +10,13 @@
 // const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 // const medicsURL = `${backendURL}/medics`;
 
+// Dummy code placeholder
+const DummyComponentLogin = () => {
+  return <div>aca iria LOGIN</div>;
+};
+
+export default DummyComponentLogin;
+
 // export default function UserLogin() {
 //   const { logStatus, speciality } = useSelector((state) => state);
 //   const [registered, setRegistered] = useState(false);
