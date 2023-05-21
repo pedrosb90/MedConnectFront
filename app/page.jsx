@@ -3,14 +3,66 @@ import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
 import Menu_Medicos from "./components/menu_medicos/page";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
+// ---------------------------------------------------
+import axios from "axios";
+import { getUser } from "@/app/redux/login";
+import { getLocalUser } from "@/app/redux/login";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/auth/login/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log(resObject);
+        dispatch(getUser(resObject.user));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetch("http://localhost:3001/auth/loginn/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log(resObject);
+        dispatch(getLocalUser(resObject.user));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -35,7 +87,11 @@ export default function Home() {
           >
             {showMenu ? " Cerrar " : "Medicos"}
           </button>
-         <Link href='/citas'><button className='buttonAgendar bg-cimPallete-800'>Agendar cita</button></Link> 
+          <Link href="/citas">
+            <button className="buttonAgendar bg-cimPallete-800">
+              Agendar cita
+            </button>
+          </Link>
         </div>
         <div className="flex items-center justify-center h-full w-full p--20 m--20 rounded-lg ">
           <Image

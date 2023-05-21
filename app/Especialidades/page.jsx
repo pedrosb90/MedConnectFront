@@ -55,7 +55,6 @@ export default function Especialidades() {
         <SearchBar />
       </div>
 
-      
       <div>
         <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
