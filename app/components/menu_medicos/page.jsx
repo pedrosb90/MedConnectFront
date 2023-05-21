@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
 
 export default function Menu_Medicos({ showMenu }) {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ export default function Menu_Medicos({ showMenu }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics");
+      const response = await axios.get(medicsURL);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);

@@ -3,9 +3,8 @@ import { searchBar, clearSearch, getSpeciality } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-// const backendURL = "https://medconnectback-production.up.railway.app";
-// const specialitiesURL = `${backendURL}/specializations`;
-const local = "http://localhost:3001/specializations";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const specsURL = `${backendURL}/specializations`;
 
 export default function SearchBar() {
   const [name, setName] = useState("");
@@ -15,7 +14,7 @@ export default function SearchBar() {
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`${local}?name=${name}`);
+      const response = await axios.get(`${specsURL}?name=${name}`);
       dispatch(searchBar(response.data));
       setSearchPerformed(true);
     } catch (error) {
@@ -29,7 +28,6 @@ export default function SearchBar() {
   const handleReset = () => {
     setName("");
     setSearchPerformed(false);
-    dispatch(clearSearch());
     window.location.reload();
   };
   const handleSubmit = (e) => {

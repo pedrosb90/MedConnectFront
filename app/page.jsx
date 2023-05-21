@@ -10,7 +10,6 @@ import Menu_Medicos from "./components/menu_medicos/page";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -18,7 +17,7 @@ export default function Home() {
 
   return (
     <main>
-      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
+      {showMenu && <Search_Bar_Medicos />}
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
 

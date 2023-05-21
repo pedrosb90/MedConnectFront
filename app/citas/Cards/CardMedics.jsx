@@ -7,9 +7,7 @@ import { getMedicos } from "@/app/redux/reducer";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "http://localhost:3001/medics";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
 export default function CardMedics({ handleClickMed }) {
@@ -21,7 +19,7 @@ export default function CardMedics({ handleClickMed }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(local);
+      const response = await axios.get(medicsURL);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
