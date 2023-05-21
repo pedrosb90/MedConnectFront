@@ -1,5 +1,5 @@
 "use client"
-import { Calendar, Alert, Col, Radio, Row, Select, Typography, theme } from 'antd';
+import { Calendar, Col, Row, Select, Typography, theme } from 'antd';
 const dayjs = require('dayjs');
 const es = require('dayjs/locale/es'); 
 import dayLocaleData from 'dayjs/plugin/localeData';
@@ -8,11 +8,8 @@ import { useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { getSpeciality } from '@/app/redux/reducer';
 import axios from 'axios';
-import { getMedicos } from '@/app/redux/reducer';
-import {useEffect, useState } from 'react';
-import FormItem from 'antd/es/form/FormItem';
 import { useRouter } from 'next/navigation';
-import styles from './page.module.css'
+import  style from "./calendar.module.css"
 
 const Turnos = () => {
   // let day = date["$d"].getDay()
@@ -23,9 +20,7 @@ const Turnos = () => {
   const [selectedValue, setSelectedValue] = useState();
     const dispatch = useDispatch()
     const {AllSpecial} = useSelector(state => state.speciality)
-    let check = false
     const { token } = theme.useToken();
-    const specialityDay = [];
 
 const randomDay = () => {
   const randomIndex = Math.floor(Math.random() * 7);
@@ -41,12 +36,6 @@ const añadirDia = async () => {
   dispatch(getSpeciality(test));
 };
 
-const auxFunc = () => {
-  const updatedSpecialityDay = AllSpecial.map((obj) => {
-    return { [obj.selectedDay]: obj.name };
-  });
-  specialityDay.splice(0, specialityDay.length, ...updatedSpecialityDay);
-};
 
 useEffect(() => {
   if (!AllSpecial.length) {
@@ -54,11 +43,6 @@ useEffect(() => {
   }
 }, [AllSpecial]);
 
-useEffect(() => {
-  auxFunc();
-}, [AllSpecial]);
-
-console.log(specialityDay);
 
           const onSelect = (newValue) => {
             setValue(newValue);
@@ -71,29 +55,24 @@ console.log(specialityDay);
             console.log(newValue.format('DD-MM-YYYY'));
           };
           
-          const disabledDate = async (current) => {
+          const disabledDate = (current) => {
           // Deshabilitar las fechas anteriores al día de hoy
-          if(specialityDay.length){
-            console.log(await specialityDay?.filter((obj) => obj))
-            if (!current.isBefore(today.startOf('day')) || !specialityDay.filter((obj) => Object.keys(obj).includes(current.day()))) {
-              return false;
-            }return true;
+          // if(AllSpecial.length){
+          //   return AllSpecial.forEach(element => {
+          //    return !(current.day() === 2 && element.selectedDay === 2)
+          //   });
+          // };
+          return current && current.day() === 0
           }
-        };
-  
+
       
 
-        const wrapperStyle = {
-          width: 300,
-          border: `1px solid ${token.colorBorderSecondary}`,
-          borderRadius: token.borderRadiusLG,
-        };
-        
         return (
           <>
         {/* <Alert message={`Seleccionaste la fecha: ${selectedValue?.format('DD-MM-YYYY')}`} /> */}
-        <div style={wrapperStyle}>
+        <div className={style.container}>
       <Calendar
+      className={style.calendar}
         fullscreen={false}
         headerRender={({ value, type, onChange, onTypeChange }) => {
           const start = 0;
@@ -119,6 +98,7 @@ console.log(specialityDay);
           const month = value.month();      
           return (
             <div
+            className={style.calendarHeader}
               style={{
                 padding: 8,
               }}
