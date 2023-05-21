@@ -1,4 +1,6 @@
 import style from "detail.module.css";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
 
 export default function Detail({ data }) {
   return (
@@ -11,7 +13,7 @@ export default function Detail({ data }) {
 }
 export async function getStaticPaths() {
   try {
-    const res = await fetch("http://localhost:3001/specializations");
+    const res = await fetch(specializationsURL);
     const data = await res.json();
     const paths = data.map(({ id }) => ({ params: { id: `${id}` } }));
 

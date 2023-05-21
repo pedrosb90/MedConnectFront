@@ -5,7 +5,9 @@ import axios from "axios";
 import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+
+const local = "http://localhost:3001/specializations";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {

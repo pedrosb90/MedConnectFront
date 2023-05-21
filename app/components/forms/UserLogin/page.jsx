@@ -6,7 +6,7 @@ import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
 import { useRouter } from "next/navigation";
 import style from "./login.module.css";
 import Link from "next/link";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const login = `${backendURL}/auth/login`;
 
 export default function UserLogin() {

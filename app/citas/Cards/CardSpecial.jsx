@@ -7,7 +7,7 @@ import { getSpeciality } from "../../redux/reducer";
 import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 // const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 

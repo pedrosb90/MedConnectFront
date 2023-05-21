@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSpeciality } from "@/app/redux/reducer";
 import axios from "axios";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+// const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
 const Turnos = () => {

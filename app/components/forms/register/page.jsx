@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
+const local = "http://localhost:3001/auth/register";
 
 export default function UserLogin() {
   const { logStatus } = useSelector((state) => state);

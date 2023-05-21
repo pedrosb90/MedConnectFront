@@ -1,13 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import style from "./page.module.css";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
 
 export default function SpeRecords() {
   const [specialties, setSpecialty] = useState([]);
 
   useEffect(() => {
     async function fetchSpecialty() {
-      const res = await fetch("http://localhost:3001/specializations");
+      const res = await fetch(specializationsURL);
       const data = await res.json();
       setSpecialty(data);
     }

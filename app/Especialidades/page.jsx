@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 // const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
-console.log(backendURL);
+const local = "http://localhost:3001/specializations";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export default function Especialidades() {
   };
   useEffect(() => {
     fetchData();
-  }, [fetchData, currentEsp]);
+  }, [currentEsp]);
 
   useEffect(() => {
     setData(especialidades);
@@ -53,7 +53,9 @@ export default function Especialidades() {
   return (
     <div>
       <div className="w-full">
-        <h1 className="text-5xl">ESPECIALIDADES</h1>
+        <h1 className="m-8 text-4xl font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+          ESPECIALIDADES
+        </h1>
         <SearchBar />
       </div>
 

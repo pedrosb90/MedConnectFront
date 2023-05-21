@@ -4,7 +4,7 @@ import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
 // const backendURL = "https://medconnectback-production.up.railway.app";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const medicsURL = `${backendURL}/medics`;
 
