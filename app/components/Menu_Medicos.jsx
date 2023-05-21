@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "../components/menu_medicos/page.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getMedicos } from "@/app/redux/reducer";
@@ -9,7 +9,7 @@ import Link from "next/link";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
-export default function Menu_Medicos() {
+export default function Menu_Medicos({ showMenu }) {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
