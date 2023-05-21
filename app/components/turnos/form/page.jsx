@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
 import { use, useEffect, useState } from "react";
-import FormItem from "antd/es/form/FormItem";
+import { FormItem } from "antd/lib/form";
 import { useRouter } from "next/navigation";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
