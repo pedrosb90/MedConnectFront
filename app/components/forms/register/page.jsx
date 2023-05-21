@@ -4,10 +4,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
-<<<<<<< HEAD
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-=======
->>>>>>> upstream/main
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
 

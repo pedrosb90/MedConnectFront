@@ -5,12 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
-<<<<<<< HEAD
-const backendURL = process.env.PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
-=======
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
->>>>>>> upstream/main
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
