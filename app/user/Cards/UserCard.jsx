@@ -36,7 +36,7 @@ const [alert,setAlert]=useState(false)
 const FinishFailed=async()=>{
   if (contador === 2) {
     setAlert(!alert)
-    await axios.delete('localhost:3001/patients/2')
+    // await axios.delete('localhost:3001/patients/2')
     setContador(1);
   } else {
     setContador(contador + 1);
