@@ -31,6 +31,7 @@ export const medicalReducer = createSlice({
       const data = action.payload;
       state.AllSpecial = [...data];
     },
+    
     searchMedic: (state, action) => {
       const medics = action.payload;
       state.AllMedicos = [...medics];
@@ -51,4 +52,5 @@ export const {
   clearSearchMedic,
 } = medicalReducer.actions;
 
-export default medicalReducer.reducer;
+
+export default medicalReducer.reducer
