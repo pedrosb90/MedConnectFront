@@ -1,8 +1,8 @@
 "use client";
-import { use, useState } from "react";
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
-import {Button,Form,Input,Upload} from 'antd';
+import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
 import { SHA1 } from 'crypto-js';
@@ -20,20 +20,22 @@ export default function SpecialtyForm() {
 
   const onSubmit = (values) => {
     setRegistered(!registered);
-    const {description,name} = values
+    const { description, name } = values;
 
     const body = {
-      description, name, url
-    }
+      description,
+      name,
+      url,
+    };
     console.log(body);
     
 
     axios
-      .post("http://localhost:3001/specializations", body)
+      .post(local, body)
       .then((response) => {
         // Código para manejar la respuesta en caso de éxito
         alert("Registro exitoso");
-        event.target.reset()
+        event.target.reset();
       })
       .catch((error) => {
         // Código para manejar la respuesta en caso de error
@@ -41,14 +43,14 @@ export default function SpecialtyForm() {
       });
   };
 
-  const handleDrop =  (files)=>{
-    const uploaders = files.map(async (file)=>{
-      const formData =  new  FormData();
+  const handleDrop = (files) => {
+    const uploaders = files.map(async (file) => {
+      const formData = new FormData();
       formData.append("file", file);
       formData.append("tags", `codeinfuse, medium, gist`);
       formData.append("upload_preset", "MedConnect");
       formData.append("api_key", "977319699313977");
-      formData.append("timestamp", (Date.now() /1000) | 0);
+      formData.append("timestamp", (Date.now() / 1000) | 0);
       setLoading("true");
       return  axios.post("https://api.cloudinary.com/v1_1/dipgqcdtq/image/upload", formData, {
         headers: {"X-Requested-With": "XMLHttpRequest"},
@@ -108,12 +110,11 @@ export default function SpecialtyForm() {
     
   };
 
-  function imagePreview (){
-    if(loading === "true"){
-      return <h3>Cargando Imagenes...</h3>
-
+  function imagePreview() {
+    if (loading === "true") {
+      return <h3>Cargando Imagenes...</h3>;
     }
-    if (loading === "false"){
+    if (loading === "false") {
       return (
         <h3>
           {image.array.length <=0
@@ -128,12 +129,12 @@ export default function SpecialtyForm() {
             ))
         }
         </h3>
-      ) 
-
+      );
     }
   }
 
-  return(
+  return (
+        
 
   <div className={styles.container}>
         <h1 className={styles.title}>Añadir Especialidad</h1>
@@ -191,5 +192,4 @@ export default function SpecialtyForm() {
             </Form>
         </div>
   )
-
 }

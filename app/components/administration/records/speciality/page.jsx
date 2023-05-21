@@ -1,9 +1,8 @@
-
 "use client";
 import { useState, useEffect } from "react";
 import style from "./page.module.css";
 
-export default function speRecords() {
+export default function SpeRecords() {
   const [specialties, setSpecialty] = useState([]);
 
   useEffect(() => {

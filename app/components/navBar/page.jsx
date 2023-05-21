@@ -9,9 +9,8 @@ import { useSelector } from "react-redux";
 export default function Navbar() {
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
-
-  console.log("estado usuario",logStatus.userStatus);
-
+  const userGoogle = useSelector((state) => state.login.userGoogle);
+  const userLocal = useSelector((state) => state.login.userLocal);
   const onActive = () => {
     setClick(!click);
   };
@@ -32,12 +31,23 @@ export default function Navbar() {
       label: "Especialidades",
       route: "/Especialidades",
     },
+    {
+      label: "Cerrar Sesion",
+      route: "/",
+    },
   ];
   const home = links[0];
   const UserLogin = links[1];
   const admin = links[2];
   const espe = links[3];
+  const UserLogout = links[4];
 
+  const logoutGoogle = () => {
+    window.open("http://localhost:3001/auth/logout", "_self");
+  };
+  const logoutLocal = () => {
+    window.open("http://localhost:3001/auth/logoutLocal", "_self");
+  };
   return (
     <div className={styles.navbar_scroll}>
       <Image src={img} className={styles.icono} alt="fondo"></Image>
@@ -56,9 +66,44 @@ export default function Navbar() {
           </Link>
         ) : null}
       </nav>
-      {logStatus.userStatus ? <Link href=""><p style={{color:"white"}}>{`${logStatus.userStatus.first_name} ${logStatus.userStatus.last_name}`}</p></Link>: <Link as={UserLogin.route} href={UserLogin.route}>
-        <button className={styles.nav_button}>{UserLogin.label}</button>
-      </Link>}
+      {Object.keys(userGoogle).length !== 0 ||
+      Object.keys(userLocal).length !== 0 ? (
+        <div>
+          {userLocal && Object.keys(userLocal).length !== 0 && (
+            <p
+              style={{ color: "white" }}
+            >{`${userLocal.first_name} ${userLocal.last_name}`}</p>
+          )}
+          {userGoogle && Object.keys(userGoogle).length !== 0 && (
+            <>
+              <p className="text-white">{`${userGoogle.displayName}`}</p>
+              {userGoogle.photos && userGoogle.photos.length > 0 && (
+                <img src={userGoogle.photos[0].value} alt="" />
+              )}
+            </>
+          )}
+          {Object.keys(userLocal).length !== 0 && (
+            <Link as={UserLogout.route} href={UserLogout.route}>
+              <button className={styles.nav_button} onClick={logoutLocal}>
+                {UserLogout.label}
+              </button>
+            </Link>
+          )}
+
+          {Object.keys(userGoogle).length !== 0 && (
+            <Link as={UserLogout.route} href={UserLogout.route}>
+              <button className={styles.nav_button} onClick={logoutGoogle}>
+                {UserLogout.label}
+              </button>
+            </Link>
+          )}
+        </div>
+      ) : (
+        <Link as={UserLogin.route} href={UserLogin.route}>
+          <button className={styles.nav_button}>{UserLogin.label}</button>
+        </Link>
+      )}
+
       <div></div>
       <button className={styles.barras} onClick={onActive}>
         <svg
@@ -72,17 +117,16 @@ export default function Navbar() {
       </button>
 
       <nav className={click ? styles.nav_link_mobile : styles.nav_link_off}>
-        <Link href={home.route} >
+        <Link href={home.route}>
           <span>{home.label}</span>
         </Link>
-        <Link href={espe.route} >
+        <Link href={espe.route}>
           <span>{espe.label}</span>
         </Link>
         <Link href={admin.route}>
-        <span>{admin.label}
-          </span>
+          <span>{admin.label}</span>
         </Link>
-        <Link href={UserLogin.route} >
+        <Link href={UserLogin.route}>
           <button className={styles.nav_button_link}>{UserLogin.label}</button>
         </Link>
       </nav>

@@ -1,53 +1,84 @@
 import { useState } from "react";
-import { searchBar } from "../redux/reducer";
+import { searchBar, clearSearch, getSpeciality } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
+// const backendURL = "https://medconnectback-production.up.railway.app";
+// const specialitiesURL = `${backendURL}/specializations`;
+const local = "http://localhost:3001/specializations";
+
 export default function SearchBar() {
   const [name, setName] = useState("");
+  const [searchPerformed, setSearchPerformed] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
-    setName(event.target.value);
-  };
-
-  async function fetchData(e) {
     try {
-      e.preventDefault();
-      const response = await axios.get(
-        `http://localhost:3001/specializations?name=${name}`
-      );
+      const response = await axios.get(`${local}?name=${name}`);
       dispatch(searchBar(response.data));
+      setSearchPerformed(true);
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleReset = () => {
+    setName("");
+    setSearchPerformed(false);
+    window.location.reload();
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
+  const isSearchDisabled = name === "";
 
   return (
-    <div className="flex justify-center">
-      <div className="flex gap-1">
-        <input
-          type="text"
-          placeholder="Enter a specialty"
-          onChange={handleSearch}
-          value={name}
-          className="p-2 mr-1 border border-black bg-[#dedcdc] mb-2 text-base rounded-md "
-        />
-        <button
-          className="text-[rgba(255, 255, 255, 0.62)] mb-2 border border-black bg-[#dedcdc] rounded-md px-4 py-2 cursor-pointer"
-          onClick={(e) => fetchData(e)}
-        >
-          SEARCH
-        </button>
-        <button
-          className="text-[rgba(255, 255, 255, 0.62)] mb-2 border border-black bg-[#dedcdc] rounded-md px-4 py-2 cursor-pointer"
-          onClick={() => {
-            window.location.reload();
-          }}
-        >
-          RESET
-        </button>
+    <div className="flex z-20 fixed left-96 relative">
+      <div className="bg-gray-800 py-2 px-6 flex items-center space-x-4 gap-5 rounded-md">
+        <form onSubmit={handleSubmit}>
+          {" "}
+          <input
+            className="py-1 px-2 rounded-md"
+            type="text"
+            placeholder="Especialidad..."
+            value={name}
+            style={{ width: "160px" }}
+            onChange={handleChange}
+          />
+          {searchPerformed ? (
+            <button
+              className="bg-red-500 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+              onClick={handleReset}
+              type="submit"
+            >
+              Borrar
+            </button>
+          ) : (
+            <button
+              className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+              onClick={handleSearch}
+              disabled={isSearchDisabled}
+              type="button"
+            >
+              Buscar
+            </button>
+          )}{" "}
+        </form>
+
+        <div className="flex space-x-4">
+          <h5 className="flex items-center self-center text-white">Ordenar:</h5>
+          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
+            Disponibilidad
+          </button>
+          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
+            A - Z{" "}
+          </button>
+        </div>
       </div>
     </div>
   );

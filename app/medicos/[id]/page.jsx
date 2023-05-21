@@ -4,14 +4,20 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
-export default function page() {
+import Image from "next/image";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const medicsURL = `${backendURL}/medics`;
+const local = "http://localhost:3001/medics";
+
+export default function Page() {
   const [data, setData] = useState({});
 
   const { id } = useParams();
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`http://localhost:3001/medics/${id}`);
+      const response = await axios.get(`${local}/${id}`);
       setData(response.data);
     } catch (error) {
       alert(error.message);
@@ -35,10 +41,12 @@ export default function page() {
 
                   <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                   <div className="relative">
-                    <img
+                    <Image
                       className="object-cover object-center mx-auto rounded-lg shadow-2xl max-w-[70%] sm:w-full md:w-full"
                       alt="NOT_FOUNT"
                       src="https://img.freepik.com/vector-gratis/ilustracion-clinica-doctor_1270-69.jpg?w=2000"
+                      width={500}
+                      height={500}
                     />
                   </div>
                 </div>

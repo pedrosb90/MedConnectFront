@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const specializationsURL = `${backendURL}/specializations`;
+const local = "http://localhost:3001/specializations";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -19,14 +23,13 @@ export default function Especialidades() {
 
   async function fetchData() {
     try {
-      const response = await axios.get("http://localhost:3001/specializations");
+      const response = await axios.get(local);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {
       alert(error.message);
     }
   }
-
   const next = () => {
     if (especialidad.length < data.length) {
       setCurrentEsp(currentEsp + 4);
@@ -35,10 +38,9 @@ export default function Especialidades() {
       setHasMore(false);
     }
   };
-
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentEsp]);
 
   useEffect(() => {
     setData(especialidades);
@@ -51,11 +53,12 @@ export default function Especialidades() {
   return (
     <div>
       <div className="w-full">
-        <h1 className="text-5xl">ESPECIALIDADES</h1>
+        <h1 className="m-8 text-4xl font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+          ESPECIALIDADES
+        </h1>
         <SearchBar />
       </div>
 
-      
       <div>
         <Cards_Especialidades_Display especialidad={especialidad} />
       </div>
