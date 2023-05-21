@@ -9,7 +9,7 @@ import Link from "next/link";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
-export default function Menu_Medicos({ showMenu }) {
+export default function Menu_Medicos() {
   const dispatch = useDispatch();
 
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
