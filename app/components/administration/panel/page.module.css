@@ -1,74 +1,77 @@
-.box_selector{
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    width: 130px;
-    
-    margin-top: 30px;
-    background-color: white;
-    transition: 0.3s ease;
-    border-radius: 4px;
-    
+.box_selector {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  margin-top: 35px;
+  background-color: #498A94;
+  color: white;
+  transition: 0.3s ease;
+  border-radius: 4px;
+  
 }
 
-.mini_menu{
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    transition: 0.5s ease;
-    font-weight: 500;
+.mini_menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  transition: 0.5s ease;
+  font-weight: 500;
 }
-.mini_menu li:hover{
-    background-color: #C7EBF8;
-    border-radius: 4px;
+.mini_menu li:hover {
+  background-color: #c7ebf8;
+  border-radius: 4px;
+  color: black;
 }
-.mini_menu li{
-    padding: 5px;
-    padding-left: 10px;
-    
+.mini_menu li {
+  padding: 5px;
+  padding-left: 10px;
 }
-.button_of{
-    
-    transition: 0.3s;
-    border-radius: 4px;
-    padding: 5px;
-    font-weight: 500;
+.button_of {
+  transition: 0.3s;
+  border-radius: 4px;
+  padding: 5px;
+  font-weight: 600;
 }
-.button_on{
-    background-color: #91c4cd;
-    transition: 0.1s;
-    border-radius: 3px;
-    padding: 5px;
-    font-weight: 500;
+.button_on {
+  background-color: #91c4cd;
+  color: black;
+  transition: 0.1s;
+  border-radius: 3px;
+  padding: 5px;
+  font-weight: 600;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 85vh;
-    align-items: center;
-    background-color: rgb(30 41 59);
-    
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding-bottom: 40vh;
+  
+  align-items: center;
+  background-color: rgb(30 41 59);
 }
-.title{
-    padding-top: 20px;
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.3em;
+.title {
+  padding-top: 20px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3em;
+  text-align: center;
 }
-.button_inicio{
-    margin-top: 10px;
-    transition: 0.3s;
-    border-radius: 4px;
-    padding: 5px;
-    font-weight: 500;
-    background-color: white;
-    width: 130px;
-    transition: 0.1s ease;
+.button_inicio {
+  color: white;
+  margin-top: 10px;
+  transition: 0.3s;
+  border-radius: 4px;
+  padding: 5px;
+  font-weight: 600;
+  background-color: #498A94;
+  width: 130px;
+  transition: 0.1s ease;
+
 }
-.button_inicio:focus{
-    background-color:#91c4cd ;
+.button_inicio:focus {
+  background-color: #91c4cd;
+  color: black;
 }

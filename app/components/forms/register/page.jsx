@@ -1,6 +1,5 @@
 "use client"
 import {Button,Form,Input,Radio,Alert} from 'antd';
-import { CheckOutlined } from '@ant-design/icons'; 
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -17,8 +16,9 @@ export default function UserLogin() {
 
   const onSubmit = async (values) => {
     setLoading(true);
-    const {firstName,lastName,phone,userType,email,password} = values
-    axios.create({ withCredentials: true }).post("http://localhost:3001/register",{firstName,lastName,phone,userType,email,password})
+    const {first_name,last_name,role,email,password} = values
+    console.log({first_name,last_name,role,email,password});
+    axios.post("http://localhost:3001/auth/register",{first_name,last_name,role,email,password})
     .then((res)=>{
         console.log(res.data);
       if(res.data){
@@ -40,37 +40,30 @@ export default function UserLogin() {
     return (
         <div >
           <Form labelCol={{   span: 4, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
-            <Form.Item name="userType" label="Usuario" 
+            <Form.Item name="role" label="Usuario" 
             rules={[
               {required:true,
               message:"Por favor seleccione una opción"}
             ]}>
               <Radio.Group >
-                  <Radio value="pacient" defaultChecked>Paciente</Radio>
-                  {logStatus.logStatus === "master" ?<Radio value="medic">Médico</Radio>:null}
-                  {logStatus.logStatus === "master" ?<Radio value="admin">Administrador</Radio>:null}
+                  <Radio value="paciente" defaultChecked>Paciente</Radio>
+                  {logStatus.logStatus === "admin" ?<Radio value="medico">Médico</Radio>:null}
+                  {logStatus.logStatus === "admin" ?<Radio value="admin">Administrador</Radio>:null}
                 </Radio.Group>
             </Form.Item>
-            <FormItem name="firstName" label="Nombre" rules={[
+            <FormItem name="first_name" label="Nombre" rules={[
                 {required:true,
                 message:"Por favor ingrese su nombre"
             }
             ]}>
                 <Input/>
             </FormItem>
-            <FormItem name="lastName" label="Apellido" rules={[
+            <FormItem name="last_name" label="Apellido" rules={[
                 {required:true,
                 message:"Por favor ingrese su apellido"
             }
             ]}>
                 <Input/>
-            </FormItem>
-            <FormItem name="phone" label="Número de telefono" rules={[
-                {required:true,
-                message:"Por favor ingrese su número de telefono"
-            }
-            ]}>
-                <Input type='number'/>
             </FormItem>
             <Form.Item name="email" label="Correo electrónico"
             rules={[
@@ -112,7 +105,7 @@ export default function UserLogin() {
                         }
                       });
                     },
-                    message: "La contraseña no es válida"
+                    message: "La contraseña debe contener 1 mayúscula, 1 minúscula y un número"
                   }
                 ]}
                 hasFeedback

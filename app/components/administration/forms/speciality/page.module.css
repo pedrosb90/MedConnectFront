@@ -1,34 +1,42 @@
-.global_box{
-    display: flex;
-    background-color: cyan;
-    width: 50%;
-    margin:  auto;
-    height: 50vh;
-    position: relative;
-    margin-top: 6%;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    
-}
-.form_box{
-    display: flex;
-    flex-direction: column;
-    
-    
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap");
 
+.container {
+  display: flex;
+  flex-direction: column;
+ 
+  font-family: "Montserrat", sans-serif;
+  border-radius: 10px;
+  background-color: #91c4cd;
+  width: 50%;
+  margin: auto;
+  height: fit-content;
+  font-weight: 600;
+  margin-top: 6%;
+  padding: 10px;
+  
+  
 }
 
-.text_area{
-    resize: none;
+.title {
+  font-size: 1.3em;
+  font-weight: 600;
+  align-self: center;
+  margin: 8px;
+  text-align: center;
+  
+  font-family: "Montserrat", sans-serif;
+  
 }
-.container{
-    width: 200px;
-    background-color: aquamarine;
+.Button{
+  display: flex;
+  color: white;
+  background-color:rgb(30 41 59) ;
+  width: 25%;
+  margin: auto;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 600;
+  
+  
 }
-.title{
-    font-size: 1.3em;
-    font-weight: 600;
-    align-self: center;
-    margin: 8px;
-}
+

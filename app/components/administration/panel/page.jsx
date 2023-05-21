@@ -20,10 +20,10 @@ export default function Admin(){
     
   };
 
-  if(logStatus.logStatus === "master" ){
+  if(logStatus.logStatus === "admin" ){
         return(
           <div className={styles.container}>
-          <h1 className={styles.title}>Administración</h1>
+          <h1 className={styles.title}>Panel de administrador</h1>
           <Link href={'/components/administration'}><button className={styles.button_inicio}>Inicio</button></Link>
           <div className={styles.box_selector}>
             
@@ -32,7 +32,7 @@ export default function Admin(){
             <ul className={styles.mini_menu}>
               <Link href={'/components/administration/records/speciality'}><li>Registro</li></Link>
               <Link href={'/components/administration/forms/speciality'}><li>Crear especialidad</li></Link>
-              <li>Remover especialidad</li>
+              
             </ul>
           )}
         </div>
@@ -40,9 +40,9 @@ export default function Admin(){
           <button className={showMenu.medico ? styles.button_on : styles.button_of} onClick={toggleMenu} name='medico'>Medicos</button>
           {showMenu.medico && (
             <ul className={styles.mini_menu}>
-              <li>Registro</li>
+              <Link href={'/components/administration/records/RegistroMedicos'}><li>Registro</li></Link>
               <Link href={'/components/forms/register'}><li>Añadir medico</li></Link>
-              <li>Remover medico</li>
+              
             </ul>
           )}
         </div>

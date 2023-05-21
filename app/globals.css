@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap");
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -15,42 +16,62 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-body{
-  margin-top:15vh;
-  
+body {
+  margin-top: 22vh;
 }
 
 @media only screen and (max-width: 500px) {
-  body{
+  body {
     margin-top: 8vh;
   }
 }
 @media only screen and (max-width: 900px) {
-  body{
+  body {
     margin-top: 10vh;
   }
 }
-.admin_main{
+.admin_main {
   display: grid;
   grid-template-columns: 200px 1fr;
 }
-.main{
+.main {
   display: none;
   width: 100%;
 }
-.buttonMed{
-  margin-top: 10px;
-  background-color: aliceblue;
-  border: 2px solid black;
-  border-radius: 4px;
-  padding: 5px 10px;
+.buttonMed {
+  z-index: 30;
   position: fixed;
-  top:15vh;
-  left: 4%;
-  z-index: 15;
-  
+  top: 24vh;
+  font-weight: 600;
 }
 
 
+.dropzone{
+  text-align: center;
+  padding: 20px;
+  border: 3px dashed #eeeeee;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  margin-bottom: 20px;
+  width: 500px;
+}
+.buttonAgendar{
+  z-index: 30;
+  position: fixed;
+  top: 24vh;
+  right: 3%;
+  font-weight: 600;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.2s ease;
 
+}
+.buttonAgendar:hover{
+  background-color: #d6d6d6;
+  color: black;
+}
+.buttonAgendar:active{
+  transform: scale(0.95);
 
+}
