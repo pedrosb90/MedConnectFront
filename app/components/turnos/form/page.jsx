@@ -66,14 +66,14 @@ export default function UserLogin() {
           layout="horizontal"
           onFinish={(values) => onSubmit(values)}
         >
-          <FormItem
+          <Form.Item
             name="first_name"
             label="Nombre"
             rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="last_name"
             label="Apellido"
             rules={[
@@ -81,7 +81,7 @@ export default function UserLogin() {
             ]}
           >
             <Input />
-          </FormItem>
+          </Form.Item>
           <Form.Item
             name="email"
             label="Correo electrónico"
@@ -97,9 +97,9 @@ export default function UserLogin() {
                       value &&
                       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)
                     ) {
-                      resolve(); // Resuelve la promesa si la contraseña es válida
+                      resolve(); // Resuelve la promesa si el correo es válido
                     } else {
-                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                      reject(); // Rechaza la promesa con un mensaje de error si el correo no es válido
                     }
                   });
                 },
@@ -108,8 +108,7 @@ export default function UserLogin() {
             ]}
             hasFeedback
           >
-            <Input type="text" name="user" placeholder="Correo electronico" />
-            {/* {errors.user && (<span>{errors.user}</span>)} */}
+            <Input type="text" name="user" placeholder="Correo electrónico" />
           </Form.Item>
           <Form.Item
             name="password"
