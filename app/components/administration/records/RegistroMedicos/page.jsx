@@ -6,6 +6,8 @@ import { List, Skeleton, Avatar } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { getMedicos, deleteMedic } from "@/app/redux/reducer";
 import { useSelector, useDispatch } from "react-redux";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
 
 export default function Registro() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ export default function Registro() {
 
   const request = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics", {
+      const response = await axios.get(medicsURL, {
         withCredentials: true,
         credentials: "include",
       });

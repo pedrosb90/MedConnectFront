@@ -8,9 +8,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSpeciality } from "@/app/redux/reducer";
 import axios from "axios";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const specsURL = `${backendURL}/specializations`;
 
 const Turnos = () => {
   const today = dayjs();
@@ -29,7 +28,7 @@ const Turnos = () => {
 
   //* I temporarily add a new property to the response, setting it to a random day returned by the above function
   const añadirDia = async () => {
-    const response = await axios.get(specializationsURL);
+    const response = await axios.get(specsURL);
     const test = response?.data.map((obj) => {
       const selectedDay = randomDay();
       return { ...obj, selectedDay };

@@ -3,10 +3,8 @@ import axios from "axios";
 import { searchMedic, getMedicos, clearSearchMedic } from "../redux/reducer";
 
 import { useDispatch, useSelector } from "react-redux";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
-const local = "http://localhost:3001/medics";
 
 export default function Search_Bar_Medicos() {
   const [searchValue, setSearchValue] = useState("");
@@ -16,7 +14,7 @@ export default function Search_Bar_Medicos() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${local}?first_name=${searchValue}`
+        `${medicsURL}?first_name=${searchValue}`
         // { email, password },
         // { withCredentials: true, credentials: "include" }
       );

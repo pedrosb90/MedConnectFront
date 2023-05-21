@@ -10,7 +10,6 @@ import Menu_Medicos from "./components/menu_medicos/page";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
