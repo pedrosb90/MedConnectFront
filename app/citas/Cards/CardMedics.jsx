@@ -7,11 +7,11 @@ import { getMedicos } from "@/app/redux/reducer";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import img from '../img/iconoMed.jpg'
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/medics";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
-
 export default function CardMedics({ handleClickMed }) {
   const [medicos, setMedicos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,7 +21,7 @@ export default function CardMedics({ handleClickMed }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(local);
+      const response = await axios.get(medicsURL);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
@@ -79,7 +79,7 @@ export default function CardMedics({ handleClickMed }) {
                 <div className="flex flex-col items-center pb-4">
                   <Image
                     className="w-10 h-10 mb-2 rounded-full shadow-lg"
-                    src="https://thumbs.dreamstime.com/b/imagen-an%C3%B3nima-del-perfil-del-hombre-de-negocios-57594504.jpg"
+                    src={img}
                     alt="Bonnie image"
                     width={500}
                     height={500}

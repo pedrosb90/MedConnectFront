@@ -4,6 +4,7 @@ import medicalReducer from "./reducer";
 import logInStatus from "./LogReducer";
 import searchReducer from "./searchReducer";
 import loginUser from "./login";
+import  citasInfo  from "./CitaReducer";
 
 export const store = configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export const store = configureStore({
     logStatus: logInStatus,
     search: searchReducer,
     login: loginUser,
+    cita:citasInfo,
   },
 });

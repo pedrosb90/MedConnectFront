@@ -21,10 +21,10 @@ export default function Carrusel_Especialidades() {
 
   async function getEspec() {
     try {
-      const respo = await axios.get(`${local}/specializations`, {
+      const respo = await axios.get(`${local}/specializations`, /*{
         withCredentials: true,
         credentials: "include",
-      });
+      }*/);
 
       console.log(respo.data);
       dispatch(getSpeciality(respo.data));

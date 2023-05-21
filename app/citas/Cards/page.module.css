@@ -10,9 +10,7 @@
     display: flex;
     margin: 30px;
     gap: 10px;
-    
-    
-    
+
 }
 .buttons{
     display: flex;
@@ -47,17 +45,19 @@
 }
 .cars_Espe{
     width: 100%;
+    padding-bottom: 50px;
     
     
     
 }
 .box_espe{
     display: flex;
-    margin: 15px 5%;
+    justify-content: center;
     gap: 30px;
     width: 100%;
-    
+    margin: 3% 10px ;
     flex-wrap: wrap;
+    
 }
 .cardMed{
     transition: 0.3s ease;
@@ -72,3 +72,26 @@
 .cardMed:hover span{
     color: black;
 }
+.buttonReset{
+    
+   background-color: #2A6074;
+   padding: 10px;
+   color: white;
+   border-radius: 5px;
+   transition: 0.2s ease;
+   font-weight: 600;
+   
+
+}
+.buttonReset:hover{
+    
+    background-color: #91c4cd;
+    color: black;
+    
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
