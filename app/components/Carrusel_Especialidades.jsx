@@ -9,7 +9,11 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+<<<<<<< HEAD
 // const backendURL = "https://medconnectback-production.up.railway.app";
+=======
+const specsURL = `${backendURL}/specializations`;
+>>>>>>> upstream/main
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -20,7 +24,11 @@ export default function Carrusel_Especialidades() {
 
   async function getEspec() {
     try {
+<<<<<<< HEAD
       const respo = await axios.get(`${backendURL}/specializations`, {
+=======
+      const respo = await axios.get(specsURL, {
+>>>>>>> upstream/main
         withCredentials: true,
         credentials: "include",
       });

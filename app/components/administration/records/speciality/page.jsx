@@ -2,14 +2,22 @@
 import { useState, useEffect } from "react";
 import style from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+<<<<<<< HEAD
 const specializationsURL = `${backendURL}/specializations`;
+=======
+const specsURL = `${backendURL}/specializations`;
+>>>>>>> upstream/main
 
 export default function SpeRecords() {
   const [specialties, setSpecialty] = useState([]);
 
   useEffect(() => {
     async function fetchSpecialty() {
+<<<<<<< HEAD
       const res = await fetch(specializationsURL);
+=======
+      const res = await fetch(specsURL);
+>>>>>>> upstream/main
       const data = await res.json();
       setSpecialty(data);
     }

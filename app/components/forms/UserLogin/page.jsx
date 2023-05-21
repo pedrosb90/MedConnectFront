@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import style from "./login.module.css";
 import Link from "next/link";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+<<<<<<< HEAD
 const login = `${backendURL}/auth/login`;
+=======
+const authLoginURL = `${backendURL}/auth/login`;
+>>>>>>> upstream/main
 
 export default function UserLogin() {
   const dispatch = useDispatch();
@@ -17,7 +21,11 @@ export default function UserLogin() {
     const { email, password } = values;
     axios
       .post(
+<<<<<<< HEAD
         login,
+=======
+        authLoginURL,
+>>>>>>> upstream/main
         { email, password },
         { withCredentials: true, credentials: "include" }
       )

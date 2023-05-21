@@ -6,9 +6,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
-const local = "http://localhost:3001/medics";
 
 export default function Page() {
   const [data, setData] = useState({});
