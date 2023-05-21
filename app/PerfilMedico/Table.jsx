@@ -9,8 +9,7 @@ export default function Table() {
     const [citas, setCitas] = useState([]);
     const [user, setUser] = useState({})
 
-    //decirle a adhemir que falta hacer una ruta PUT para citas para poder modificar el estado de la cita
-    const [statusCita, setStatusCita] = useState()
+    
     
 
     useEffect(() => {
@@ -35,6 +34,27 @@ export default function Table() {
     }, []);
     const getCitasPerfil = citas.filter((e)=>e.medico.first_name === user.first_name)
     console.log(getCitasPerfil);
+    
+    const [status, setStatus] = useState('completed');
+
+ 
+  const handleCheckChange = async (e, citaId, scheduledDate, scheduledTime) =>{
+    setStatus(prevStatus => prevStatus === 'pending' ? 'completed' : 'pending');
+        
+        await axios.put(`https://medconnectback-production.up.railway.app/appointment/${citaId}`,{ 
+        scheduledDate: scheduledDate,
+        scheduledTime:scheduledTime,  
+        status:status
+      
+      } )
+        .then(response=>{
+          console.log("Estado de la cita actualizado:", response.data);
+        })
+        .catch(error => {
+          // Manejar el error en caso de que la solicitud PUT falle
+          console.error("Error al actualizar el estado de la cita:", error);
+        });
+    }
 
 
   return (
@@ -87,7 +107,14 @@ export default function Table() {
     
     <td className="px-6 py-4">
     
-    <input type="checkbox" id="item1" checked={cita.status === "completed"} />
+    <input 
+    onChange={(e)=>{handleCheckChange(e, cita.id, cita.scheduledDate, cita.scheduledTime)}} 
+    type="checkbox" 
+    id="item1" 
+    // checked={cita.status === "completed"?"completed":"pending"} 
+    value={status === "completed"?"checked":"unchecked"}
+     //checked={cita.status==="completed"?"checked":"unchecked"}
+    />
     </td>
   </tr>
 ))}
