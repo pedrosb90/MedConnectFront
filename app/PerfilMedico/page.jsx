@@ -30,7 +30,7 @@ export default function PerfilMedico() {
           setUser(res.data);
         })
         .catch((error) => {
-          getErr();
+          console.error( error);
         });
     }
 
@@ -41,7 +41,7 @@ export default function PerfilMedico() {
           setCitas(res.data);
         })
         .catch((error) => {
-          getErr();
+          console.error( error);
         });
     }
   }, []);

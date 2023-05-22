@@ -19,7 +19,7 @@ export default function Table() {
                 setUser(res.data)
             })
             .catch(error =>{
-                getErr()
+              console.error( error);
             })
         }
         if (!citas.id){
@@ -28,7 +28,7 @@ export default function Table() {
                 setCitas(res.data)
             })
             .catch(error =>{
-                getErr()
+              console.error(error);
             })
         }
     }, []);
