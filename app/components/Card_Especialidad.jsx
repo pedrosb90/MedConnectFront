@@ -17,9 +17,9 @@ export default function Card_Especialidad({
           width={500}
           height={100}
         />
-        <div className="p-4 bg-cimPallete-300 ">
+        <div className="p-4 bg-gray-800 ">
           <h1 className="text-grey text-2xl mb-4 font-sans">{name}</h1>
-          <h3 className="text-white text-left">{description}</h3>
+          <h3 className="text-fre text-left">{description}</h3>
           <div className=" text-white font-sans flex border-t border-solid border-slate-400 justify-between pt-3 mt-3 items-center hover:translate-y-[-4px]">
             <Link href={`/specializations/${id}`}>
               <button>Conocer mas </button>
