@@ -1,22 +1,28 @@
 import { useState } from "react";
 import axios from "axios";
-import { searchMedic, getMedicos, clearSearchMedic } from "../redux/reducer";
-
+import {
+  searchMedic,
+  getMedicos,
+  clearSearchMedic,
+  sortMedicos,
+} from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
+
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
 export default function Search_Bar_Medicos() {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const AllMedicos = useSelector((state) => state.AllMedicos);
+
   const dispatch = useDispatch();
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(
         `${medicsURL}?first_name=${searchValue}`
-        // { email, password },
-        // { withCredentials: true, credentials: "include" }
       );
       dispatch(searchMedic(response.data));
       setSearchPerformed(true);
@@ -24,6 +30,7 @@ export default function Search_Bar_Medicos() {
       alert(error);
     }
   };
+
   const handleChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -34,12 +41,19 @@ export default function Search_Bar_Medicos() {
     dispatch(clearSearchMedic());
     dispatch(getMedicos());
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
   };
 
   const isSearchDisabled = searchValue === "";
+
+  const handleSortAZ = () => {
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newOrder);
+    dispatch(sortMedicos(newOrder));
+  };
 
   return (
     <div className="flex  z-20 fixed left-96">
@@ -63,7 +77,7 @@ export default function Search_Bar_Medicos() {
             </button>
           ) : (
             <button
-              className=" bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+              className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
               type="button"
               onClick={handleSearch}
               disabled={isSearchDisabled}
@@ -77,8 +91,11 @@ export default function Search_Bar_Medicos() {
           <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
             Disponibilidad
           </button>
-          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            A - Z{" "}
+          <button
+            onClick={handleSortAZ}
+            className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+          >
+            {`${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
           </button>
         </div>
       </div>

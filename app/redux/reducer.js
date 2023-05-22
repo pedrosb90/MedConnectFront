@@ -39,6 +39,17 @@ export const medicalReducer = createSlice({
       const medics = action.payload;
       state.AllMedicos = [];
     },
+    sortMedicos: (state, action) => {
+      const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
+        const nameA = a.last_name;
+        const nameB = b.last_name;
+        return action.payload === "asc"
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      });
+
+      state.AllMedicos = sortedMedicos;
+    },
   },
 });
 export const {
@@ -49,6 +60,7 @@ export const {
   searchBar,
   searchMedic,
   clearSearchMedic,
+  sortMedicos,
 } = medicalReducer.actions;
 
 export default medicalReducer.reducer;
