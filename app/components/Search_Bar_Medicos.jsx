@@ -15,7 +15,6 @@ export default function Search_Bar_Medicos() {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
-  const AllMedicos = useSelector((state) => state.AllMedicos);
 
   const dispatch = useDispatch();
 

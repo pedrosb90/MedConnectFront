@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { searchBar } from "../redux/reducer";
+import { searchBar, sortEspecsAZ } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
@@ -9,6 +9,8 @@ const specsURL = `${backendURL}/specializations`;
 export default function SearchBar() {
   const [name, setName] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+
   const dispatch = useDispatch();
 
   const handleSearch = async (event) => {
@@ -35,6 +37,12 @@ export default function SearchBar() {
     handleSearch();
   };
   const isSearchDisabled = name === "";
+
+  const handleSortAZ = () => {
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newOrder);
+    dispatch(sortEspecsAZ(newOrder));
+  };
 
   return (
     <div className="flex z-20 fixed left-96 relative">
@@ -74,8 +82,11 @@ export default function SearchBar() {
           <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
             Disponibilidad
           </button>
-          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            A - Z{" "}
+          <button
+            onClick={handleSortAZ}
+            className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+          >
+            {`${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
           </button>
         </div>
       </div>
