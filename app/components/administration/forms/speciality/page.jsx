@@ -6,6 +6,7 @@ import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
+import Image from "next/image";
 
 export default function SpecialtyForm() {
   const [registered, setRegistered] = useState(false);
@@ -114,18 +115,15 @@ export default function SpecialtyForm() {
             <h1>No Hay Imagen</h1>
           ) : (
             image.array.map((items, index) => (
-              <img
-                index={index}
-                alt="Imagen"
-                // className="h-16 w-28 pr-4 bg-cover "
-                style={{
-                  width: "125px",
-                  height: "70px",
-                  backgroundSize: "cover",
-                  paddingRight: "15px",
-                }}
-                src={items}
-              ></img>
+              <div key={index}>
+                <Image
+                  alt="Imagen"
+                  width={125}
+                  height={70}
+                  objectFit="cover"
+                  src={items}
+                />
+              </div>
             ))
           )}
         </h3>
