@@ -89,11 +89,11 @@ export default function Navbar() {
               </div>
               
               ) : (
-                <div className={styles.userGoogle}>{userGoogle.photos && userGoogle.photos.length > 0 && (
-                  <img onClick={onClickFunc} class="w-14 h-14 rounded-full" src={userGoogle.photos[0].value} alt="NOT_FOUND" />
+                <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>{userGoogle.photos && userGoogle.photos.length > 0 && (
+                  <Image width={600} height={600}  onClick={onClickFunc} class="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
                   )}
                 
-              {clickUser && <Link href={userPage}><button className="text-white"><h3>Ver Perfil</h3>{`${userGoogle.displayName}`}</button></Link>}
+              <Link href={userPage}><button className="text-white"><h3>Ver Perfil</h3>{`${userGoogle.displayName}`}</button></Link>
               
   </div>
 )}
