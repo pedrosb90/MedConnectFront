@@ -6,7 +6,7 @@ import {
   clearSearchMedic,
   sortMedicos,
 } from "../redux/reducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
