@@ -8,10 +8,15 @@ import Warning from '../../components/warning/Warning';
 
 
 export default function UserCard(){
-    const [user, setUser] = useState({});
+    
     const [isOpen, setIsOpen] = useState(false);
     const [contador,setContador]=useState(1)
     const [alertGet,setAlertGet]=useState(false)
+
+    const userGoogle = useSelector((state) => state.login.userGoogle);
+    const userLocal = useSelector((state) => state.login.userLocal);
+    
+
     
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -20,18 +25,18 @@ export default function UserCard(){
     setAlertGet(!alertGet)
   }
 
-useEffect(() => {
-  if (!user.id) {
-    axios.get('http://localhost:3001/patients/2')
-      .then(res => {
-        setUser(res.data);
-      })
-      .catch(error => {
-        getErr()
+// useEffect(() => {
+//   if (!user.id) {
+//     axios.get('http://localhost:3001/patients/2')
+//       .then(res => {
+//         setUser(res.data);
+//       })
+//       .catch(error => {
+//         getErr()
         
-      });
-  }
-}, []);
+//       });
+//   }
+// }, []);
 const [alert,setAlert]=useState(false)
 const FinishFailed=async()=>{
   if (contador === 2) {
@@ -95,16 +100,64 @@ const FinishFailed=async()=>{
         </div>
       )}
     </div>
-    <div className="flex flex-col items-center pb-10">
-        {user.id &&<Image className="w-28 h-25 mb-3 rounded-full shadow-lg" width={600} height={600} src={img} alt="NOT_FOUND"/>}
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{user.id? user.firstName:'Loading...'}</h5>
-        <h6 className="mb-1 text-sl font-medium text-gray-900 dark:text-white">{user.id ?user.lastName:'Loading...'}</h6>
-        <span className="text-sm text-gray-500 dark:text-gray-400"><b>Total de citas: </b>{user.id && user.appointments.length} </span>
-        <div className="flex mt-4 space-x-3 md:mt-6">
-            <a href="/citas" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agendar cita</a>
-            
-        </div>
+    {Object.keys(userGoogle).length === 0 ? (
+  <div className="flex flex-col items-center pb-10">
+    {userLocal.first_name && (
+      <Image
+        className="w-28 h-25 mb-3 rounded-full shadow-lg"
+        width={600}
+        height={600}
+        src={img}
+        alt="NOT_FOUND"
+      />
+    )}
+    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+      {userLocal ? userLocal.first_name : 'Loading...'}
+    </h5>
+    <h6 className="mb-1 text-sl font-medium text-gray-900 dark:text-white">
+      {userLocal ? userLocal.last_Name : 'Loading...'}
+    </h6>
+    <span className="text-sm text-gray-500 dark:text-gray-400">
+      <b>Total de citas: </b>'por el momento no'
+    </span>
+    <div className="flex mt-4 space-x-3 md:mt-6">
+      <a
+        href="/citas"
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Agendar cita
+      </a>
     </div>
+  </div>
+) : (
+  <div className="flex flex-col items-center pb-10">
+    {userGoogle.first_name && (
+      <Image
+        className="w-28 h-25 mb-3 rounded-full shadow-lg"
+        width={600}
+        height={600}
+        src={userGoogle.photos[0].value}
+        alt="NOT_FOUND"
+      />
+    )}
+    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+      {userGoogle.displayName ? userGoogle.displayName : 'Loading...'}
+    </h5>
+    
+    <span className="text-sm text-gray-500 dark:text-gray-400">
+      <b>Total de citas: </b>'por el momento no'
+    </span>
+    <div className="flex mt-4 space-x-3 md:mt-6">
+      <a
+        href="/citas"
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Agendar cita
+      </a>
+    </div>
+  </div>
+)}
+
 </div>
     )
 
