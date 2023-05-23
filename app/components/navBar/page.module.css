@@ -9,8 +9,11 @@
 .userGoogle{
   margin-top: 7px;
   display: flex;
+  flex-direction: column;
   position: absolute;
-  right: 28%;
+  right: 13%;
+  align-items: center;
+  
 
 }
 .userGoogle button{
@@ -18,10 +21,10 @@
   display: flex;
   flex-direction: column;
   background-color: rgb(30 41 59);
-  position: absolute;
-  left: -45px;
+  
+  
   width: max-content;
-  margin-top: 65px;
+  margin-top: 9px;
   padding: 10px;
   z-index:20;
   align-items: center;
@@ -34,18 +37,20 @@
 .userGoogle_off{
   margin-top: 7px;
   display: flex;
+  flex-direction: column;
   position: absolute;
-  right: 28%;
+  right: 13%;
+  align-items: center;
 }
 .userGoogle_off button{
   height: 100px;
   display: flex;
   flex-direction: column;
   background-color: rgb(30 41 59);
-  position: absolute;
+  
   left: -45px;
   width: max-content;
-  margin-top: 65px;
+  margin-top: 8px;
   padding: 10px;
   z-index:20;
   align-items: center;

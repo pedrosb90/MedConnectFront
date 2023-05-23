@@ -19,6 +19,7 @@ const nextConfig = {
       "pbs.twimg.com",
       "www.apressalud.com.ar",
       "www.lu24.com.ar",
+      'lh3.googleusercontent.com',
     ],
   },
   reactStrictMode: true,

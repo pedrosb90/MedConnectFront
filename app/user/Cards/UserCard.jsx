@@ -113,7 +113,7 @@ const FinishFailed=async()=>{
       />
     )}
     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-      {userLocal.first_name ? userLocal.first_name +' '+userLocal.last_name : 'Loading...'}
+      {userLocal.first_name ? userLocal.first_name +' '+ userLocal.last_name : 'Loading...'}
     </h5>
     
     <span className="text-sm text-gray-500 dark:text-gray-400">
