@@ -14,7 +14,7 @@ export default function Table() {
 
     useEffect(() => {
         if(!user.id){
-            axios.get('https://medconnectback-production.up.railway.app/medics/2646bd4f-0ad8-44de-97f8-da6dbcdedf2b')
+            axios.get('http://localhost:3001/medics/2646bd4f-0ad8-44de-97f8-da6dbcdedf2b')
             .then(res=>{
                 setUser(res.data)
             })
@@ -23,7 +23,7 @@ export default function Table() {
             })
         }
         if (!citas.id){
-            axios.get('https://medconnectback-production.up.railway.app/appointment')
+            axios.get('http://localhost:3001/appointment')
             .then(res=>{
                 setCitas(res.data)
             })
@@ -41,7 +41,7 @@ export default function Table() {
   const handleCheckChange = async (e, citaId, scheduledDate, scheduledTime) =>{
     setStatus(prevStatus => prevStatus === 'pending' ? 'completed' : 'pending');
         
-        await axios.put(`https://medconnectback-production.up.railway.app/appointment/${citaId}`,{ 
+        await axios.put(`http://localhost:3001/appointment/${citaId}`,{ 
         scheduledDate: scheduledDate,
         scheduledTime:scheduledTime,  
         status:status

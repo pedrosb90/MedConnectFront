@@ -2,11 +2,20 @@
 import style from './Forms.module.css'
 import {Button,Form,Input,Radio,Alert} from 'antd';
 import FormItem from 'antd/es/form/FormItem';
+import {useSelector} from "react-redux"
 
 export default function Forms() {
+  
+  const especialidades = useSelector(state=>state.speciality.AllSpecial)
+  
+  console.log(especialidades);
+
+
+
+
   return (
     <div className={style.container} >
-          <h1 className={style.title}>Añadir medico</h1>
+          <h1 className={style.title}>Actualiza tu informacion</h1>
           <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
             {/* <Form.Item name="userType" label="Usuario" 
             rules={[
