@@ -2,17 +2,40 @@
 import style from './Forms.module.css'
 import {Button,Form,Input,Radio,Alert} from 'antd';
 import FormItem from 'antd/es/form/FormItem';
-import {useSelector} from "react-redux"
+import { useEffect, useState } from 'react';
+import {useSelector, useDispatch} from "react-redux"
+import axios from "axios"
+import { getSpeciality } from "../redux/reducer";
+const local = "http://localhost:3001/specializations";
+
 
 export default function Forms() {
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const especialidades = useSelector((state) => state.speciality.AllSpecial);
   
-  const especialidades = useSelector(state=>state.speciality.AllSpecial)
-  
-  console.log(especialidades);
+  console.log("esto es el estado global:",especialidades);
 
+  async function fetchData() {
+    try {
+      const response = await axios.get(local);
 
+      dispatch(getSpeciality(response.data));
+    } catch (error) {
+      alert(error.message);
+    }
+  }
 
+  useEffect(()=>{
+    fetchData()
 
+  },[])
+
+  useEffect(() => {
+    setData(especialidades);
+  }, [especialidades]);
+
+console.log("data: ",data);
   return (
     <div className={style.container} >
           <h1 className={style.title}>Actualiza tu informacion</h1>
