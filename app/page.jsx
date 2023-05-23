@@ -10,7 +10,7 @@ import axios from "axios";
 import { getUser } from "@/app/redux/login";
 import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
-import Menu_Medicos from "./components/menu_medicos/page";
+import Menu_Medicos from "./components/Menu_Medicos";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
