@@ -41,7 +41,7 @@ export default function Admin(){
           {showMenu.medico && (
             <ul className={styles.mini_menu}>
               <Link href={'/components/administration/records/RegistroMedicos'}><li>Registro</li></Link>
-              <Link href={'/components/administration/forms/medicos'}><li>Añadir medico</li></Link>
+              <Link href={'/components/forms/register'}><li>Añadir medico</li></Link>
               
             </ul>
           )}

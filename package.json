@@ -21,6 +21,7 @@
     "cloudinary-react": "^1.8.1",
     "cookie-cutter": "^0.2.0",
     "cookies-next": "^2.1.1",
+    "crypto-js": "^4.1.1",
     "css": "^3.0.0",
     "dotenv": "^16.0.3",
     "eslint": "8.40.0",

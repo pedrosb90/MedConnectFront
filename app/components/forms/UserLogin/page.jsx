@@ -33,12 +33,16 @@ export default function UserLogin() {
     //! this info must be send to the backend
   };
 
+  const google = () => {
+    window.open("http://localhost:3001/auth/google", "_self");
+  };
+
   return (
     <div className={style.masterContainer}>
       <div className={style.container}>
         <div className={style.components}>
           <div className={style.buttonContainer}>
-            <button id={style.google} className={style.button}>
+            <button id={style.google} className={style.button} onClick={google}>
               Google
             </button>
             <button id={style.facebook} className={style.button}>

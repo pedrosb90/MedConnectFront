@@ -77,7 +77,7 @@ export default function CardMedics({ handleClickMed }) {
                 <div className="flex flex-col items-center pb-4">
                   <Image
                     className="w-10 h-10 mb-2 rounded-full shadow-lg"
-                    src="https://thumbs.dreamstime.com/b/imagen-an%C3%B3nima-del-perfil-del-hombre-de-negocios-57594504.jpg"
+                    src={img}
                     alt="Bonnie image"
                     width={500}
                     height={500}
