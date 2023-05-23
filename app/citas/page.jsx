@@ -58,7 +58,6 @@ export default function Citas() {
         </div>
       </div>
       <Medicos_Especialidad_Filter />
-
       <CardSpecial />
     </div>
   );
