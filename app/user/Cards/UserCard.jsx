@@ -1,3 +1,10 @@
+import styles from "../page.module.css";
+import { useState } from "react";
+import img from "../../citas/img/iconoMed.jpg";
+import Image from "next/image";
+import Warning from "../../components/warning/Warning";
+import { useSelector } from "react-redux";
+
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
   const [contador, setContador] = useState(1);
