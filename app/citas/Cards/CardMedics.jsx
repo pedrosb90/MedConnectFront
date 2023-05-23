@@ -10,8 +10,8 @@ import Image from "next/image";
 import img from '../img/iconoMed.jpg'
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/medics";
-const backendURL = "https://medconnectback-production.up.railway.app";
-const medicsURL = `${backendURL}/medics`;
+// const backendURL = "https://medconnectback-production.up.railway.app";
+// const medicsURL = `${backendURL}/medics`;
 export default function CardMedics({ handleClickMed }) {
   const [medicos, setMedicos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,7 +21,7 @@ export default function CardMedics({ handleClickMed }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(medicsURL);
+      const response = await axios.get(local);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
