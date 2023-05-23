@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import img from '../../citas/img/iconoMed.jpg'
 import Image from 'next/image';
 import Warning from '../../components/warning/Warning';
+import { useSelector } from 'react-redux';
 
 
 export default function UserCard(){
@@ -112,11 +113,9 @@ const FinishFailed=async()=>{
       />
     )}
     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-      {userLocal ? userLocal.first_name : 'Loading...'}
+      {userLocal.first_name ? userLocal.first_name +' '+userLocal.last_name : 'Loading...'}
     </h5>
-    <h6 className="mb-1 text-sl font-medium text-gray-900 dark:text-white">
-      {userLocal ? userLocal.last_Name : 'Loading...'}
-    </h6>
+    
     <span className="text-sm text-gray-500 dark:text-gray-400">
       <b>Total de citas: </b>'por el momento no'
     </span>
@@ -131,15 +130,13 @@ const FinishFailed=async()=>{
   </div>
 ) : (
   <div className="flex flex-col items-center pb-10">
-    {userGoogle.first_name && (
-      <Image
+    
+      <img
         className="w-28 h-25 mb-3 rounded-full shadow-lg"
-        width={600}
-        height={600}
         src={userGoogle.photos[0].value}
         alt="NOT_FOUND"
       />
-    )}
+    
     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
       {userGoogle.displayName ? userGoogle.displayName : 'Loading...'}
     </h5>
