@@ -31,7 +31,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData(id);
-  }, [id, useSelector, useDispatch, useState, useParams]);
+  }, [id]);
 
   useEffect(() => {
     detail.name && setData(detail);

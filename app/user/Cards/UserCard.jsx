@@ -123,7 +123,7 @@ export default function UserCard() {
         </div>
       ) : (
         <div className="flex flex-col items-center pb-10">
-          <img
+          <Image
             className="w-28 h-25 mb-3 rounded-full shadow-lg"
             src={userGoogle.photos[0].value}
             alt="NOT_FOUND"
