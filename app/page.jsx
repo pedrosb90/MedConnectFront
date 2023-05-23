@@ -69,6 +69,8 @@ export default function Home() {
 
   return (
     <main>
+      <link rel="shortcut icon" href="/favicon.ico" />
+
       {showMenu && <Search_Bar_Medicos />}
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
