@@ -110,7 +110,7 @@ export default function UserCard() {
               : "Loading..."}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>'por el momento no'
+            <b>Total de citas: </b>por el momento no
           </span>
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a
@@ -132,7 +132,7 @@ export default function UserCard() {
             {userGoogle.displayName ? userGoogle.displayName : "Loading..."}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>'por el momento no'
+            <b>Total de citas: </b>por el momento no
           </span>
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a
