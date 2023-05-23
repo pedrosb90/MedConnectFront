@@ -30,7 +30,7 @@ export default function PerfilMedico() {
           setUser(res.data);
         })
         .catch((error) => {
-          console.error( error);
+          console.error(error);
         });
     }
 
@@ -41,10 +41,10 @@ export default function PerfilMedico() {
           setCitas(res.data);
         })
         .catch((error) => {
-          console.error( error);
+          console.error(error);
         });
     }
-  }, []);
+  });
 
   console.log(user);
   console.log(citas);
@@ -56,7 +56,7 @@ export default function PerfilMedico() {
   console.log(getCitasPerfil);
 
   const handleClick = () => {
-    if (clickAct === true ) {
+    if (clickAct === true) {
       setClickAct(false);
     } else {
       setClickAct(true);
@@ -64,10 +64,10 @@ export default function PerfilMedico() {
   };
 
   const handleClickHor = () => {
-    if (clickHor === true ) {
-        setClickHor(false);
+    if (clickHor === true) {
+      setClickHor(false);
     } else {
-        setClickHor(true);
+      setClickHor(true);
     }
   };
 
@@ -152,7 +152,7 @@ export default function PerfilMedico() {
               </a>
               <a
                 onClick={() => {
-                    handleClickHor();
+                  handleClickHor();
                 }}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -163,7 +163,10 @@ export default function PerfilMedico() {
         </div>
         <Table></Table>
       </div>
-      <div>{clickAct === true ? <Forms></Forms> : <div></div>} {clickHor=== true ? <FormsHor></FormsHor> : <div></div>}</div>
+      <div>
+        {clickAct === true ? <Forms></Forms> : <div></div>}{" "}
+        {clickHor === true ? <FormsHor></FormsHor> : <div></div>}
+      </div>
     </div>
   );
 }
