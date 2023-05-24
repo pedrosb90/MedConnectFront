@@ -4,6 +4,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
+import Warning from "../../warning/Warning";
+import styles from './page.module.css'
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
@@ -13,7 +15,11 @@ export default function UserLogin() {
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   useEffect(() => {
     console.log(logStatus);
   }, [logStatus]);
@@ -38,22 +44,29 @@ export default function UserLogin() {
         }
       })
       .catch((error) => {
-        console.log(error);
-        setRegistered("error");
+        setError({...error,text:error.message,alert:true})
+        
       });
 
     //! this info must be send to the backend
   };
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
 
   if (!registered) {
     return (
-      <div>
+      <div className={styles.container}>
+        <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+        
         <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
+          labelCol={{ span: 10 }}
+          wrapperCol={{ span: 11 }}
           layout="horizontal"
           onFinish={(values) => onSubmit(values)}
+          className={styles.form}
         >
+          <h1 className={styles.title}>Crea una cuenta</h1>
           <Form.Item
             name="role"
             label="Usuario"
@@ -172,7 +185,7 @@ export default function UserLogin() {
             <Alert message="Ocurrió un error al registrarse" type="warning" />
           ) : (
             !registered && (
-              <Button block htmlType="submit" loading={loading}>
+              <Button htmlType="submit" loading={loading} className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
                 registrarse
               </Button>
             )

@@ -6,10 +6,17 @@ import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
 import { useRouter } from "next/navigation";
 import style from "./login.module.css";
 import Link from "next/link";
+import Warning from "../../warning/Warning";
+import { useState } from "react";
 
 export default function UserLogin() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   //! hacer el navigate al home, aviso de login y 1 seg despues al home
   const onSubmit = async (values) => {
     const { email, password } = values;
@@ -26,7 +33,7 @@ export default function UserLogin() {
           router.push("/");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setError({...error,text:error.message,alert:true}))
 
     //! this info must be send to the backend
   };
@@ -34,8 +41,11 @@ export default function UserLogin() {
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
-
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
   return (
+    <><Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <div className={style.masterContainer}>
       <div className={style.container}>
         <div className={style.components}>
@@ -133,6 +143,6 @@ export default function UserLogin() {
           </Link>
         </h2>
       </div>
-    </div>
+    </div></>
   );
 }
