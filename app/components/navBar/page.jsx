@@ -81,8 +81,8 @@ export default function Navbar() {
             <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>
             <Image onClick={onClickFunc} className='w-14 h-14 rounded-full' src={userLogo} width={600}
         height={600} alt="NOT_FOUND" />
-            <Link href={userPage} ><button style={{ color: "white" }}>
-              <h3>Ver Perfil</h3>
+            <Link href={userPage} ><button onClick={()=>setClickUser(false)} style={{ color: "white" }}>
+              <h3 >Ver Perfil</h3>
               {`${userLocal.first_name} ${userLocal.last_name}`}
               </button>
                </Link> 
