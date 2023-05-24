@@ -31,20 +31,19 @@ export default function Medicos_Especialidad_Filter() {
         alert(error.message);
       }
     }
-    fetchSpecialitiesData();
-  }, [dispatch]);
+  }, [dispatch, specialities]);
 
   useEffect(() => {
     async function fetchMedicosData() {
       try {
-        const response = await axios.get("http://localhost:3001/medics");
-        dispatch(getMedicos(response.data));
+        const response = await axios.get("http://localhost:3001/users");
+        let medicos = response.data.filter((mr) => mr.role === "medico");
+        dispatch(getMedicos(medicos));
       } catch (error) {
         alert(error.message);
       }
     }
-    fetchMedicosData();
-  }, [dispatch]);
+  }, [dispatch, allMedicos]);
 
   const handleSearch = () => {
     const filteredMedics = allMedicos.filter((medic) => {
@@ -55,9 +54,9 @@ export default function Medicos_Especialidad_Filter() {
         return false;
       }
       if (
-        specialty &&
+        speciality &&
         !medic.specializations.some((spec) =>
-          spec.name.toLowerCase().includes(specialty.toLowerCase())
+          spec.name.toLowerCase().includes(speciality.toLowerCase())
         )
       ) {
         return false;
@@ -107,7 +106,6 @@ export default function Medicos_Especialidad_Filter() {
         return true;
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
@@ -159,7 +157,6 @@ export default function Medicos_Especialidad_Filter() {
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-          {/* Add more options as needed */}
         </select>
         <select
           className="py-1 px-2 rounded-md mb-2 ml-5"
@@ -167,7 +164,11 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setCity(e.target.value)}
         >
           <option value="">Ciudad...</option>
-          {/* Add options for cities */}
+          {allMedicos.map((c) => (
+            <option key={city} value={city}>
+              {c.cityId}
+            </option>
+          ))}
         </select>
         <button
           className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"

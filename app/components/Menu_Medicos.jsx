@@ -14,8 +14,9 @@ export default function Menu_Medicos({ showMenu }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics");
-      dispatch(getMedicos(response.data));
+      const response = await axios.get("http://localhost:3001/users");
+      let medicos = response.data.filter((mr) => mr.role === "medico");
+      dispatch(getMedicos(medicos));
     } catch (error) {
       alert(error);
     }
