@@ -1,11 +1,12 @@
 "use client"
 import style from './Forms.module.css'
-import {Button,Form,Input,Radio,Alert} from 'antd';
+import {Button,Form,Input,Radio,Alert, Select} from 'antd';
 import FormItem from 'antd/es/form/FormItem';
 import { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from "react-redux"
 import axios from "axios"
 import { getSpeciality } from "../redux/reducer";
+import { Option } from 'antd/es/mentions';
 const local = "http://localhost:3001/specializations";
 
 
@@ -13,6 +14,13 @@ export default function Forms() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
+  const [user, setUser] = useState({})
+
+  const [form, setForm] = useState({
+    phone: "",
+    direccion: "",
+    especialidades: []
+  })
   
   console.log("esto es el estado global:",especialidades);
 
@@ -28,14 +36,22 @@ export default function Forms() {
 
   useEffect(()=>{
     fetchData()
-
+    if(!user.id){
+      axios.get('http://localhost:3001/medics/f00878aa-2831-45cc-b791-8a8d21600442')
+      .then(res=>{
+          setUser(res.data)
+      })
+      .catch(error =>{
+        console.error( error);
+      })
+  }
   },[])
 
   useEffect(() => {
     setData(especialidades);
   }, [especialidades]);
+console.log("esto es user: ",user);
 
-console.log("data: ",data);
   return (
     <div className={style.container} >
           <h1 className={style.title}>Actualiza tu informacion</h1>
@@ -51,19 +67,11 @@ console.log("data: ",data);
                   {logStatus.logStatus === "master" ?<Radio value="admin">Administrador</Radio>:null}
                 </Radio.Group>
             </Form.Item> */}
-            <FormItem name="first_name" label="Nombre" rules={[
-                {required:true,
-                message:"Por favor ingrese su nombre"
-            }
-            ]}>
-                <Input/>
+            <FormItem name="first_name" label="Nombre" >
+              <Input placeholder={user.first_name} disabled={true}/>
             </FormItem>
-            <FormItem name="last_name" label="Apellido" rules={[
-                {required:true,
-                message:"Por favor ingrese su apellido"
-            }
-            ]}>
-                <Input/>
+            <FormItem name="last_name" label="Apellido" >
+                <Input placeholder={user.last_name} disabled={true}/>
             </FormItem>
             <FormItem name="phone" label="Número de telefono" rules={[
                 {required:true,
@@ -72,78 +80,26 @@ console.log("data: ",data);
             ]}>
                 <Input type='number'/>
             </FormItem>
-            <Form.Item name="email" label="Correo electrónico"
-            rules={[
+            <FormItem name="especialidades" label="Especialidades" rules={[
               {required:true,
-                message:"Por favor ingrese su correo electrónico"
-              },
-              {
-                validator: (_, value) => {
-                  return new Promise((resolve, reject) => {
-                    if (value && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)) {
-                      resolve(); // Resuelve la promesa si la contraseña es válida
-                    } else {
-                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                    }
-                  });
-                },
-                message: "El correo no es válido"
-              }
-            ]}
-            hasFeedback>
-                <Input 
-                type="text"
-                name="user"
-                placeholder="Correo electronico"
-                />
+              message:"Escoge una o mas Especialidades"}
+            ]}>
+              <Select >
+              {data.map((e, index)=>{
+                return (
+                  <Option key={index} value={e.name}>{e.name}</Option>
+                )
+              })}
+              </Select>
+            </FormItem>
+            <Form.Item name="direccion" label="Direccion">
+            <Input/>
               {/* {errors.user && (<span>{errors.user}</span>)} */}
               </Form.Item>
-              <Form.Item name="password" label="Contraseña" 
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese su contraseña"},
-                  {
-                    validator: (_, value) => {
-                      return new Promise((resolve, reject) => {
-                        if (value && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(value)) {
-                          resolve(); // Resuelve la promesa si la contraseña es válida
-                        } else {
-                          reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                        }
-                      });
-                    },
-                    message: "La contraseña debe contener 1 mayúscula, 1 minúscula y un número"
-                  }
-                ]}
-                hasFeedback
-              >
-                  <Input.Password
-                    
-                    name="password"
-                    placeholder="Contraseña"/>
-              </Form.Item>
+              
     
     
-              <Form.Item name="ConfirmedPassword" label="Confirmar contraseña"
-              dependencies={["password"]} 
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese su contraseña"},
-                  ({getFieldValue})=>({
-                    validator(_,value){
-                        if(!value || getFieldValue("password") === value){
-                            return Promise.resolve()
-                        }
-                        return Promise.reject("Las contraseñas no coinciden")
-                  }})
-                ]}
-                hasFeedback
-              >
-                  <Input.Password
-                    
-                    name="ConfirmedPassword"
-                    placeholder="Confirmar contraseña"/>
-              </Form.Item>
+             
               {/* {errors.password && (<span>{errors.password}</span>)} */}
               {/* {registered === "error" ? <Alert
               message="Ocurrió un error al registrarse"
