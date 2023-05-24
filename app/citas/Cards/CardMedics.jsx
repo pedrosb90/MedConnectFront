@@ -4,10 +4,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
+
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import img from '../img/iconoMed.jpg'
+import img from "../img/iconoMed.jpg";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/medics";
 // const backendURL = "https://medconnectback-production.up.railway.app";

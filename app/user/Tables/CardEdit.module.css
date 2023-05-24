@@ -1,0 +1,43 @@
+.container{
+    background-color: white;
+    
+    position: absolute;
+    width: 45%;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 40px;
+    border-radius: 8px;
+    box-shadow: -1px 9px 23px 9px rgba(0,0,0,0.75);
+    
+}
+.cerrar{
+    position: absolute;
+    right: 1%;
+    top: 5%;
+}
+.container h1{
+    display: flex;
+    width: 60%;
+    text-align: center;
+    align-self: center;
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-right: 15px;
+}
+.submit{
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 6px 20%;
+    background-color: rgb(30 41 59);
+    color:white ;
+    font-size: 1.1em;
+    font-weight: 600;
+    
+}
