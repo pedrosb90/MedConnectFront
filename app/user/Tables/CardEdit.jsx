@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import axios from 'axios';
 import styles from './CardEdit.module.css'
+import Warning from '../../components/warning/Warning';
 const { Item } = Form;
 const { Option } = Select;
 
@@ -20,6 +21,11 @@ export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
         vierne: 5,
         sábado: 6
       };
+      const [error,setError]=useState({
+        text:'',
+        alert:false
+        
+      })
 
     const disabledDate = (current) => {
         const today = moment().startOf('day');
@@ -50,13 +56,18 @@ const fechaFormateada = `${año}-${mes}-${día}`;
             setPut(true)
             
           })
-          .catch((error) => alert(error));
+          .catch((error) => setError({...error,text:error.message,alert:true}));
           setOpen(false)
-          
-          
+ 
       };
+      const FinishFailed=()=>{
+        setError({...error,text:'',alert:false})
+      }
     return(
+      <>
+       <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
         <div className={styles.container}>
+          
           <h1>{'Modificar fecha y hora de la cita con ID:  ' + id}</h1>
           <button className={styles.cerrar+ ' focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'} onClick={()=>setOpen(false)}>Cerrar</button>
             <Form labelCol={{   span: 8, }} wrapperCol={{   span: 12, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields()}} >
@@ -92,7 +103,7 @@ const fechaFormateada = `${año}-${mes}-${día}`;
               
                <Button  htmlType='submit' className={styles.submit}>Enviar</Button>
             </Form>
-        </div>
+        </div></>
 
     )
 }

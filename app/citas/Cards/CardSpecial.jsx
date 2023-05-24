@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
 import {postInfo} from '../../redux/CitaReducer'
+import Warning from "@/app/components/warning/Warning";
 
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/specializations";
@@ -15,6 +16,11 @@ const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [especial,setEspecial]= useState([])
@@ -26,7 +32,7 @@ export default function CardSpecial() {
 
       dispatch(getSpeciality(response.data));
     } catch (error) {
-      alert(error.message);
+      setError({...error,text:error.message,alert:true})
     }
   }
   const handleClick = (event) => {
@@ -79,9 +85,13 @@ export default function CardSpecial() {
     }
     
   }
-  console.log(citaInfo);
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
+  
     
   return(
+    <> <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <div className={styles.container}>
       <h2 className={styles.subTitle}>¿Quieres agendar con un profesional en particular?</h2>
       <CardMedics handleClickMed={handleClickMed}></CardMedics>
@@ -116,6 +126,6 @@ export default function CardSpecial() {
       
       
     </div>
-    </div>
+    </div></>
   );
 }

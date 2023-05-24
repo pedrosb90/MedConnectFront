@@ -1,10 +1,11 @@
 .alert{
-    position: absolute;
+    position: fixed;
+    z-index: 100;
     background-color: #ffea61;
 border-left: 18px solid #F59E0B;
 color: black;
 padding: 15px;
-z-index: 30;
+
 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 font-size: 1.1em;
 font-weight: 500;
@@ -13,14 +14,16 @@ border-bottom-right-radius: 10px;
 right:  0;
 top: 22vh;
 transition: 0.2s ease;
+height: 13vh;
 }
 .alert_off{
-    position: absolute;
+    z-index: 100;
+    position: fixed;
     background-color: #ffea61;
 border-left: 18px solid #F59E0B;
 color: black;
 padding: 15px;
-z-index: 30;
+height: 13vh;
 clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 font-size: 1.1em;
 font-weight: 500;
