@@ -1,28 +1,39 @@
 import { useState } from "react";
 import axios from "axios";
+import { searchMedic, sortMedicos } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const estadoMed = useSelector((state) => state.speciality.AllMedicos);
+
   const dispatch = useDispatch();
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        `${local}?first_name=${searchValue}`,
-        { email, password },
-        { withCredentials: true, credentials: "include" }
-      );
-      setSearchResult(response.data);
+      // { email, password },
+      // { withCredentials: true, credentials: "include" }
+      const filteredMedics = estadoMed.filter((medic) => {
+        const fullName = `Dr. ${medic.user.first_name.charAt(0)} ${
+          medic.user.last_name
+        }`;
+        const searchValueLowerCase = searchValue.toLowerCase();
+        return fullName.toLowerCase().includes(searchValueLowerCase);
+      });
+      setSearchResult(filteredMedics);
+      dispatch(searchMedic(filteredMedics));
       setSearchPerformed(true);
     } catch (error) {
       alert(error);
     }
   };
+
   const handleChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -31,10 +42,16 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
     setSearchValue("");
     setSearchResult([]);
     setSearchPerformed(false);
+    dispatch(searchMedic([]));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
+  };
+  const handleSortAZ = () => {
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newOrder);
+    dispatch(sortMedicos(newOrder));
   };
 
   const isSearchDisabled = searchValue === "";
@@ -75,8 +92,11 @@ export default function Search_Bar_Medicos({ setSearchResult }) {
           <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
             Disponibilidad
           </button>
-          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            A - Z{" "}
+          <button
+            onClick={handleSortAZ}
+            className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+          >
+            {`${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
           </button>
         </div>
       </div>
