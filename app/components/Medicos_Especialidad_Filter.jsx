@@ -107,12 +107,15 @@ export default function Medicos_Especialidad_Filter() {
 
   const checkCertifications = (count, selectedCount) => {
     switch (selectedCount) {
+      case "0" || null:
+        return count === 0;
       case "1":
         return count === 1;
       case "2":
         return count === 2;
       case "3":
         return count === 3;
+
       default:
         return true;
     }
@@ -166,7 +169,7 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setYearsExperience(e.target.value)}
         >
           <option value="">Años de experiencia...</option>
-          <option value="1">0 - 2</option>
+          <option value="0<2">0 - 2</option>
           <option value="2<5">3 - 5</option>
           <option value="5<15">5 - 15</option>
           <option value="15plus">15+</option>
@@ -177,6 +180,7 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setCertifications(e.target.value)}
         >
           <option value="">Cantidad de certificaciones...</option>
+          <option value="0">Ninguna</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
