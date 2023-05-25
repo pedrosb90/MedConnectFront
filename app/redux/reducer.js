@@ -6,6 +6,7 @@ const initialState = {
   AllMedicos: [],
   Detail: {},
   deletedMedic: null,
+  selectList: [],
 };
 export const medicalReducer = createSlice({
   name: "speciality",
