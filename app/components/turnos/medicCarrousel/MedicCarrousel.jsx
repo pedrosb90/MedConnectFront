@@ -10,7 +10,6 @@ import img from '../../../citas/img/iconoMed.jpg'
 // const medicsURL = `${backendURL}/medics`;
 export default function MedicCarrousel({ medics,select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
  
   const handleNext = () => {
     if (currentIndex + 5 === medics.length) {
@@ -77,11 +76,11 @@ export default function MedicCarrousel({ medics,select }) {
                     <h5
                       className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                     >
-                      {med.first_name ? "Dr. " + med.first_name : "...Loading"}
+                      {med.user.first_name ? "Dr. " + med.user.first_name : "...Loading"}
                     </h5>
                   </Link>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {med.last_name ? med.last_name : "..Loading"}
+                    {med.user.last_name ? med.user.last_name : "..Loading"}
                   </span>
                   <div className="flex mt-2 space-x-2"></div>
                 </div>

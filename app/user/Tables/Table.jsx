@@ -2,27 +2,64 @@
 import style from '../page.module.css'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {obtenerHorarios} from './obtenerHorarios.js'
+import CardEdit from './CardEdit'
+import Success from '../../components/success/Success'
 export default function Table(){
     
     const [userCitas, setUserCitas] = useState({});
-    
+    const [horarios, setHorarios]=useState([])
+    const [open ,setOpen]= useState(false)
+    const [datos, setDatos]=useState({
+      dia:'',
+      status:'',
+      id:''
+    })
+    const [put,setPut]=useState(false)
 
 useEffect(() => {
-  if (!userCitas.id) {
+  if(!userCitas.length){
     axios.get('http://localhost:3001/appointment')
       .then(res => {
         setUserCitas(res.data);
+        
       })
       .catch(error => {
         alert('Error al obtener los datos del usuario:', error);
       });
-  }
-}, []);
+  
+
+}}, [userCitas]);
 const citas = userCitas.length && userCitas.filter(cita => cita.patient.id =='1')
-console.log(citas);
+
+
+// const start_time = "12:05:00";
+//   const end_time = "17:05:00";
+//   const duracion_cita = 40;
+
+const editCita =async(Med_id, status, Cita_id)=>{
+  const res = await axios.get('http://localhost:3001/medics')
+  
+  const medico = res.data.find(med=> med.user.id=== Med_id)
+
+  for(const hours of medico.schedules){
+    const hora = obtenerHorarios(hours.start_time, hours.end_time, 40);
+    
+    setHorarios(hora);
+    setDatos({...datos ,dia: hours.day_of_week, status:status, id:Cita_id})
+  }
+  setOpen(true)
+}
+const success =()=>{
+  setPut(false)
+}
+
 
     return(
-        <div className={ style.table_cont +" relative overflow-x-auto shadow-md sm:rounded-lg"}>
+      <>
+      <Success alert={put} text={'Se modifico el dia y hora de su cita exitosamente'} success={success} ></Success>
+        <div className={ style.table_cont +" relative shadow-md sm:rounded-lg"}>
+         {open && <CardEdit horarios={horarios} dia={datos.dia} status={datos.status} setPut={setPut} id={datos.id} setOpen={setOpen}></CardEdit>}
             <h1 className={style.title + ' mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl'}>Citas Agendadas</h1>
     {citas && <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -68,14 +105,14 @@ console.log(citas);
       {cita.scheduledTime}
     </td>
     <td className="px-6 py-4">
-      {cita.medico.first_name} <br />
-      {cita.medico.last_name}
+      {cita.user.first_name} <br />
+      {cita.user.last_name}
     </td>
     <td className="px-6 py-4">
       {cita.status}
     </td>
     <td className="px-6 py-4">
-      <a href="/user" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+      <button onClick={()=>editCita(cita.user.id ,cita.status, cita.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
     </td>
   </tr>
 ))}
@@ -83,6 +120,7 @@ console.log(citas);
        
         </tbody>
     </table>}
-</div>
+    
+</div></>
     )
 }

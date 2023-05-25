@@ -31,6 +31,9 @@ const Turnos = () => {
 
     //! temporarly speciality day, it must be changed
 
+    console.log(info);
+    console.log("allMedicos",AllMedicos);
+
 const randomDay = () => {
   const randomIndex = Math.floor(Math.random() * 7);
   return randomIndex;
@@ -55,6 +58,9 @@ if(!info.id){
   });
 }
 
+console.log("selectedMedic",medic);
+
+//! useEffect for some logic, it must be removed in a nearly future
 
 useEffect(() => {
   if (!AllSpecial.length) {
@@ -62,6 +68,7 @@ useEffect(() => {
   }
 }, [info]);
 
+//! DatePicker required functions
 
           const onSelect = (newValue) => {
             setValue(newValue);

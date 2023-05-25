@@ -5,12 +5,19 @@ import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import Warning from "../../components/warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 const local = "http://localhost:3001/medics";
 
+
 export default function Page() {
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   const [data, setData] = useState({});
 
   const { id } = useParams();
@@ -20,17 +27,21 @@ export default function Page() {
       const response = await axios.get(`${local}/${id}`);
       setData(response.data);
     } catch (error) {
-      alert(error.message);
+      setError({...error,text:error.message,alert:true})
+      
     }
   }
   useEffect(() => {
     fetchData(id);
   }, [id]);
-
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
   const espe = data.id && data.specializations.map((spec) => spec.name);
 
   return (
     <div>
+       <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
       <section className={styles.container}>
         <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
           <div className="flex flex-wrap items-center mx-auto max-w-7xl">
@@ -55,7 +66,7 @@ export default function Page() {
             <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
               <h1 className="mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
                 {data.id
-                  ? `Dr. ${data.first_name} ${data.last_name}`
+                  ? `Dr. ${data.user.first_name} ${data.user.last_name}`
                   : "...Loading"}
               </h1>
               <ul className="mb-8 text-base leading-relaxed text-left text-gray-500 font-bold">

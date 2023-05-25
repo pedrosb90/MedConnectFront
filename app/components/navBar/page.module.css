@@ -6,6 +6,81 @@
     display: none;
   }
 }
+.userGoogle{
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 13%;
+  align-items: center;
+  
+
+}
+.userGoogle button{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(30 41 59);
+  
+  
+  width: max-content;
+  margin-top: 9px;
+  padding: 10px;
+  z-index:20;
+  align-items: center;
+  font-weight: 600;
+  gap: 18px;
+  transition: 0.2s ease;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+}
+.userGoogle_off{
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 13%;
+  align-items: center;
+}
+.userGoogle_off button{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(30 41 59);
+  
+  left: -45px;
+  width: max-content;
+  margin-top: 8px;
+  padding: 10px;
+  z-index:20;
+  align-items: center;
+  font-weight: 600;
+  gap: 18px;
+  transition: 0.2s ease;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+.userGoogle h3:hover{
+  background-color: white;
+  color: black;
+  
+}
+.userGoogle h3{
+  padding: 5px 18%;
+  border-radius: 4px;
+  transition: 0.1s ease;
+  
+}
+.userGoogle_off h3:hover{
+  background-color: white;
+  color: black;
+  
+}
+.userGoogle_off h3{
+  padding: 5px 18%;
+  border-radius: 4px;
+  transition: 0.1s ease;
+  
+}
 .links {
   display: flex;
   background-color: rgba(251, 229, 176, 0);

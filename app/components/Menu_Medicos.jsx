@@ -1,37 +1,47 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./menu_medicos/page.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
-
+import Warning from "./warning/Warning";
 export default function Menu_Medicos({ showMenu }) {
   const dispatch = useDispatch();
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics");
-      dispatch(getMedicos(response.data));
+      const response = await axios.get("http://localhost:3001/users");
+      let medicos = response.data.filter((mr) => mr.role === "medico");
+      dispatch(getMedicos(medicos));
     } catch (error) {
-      alert(error);
+      setError({...error,text:error.message,alert:true})
     }
   };
   useEffect(() => {
     !estadoMed?.length && fetchMedicos();
   }, [estadoMed]);
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
 
   return (
+    <><Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <div className={showMenu ? styles.container : styles.cont_on}>
+       
       <div className={styles.med_box}>
         <ul>
           {estadoMed.map((med) => {
             return (
               <span key={med.id}>
-                <Link href={`/medicos/${med.id}`}>
+                <Link href={`/medicos/${med.user.id}`}>
                   <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +60,9 @@ export default function Menu_Medicos({ showMenu }) {
                       <path d="M9 16h0.01" />
                       <path d="M13 16h2" />
                     </svg>
-                    Dr. {med.first_name}
+                    Dr. {med.user.first_name}
                     <br />
-                    {med.last_name}
+                    {med.user.last_name}
                   </li>
                 </Link>
               </span>
@@ -66,6 +76,6 @@ export default function Menu_Medicos({ showMenu }) {
         <br />
         <h5> Teléfono: 1122039682</h5>
       </div>
-    </div>
+    </div></>
   );
 }

@@ -1,8 +1,8 @@
 .alert{
     position: fixed;
     z-index: 100;
-    background-color: #ffea61;
-border-left: 18px solid #F59E0B;
+    background-color: #81ff61;
+border-left: 18px solid #0bf513;
 color: black;
 padding: 15px;
 
@@ -19,8 +19,8 @@ height: 13vh;
 .alert_off{
     z-index: 100;
     position: fixed;
-    background-color: #ffea61;
-border-left: 18px solid #F59E0B;
+    background-color: #81ff61;
+border-left: 18px solid #0bf513;
 color: black;
 padding: 15px;
 height: 13vh;

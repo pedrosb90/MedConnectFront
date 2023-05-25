@@ -4,27 +4,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
+
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import img from '../img/iconoMed.jpg'
+import img from "../img/iconoMed.jpg";
+import Warning from "@/app/components/warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "http://localhost:3001/medics";
 // const backendURL = "https://medconnectback-production.up.railway.app";
 // const medicsURL = `${backendURL}/medics`;
 export default function CardMedics({ handleClickMed }) {
   const [medicos, setMedicos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(local);
-      dispatch(getMedicos(response.data));
+      const response = await axios.get("http://localhost:3001/users");
+      let medicos = response.data.filter((mr) => mr.role === "medico");
+      dispatch(getMedicos(medicos));
     } catch (error) {
-      alert(error);
+      setError({...error,text:error.message,alert:true})
     }
   };
   useEffect(() => {
@@ -43,11 +49,15 @@ export default function CardMedics({ handleClickMed }) {
     }
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
 
   const paginatedMedicos = medicos
     .slice(currentIndex, currentIndex + 5)
     .filter((medico) => !!medico); // Filtrar medicos nulos
   return (
+    <><Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <div className={styles.cards + " flex  justify-center"}>
       <button onClick={handlePrevious} className={styles.buttons}>
         <svg
@@ -116,6 +126,6 @@ export default function CardMedics({ handleClickMed }) {
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
-    </div>
+    </div></>
   );
 }

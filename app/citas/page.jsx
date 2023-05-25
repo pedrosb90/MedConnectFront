@@ -1,7 +1,7 @@
 import Image from "next/image";
 import img from "./img/fondo.jpg";
 import styles from "./Cards/page.module.css";
-
+import Medicos_Especialidad_Filter from "../components/Medicos_Especialidad_Filter";
 import CardSpecial from "./Cards/CardSpecial";
 
 export default function Citas() {
@@ -57,6 +57,7 @@ export default function Citas() {
           </div>
         </div>
       </div>
+      <Medicos_Especialidad_Filter />
       <CardSpecial />
     </div>
   );

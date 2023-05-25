@@ -19,12 +19,15 @@ const nextConfig = {
       "pbs.twimg.com",
       "www.apressalud.com.ar",
       "www.lu24.com.ar",
+      "lh3.googleusercontent.com",
+      "netmd.org",
+      "i0.wp.com",
+      "aio-oftalmologia.com",
+      "licancerbucaramanga.org",
+      "s01.europapress.net",
     ],
   },
   reactStrictMode: true,
 };
 
 module.exports = nextConfig;
-
-
-
