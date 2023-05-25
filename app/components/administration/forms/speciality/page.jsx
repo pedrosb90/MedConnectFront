@@ -6,6 +6,7 @@ import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
 import { SHA1 } from 'crypto-js';
+const local = "http://localhost:3001/specializations";
 
 
 export default function SpecialtyForm() {
