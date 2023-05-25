@@ -37,7 +37,7 @@ export default function Forms() {
   useEffect(()=>{
     fetchData()
     if(!user.id){
-      axios.get('http://localhost:3001/medics/f00878aa-2831-45cc-b791-8a8d21600442')
+      axios.get('http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37')
       .then(res=>{
           setUser(res.data)
       })
@@ -53,7 +53,7 @@ export default function Forms() {
 console.log("esto es user: ",user);
 
   return (
-    <div className={style.container} >
+    <div className={style.container + " top-1/3 "} >
           <h1 className={style.title}>Actualiza tu informacion</h1>
           <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
             {/* <Form.Item name="userType" label="Usuario" 
@@ -68,10 +68,10 @@ console.log("esto es user: ",user);
                 </Radio.Group>
             </Form.Item> */}
             <FormItem name="first_name" label="Nombre" >
-              <Input placeholder={user.first_name} disabled={true}/>
+              <Input placeholder={user?.user?.first_name} disabled={true}/>
             </FormItem>
             <FormItem name="last_name" label="Apellido" >
-                <Input placeholder={user.last_name} disabled={true}/>
+                <Input placeholder={user?.user?.last_name} disabled={true}/>
             </FormItem>
             <FormItem name="phone" label="Número de telefono" rules={[
                 {required:true,

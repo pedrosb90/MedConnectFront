@@ -4,7 +4,7 @@ import FormItem from 'antd/es/form/FormItem';
 
 export default function FormCal() {
   return (
-    <div className={style.container} >
+    <div className={style.container + " top-1/3 "} >
           <h1 className={style.title}>Experiencia</h1>
           <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
             {/* <Form.Item name="userType" label="Usuario" 

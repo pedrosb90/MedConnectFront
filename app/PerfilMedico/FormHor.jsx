@@ -5,7 +5,7 @@ import FormItem from 'antd/es/form/FormItem';
 export default function FormHor() {
   const { RangePicker } = TimePicker;
   return (
-    <div className={style.container} >
+    <div className={style.container  + " top-1/3 "} >
           <h1 className={style.title}>Horario de Atencion</h1>
           <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
           

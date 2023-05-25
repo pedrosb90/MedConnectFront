@@ -15,7 +15,7 @@ export default function Table() {
 
     useEffect(() => {
         if(!user.id){
-            axios.get('http://localhost:3001/medics/f00878aa-2831-45cc-b791-8a8d21600442')
+            axios.get('http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37')
             .then(res=>{
                 setUser(res.data)
             })
@@ -33,7 +33,7 @@ export default function Table() {
             })
         }
     }, []);
-    const getCitasPerfil = citas.filter((e)=>e.medico.first_name === user.first_name)
+    const getCitasPerfil = citas?.filter((e)=>e.user?.first_name === user?.user?.first_name)
     console.log("get citas perfil: ",getCitasPerfil);
     
 
