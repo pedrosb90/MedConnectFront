@@ -26,9 +26,9 @@ export default function CardMedics({ handleClickMed }) {
 
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/users");
-      let medicos = response.data.filter((mr) => mr.role === "medico");
-      dispatch(getMedicos(medicos));
+      const response = await axios.get("http://localhost:3001/medics");
+      
+      dispatch(getMedicos(response.data));
     } catch (error) {
       setError({...error,text:error.message,alert:true})
     }
@@ -37,7 +37,7 @@ export default function CardMedics({ handleClickMed }) {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
   }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
-    if (currentIndex + 5 === medicos.length) {
+    if (currentIndex + 3 === medicos.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -94,15 +94,15 @@ export default function CardMedics({ handleClickMed }) {
                     width={500}
                     height={500}
                   />
-                  <Link href={`/medicos/${med.id}`}>
+                  <Link href={`/medicos/${med.user.id}`}>
                     <h5
                       className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                     >
-                      {med.first_name ? "Dr. " + med.first_name : "...Loading"}
+                      {med.user.first_name ? "Dr. " + med.user.first_name : "...Loading"}
                     </h5>
                   </Link>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {med.last_name ? med.last_name : "..Loading"}
+                    {med.user.last_name ? med.user.last_name : "..Loading"}
                   </span>
                   <div className="flex mt-2 space-x-2"></div>
                 </div>
