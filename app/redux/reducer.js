@@ -63,6 +63,15 @@ export const medicalReducer = createSlice({
 
       state.AllSpecial = sortedEspecs;
     },
+    sortAv: (state, action) => {
+      const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
+        const dayA = a.schedules[0].day_of_week;
+        const dayB = b.schedules[0].day_of_week;
+        return action.payload === "asc" ? dayA - dayB : dayB - dayA;
+      });
+
+      state.AllMedicos = sortedMedicos;
+    },
   },
 });
 export const {
@@ -75,6 +84,7 @@ export const {
   clearSearchMedic,
   sortEspecsAZ,
   sortMedicos,
+  sortAv,
 } = medicalReducer.actions;
 
 export default medicalReducer.reducer;
