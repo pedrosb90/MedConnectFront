@@ -31,7 +31,8 @@ const [alert,setAlert]=useState(false)
 const FinishFailed=async()=>{
   if (contador === 2) {
     setAlert(!alert)
-    
+    await axios.delete('http://localhost:3001/users/'+ userLocal.id)
+    .then(()=> alert('borrado con exito'))
     setContador(1);
   } else {
     setContador(contador + 1);
