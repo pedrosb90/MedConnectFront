@@ -105,7 +105,7 @@ export default function CardSpecial() {
         {medico.id ? (
           <h2 className={styles.subTitle}>
             Selecciona los servicios que deseas agendar del Dr.{" "}
-            {medico.first_name + " " + medico.last_name}:
+            {medico.user.first_name + " " + medico.user.last_name}:
           </h2>
         ) : (
           <h2 className={styles.subTitle}>
