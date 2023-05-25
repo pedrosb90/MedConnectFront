@@ -41,6 +41,28 @@ export const medicalReducer = createSlice({
       const medics = action.payload;
       state.AllMedicos = [];
     },
+    sortMedicos: (state, action) => {
+      const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
+        const nameA = a.user.last_name;
+        const nameB = b.user.last_name;
+        return action.payload === "asc"
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      });
+
+      state.AllMedicos = sortedMedicos;
+    },
+    sortEspecsAZ: (state, action) => {
+      const sortedEspecs = [...state.AllSpecial].sort((a, b) => {
+        const nameA = a.name;
+        const nameB = b.name;
+        return action.payload === "asc"
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      });
+
+      state.AllSpecial = sortedEspecs;
+    },
   },
 });
 export const {
@@ -51,6 +73,8 @@ export const {
   searchBar,
   searchMedic,
   clearSearchMedic,
+  sortEspecsAZ,
+  sortMedicos,
 } = medicalReducer.actions;
 
 export default medicalReducer.reducer;
