@@ -1,25 +1,111 @@
 "use client";
-import { useState } from "react";
+import { getSpeciality, searchMedic, getMedicos } from "../redux/reducer";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { searchMedic, searchBar } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
+
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 const local = "http://localhost:3001/medics";
 
 export default function Medicos_Especialidad_Filter() {
-  const [searchValue, setSearchValue] = useState("");
-  const [specialty, setSpecialty] = useState("");
+  const allMedicos = useSelector((state) => state.speciality.AllMedicos);
+  const specialities = useSelector((state) => state.speciality.AllSpecial);
+
+  const dispatch = useDispatch();
+  const [medicName, setMedicName] = useState("");
+  const [speciality, setSpecialty] = useState("");
   const [yearsExperience, setYearsExperience] = useState("");
   const [certifications, setCertifications] = useState("");
   const [city, setCity] = useState("");
 
+  useEffect(() => {
+    async function fetchSpecialitiesData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/specializations"
+        );
+        dispatch(getSpeciality(response.data));
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  }, [dispatch, specialities]);
+
+  useEffect(() => {
+    async function fetchMedicosData() {
+      try {
+        const response = await axios.get("http://localhost:3001/users");
+        let medicos = response.data.filter((mr) => mr.role === "medico");
+        dispatch(getMedicos(medicos));
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  }, [dispatch, allMedicos]);
+
   const handleSearch = () => {
-    // Handle search functionality, including API calls
-    // Add your implementation here
+    const filteredMedics = allMedicos.filter((medic) => {
+      if (
+        medicName &&
+        !medic.first_name.toLowerCase().includes(medicName.toLowerCase())
+      ) {
+        return false;
+      }
+      if (
+        speciality &&
+        !medic.specializations.some((spec) =>
+          spec.name.toLowerCase().includes(speciality.toLowerCase())
+        )
+      ) {
+        return false;
+      }
+      if (
+        yearsExperience &&
+        !checkYearsExperience(medic.years_of_experience, yearsExperience)
+      ) {
+        return false;
+      }
+      if (
+        certifications &&
+        !checkCertifications(medic.certifications.length, certifications)
+      ) {
+        return false;
+      }
+      if (city && !medic.city.name.toLowerCase().includes(city.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+    dispatch(searchMedic(filteredMedics));
   };
 
+  const checkYearsExperience = (experience, range) => {
+    switch (range) {
+      case "2<5":
+        return experience >= 2 && experience <= 5;
+      case "5<15":
+        return experience >= 5 && experience <= 15;
+      case "15plus":
+        return experience >= 15;
+      default:
+        return true;
+    }
+  };
+
+  const checkCertifications = (count, selectedCount) => {
+    switch (selectedCount) {
+      case "1":
+        return count === 1;
+      case "2":
+        return count === 2;
+      case "3":
+        return count === 3;
+      default:
+        return true;
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
@@ -30,18 +116,27 @@ export default function Medicos_Especialidad_Filter() {
       <form onSubmit={handleSubmit} className="justify-end">
         <select
           className="py-1 px-2 rounded-md mb-2"
+          value={medicName}
           onChange={(e) => setMedicName(e.target.value)}
         >
           <option value="">Medico...</option>
-          {/* Add options for medic names */}
+          {allMedicos.map((medico) => (
+            <option key={medico.id} value={medicName}>
+              {medico.last_name}
+            </option>
+          ))}
         </select>
         <select
           className="py-1 px-2 rounded-md mb-2 ml-10"
-          value={specialty}
+          value={speciality}
           onChange={(e) => setSpecialty(e.target.value)}
         >
           <option value="">Especialidad...</option>
-          {/* Add options for specialties */}
+          {specialities.map((specialty) => (
+            <option key={specialty} value={speciality}>
+              {specialty.name}
+            </option>
+          ))}
         </select>
         <select
           className="py-1 px-2 rounded-md mb-2 ml-5"
@@ -62,7 +157,6 @@ export default function Medicos_Especialidad_Filter() {
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-          {/* Add more options as needed */}
         </select>
         <select
           className="py-1 px-2 rounded-md mb-2 ml-5"
@@ -70,7 +164,11 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setCity(e.target.value)}
         >
           <option value="">Ciudad...</option>
-          {/* Add options for cities */}
+          {allMedicos.map((c) => (
+            <option key={city} value={city}>
+              {c.cityId}
+            </option>
+          ))}
         </select>
         <button
           className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
