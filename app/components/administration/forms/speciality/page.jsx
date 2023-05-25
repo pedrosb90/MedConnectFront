@@ -15,27 +15,22 @@ export default function SpecialtyForm() {
   const [url, setUrl] = useState("")
   const [publicId, setPublicId] = useState("")
 
-
-  
-
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
-
+    
     const body = {
       description,
       name,
       url,
     };
-    console.log(body);
     
-
     axios
       .post(local, body)
       .then((response) => {
         // Código para manejar la respuesta en caso de éxito
         alert("Registro exitoso");
-        event.target.reset();
+        
       })
       .catch((error) => {
         // Código para manejar la respuesta en caso de error
@@ -56,10 +51,10 @@ export default function SpecialtyForm() {
         headers: {"X-Requested-With": "XMLHttpRequest"},
       }).then((response)=>{
         const data = response.data
-        console.log(data)
+        
         const fileURL = data.secure_url;
         setUrl(data.secure_url)
-        console.log(fileURL);
+        
         let specificArrayInObject = image.array;
         specificArrayInObject.push(fileURL);
         const newobj ={...image, specificArrayInObject};
@@ -101,9 +96,9 @@ export default function SpecialtyForm() {
           timestamp: timestamp,
         });
         setImage({array:[]})
-        console.log(response);
+        
       } catch (error) {
-        console.error(error)
+        
         
       }
     
@@ -132,13 +127,14 @@ export default function SpecialtyForm() {
       );
     }
   }
+  const [form] = Form.useForm();
 
   return (
         
 
   <div className={styles.container}>
         <h1 className={styles.title}>Añadir Especialidad</h1>
-          <Form labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+          <Form labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields()}}>
     
           <Form.Item name="name" label="Especialidad" 
                 rules={[
