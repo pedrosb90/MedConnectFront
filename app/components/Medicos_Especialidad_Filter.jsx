@@ -87,8 +87,12 @@ export default function Medicos_Especialidad_Filter() {
       ) {
         return false;
       }
+      if (city && !medic.city.name.toLowerCase().includes(city.toLowerCase())) {
+        return false;
+      }
       return true;
     });
+
     dispatch(searchMedic(filteredMedics));
   };
 
