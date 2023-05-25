@@ -78,14 +78,13 @@ export default function Medicos_Especialidad_Filter() {
       }
       if (
         certifications &&
+        medic.medicoCalification &&
+        medic.medicoCalification.certifications &&
         !checkCertifications(
           medic.medicoCalification.certifications.length,
           certifications
         )
       ) {
-        return false;
-      }
-      if (city && !medic.city.name.toLowerCase().includes(city.toLowerCase())) {
         return false;
       }
       return true;
