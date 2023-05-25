@@ -4,7 +4,7 @@ import styles from './page.module.css'
 export default function({alert,text,FinishFailed}){
     useEffect(() => {
         const timer = setTimeout(() => {
-          FinishFailed;
+          FinishFailed();
         }, 4000);
     
         return () => clearTimeout(timer);
