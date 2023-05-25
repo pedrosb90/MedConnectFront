@@ -20,6 +20,8 @@ const nextConfig = {
       "www.apressalud.com.ar",
       "www.lu24.com.ar",
       'lh3.googleusercontent.com',
+      'netmd.org',
+      'i0.wp.com'
     ],
   },
   reactStrictMode: true,

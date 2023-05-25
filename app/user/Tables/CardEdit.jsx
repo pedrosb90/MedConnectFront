@@ -4,6 +4,7 @@ import moment from 'moment'
 import axios from 'axios';
 import styles from './CardEdit.module.css'
 import Warning from '../../components/warning/Warning';
+import { useState } from 'react';
 const { Item } = Form;
 const { Option } = Select;
 
@@ -12,15 +13,7 @@ const { Option } = Select;
 
 export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
   const [form] = Form.useForm();
-    const diasSemana = {
-        domingo: 7,
-        lunes: 1,
-        martes: 2,
-        miércoles: 3,
-        jueves: 4,
-        vierne: 5,
-        sábado: 6
-      };
+    
       const [error,setError]=useState({
         text:'',
         alert:false
@@ -33,7 +26,7 @@ export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
       
         if (current && (
           current.isBefore(today, 'day') || // Deshabilita los días anteriores a hoy
-          (current.day() !== diasSemana[dia.toLowerCase()]) // Deshabilita los días que no sean viernes
+          (current.day() !== dia) // Deshabilita los días que no sean viernes
         )) {
           return true;
         }
@@ -51,8 +44,8 @@ export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
 const fechaFormateada = `${año}-${mes}-${día}`;
 
         axios.put("http://localhost:3001/appointment/"+id,{ scheduledDate: fechaFormateada, scheduledTime: scheduledTime +":00", status:status },)
-          .then((res) => {
-            alert('exito')
+          .then(() => {
+            
             setPut(true)
             
           })
@@ -65,6 +58,7 @@ const fechaFormateada = `${año}-${mes}-${día}`;
       }
     return(
       <>
+      <></>
        <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
         <div className={styles.container}>
           

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {obtenerHorarios} from './obtenerHorarios.js'
 import CardEdit from './CardEdit'
-
+import Success from '../../components/success/Success'
 export default function Table(){
     
     const [userCitas, setUserCitas] = useState({});
@@ -18,18 +18,18 @@ export default function Table(){
     const [put,setPut]=useState(false)
 
 useEffect(() => {
-  if(!userCitas.length || put){
+  if(!userCitas.length){
     axios.get('http://localhost:3001/appointment')
       .then(res => {
         setUserCitas(res.data);
-        setPut(false)
+        
       })
       .catch(error => {
         alert('Error al obtener los datos del usuario:', error);
       });
   
 
-}}, [userCitas,put]);
+}}, [userCitas]);
 const citas = userCitas.length && userCitas.filter(cita => cita.patient.id =='1')
 
 
@@ -37,23 +37,27 @@ const citas = userCitas.length && userCitas.filter(cita => cita.patient.id =='1'
 //   const end_time = "17:05:00";
 //   const duracion_cita = 40;
 
-const editCita =async(nombre, apellido, status, id)=>{
-  const res = await axios.get('http://localhost:3001/schedule')
+const editCita =async(Med_id, status, Cita_id)=>{
+  const res = await axios.get('http://localhost:3001/medics')
   
-  const horaCita = res.data.find(hora=> hora.medico.first_name === nombre && hora.medico.last_name === apellido)
-  const horaAtencion = obtenerHorarios(horaCita.start_time, horaCita.end_time, 40)
-  setHorarios(horaAtencion);
-  setDatos({...datos ,dia: horaCita.day_of_week, status:status, id:id})
+  const medico = res.data.find(med=> med.user.id=== Med_id)
+
+  for(const hours of medico.schedules){
+    const hora = obtenerHorarios(hours.start_time, hours.end_time, 40);
+    
+    setHorarios(hora);
+    setDatos({...datos ,dia: hours.day_of_week, status:status, id:Cita_id})
+  }
   setOpen(true)
-  
-
-  // const data = obtenerHorarios(start_time,end_time,duracion_cita);
- 
-
+}
+const success =()=>{
+  setPut(false)
 }
 
 
     return(
+      <>
+      <Success alert={put} text={'Se modifico el dia y hora de su cita exitosamente'} success={success} ></Success>
         <div className={ style.table_cont +" relative shadow-md sm:rounded-lg"}>
          {open && <CardEdit horarios={horarios} dia={datos.dia} status={datos.status} setPut={setPut} id={datos.id} setOpen={setOpen}></CardEdit>}
             <h1 className={style.title + ' mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl'}>Citas Agendadas</h1>
@@ -101,14 +105,14 @@ const editCita =async(nombre, apellido, status, id)=>{
       {cita.scheduledTime}
     </td>
     <td className="px-6 py-4">
-      {cita.medico.first_name} <br />
-      {cita.medico.last_name}
+      {cita.user.first_name} <br />
+      {cita.user.last_name}
     </td>
     <td className="px-6 py-4">
       {cita.status}
     </td>
     <td className="px-6 py-4">
-      <button onClick={()=>editCita(cita.medico.first_name ,cita.medico.last_name ,cita.status, cita.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+      <button onClick={()=>editCita(cita.user.id ,cita.status, cita.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
     </td>
   </tr>
 ))}
@@ -117,6 +121,6 @@ const editCita =async(nombre, apellido, status, id)=>{
         </tbody>
     </table>}
     
-</div>
+</div></>
     )
 }

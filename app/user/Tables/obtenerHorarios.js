@@ -13,7 +13,7 @@ export function obtenerHorarios(start_time, end_time, duracion_cita) {
   const horarios_disponibles = [];
   let hora = startHour;
   let minutos = 0;
-  for (let i = 0; i < citas_posibles; i++) {
+  for (let i = 0; i <= citas_posibles; i++) {
     const horaFormateada = hora.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
     horarios_disponibles.push(horaFormateada);
     
