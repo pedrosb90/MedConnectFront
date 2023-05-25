@@ -18,8 +18,7 @@ export default function Menu_Medicos({ showMenu }) {
   const fetchMedicos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/medics");
-      const medicos = response.data.filter((mr) => mr.role === "medico");
-      dispatch(getMedicos(medicos));
+      dispatch(getMedicos(response.data));
     } catch (error) {
       setError({ ...error, text: error.message, alert: true });
     }
@@ -63,7 +62,7 @@ export default function Menu_Medicos({ showMenu }) {
                         <path d="M9 16h0.01" />
                         <path d="M13 16h2" />
                       </svg>
-                      Dr. {med.user.first_name}
+                      Dr. {med.user.first_name.charAt(0)}
                       <br />
                       {med.user.last_name}
                     </li>
