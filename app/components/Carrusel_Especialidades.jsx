@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
+import Warning from "./warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const local = "http://localhost:3001";
@@ -18,7 +19,11 @@ export default function Carrusel_Especialidades() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [espec, setEspec] = useState([]);
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   async function getEspec() {
     try {
       const respo = await axios.get(`${local}/specializations`, /*{
@@ -26,11 +31,11 @@ export default function Carrusel_Especialidades() {
         credentials: "include",
       }*/);
 
-      console.log(respo.data);
+      
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
     } catch (error) {
-      alert(error.message);
+      setError({...error,text:error.message,alert:true})
     }
   }
 
@@ -63,9 +68,12 @@ export default function Carrusel_Especialidades() {
     }, 3000);
     return () => clearTimeout(timerRef.current);
   }, [handlerNext]);
-
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
   return (
     <div>
+      <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
       <div className="text white max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
         <div
           style={{

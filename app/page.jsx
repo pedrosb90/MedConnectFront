@@ -11,12 +11,17 @@ import { getUser } from "@/app/redux/login";
 import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
+import Warning from "./components/warning/Warning";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const dispatch = useDispatch();
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   useEffect(() => {
     fetch("http://localhost:3001/auth/login/success", {
       method: "GET",
@@ -28,16 +33,17 @@ export default function Home() {
       },
     })
       .then((response) => {
-        console.log(response);
+       
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        console.log(resObject);
+        
         dispatch(getUser(resObject.user));
       })
       .catch((err) => {
-        console.log(err);
+        setError({...error,text:error.message,alert:true});
+        
       });
 
     fetch("http://localhost:3001/auth/loginn/success", {
@@ -50,25 +56,30 @@ export default function Home() {
       },
     })
       .then((response) => {
-        console.log(response);
+        
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        console.log(resObject);
+        
         dispatch(getLocalUser(resObject.user));
       })
       .catch((err) => {
-        console.log(err);
+        setError({...error,text:error.message,alert:true})
+        
       });
   }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
 
   return (
     <main>
+      <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
       <link rel="shortcut icon" href="/favicon.ico" />
 
       {showMenu && <Search_Bar_Medicos />}

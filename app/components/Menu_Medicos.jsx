@@ -2,14 +2,18 @@
 
 import styles from "./menu_medicos/page.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
-
+import Warning from "./warning/Warning";
 export default function Menu_Medicos({ showMenu }) {
   const dispatch = useDispatch();
-
+  const [error,setError]=useState({
+    text:'',
+    alert:false
+    
+  })
   const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const fetchMedicos = async () => {
@@ -18,15 +22,20 @@ export default function Menu_Medicos({ showMenu }) {
       let medicos = response.data.filter((mr) => mr.role === "medico");
       dispatch(getMedicos(medicos));
     } catch (error) {
-      alert(error);
+      setError({...error,text:error.message,alert:true})
     }
   };
   useEffect(() => {
     !estadoMed?.length && fetchMedicos();
   }, [estadoMed]);
+  const FinishFailed=()=>{
+    setError({...error,text:'',alert:false})
+  }
 
   return (
+    <><Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <div className={showMenu ? styles.container : styles.cont_on}>
+       
       <div className={styles.med_box}>
         <ul>
           {estadoMed.map((med) => {
@@ -67,6 +76,6 @@ export default function Menu_Medicos({ showMenu }) {
         <br />
         <h5> Teléfono: 1122039682</h5>
       </div>
-    </div>
+    </div></>
   );
 }
