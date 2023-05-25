@@ -15,10 +15,15 @@ export default function Medicos_Especialidad_Filter() {
 
   const dispatch = useDispatch();
   const [medicName, setMedicName] = useState("");
+  const [list, setList] = useState([]);
   const [speciality, setSpecialty] = useState("");
   const [yearsExperience, setYearsExperience] = useState("");
   const [certifications, setCertifications] = useState("");
   const [city, setCity] = useState("");
+
+  useEffect(() => {
+    setList(allMedicos);
+  }, [allMedicos]);
 
   useEffect(() => {
     async function fetchSpecialitiesData() {
@@ -45,12 +50,14 @@ export default function Medicos_Especialidad_Filter() {
   }, [dispatch, allMedicos]);
 
   const handleSearch = () => {
-    const filteredMedics = allMedicos.user.filter((medic) => {
+    const filteredMedics = allMedicos.filter((medic) => {
       if (
         medicName &&
         !(
-          medic.first_name.toLowerCase().includes(medicName.toLowerCase()) ||
-          medic.last_name.toLowerCase().includes(medicName.toLowerCase())
+          medic.user.first_name
+            .toLowerCase()
+            .includes(medicName.toLowerCase()) ||
+          medic.user.last_name.toLowerCase().includes(medicName.toLowerCase())
         )
       ) {
         return false;
@@ -71,7 +78,10 @@ export default function Medicos_Especialidad_Filter() {
       }
       if (
         certifications &&
-        !checkCertifications(medic.certifications.length, certifications)
+        !checkCertifications(
+          medic.medicoCalification.certifications.length,
+          certifications
+        )
       ) {
         return false;
       }
@@ -108,6 +118,17 @@ export default function Medicos_Especialidad_Filter() {
         return true;
     }
   };
+  const handleClear = () => {
+    setMedicName("");
+    setSpecialty("");
+    setYearsExperience("");
+    setCertifications("");
+    setCity("");
+
+    dispatch(searchMedic([]));
+    setList(allMedicos);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
@@ -122,7 +143,7 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setMedicName(e.target.value)}
         >
           <option value="">Medico...</option>
-          {allMedicos.map((medico) => (
+          {list.map((medico) => (
             <option key={medico.user.id} value={medico.user.last_name}>
               {medico.user.last_name}
             </option>
@@ -146,7 +167,8 @@ export default function Medicos_Especialidad_Filter() {
           onChange={(e) => setYearsExperience(e.target.value)}
         >
           <option value="">Años de experiencia...</option>
-          <option value="2<5">2 - 5</option>
+          <option value="1">0 - 2</option>
+          <option value="2<5">3 - 5</option>
           <option value="5<15">5 - 15</option>
           <option value="15plus">15+</option>
         </select>
@@ -175,8 +197,16 @@ export default function Medicos_Especialidad_Filter() {
         <button
           className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
           type="submit"
+          onClick={handleSearch}
         >
-          Ordenar
+          Aplicar
+        </button>
+        <button
+          className="bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
+          type="submit"
+          onClick={handleClear}
+        >
+          Borrar
         </button>
       </form>
     </div>
