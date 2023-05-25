@@ -36,9 +36,8 @@ export default function Medicos_Especialidad_Filter() {
   useEffect(() => {
     async function fetchMedicosData() {
       try {
-        const response = await axios.get("http://localhost:3001/users");
-        let medicos = response.data.filter((mr) => mr.role === "medico");
-        dispatch(getMedicos(medicos));
+        const response = await axios.get("http://localhost:3001/medics");
+        dispatch(getMedicos(response.data));
       } catch (error) {
         alert(error.message);
       }
@@ -46,10 +45,13 @@ export default function Medicos_Especialidad_Filter() {
   }, [dispatch, allMedicos]);
 
   const handleSearch = () => {
-    const filteredMedics = allMedicos.filter((medic) => {
+    const filteredMedics = allMedicos.user.filter((medic) => {
       if (
         medicName &&
-        !medic.first_name.toLowerCase().includes(medicName.toLowerCase())
+        !(
+          medic.first_name.toLowerCase().includes(medicName.toLowerCase()) ||
+          medic.last_name.toLowerCase().includes(medicName.toLowerCase())
+        )
       ) {
         return false;
       }
@@ -121,8 +123,8 @@ export default function Medicos_Especialidad_Filter() {
         >
           <option value="">Medico...</option>
           {allMedicos.map((medico) => (
-            <option key={medico.id} value={medicName}>
-              {medico.last_name}
+            <option key={medico.user.id} value={medico.user.last_name}>
+              {medico.user.last_name}
             </option>
           ))}
         </select>
@@ -133,7 +135,7 @@ export default function Medicos_Especialidad_Filter() {
         >
           <option value="">Especialidad...</option>
           {specialities.map((specialty) => (
-            <option key={specialty} value={speciality}>
+            <option key={specialty} value={speciality.name}>
               {specialty.name}
             </option>
           ))}
@@ -165,8 +167,8 @@ export default function Medicos_Especialidad_Filter() {
         >
           <option value="">Ciudad...</option>
           {allMedicos.map((c) => (
-            <option key={city} value={city}>
-              {c.cityId}
+            <option key={c.city.name} value={c.city.name}>
+              {c.city.name}
             </option>
           ))}
         </select>
