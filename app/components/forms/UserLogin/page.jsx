@@ -84,7 +84,6 @@ export default function UserLogin() {
                   name="user"
                   placeholder="Usuario"
                 />
-                {/* {errors.user && (<span>{errors.user}</span>)} */}
               </Form.Item>
               <Form.Item
                 name="password"

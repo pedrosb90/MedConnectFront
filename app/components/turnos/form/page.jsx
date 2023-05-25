@@ -1,12 +1,13 @@
 "use client"
-import {Button,Form,Input,Radio,Alert} from 'antd';
+import {Button,Form,Input,Radio,Alert,Select} from 'antd';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicos } from '@/app/redux/reducer';
 import { use, useEffect, useState } from 'react';
-import FormItem from 'antd/es/form/FormItem';
 import { useRouter } from 'next/navigation';
-
+import style from "./form.module.css"
+import { PhoneOutlined } from '@ant-design/icons';
+import FlagIcon from './FlagIcon';
 
 export default function UserLogin() {
   const {logStatus,speciality} = useSelector(state => state)
@@ -52,96 +53,90 @@ console.log(logStatus.userStatus);
     //! this info must be send to the backend
   }
 
-  if(logStatus.userStatus){
+  // if(logStatus.userStatus){
     return (
         <div >
-          <Form labelCol={{   span: 4, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
-            <FormItem name="first_name" label="Nombre" rules={[
-                {required:true,
-                message:"Por favor ingrese su nombre"
-            }
-            ]}>
-                <Input/>
-            </FormItem>
-            <FormItem name="last_name" label="Apellido" rules={[
-                {required:true,
-                message:"Por favor ingrese su apellido"
-            }
-            ]}>
-                <Input/>
-            </FormItem>
-            <Form.Item name="email" label="Correo electrónico"
-            rules={[
-              {required:true,
-                message:"Por favor ingrese su correo electrónico"
-              },
-              {
-                validator: (_, value) => {
-                  return new Promise((resolve, reject) => {
-                    if (value && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)) {
-                      resolve(); // Resuelve la promesa si la contraseña es válida
-                    } else {
-                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                    }
-                  });
-                },
-                message: "El correo no es válido"
-              }
-            ]}
-            hasFeedback>
-                <Input 
-                type="text"
-                name="user"
-                placeholder="Correo electronico"
-                />
-              {/* {errors.user && (<span>{errors.user}</span>)} */}
-              </Form.Item>
-              <Form.Item name="password" label="Contraseña" 
+          <Form labelCol={{   span: 3, }} wrapperCol={{   span: 10, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+          <Form.Item
+                name="email"
+                label="Email"
                 rules={[
-                  {required:true,
-                  message:"Por favor ingrese su contraseña"},
+                  { required: true, message: "Por favor ingrese su email" },
                   {
                     validator: (_, value) => {
                       return new Promise((resolve, reject) => {
-                        if (value && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(value)) {
+                        if (
+                          value &&
+                          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)
+                        ) {
                           resolve(); // Resuelve la promesa si la contraseña es válida
                         } else {
                           reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
                         }
                       });
                     },
-                    message: "La contraseña debe contener 1 mayúscula, 1 minúscula y un número"
+                    message: "El email no es válido",
+                  },
+                ]}
+                hasFeedback
+              >
+                <Input
+                  className={style.input}
+                  type="text"
+                  name="user"
+                  placeholder="xxxx@mail.com"
+                />
+              </Form.Item>
+
+                <div>
+                <Select
+                  defaultValue="AR"
+                  // onChange={handleCountryChange}
+                  style={{ width: 120 }}
+                >
+                  {/* <Option value="AR">
+                    <FlagIcon code="AR" /> +54 (Argentina)
+                  </Option>
+                  <Option value="BR">
+                    <FlagIcon code="BR" /> +55 (Brasil)
+                  </Option>
+                  <Option value="CL">
+                    <FlagIcon code="CL" /> +56 (Chile)
+                  </Option>
+                  <Option value="PY">
+                    <FlagIcon code="PY" /> +595 (Paraguay)
+                  </Option>
+                  <Option value="UY">
+                    <FlagIcon code="UY" /> +598 (Uruguay)
+                  </Option> */}
+                </Select>
+                <Form.Item name="phone" label="Teléfono" 
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese su número de teléfono"},
+                  {
+                    validator: (_, value) => {
+                      return new Promise((resolve, reject) => {
+                        if (value && /^\+(?:[0-9] ?){6,14}[0-9]$/.test(value)) {
+                          resolve(); // Resuelve la promesa si la contraseña es válida
+                        } else {
+                          reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                        }
+                      });
+                    },
+                    message: "el teléfono es incorrecto"
                   }
                 ]}
                 hasFeedback
               >
-                  <Input.Password
-                    
-                    name="password"
-                    placeholder="Contraseña"/>
+                  <Input
+                    addonBefore={<PhoneOutlined />}
+                    name="phone"
+                    placeholder="Teléfono"/>
               </Form.Item>
+                </div>
+              
     
-    
-              <Form.Item name="ConfirmedPassword" label="Confirmar contraseña"
-              dependencies={["password"]} 
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese su contraseña"},
-                  ({getFieldValue})=>({
-                    validator(_,value){
-                        if(!value || getFieldValue("password") === value){
-                            return Promise.resolve()
-                        }
-                        return Promise.reject("Las contraseñas no coinciden")
-                  }})
-                ]}
-                hasFeedback
-              >
-                  <Input.Password
-                    
-                    name="ConfirmedPassword"
-                    placeholder="Confirmar contraseña"/>
-              </Form.Item>
               {/* {errors.password && (<span>{errors.password}</span>)} */}
               {registered === "error" ? <Alert
               message="Ocurrió un error al registrarse"
@@ -150,16 +145,16 @@ console.log(logStatus.userStatus);
             </Form>
         </div>
       );
-    }else{
-      return(
-        <div>
-            <h1>Debe iniciar sesión para pedir un turno</h1>
-            {setTimeout(() => {
-                router.push("/components/forms/UserLogin")
-            }, 2000)}
-        </div>
-    )
-  }
+  //   }else{
+  //     return(
+  //       <div>
+  //           <h1>Debe iniciar sesión para pedir un turno</h1>
+  //           {setTimeout(() => {
+  //               router.push("/components/forms/UserLogin")
+  //           }, 2000)}
+  //       </div>
+  //   )
+  // }
 
   
 }

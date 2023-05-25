@@ -1,26 +1,35 @@
 "use client"
-import { Calendar, Col, Row, Select, Typography, theme } from 'antd';
+import { Calendar, Col, ConfigProvider, Row, Select, Typography, theme,DatePicker } from 'antd';
 const dayjs = require('dayjs');
 const es = require('dayjs/locale/es'); 
+import locale from 'antd/locale/es_ES';
 import dayLocaleData from 'dayjs/plugin/localeData';
 dayjs.extend(dayLocaleData);
 import { useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { getSpeciality } from '@/app/redux/reducer';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import  style from "./calendar.module.css"
+import MedicCarrousel from "./medicCarrousel/MedicCarrousel"
 
 const Turnos = () => {
   // let day = date["$d"].getDay()
   dayjs.locale(es);
   const today = dayjs()
   const actualMonth = dayjs().month()
-  const [value, setValue] = useState();
-  const [selectedValue, setSelectedValue] = useState();
+  //* allInfo must contain all info needed to request an appointment, it cannot miss anything
+  const [allInfo, setAllInfo] = useState([]);
+  //* state for medic selection un Carrousel component
+  const [medic,setMedic] = useState(null)
+  //* state for 
+  //* set structure for not repeat medics
+  const avalaibleMedics = new Set()
     const dispatch = useDispatch()
-    const {AllSpecial} = useSelector(state => state.speciality)
+    const {info} = useSelector((state)=>state.cita)
+    const {AllSpecial,AllMedicos} = useSelector(state => state.speciality)
     const { token } = theme.useToken();
+
+    //! temporarly speciality day, it must be changed
 
 const randomDay = () => {
   const randomIndex = Math.floor(Math.random() * 7);
@@ -36,12 +45,22 @@ const añadirDia = async () => {
   dispatch(getSpeciality(test));
 };
 
+if(!info.id){
+  AllMedicos?.forEach(obj => {
+    obj.specializations?.map(({name})=>{
+      if(name === info.especialidad){
+        avalaibleMedics.add(obj)
+      }
+    })
+  });
+}
+
 
 useEffect(() => {
   if (!AllSpecial.length) {
     añadirDia();
   }
-}, [AllSpecial]);
+}, [info]);
 
 
           const onSelect = (newValue) => {
@@ -54,54 +73,69 @@ useEffect(() => {
             console.log("new value",newValue);
             console.log(newValue.format('DD-MM-YYYY'));
           };
-          
+
           const disabledDate = (current) => {
-          // Deshabilitar las fechas anteriores al día de hoy
-          // if(AllSpecial.length){
-          //   return AllSpecial.forEach(element => {
-          //    return !(current.day() === 2 && element.selectedDay === 2)
-          //   });
-          // };
-          return current && current.day() === 0
+            if (info.especialidad && AllSpecial) {
+              for (let i = 0; i < AllSpecial.length; i++) {
+                const obj = AllSpecial[i];
+                if (!current.isBefore(today.startOf('day')) && obj.name === info.especialidad && current.day() === obj.selectedDay) {
+                  return false;
+                }
+              }
+            }
+            return true;
           }
 
-      
 
-        return (
-          <>
+          const timePicker = () => {
+            if (avalaibleMedics) {
+              [...avalaibleMedics].map((obj)=>{
+                console.log("obj",obj);
+              })
+            }
+          }
+
+
+
+return (
+  <>
         {/* <Alert message={`Seleccionaste la fecha: ${selectedValue?.format('DD-MM-YYYY')}`} /> */}
         <div className={style.container}>
-      <Calendar
+        {info.id ? null : <MedicCarrousel select={setMedic} medics={[...avalaibleMedics]}></MedicCarrousel>}
+      <ConfigProvider locale={locale}>
+      <DatePicker
       className={style.calendar}
-        fullscreen={false}
-        headerRender={({ value, type, onChange, onTypeChange }) => {
-          const start = 0;
-          const end = 12;
-          const monthOptions = [];
-          let current = value.clone();
-          const localeData = value.localeData();
-          const months = [];
-          for (let i = 0; i < 12; i++) {
-            current = current.month(i).locale(es);
-            months.push(localeData.monthsShort(current));
-          }
-          for (let i = start; i < end; i++) {
-            if (i >= actualMonth) {
-              monthOptions.push(
-                <Select.Option key={i} value={i} className="month-item">
+      // disabledDate={disabledDate}
+      onChange={onPanelChange}
+      fullscreen={false}
+      headerRender={({ value, type, onChange, onTypeChange }) => {
+        const start = 0;
+        const end = 12;
+        const monthOptions = [];
+        let current = value.clone();
+        const localeData = value.localeData();
+        const months = [];
+        for (let i = 0; i < 12; i++) {
+          current = current.month(i).locale(es);
+          months.push(localeData.monthsShort(current));
+        }
+        for (let i = start; i < end; i++) {
+          if (i >= actualMonth) {
+            monthOptions.push(
+              <Select.Option key={i} value={i} className="month-item">
                   {months[i]}
                 </Select.Option>,
               );
             }
           }
-
+          
           const month = value.month();      
           return (
             <div
             className={style.calendarHeader}
-              style={{
-                padding: 8,
-              }}
+            style={{
+              padding: 8,
+            }}
             >
               <Typography.Title level={4}>Custom header</Typography.Title>
               <Row gutter={8}>
@@ -117,7 +151,7 @@ useEffect(() => {
                       const now = value.clone().month(newMonth);
                       onChange(now);
                     }}
-                  >
+                    >
                     {monthOptions}
                   </Select>
                 </Col>
@@ -125,9 +159,11 @@ useEffect(() => {
             </div>
           );
         }}
-        disabledDate={disabledDate}
-        onChange={onPanelChange}
-      />
+        />
+        <Select>
+          {timePicker}
+        </Select>
+      </ConfigProvider>
     </div>
       </>
     );

@@ -9,10 +9,11 @@ import CardMedics from "./CardMedics";
 import Link from "next/link";
 import {postInfo} from '../../redux/CitaReducer'
 
+
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/specializations";
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
+// const backendURL = "https://medconnectback-production.up.railway.app";
+// const specializationsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {
   const dispatch = useDispatch();
@@ -79,7 +80,6 @@ export default function CardSpecial() {
     }
     
   }
-  console.log(citaInfo);
     
   return(
     <div className={styles.container}>
@@ -102,12 +102,13 @@ export default function CardSpecial() {
   </Link>
   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{espe.description}</p>
   </div>
-  <button onClick={()=>onClickFunc(espe.name)} className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+  <Link href={"/components/turnos"}><button onClick={()=>onClickFunc(espe.name)} className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       Agregar servicio 
       <svg className="h-5 w-5 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
 </svg>
   </button>
+  </Link>
 </div>
     
   )

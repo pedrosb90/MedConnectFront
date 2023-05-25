@@ -1,37 +1,19 @@
 "use client";
 
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMedicos } from "@/app/redux/reducer";
-import styles from "./page.module.css";
+import {  useState } from "react";
+import styles from "../../../citas/Cards/page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import img from '../img/iconoMed.jpg'
+import img from '../../../citas/img/iconoMed.jpg'
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "http://localhost:3001/medics";
 // const backendURL = "https://medconnectback-production.up.railway.app";
 // const medicsURL = `${backendURL}/medics`;
-export default function CardMedics({ handleClickMed }) {
-  const [medicos, setMedicos] = useState([]);
+export default function MedicCarrousel({ medics,select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const dispatch = useDispatch();
 
-  const estadoMed = useSelector((state) => state.speciality.AllMedicos);
-
-  const fetchMedicos = async () => {
-    try {
-      const response = await axios.get(local);
-      dispatch(getMedicos(response.data));
-    } catch (error) {
-      alert(error);
-    }
-  };
-  useEffect(() => {
-    !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
-  }, [estadoMed, fetchMedicos]);
+ 
   const handleNext = () => {
-    if (currentIndex + 5 === medicos.length) {
+    if (currentIndex + 5 === medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -44,9 +26,16 @@ export default function CardMedics({ handleClickMed }) {
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
-  const paginatedMedicos = medicos
-    .slice(currentIndex, currentIndex + 5)
-    .filter((medico) => !!medico); // Filtrar medicos nulos
+  const handleClickMed = (medic) => {
+    select(medic)
+  }
+
+  
+    const paginatedMedicos = medics
+      .slice(currentIndex, currentIndex + 5)
+      .filter((medico) => !!medico); // Filtrar medicos nulos
+  
+
   return (
     <div className={styles.cards + " flex  justify-center"}>
       <button onClick={handlePrevious} className={styles.buttons}>
@@ -67,7 +56,7 @@ export default function CardMedics({ handleClickMed }) {
         </svg>
         Volver
       </button>
-      {medicos.length
+      {medics.length
         ? paginatedMedicos.map((med) => {
             return (
               <button
