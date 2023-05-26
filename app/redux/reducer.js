@@ -68,8 +68,29 @@ export const medicalReducer = createSlice({
 
       state.AllSpecial = sortedEspecs;
     },
+    sortAv: (state, action) => {
+      const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
+        const durationA = getAvailabilityDuration(a.schedules[0]);
+        const durationB = getAvailabilityDuration(b.schedules[0]);
+        return action.payload === "asc"
+          ? durationA - durationB
+          : durationB - durationA;
+      });
+
+      state.AllMedicos = sortedMedicos;
+    },
   },
 });
+const getAvailabilityDuration = (schedule) => {
+  if (!schedule || !schedule.start_time || !schedule.end_time) {
+    return 0;
+  }
+
+  const startTime = parseInt(schedule.start_time.split(":").join(""));
+  const endTime = parseInt(schedule.end_time.split(":").join(""));
+
+  return endTime - startTime;
+};
 export const {
   getSpeciality,
   getMedicos,
@@ -80,6 +101,7 @@ export const {
   clearSearchMedic,
   sortEspecsAZ,
   sortMedicos,
+  sortAv,
 } = medicalReducer.actions;
 
 export default medicalReducer.reducer;
