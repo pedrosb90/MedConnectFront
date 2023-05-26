@@ -43,15 +43,16 @@
   align-items: center;
 }
 .userGoogle_off button{
-  height: 100px;
+  height: 0px;
   display: flex;
   flex-direction: column;
   background-color: rgb(30 41 59);
   
   left: -45px;
   width: max-content;
-  margin-top: 8px;
+  
   padding: 10px;
+  padding-bottom: 0;
   z-index:20;
   align-items: center;
   font-weight: 600;
