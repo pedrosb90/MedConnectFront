@@ -75,13 +75,15 @@ export default function CardSpecial() {
   const citaInfo = useSelector((state) => state.cita.info);
 
   const onClickFunc = (name) => {
-    if (medico.id) {
-      const { id, last_name, first_name } = medico;
+    if (medico.user.id) {
+      const { id, last_name, first_name } = medico.user;
       dispatch(postInfo({ id, last_name, first_name, especialidad: name }));
     } else {
       dispatch(postInfo({ especialidad: name }));
     }
+    
   };
+  
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });
   };

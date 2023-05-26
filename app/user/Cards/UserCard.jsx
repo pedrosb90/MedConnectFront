@@ -12,41 +12,39 @@ export default function UserCard(){
     
     const [isOpen, setIsOpen] = useState(false);
     const [contador,setContador]=useState(1)
-    const [alertGet,setAlertGet]=useState(false)
-
+   
+    const [alerta,setAlert]=useState(false)
     const userGoogle = useSelector((state) => state.login.userGoogle);
     const userLocal = useSelector((state) => state.login.userLocal);
-    
 
-    
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const getErr=()=>{
-    setAlertGet(!alertGet)
-  }
-
-
-const [alert,setAlert]=useState(false)
-const FinishFailed=async()=>{
+ 
+const deleteFunc = () => {
   if (contador === 2) {
-    setAlert(!alert)
-    await axios.delete('http://localhost:3001/users/'+ userLocal.id)
-    .then(()=> alert('borrado con exito'))
+    setAlert(false);
+     axios
+      .delete('http://localhost:3001/users/' + userLocal.id)
+      .then(() => {
+        alert('borrado con exito');
+      }).catch((err)=>{alert(err.message)})
     setContador(1);
   } else {
     setContador(contador + 1);
-    setAlert(!alert)
+    setAlert(true);
   }
-  
+};
+const FinishFailed =()=>{
+  setAlert(false)
 
 }
 
 
     return (
         <div className={styles.userContainer +" w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"}>
-          <Warning alert={alert} text={'Seguro que quieres continuar? se borrara tu perfil'} FinishFailed={FinishFailed}></Warning>
-          <Warning alert={alertGet} text={'Error al traer la informacion del usuario'} FinishFailed={getErr} />
+          <Warning alert={alerta} text={'Seguro que quieres continuar? se borrara tu perfil'} FinishFailed={FinishFailed}></Warning>
+         
     <div className="flex justify-end px-4 pt-4">
     <button
         id="dropdownButton"
@@ -81,7 +79,7 @@ const FinishFailed=async()=>{
 
             <li>
               <button
-                onClick={FinishFailed}
+                onClick={deleteFunc}
                 className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >
                 Delete
