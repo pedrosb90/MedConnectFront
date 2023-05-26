@@ -23,8 +23,8 @@ export default function Pacientes(){
     
           const combinedData = [...patientsData, ...filteredUsersData];
           setPacientes(combinedData);
-        } catch (error) {
-          setError({ ...error, text: error.message, alert: true });
+        } catch (err) {
+          setError({ ...error, text: err.message, alert: true });
         }
       };
     

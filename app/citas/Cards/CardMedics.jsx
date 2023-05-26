@@ -82,7 +82,7 @@ export default function CardMedics({ handleClickMed }) {
             return (
               <button
                 onClick={() => handleClickMed(med)}
-                key={med.id}
+                key={med.user.id}
                 className={`w-36 h-34 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardMed}`}
               >
                 <div className="flex justify-end px-4 pt-4"></div>
