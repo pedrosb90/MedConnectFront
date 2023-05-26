@@ -1,5 +1,5 @@
 "use client"
-import { Calendar, Col, ConfigProvider, Row, Select, Typography, theme,DatePicker } from 'antd';
+import { Calendar,Button, Col, ConfigProvider, Row, Select, Typography, theme,DatePicker } from 'antd';
 const dayjs = require('dayjs');
 const es = require('dayjs/locale/es'); 
 import locale from 'antd/locale/es_ES';
@@ -24,29 +24,16 @@ const Turnos = () => {
   //* state for 
   //* set structure for not repeat medics
   const avalaibleMedics = new Set()
+  const Schedules = new Set()
     const dispatch = useDispatch()
     const {info} = useSelector((state)=>state.cita)
-    const {AllSpecial,AllMedicos} = useSelector(state => state.speciality)
+    const {AllMedicos} = useSelector(state => state.speciality)
     const { token } = theme.useToken();
 
-    //! temporarly speciality day, it must be changed
+    //*check for not repeat the useEffect call
+    let check = false
 
-    console.log(info);
-    console.log("allMedicos",AllMedicos);
 
-const randomDay = () => {
-  const randomIndex = Math.floor(Math.random() * 7);
-  return randomIndex;
-};
-
-const añadirDia = async () => {
-  const response = await axios.get("http://localhost:3001/specializations");
-  const test = response?.data.map((obj) => {
-    const selectedDay = randomDay();
-    return { ...obj, selectedDay };
-  });
-  dispatch(getSpeciality(test));
-};
 
 if(!info.id){
   AllMedicos?.forEach(obj => {
@@ -58,13 +45,32 @@ if(!info.id){
   });
 }
 
-console.log("selectedMedic",medic);
+console.log(info);
+
+console.log("avalaibleMedics",avalaibleMedics);
+
+const dayGetter = async () => {
+  if (info.especialidad) {
+    const schedules = await [...avalaibleMedics]?.map((obj)=>{
+      return obj.schedules
+    })
+    // console.log(schedules);
+    schedules?.forEach((data)=>{
+        data.map(day => {
+          if (day.day_of_week) {
+            Schedules.add(day.day_of_week)
+          }
+        })
+    })
+  }
+}
 
 //! useEffect for some logic, it must be removed in a nearly future
 
 useEffect(() => {
-  if (!AllSpecial.length) {
-    añadirDia();
+  if (!check) {
+    check = true;
+    dayGetter();
   }
 }, [info]);
 
@@ -81,17 +87,20 @@ useEffect(() => {
             console.log(newValue.format('DD-MM-YYYY'));
           };
 
+          //&& current && current < today.startOf('day')
+          // !current.isBefore(today.startOf('day')
+          //! CHECK AND CORRECT THIS FUNCTION, ACTUALLY DOESNT WORK CORRECTLY
           const disabledDate = (current) => {
-            if (info.especialidad && AllSpecial) {
-              for (let i = 0; i < AllSpecial.length; i++) {
-                const obj = AllSpecial[i];
-                if (!current.isBefore(today.startOf('day')) && obj.name === info.especialidad && current.day() === obj.selectedDay) {
-                  return false;
-                }
-              }
+            if (info.especialidad && Schedules) { 
+              console.log([...Schedules]);
+              return (![...Schedules].includes(current.day())); 
             }
-            return true;
-          }
+          };
+
+          // const disabledDate = (current) => {
+          //   return current && current < today.startOf('day');
+          // };
+          
 
 
           const timePicker = () => {
@@ -100,6 +109,11 @@ useEffect(() => {
                 console.log("obj",obj);
               })
             }
+          }
+
+          //! THIS FUNCTION MUST CHECK THE REQUIRED FIELDS FOR AN APPOINTMENT AND THEN DISPATCH IT
+          const onClick = () => {
+
           }
 
 
@@ -111,11 +125,11 @@ return (
         {info.id ? null : <MedicCarrousel select={setMedic} medics={[...avalaibleMedics]}></MedicCarrousel>}
       <ConfigProvider locale={locale}>
       <DatePicker
-      className={style.calendar}
-      // disabledDate={disabledDate}
-      onChange={onPanelChange}
-      fullscreen={false}
-      headerRender={({ value, type, onChange, onTypeChange }) => {
+        className={style.calendar}
+        disabledDate={disabledDate}
+        onChange={onPanelChange}
+        fullscreen={false}
+        headerRender={({ value, type, onChange, onTypeChange }) => {
         const start = 0;
         const end = 12;
         const monthOptions = [];
@@ -170,6 +184,7 @@ return (
         <Select>
           {timePicker}
         </Select>
+        <Button shape='round'>Confirmar fecha y horario</Button>
       </ConfigProvider>
     </div>
       </>

@@ -12,7 +12,7 @@ export default function MedicCarrousel({ medics,select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
  
   const handleNext = () => {
-    if (currentIndex + 5 === medics.length) {
+    if (currentIndex === medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -24,6 +24,7 @@ export default function MedicCarrousel({ medics,select }) {
     }
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
+
 
   const handleClickMed = (medic) => {
     select(medic)
@@ -76,18 +77,18 @@ export default function MedicCarrousel({ medics,select }) {
                     <h5
                       className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                     >
-                      {med.user.first_name ? "Dr. " + med.user.first_name : "...Loading"}
+                      {med.user.first_name ? "Dr. " + med.user.first_name : "...Cargando"}
                     </h5>
                   </Link>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {med.user.last_name ? med.user.last_name : "..Loading"}
+                    {med.user.last_name ? med.user.last_name : "..Cargando"}
                   </span>
                   <div className="flex mt-2 space-x-2"></div>
                 </div>
               </button>
             );
           })
-        : "Cargado medicos...."}
+        : "Cargando medicos...."}
 
       <button onClick={handleNext} className={styles.buttons}>
         Next
