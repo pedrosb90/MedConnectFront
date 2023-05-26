@@ -6,6 +6,8 @@ import { Button, Form, Input, Upload } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
 import { SHA1 } from 'crypto-js';
+import Success from '@/app/components/success/Success'
+import Warning from "@/app/components/warning/Warning";
 const local = "http://localhost:3001/specializations";
 
 
@@ -15,32 +17,36 @@ export default function SpecialtyForm() {
   const [loading, setLoading] = useState ("")
   const [url, setUrl] = useState("")
   const [publicId, setPublicId] = useState("")
-
-
+  const [error, setError]= useState({
+    alert:false,
+    text:'Error al crear especialidad, el servidor esta caido o la especialidad ya existe'
+  })
+  const [success,setSuccess]=useState({
+    alert:false,
+    text:'Especialidad creada exitosamente',
+  })
   
 
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
-
+    
     const body = {
       description,
       name,
       url,
     };
-    console.log(body);
     
-
     axios
       .post(local, body)
-      .then((response) => {
+      .then(() => {
         // Código para manejar la respuesta en caso de éxito
-        alert("Registro exitoso");
-        event.target.reset();
+        setSuccess({...success,alert:true})
+        
       })
-      .catch((error) => {
+      .catch(() => {
         // Código para manejar la respuesta en caso de error
-        alert("Error al registrar:", error);
+        setError({...error,alert:true});
       });
   };
 
@@ -57,10 +63,10 @@ export default function SpecialtyForm() {
         headers: {"X-Requested-With": "XMLHttpRequest"},
       }).then((response)=>{
         const data = response.data
-        console.log(data)
+        
         const fileURL = data.secure_url;
         setUrl(data.secure_url)
-        console.log(fileURL);
+        
         let specificArrayInObject = image.array;
         specificArrayInObject.push(fileURL);
         const newobj ={...image, specificArrayInObject};
@@ -102,9 +108,9 @@ export default function SpecialtyForm() {
           timestamp: timestamp,
         });
         setImage({array:[]})
-        console.log(response);
+        
       } catch (error) {
-        console.error(error)
+        
         
       }
     
@@ -121,7 +127,7 @@ export default function SpecialtyForm() {
           {image.array.length <=0
           ?<h1>No Hay Imagen</h1>
           : image.array.map((items, index) => (
-              <img
+              <img key={index}
               alt= "Imagen"
               // className="h-16 w-28 pr-4 bg-cover "
               style={{width: "125px", height: "70px", backgroundSize: "cover", paddingRight: "15px"}}
@@ -133,13 +139,22 @@ export default function SpecialtyForm() {
       );
     }
   }
+  const [form] = Form.useForm();
+  const FinishFailed=()=>{
+    setError({...error,alert:false})
+  }
+  const successFunc=()=>{
+    setSuccess({...success,alert:false})
+  }
 
   return (
         
 
   <div className={styles.container}>
+    <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+    <Success alert={success.alert} text={success.text} success={successFunc} ></Success>
         <h1 className={styles.title}>Añadir Especialidad</h1>
-          <Form labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+          <Form className={styles.form} labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields(); deleteImag()}}>
     
           <Form.Item name="name" label="Especialidad" 
                 rules={[
@@ -154,15 +169,19 @@ export default function SpecialtyForm() {
               </Form.Item>
 
               
-              <Container>
+              <Container >
                 <Dropzone
                 className="dropzone"
                 onDrop={handleDrop}
                 onChange={(e)=>setImage(e.target.value)}
                 value={image}
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese una imagen"},
+                ]}
                 >
                   {({getRootProps, getInputProps}) => (
-                    <section>
+                    <section >
                       <div {...getRootProps({className:"dropzone"})}>
 
                     <input {...getInputProps()} />
@@ -173,8 +192,11 @@ export default function SpecialtyForm() {
                     </section>
                   )}
                 </Dropzone>
-                <button onClick={deleteImag} >Delete</button>
+                <div className={styles.container_img}>
+                <button className='active:outline-none text-white bg-red-700 hover:bg-red-800 active:ring-4 active:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:active:ring-red-900' onClick={deleteImag} >Delete</button>
                 {imagePreview()}
+                </div>
+                
               </Container>
       
 
@@ -185,9 +207,12 @@ export default function SpecialtyForm() {
                 ]}
                 hasFeedback
               >
-                  <Input
-                    name="description"
-                    placeholder="Descripción"/>
+                  <Input.TextArea
+  name="description"
+  placeholder="Descripción"
+  style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'20px' }}
+/>
+  
               </Form.Item> 
               <Button  htmlType='submit' className={styles.Button}>Enviar</Button>
             </Form>
