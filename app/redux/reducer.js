@@ -6,6 +6,7 @@ const initialState = {
   AllMedicos: [],
   Detail: {},
   deletedMedic: null,
+  deletedEsp: null,
   selectList: [],
 };
 export const medicalReducer = createSlice({
@@ -27,6 +28,10 @@ export const medicalReducer = createSlice({
     deleteMedic: (state, action) => {
       console.log(action.payload);
       state.deletedMedic = action.payload;
+    },
+    deleteEsp: (state, action) => {
+      console.log(action.payload);
+      state.deletedEsp = action.payload;
     },
     searchBar: (state, action) => {
       const data = action.payload;

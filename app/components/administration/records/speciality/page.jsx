@@ -25,9 +25,9 @@ export default function SpeRecords() {
           </tr>
         </thead>
         <tbody className={style.tableBody}>
-          {specialties.map((specialty) => (
-            <tr key={specialty.id} className={style.tableRow}>
-              <td>{specialty.id}</td>
+          {specialties.map((specialty, index) => (
+            <tr key={index} className={style.tableRow}>
+              <td>{index+1}</td>
               <td>{specialty.name}</td>
               <td>{specialty.description}</td>
             </tr>
