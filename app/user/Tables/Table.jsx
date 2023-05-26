@@ -17,7 +17,6 @@ export default function Table(){
     })
     const [put,setPut]=useState(false)
 
-    
 useEffect(() => {
   if(!userCitas.length){
     axios.get('http://localhost:3001/appointment')
@@ -31,9 +30,7 @@ useEffect(() => {
   
 
 }}, [userCitas]);
-
-const citas = userCitas?.length && userCitas?.filter(cita => cita?.patient.id =='1')
-
+const citas = userCitas.length && userCitas.filter(cita => cita.patient.id =='1')
 
 
 // const start_time = "12:05:00";

@@ -1,39 +1,110 @@
-"use client";
-import { useState, useEffect } from "react";
-import style from "./page.module.css";
+'use client'
+import axios from "axios"
+import { useState,useEffect } from "react"
+import styles from './page.module.css'
+import Warning from "@/app/components/warning/Warning"
+import Success from "@/app/components/success/Success"
+export default function Especialidades(){
+    const[especialidades,setEspecialidades]=useState([])
+    const [isDelete,setIsDelete]=useState(false)
+    const [error,setError]=useState({
+      text:'',
+      alert:false
+    })
+    const [count,setCount]=useState(1)
+    
+    useEffect(() => {
+      const fetchPatients = async () => {
+        try {
+          const response = await axios.get('http://localhost:3001/specializations');
+          setEspecialidades(response.data);
+        } catch (err) {
+          setError({ ...error, text: err.message, alert: true });
+        }
+      };
+    
+      fetchPatients();
+    }, [isDelete]);
+    
 
-export default function SpeRecords() {
-  const [specialties, setSpecialty] = useState([]);
-
-  useEffect(() => {
-    async function fetchSpecialty() {
-      const res = await fetch("http://localhost:3001/specializations");
-      const data = await res.json();
-      setSpecialty(data);
+    const deleteEsp =(id)=>{
+      
+      const url = 'http://localhost:3001/specializations/';
+      
+      count == 2 && axios.delete(`${url}${id}`)
+      .then(()=>{
+        setIsDelete(!isDelete)
+        setCount(1)
+        
+      })
+      .catch ((err) => {
+        setError({...error,text:err.message,alert:true})
+        setCount(1)
+      })
+      setCount(2)
+      const borrar = especialidades?.length && especialidades?.find(e=>e.id===id)
+      
+      
+      count == 1 && setError({...error,text:`Se borrara la especialidad: ${borrar.name} de click otra vez para confirmar`,alert:true})
+        
+      }
+    
+    const FinishFailed=()=>{
+      setError({...error,text:'',alert:false})
     }
-    fetchSpecialty();
-  }, []);
-
-  return (
-    <div className={style.divContainer}>
-      <table className={style.table}>
-        <thead className={style.tableHead}>
-          <tr>
-            <th className={style.idBox}>ID</th>
-            <th className={style.nameBox}>Nombre</th>
-            <th className={style.descriptionBox}>Descripción</th>
-          </tr>
-        </thead>
-        <tbody className={style.tableBody}>
-          {specialties.map((specialty, index) => (
-            <tr key={index} className={style.tableRow}>
-              <td>{index+1}</td>
-              <td>{specialty.name}</td>
-              <td>{specialty.description}</td>
+    
+    return(
+        <div className={styles.container}>
+           <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+           <Success alert={isDelete} text={'El paciente fue eliminado correctamente'} success={()=>{setIsDelete(false)}}></Success>
+          <h1 className={styles.title + ' mb-8 text-3xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl'}>Tabla de Especialidades</h1>
+            <div className={styles.table + ' rounded-md overflow-hidden'}>
+            <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Nombre
+                </th>
+                <th scope="col" className="px-6 py-3">
+                Descripción
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    <button>Edit</button>
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    <button>Eliminar</button>
+                </th> 
             </tr>
-          ))}
+        </thead>
+        <tbody>
+        {especialidades.length && especialidades.map((esp, index) => (
+  <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 ">
+    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      {index+1}
+    </th>
+    <td className="px-4 py-2">
+      {esp.name}
+    </td>
+    <td className="px-6 py-4">
+      {esp.description}
+      
+    </td>
+    
+    <td className="px-6 py-4">
+      <button  className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
+    </td>
+    <td className="px-6 py-4">
+      <button onClick={()=>deleteEsp(esp.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
+    </td>
+  </tr>
+))}
+            
+
         </tbody>
-      </table>
-    </div>
-  );
+    </table></div>
+        </div>
+    )
 }
