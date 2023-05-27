@@ -1,16 +1,37 @@
+'use client'
 import Table from './Tables/Table'
 import UserCard from './Cards/UserCard'
 import styles from './page.module.css'
 import Link from 'next/link'
 
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-
+import { useParams } from 'next/navigation'
 export default function User(){
+  const { id } = useParams();
 
+    const [datos, setDatos]=useState(false)
+console.log(id);
+  useEffect(() => {
+    !datos && 
+    axios.get('http://localhost:3001/users')
+      .then((res) => {
+        const citas = res.data;
+
+        const usuario = citas.dataFinal.find(user => user.id === id)
+        setDatos(usuario)
+      })
+      .catch(() => {
+        alert('Error al obtener los datos del usuario');
+      });
+  }, [datos]);
+
+  const userCitas = datos && datos
     return(
         <div className={styles.container}>
-            <UserCard></UserCard>
-            <Table></Table>
+            <UserCard userCitas={userCitas}></UserCard>
+            <Table userCitas={userCitas}></Table>
             <Link href="/" as="/">
         <button
           type="button"

@@ -3,8 +3,9 @@ import moment from 'moment'
 
 import axios from 'axios';
 import styles from './CardEdit.module.css'
-import Warning from '../../components/warning/Warning';
+import Warning from '../../../components/warning/Warning';
 import { useState } from 'react';
+
 const { Item } = Form;
 const { Option } = Select;
 
@@ -13,6 +14,7 @@ const { Option } = Select;
 
 export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
   const [form] = Form.useForm();
+
     
       const [error,setError]=useState({
         text:'',

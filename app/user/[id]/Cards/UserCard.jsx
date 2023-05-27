@@ -1,33 +1,38 @@
 'use client'
 import styles from '../page.module.css'
 import axios from "axios";
-import { useEffect, useState } from "react";
-import img from '../../citas/img/iconoMed.jpg'
+import {  useState } from "react";
+import img from '../../../citas/img/iconoMed.jpg'
 import Image from 'next/image';
-import Warning from '../../components/warning/Warning';
+import Warning from '@/app/components/warning/Warning';
 import { useSelector } from 'react-redux';
+import { usePathname } from 'next/navigation';
 
 
-export default function UserCard(){
-    
+export default function UserCard({userCitas}){
+  const router = usePathname()
     const [isOpen, setIsOpen] = useState(false);
     const [contador,setContador]=useState(1)
-   
-    const [alerta,setAlert]=useState(false)
     const userGoogle = useSelector((state) => state.login.userGoogle);
     const userLocal = useSelector((state) => state.login.userLocal);
-
+    const [alerta,setAlert]=useState(false)
+   
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  console.log(userCitas);
+  
  
+
 const deleteFunc = () => {
   if (contador === 2) {
     setAlert(false);
+    const id = userGoogle.id ? userGoogle.id : userLocal.id;
      axios
-      .delete('http://localhost:3001/users/' + userLocal.id)
+      .delete('http://localhost:3001/users/' + id)
       .then(() => {
-        alert('borrado con exito');
+        router.push('/');
+        
       }).catch((err)=>{alert(err.message)})
     setContador(1);
   } else {
@@ -39,6 +44,7 @@ const FinishFailed =()=>{
   setAlert(false)
 
 }
+
 
 
     return (
@@ -91,7 +97,7 @@ const FinishFailed =()=>{
     </div>
     {Object.keys(userGoogle).length === 0 ? (
   <div className="flex flex-col items-center pb-10">
-    {userLocal.first_name && (
+    { userCitas && (
       <Image
         className="w-28 h-25 mb-3 rounded-full shadow-lg"
         width={600}
@@ -101,12 +107,12 @@ const FinishFailed =()=>{
       />
     )}
     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-      {userLocal.first_name ? userLocal.first_name +' '+ userLocal.last_name : 'Loading...'}
+      {userCitas? userCitas.first_name +' '+ userCitas.last_name : 'Loading...'}
     </h5>
     
     <span className="text-sm text-gray-500 dark:text-gray-400">
-      <b>Total de citas: </b>'por el momento no'
-    </span>
+      <b>Total de citas: </b>{userCitas && userCitas.patients.length}
+     </span>
     <div className="flex mt-4 space-x-3 md:mt-6">
       <a
         href="/citas"
@@ -114,7 +120,7 @@ const FinishFailed =()=>{
       >
         Agendar cita
       </a>
-    </div>
+    </div>  
   </div>
 ) : (
   <div className="flex flex-col items-center pb-10">
@@ -130,8 +136,10 @@ const FinishFailed =()=>{
     </h5>
     
     <span className="text-sm text-gray-500 dark:text-gray-400">
-      <b>Total de citas: </b>'por el momento no'
+      <b>Total de citas: </b>'los usuarios de google no tiene citas ' 
+      
     </span>
+    
     <div className="flex mt-4 space-x-3 md:mt-6">
       <a
         href="/citas"

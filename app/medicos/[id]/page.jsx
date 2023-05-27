@@ -38,7 +38,7 @@ export default function Page() {
     setError({...error,text:'',alert:false})
   }
   const espe = data.id && data.specializations.map((spec) => spec.name);
-
+console.log(data);
   return (
     <div>
        <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
@@ -69,12 +69,12 @@ export default function Page() {
                   ? `Dr. ${data.user.first_name} ${data.user.last_name}`
                   : "...Loading"}
               </h1>
-              <ul className="mb-8 text-base leading-relaxed text-left text-gray-500 font-bold">
+              <ul className=" text-base flex leading-relaxed text-left text-gray-500 font-bold">
                 Especialidades:{" "}
                 {data.id &&
                   espe.map((data) => (
-                    <li className="font-sans" key={data}>
-                      <span>{data}</span>
+                    <li className="font-sans ml-8" key={data}>
+                      <span> 🟣 {data}</span>
                     </li>
                   ))}
               </ul>
@@ -113,6 +113,9 @@ export default function Page() {
                         : "..."}{" "}
                       Años
                     </p>
+                    {data.id ? <><h2>Horario laboral</h2>
+                    <p>Dias: {data.schedules[0].day_of_week}</p>
+                    <p>Horario: de {data.schedules[0].start_time} hasta {data.schedules[0].end_time} </p></>: <p>No tiene horarios...</p>}
                   </div>
                 </dl>
               </div>
