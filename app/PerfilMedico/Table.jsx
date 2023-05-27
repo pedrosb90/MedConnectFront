@@ -3,6 +3,8 @@ import style from "./page.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cita from "./Cita";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function Table() {
   const [citas, setCitas] = useState([]);
   const [user, setUser] = useState({});
@@ -10,9 +12,7 @@ export default function Table() {
   useEffect(() => {
     if (!user.id) {
       axios
-        .get(
-          "https://medconnectback-production.up.railway.app/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37"
-        )
+        .get(`${backendURL}/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37`)
         .then((res) => {
           setUser(res.data);
         })
@@ -22,7 +22,7 @@ export default function Table() {
     }
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get(`${backendURL}/appointment`)
         .then((res) => {
           setCitas(res.data);
         })
@@ -44,14 +44,11 @@ export default function Table() {
     );
 
     await axios
-      .put(
-        `https://medconnectback-production.up.railway.app/appointment/${citaId}`,
-        {
-          scheduledDate: scheduledDate,
-          scheduledTime: scheduledTime,
-          status: status,
-        }
-      )
+      .put(`${backendURL}/appointment/${citaId}`, {
+        scheduledDate: scheduledDate,
+        scheduledTime: scheduledTime,
+        status: status,
+      })
       .then((response) => {
         console.log("Estado de la cita actualizado:", response.data);
       })

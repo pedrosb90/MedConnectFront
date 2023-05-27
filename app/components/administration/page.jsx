@@ -5,10 +5,11 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-const localSpec = "http://localhost:3001/specializations";
-const localCitas = "http://localhost:3001/appointment";
-const localMedic = "http://localhost:3001/medics";
+const localSpec = `${backendURL}/specializations`;
+const localCitas = `${backendURL}/appointment`;
+const localMedic = `${backendURL}/medics`;
 
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);

@@ -9,9 +9,7 @@ import Image from "next/image";
 import Medicos from "../Medicos";
 import styles from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
-const local = "http://localhost:3001/specializations";
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);
