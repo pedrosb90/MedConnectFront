@@ -107,6 +107,7 @@ export default function Table() {
                   handleCheckChange={handleCheckChange}
                   cita={cita}
                   index={index}
+                  key={cita.id}
                 />
               ))}
           </tbody>
