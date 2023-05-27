@@ -148,7 +148,7 @@ export default function Medicos_Especialidad_Filter() {
           value={medicName}
           onChange={(e) => setMedicName(e.target.value)}
         >
-          <option value="">Medico...</option>
+          <option value="">Medico..</option>
           {list.map((medico) => (
             <option key={medico.user.id} value={medico.user.last_name}>
               {medico.user.last_name}
