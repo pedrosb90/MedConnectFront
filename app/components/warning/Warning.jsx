@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import styles from "./page.module.css";
-export default function ({ alert, text, FinishFailed }) {
+export default function Warning({ alert, text, FinishFailed }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       FinishFailed();
