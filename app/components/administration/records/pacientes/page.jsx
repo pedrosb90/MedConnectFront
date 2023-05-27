@@ -2,8 +2,9 @@
 import axios from "axios"
 import { useState,useEffect } from "react"
 import styles from './page.module.css'
-import Warning from "@/app/components/warning/Warning"
-import Success from "@/app/components/success/Success"
+import Warning from "../../../warning/Warning"
+import Success from '../../../success/Success'
+import EditPaciente from "./editPaciente"
 export default function Pacientes(){
     const[pacientes,setPacientes]=useState([])
     const [isDelete,setIsDelete]=useState(false)
@@ -11,6 +12,12 @@ export default function Pacientes(){
       text:'',
       alert:false
     })
+    const [datos, setDatos]=useState({
+      id:'',
+      email:'',
+      isPaci:''
+    })
+    const [open,setOpen]=useState(false)
     const [count,setCount]=useState(1)
     useEffect(() => {
       const fetchPatients = async () => {
@@ -49,12 +56,18 @@ export default function Pacientes(){
         
         
       }
+      const onClickEdit = (id, email, isPaci)=>{
+        setOpen(true)
+        setDatos({...datos,id,email,isPaci:isPaci ?true:false })
+
+      }
     
     const FinishFailed=()=>{
       setError({...error,text:'',alert:false})
     }
     return(
         <div className={styles.container}>
+          { open && <EditPaciente setOpen={setOpen} datos={datos}></EditPaciente>}
            <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
            <Success alert={isDelete} text={'El paciente fue eliminado correctamente'} success={()=>{setIsDelete(false)}}></Success>
           <h1 className={styles.title + ' mb-8 text-3xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl'}>Registro de pacientes</h1>
@@ -108,7 +121,7 @@ export default function Pacientes(){
     </td>
     
     <td className="px-6 py-4">
-      <button  className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
+      <button onClick={()=>onClickEdit(paci.id, paci.email,paci.role ? true:false)}  className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
     </td>
     <td className="px-6 py-4">
       <button onClick={()=>deletePaci(paci.id ,paci.role ? true:false ,paci.email)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
