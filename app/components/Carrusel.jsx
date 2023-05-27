@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
+import Warning from "../../components/warning/Warning";
+
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 

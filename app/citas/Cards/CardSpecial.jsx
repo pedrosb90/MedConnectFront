@@ -7,6 +7,8 @@ import { getSpeciality } from "../../redux/reducer";
 import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
+import Warning from "../../components/warning/Warning";
+
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
