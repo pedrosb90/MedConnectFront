@@ -2,7 +2,12 @@
   position: absolute;
   top: 13vh;
 }
-.btn_return {
+.btn_return_citas {
+  position: absolute;
+  bottom: 8%;
+  right: 17%;
+}
+.btn_return_home {
   position: absolute;
   bottom: 8%;
   right: 12%;
