@@ -6,6 +6,7 @@ import img from "../../citas/img/iconoMed.jpg";
 import Image from "next/image";
 import Warning from "../../components/warning/Warning";
 import { useSelector } from "react-redux";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function UserCard() {
     if (contador === 2) {
       setAlert(false);
       axios
-        .delete("http://localhost:3001/users/" + userLocal.id)
+        .delete(`${backendURL}/users/` + userLocal.id)
         .then(() => {
           alert("borrado con exito");
         })
@@ -145,12 +146,13 @@ export default function UserCard() {
         </div>
       ) : (
         <div className="flex flex-col items-center pb-10">
-          <img
+          <Image
             className="w-28 h-25 mb-3 rounded-full shadow-lg"
-            src={userGoogle.photos[0].value}
+            width={28}
+            height={25}
+            src={img}
             alt="NOT_FOUND"
           />
-
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             {userGoogle.displayName ? userGoogle.displayName : "Loading..."}
           </h5>
