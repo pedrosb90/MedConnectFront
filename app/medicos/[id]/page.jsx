@@ -5,8 +5,11 @@ import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import Warning from "../../components/warning/Warning";
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
+const local = "http://localhost:3001/medics";
 
 export default function Page() {
   const [error, setError] = useState({
@@ -19,7 +22,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`${medicsURL}/${id}`);
+      const response = await axios.get(`${local}/${id}`);
       setData(response.data);
     } catch (error) {
       setError({ ...error, text: error.message, alert: true });
@@ -121,9 +124,18 @@ export default function Page() {
       <Link href="/" as="/">
         <button
           type="button"
-          className={`btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return}`}
+          className={`btn_return_home text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
         >
-          Regresar
+          Inicio
+        </button>
+      </Link>{" "}
+      <Link href="/citas" as="/citas">
+        <button
+          // onClick={goBack}
+          type="button"
+          className={`btn_return_citas text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
+        >
+          Citas
         </button>
       </Link>
     </div>
