@@ -9,12 +9,14 @@ import Table from "./Table";
 import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
+import FormCal from "./FormCal";
 
 export default function PerfilMedico() {
   const [user, setUser] = useState({});
   const [citas, setCitas] = useState([]);
   const [clickAct, setClickAct] = useState(false);
   const [clickHor, setClickHor] = useState(false);
+  const [clickCal, setClickCal] = useState(false);
 
   const { logStatus } = useSelector((state) => state);
 
@@ -24,7 +26,7 @@ export default function PerfilMedico() {
     if (!user.id) {
       axios
         .get(
-          "https://medconnectback-production.up.railway.app/medics/2646bd4f-0ad8-44de-97f8-da6dbcdedf2b"
+          "http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37"
         )
         .then((res) => {
           setUser(res.data);
@@ -36,7 +38,7 @@ export default function PerfilMedico() {
 
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get("http://localhost:3001/appointment")
         .then((res) => {
           setCitas(res.data);
         })
@@ -46,11 +48,8 @@ export default function PerfilMedico() {
     }
   });
 
-  console.log(user);
-  console.log(citas);
-
   const getCitasPerfil = citas.filter(
-    (e) => e.medico.first_name === user.first_name
+    (e) => e.user.first_name === user?.user?.first_name
   );
 
   console.log(getCitasPerfil);
@@ -70,10 +69,17 @@ export default function PerfilMedico() {
       setClickHor(true);
     }
   };
+  const handleClickCal = () => {
+    if (clickCal === true) {
+      setClickCal(false);
+    } else {
+      setClickCal(true);
+    }
+  };
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-8">
+      <div className="flex justify-around  mt-14">
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <div className="flex justify-end px-4 pt-4">
             <button
@@ -136,7 +142,7 @@ export default function PerfilMedico() {
             />
 
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {user.first_name}
+              {user?.user?.first_name + " " + user?.user?.last_name}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Numero de citas: {getCitasPerfil.length}
@@ -158,14 +164,24 @@ export default function PerfilMedico() {
               >
                 Horarios
               </a>
+              <a
+                onClick={() => {
+                  handleClickCal();
+                }}
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Experencias
+              </a>
             </div>
           </div>
         </div>
+
         <Table></Table>
       </div>
       <div>
         {clickAct === true ? <Forms></Forms> : <div></div>}{" "}
-        {clickHor === true ? <FormsHor></FormsHor> : <div></div>}
+        {clickHor === true ? <FormsHor></FormsHor> : <div></div>}{" "}
+        {clickCal === true ? <FormCal></FormCal> : <div></div>}
       </div>
     </div>
   );

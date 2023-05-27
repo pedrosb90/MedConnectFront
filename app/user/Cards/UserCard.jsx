@@ -10,8 +10,8 @@ import { useSelector } from "react-redux";
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
   const [contador, setContador] = useState(1);
-  const [alertGet, setAlertGet] = useState(false);
 
+  const [alerta, setAlert] = useState(false);
   const userGoogle = useSelector((state) => state.login.userGoogle);
   const userLocal = useSelector((state) => state.login.userLocal);
 
@@ -19,20 +19,37 @@ export default function UserCard() {
     setIsOpen(!isOpen);
   };
 
-  const getErr = () => {
-    setAlertGet(!alertGet);
-  };
-
-  const [alert, setAlert] = useState(false);
-
-  const FinishFailed = async () => {
+  const deleteFunc = () => {
     if (contador === 2) {
-      setAlert(!alert);
+      setAlert(false);
+      axios
+        .delete("http://localhost:3001/users/" + userLocal.id)
+        .then(() => {
+          alert("borrado con exito");
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
       setContador(1);
     } else {
       setContador(contador + 1);
-      setAlert(!alert);
+      setAlert(true);
     }
+  };
+  const FinishFailed = () => {
+    setAlert(false);
+
+    const [alert, setAlert] = useState(false);
+
+    const FinishFailed = async () => {
+      if (contador === 2) {
+        setAlert(!alert);
+        setContador(1);
+      } else {
+        setContador(contador + 1);
+        setAlert(!alert);
+      }
+    };
   };
 
   return (
@@ -43,15 +60,11 @@ export default function UserCard() {
       }
     >
       <Warning
-        alert={alert}
+        alert={alerta}
         text={"Seguro que quieres continuar? se borrara tu perfil"}
         FinishFailed={FinishFailed}
-      />
-      <Warning
-        alert={alertGet}
-        text={"Error al traer la informacion del usuario"}
-        FinishFailed={getErr}
-      />
+      ></Warning>
+
       <div className="flex justify-end px-4 pt-4">
         <button
           id="dropdownButton"
@@ -60,6 +73,14 @@ export default function UserCard() {
           type="button"
           onClick={toggleMenu}
         >
+          <span className="sr-only">Open dropdown</span>
+          <svg
+            className="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          />
           <span className="sr-only">Open dropdown</span>
           <svg
             className="w-6 h-6"
@@ -83,7 +104,7 @@ export default function UserCard() {
 
               <li>
                 <button
-                  onClick={FinishFailed}
+                  onClick={deleteFunc}
                   className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Delete
@@ -109,8 +130,9 @@ export default function UserCard() {
               ? userLocal.first_name + " " + userLocal.last_name
               : "Loading..."}
           </h5>
+
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>por el momento no
+            <b>Total de citas: </b>'por el momento no'
           </span>
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a
@@ -123,16 +145,18 @@ export default function UserCard() {
         </div>
       ) : (
         <div className="flex flex-col items-center pb-10">
-          <Image
+          <img
             className="w-28 h-25 mb-3 rounded-full shadow-lg"
             src={userGoogle.photos[0].value}
             alt="NOT_FOUND"
           />
+
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             {userGoogle.displayName ? userGoogle.displayName : "Loading..."}
           </h5>
+
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>por el momento no
+            <b>Total de citas: </b>'por el momento no'
           </span>
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a

@@ -1,0 +1,28 @@
+.container{
+    width: 80%;
+  
+    border: 1px solid black;
+    margin-left: 10%;
+    display: grid;
+    grid-column: 15% 25% 60%;
+    grid-column-gap: 5px;
+    padding: 0px 15px;
+    border-radius: 10px;
+    background-color: #c7ebf8;
+}
+
+.title{
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 2.7em;
+    font-weight: 600;
+    
+}
+.table{
+    width: 100%;
+    border-radius: 17px;
+    box-shadow: 1px 11px 20px 17px rgba(0,0,0,0.75);
+    
+    
+    
+}

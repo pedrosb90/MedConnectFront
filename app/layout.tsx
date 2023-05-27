@@ -5,7 +5,7 @@ import Navbar from "./components/navBar/page";
 import { usePathname } from "next/navigation";
 import Admin from "./components/administration/panel/page";
 import { Providers } from "./redux/provider";
-import { useSelector, useDispatch } from "react-redux";
+
 import { useEffect } from "react";
 import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
@@ -27,6 +27,7 @@ export default function RootLayout({
 
   //   })
   // },[])
+  
   const pathname = usePathname();
   const pathAdmin = pathname.includes("administration");
 

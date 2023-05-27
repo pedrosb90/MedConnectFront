@@ -2,7 +2,7 @@
 import style from "./page.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import Cita from "./Cita";
 export default function Table() {
   const [citas, setCitas] = useState([]);
   const [user, setUser] = useState({});
@@ -11,7 +11,7 @@ export default function Table() {
     if (!user.id) {
       axios
         .get(
-          "https://medconnectback-production.up.railway.app/medics/2646bd4f-0ad8-44de-97f8-da6dbcdedf2b"
+          "https://medconnectback-production.up.railway.app/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37"
         )
         .then((res) => {
           setUser(res.data);
@@ -30,11 +30,11 @@ export default function Table() {
           console.error(error);
         });
     }
-  });
-  const getCitasPerfil = citas.filter(
-    (e) => e.medico.first_name === user.first_name
+  }, []);
+  const getCitasPerfil = citas?.filter(
+    (e) => e.user?.first_name === user?.user?.first_name
   );
-  console.log(getCitasPerfil);
+  console.log("get citas perfil: ", getCitasPerfil);
 
   const [status, setStatus] = useState("completed");
 
@@ -64,7 +64,7 @@ export default function Table() {
   return (
     <div
       className={
-        style.table_cont + " relative overflow-x-auto shadow-md sm:rounded-lg"
+        style.table_cont + "relative overflow-x-auto shadow-md sm:rounded-lg"
       }
     >
       <h1
@@ -102,43 +102,12 @@ export default function Table() {
           </thead>
           <tbody>
             {getCitasPerfil &&
-              getCitasPerfil.map((cita, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {index + 1}
-                  </th>
-                  <td className="px-4 py-2">
-                    {cita.patient.firstName} <br />
-                    {cita.patient.lastName}
-                  </td>
-                  <td className="px-6 py-4">{cita.scheduledDate}</td>
-                  <td className="px-6 py-4">{cita.scheduledTime}</td>
-                  <td className="px-6 py-4">{cita.status}</td>
-
-                  <td className="px-6 py-4">
-                    <input
-                      onChange={(e) => {
-                        handleCheckChange(
-                          e,
-                          cita.id,
-                          cita.scheduledDate,
-                          cita.scheduledTime
-                        );
-                      }}
-                      type="checkbox"
-                      id="item1"
-                      // checked={cita.status === "completed"?"completed":"pending"}
-                      value={status === "completed" ? "checked" : "unchecked"}
-                      //checked={cita.status==="completed"?"checked":"unchecked"}
-                    />
-                  </td>
-                </tr>
+              getCitasPerfil?.map((cita, index) => (
+                <Cita
+                  handleCheckChange={handleCheckChange}
+                  cita={cita}
+                  index={index}
+                />
               ))}
           </tbody>
         </table>

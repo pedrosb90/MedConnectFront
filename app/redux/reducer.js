@@ -6,6 +6,8 @@ const initialState = {
   AllMedicos: [],
   Detail: {},
   deletedMedic: null,
+  deletedEsp: null,
+  selectList: [],
 };
 export const medicalReducer = createSlice({
   name: "speciality",
@@ -27,11 +29,15 @@ export const medicalReducer = createSlice({
       console.log(action.payload);
       state.deletedMedic = action.payload;
     },
+    deleteEsp: (state, action) => {
+      console.log(action.payload);
+      state.deletedEsp = action.payload;
+    },
     searchBar: (state, action) => {
       const data = action.payload;
       state.AllSpecial = [...data];
     },
-    
+
     searchMedic: (state, action) => {
       const medics = action.payload;
       state.AllMedicos = [...medics];
@@ -42,8 +48,8 @@ export const medicalReducer = createSlice({
     },
     sortMedicos: (state, action) => {
       const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
-        const nameA = a.last_name;
-        const nameB = b.last_name;
+        const nameA = a.user.last_name;
+        const nameB = b.user.last_name;
         return action.payload === "asc"
           ? nameA.localeCompare(nameB)
           : nameB.localeCompare(nameA);
@@ -62,8 +68,29 @@ export const medicalReducer = createSlice({
 
       state.AllSpecial = sortedEspecs;
     },
+    sortAv: (state, action) => {
+      const sortedMedicos = [...state.AllMedicos].sort((a, b) => {
+        const durationA = getAvailabilityDuration(a.schedules[0]);
+        const durationB = getAvailabilityDuration(b.schedules[0]);
+        return action.payload === "asc"
+          ? durationA - durationB
+          : durationB - durationA;
+      });
+
+      state.AllMedicos = sortedMedicos;
+    },
   },
 });
+const getAvailabilityDuration = (schedule) => {
+  if (!schedule || !schedule.start_time || !schedule.end_time) {
+    return 0;
+  }
+
+  const startTime = parseInt(schedule.start_time.split(":").join(""));
+  const endTime = parseInt(schedule.end_time.split(":").join(""));
+
+  return endTime - startTime;
+};
 export const {
   getSpeciality,
   getMedicos,
@@ -72,9 +99,9 @@ export const {
   searchBar,
   searchMedic,
   clearSearchMedic,
-  sortMedicos,
   sortEspecsAZ,
+  sortMedicos,
+  sortAv,
 } = medicalReducer.actions;
 
-
-export default medicalReducer.reducer
+export default medicalReducer.reducer;

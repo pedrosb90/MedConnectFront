@@ -36,13 +36,14 @@ export default function SearchBar() {
     e.preventDefault();
     handleSearch();
   };
-  const isSearchDisabled = name === "";
 
   const handleSortAZ = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
     dispatch(sortEspecsAZ(newOrder));
   };
+
+  const isSearchDisabled = name === "";
 
   return (
     <div className="flex z-20 fixed left-96 relative">
@@ -76,17 +77,13 @@ export default function SearchBar() {
             </button>
           )}{" "}
         </form>
-
         <div className="flex space-x-4">
           <h5 className="flex items-center self-center text-white">Ordenar:</h5>
-          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            Disponibilidad
-          </button>
           <button
             onClick={handleSortAZ}
             className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
           >
-            {`${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
+            {`${sortOrder === "asc" ? "Alfabetico A-Z" : "Alfabetico Z-A"}`}
           </button>
         </div>
       </div>

@@ -1,6 +1,14 @@
 "use client";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./page.module.css";
+import axios from "axios";
+import { getMedicos, getSpeciality } from "../../redux/reducer";
+import { getCitas } from "../../redux/CitaReducer";
+import { useEffect, useState } from "react";
+
+const localSpec = "http://localhost:3001/specializations";
+const localCitas = "http://localhost:3001/appointment";
+const localMedic = "http://localhost:3001/medics";
 
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);
@@ -59,20 +67,51 @@ import styles from "./page.module.css";
 //                     <button className={styles.button}>Ver Detalles</button></dd>
 
 export default function Administration() {
+  const dispatch = useDispatch();
+  const especialidades = useSelector((state) => state.speciality.AllSpecial);
+  const citas = useSelector((state) => state.cita.citas);
+  const medicos = useSelector((state) => state.speciality.AllMedicos);
   const { logStatus } = useSelector((state) => state);
+  const [dataEsp, setDataEsp] = useState([]);
+  const [dataCitas, setDataCitas] = useState([]);
+  const [dataMedics, setDataMedics] = useState([]);
 
- if (logStatus.logStatus === "admin") {
+  async function fetchData() {
+    try {
+      const responseCitas = await axios.get(localCitas);
+      const response = await axios.get(localSpec);
+      const responseMedics = await axios.get(localMedic);
+
+      dispatch(getCitas(responseCitas.data));
+      dispatch(getMedicos(responseMedics.data));
+      dispatch(getSpeciality(response.data));
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setDataEsp(especialidades);
+    setDataCitas(citas);
+    setDataMedics(medicos);
+  }, [especialidades]);
+
+  if (logStatus.logStatus === "admin") {
     return (
       <div className={`bg-white ${styles.container}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-indigo-600">
-              Administración
+            <h2 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+              Administracion
             </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <p className="mt-1 font-bold tracking-tight text-gray-900 sm:text-2xl">
               Bienvenido a Administración
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-4 text-lg leading-8 text-gray-600">
               Aqui podras administrar toda la informacion de la pagina web,
               crear medicos, especialidades, modificarlas y ver un registro de
               las citas activas y ya resueltas.
@@ -105,7 +144,7 @@ export default function Administration() {
                   Total de citas
                 </dt>
                 <dd className={styles.citas}>
-                  44
+                  {dataCitas.length}
                   <button className={styles.button}>Ver Detalles</button>
                 </dd>
               </div>
@@ -130,7 +169,7 @@ export default function Administration() {
                   Citas concluidas
                 </dt>
                 <dd className={styles.citas_con}>
-                  10
+                  {dataCitas.filter((e) => e.status === "completed").length}
                   <button className={styles.button}>Ver Detalles</button>
                 </dd>
               </div>
@@ -158,14 +197,20 @@ export default function Administration() {
                 </dt>
                 <div className={styles.resumen}>
                   <dd className={styles.citas_con}>
-                    34
-                    <h2>Citas activas</h2>
+                    {dataCitas.filter((e) => e.status === "pending").length}
+                    <h2>Citas Pendientes</h2>
                   </dd>
                   <dd className={styles.citas_con}>
-                    7<h2>Total de Medicos</h2>
+                    {dataCitas.filter((e) => e.status === "cancelled").length}
+                    <h2>Citas Canceladas</h2>
                   </dd>
                   <dd className={styles.citas_con}>
-                    5<h2>Total de especialidades</h2>
+                    {dataMedics.length}
+                    <h2>Total de Medicos</h2>
+                  </dd>
+                  <dd className={styles.citas_con}>
+                    {dataEsp.length}
+                    <h2>Total de Especialidades</h2>
                   </dd>
                 </div>
               </div>
@@ -179,7 +224,6 @@ export default function Administration() {
       <div>
         <h1>No posee los permisos requeridos</h1>
       </div>
-
     );
   }
 }

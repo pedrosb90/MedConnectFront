@@ -1,0 +1,33 @@
+.alert {
+  position: fixed;
+  z-index: 100;
+  background-color: #81ff61;
+  border-left: 18px solid #0bf513;
+  color: black;
+  padding: 15px;
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  font-size: 1.1em;
+  font-weight: 500;
+  width: 60%;
+  border-bottom-right-radius: 10px;
+  right: 0;
+  top: 22vh;
+  transition: 0.2s ease;
+  height: 13vh;
+}
+.alert_off {
+  z-index: 100;
+  position: fixed;
+  background-color: #81ff61;
+  border-left: 18px solid #0bf513;
+  color: black;
+  padding: 15px;
+  height: 13vh;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  font-size: 1.1em;
+  font-weight: 500;
+  transition: 0.2s ease;
+  right: 0;
+  top: 22vh;
+}

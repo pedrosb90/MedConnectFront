@@ -1,29 +1,33 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  searchMedic,
-  getMedicos,
-  clearSearchMedic,
-  sortMedicos,
-} from "../redux/reducer";
-import { useDispatch } from "react-redux";
-
+import { searchMedic, sortMedicos, sortAv } from "../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
-export default function Search_Bar_Medicos() {
+export default function Search_Bar_Medicos({ setSearchResult }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
+  const [avOrder, setAvOrder] = useState("asc");
+
+  const estadoMed = useSelector((state) => state.speciality.AllMedicos);
 
   const dispatch = useDispatch();
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        `${medicsURL}?first_name=${searchValue}`
-      );
-      dispatch(searchMedic(response.data));
+      // { email, password },
+      // { withCredentials: true, credentials: "include" }
+      const filteredMedics = estadoMed.filter((medic) => {
+        const fullName = `Dr. ${medic.user.first_name.charAt(0)} ${
+          medic.user.last_name
+        }`;
+        const searchValueLowerCase = searchValue.toLowerCase();
+        return fullName.toLowerCase().includes(searchValueLowerCase);
+      });
+      setSearchResult(filteredMedics);
+      dispatch(searchMedic(filteredMedics));
       setSearchPerformed(true);
     } catch (error) {
       alert(error);
@@ -36,23 +40,27 @@ export default function Search_Bar_Medicos() {
 
   const handleReset = () => {
     setSearchValue("");
+    setSearchResult([]);
     setSearchPerformed(false);
-    dispatch(clearSearchMedic());
-    dispatch(getMedicos());
+    dispatch(searchMedic([]));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch();
   };
-
-  const isSearchDisabled = searchValue === "";
-
   const handleSortAZ = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
     dispatch(sortMedicos(newOrder));
   };
+  const handleSortAv = () => {
+    const newOrder = avOrder === "asc" ? "desc" : "asc";
+    setAvOrder(newOrder);
+    dispatch(sortAv(newOrder));
+  };
+
+  const isSearchDisabled = searchValue === "";
 
   return (
     <div className="flex  z-20 fixed left-96">
@@ -87,14 +95,17 @@ export default function Search_Bar_Medicos() {
         </form>
         <div className="flex space-x-4">
           <h5 className="flex items-center self-center text-white">Ordenar:</h5>
-          <button className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded">
-            Disponibilidad
+          <button
+            onClick={handleSortAv}
+            className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
+          >
+            {`${avOrder === "asc" ? " < Disponible " : " > Disponible "}`}
           </button>
           <button
             onClick={handleSortAZ}
             className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded"
           >
-            {`${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
+            {`${sortOrder === "asc" ? "Alfabetico A-Z" : "Alfabetico Z-A"}`}
           </button>
         </div>
       </div>

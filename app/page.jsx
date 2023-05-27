@@ -6,11 +6,10 @@ import { useState, useEffect } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
-import axios from "axios";
-import { getUser } from "@/app/redux/login";
-import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
+import Warning from "./components/warning/Warning";
+
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const loginSuccURL = `${backendURL}/auth/login/success`;
 
@@ -71,7 +70,12 @@ export default function Home() {
 
   return (
     <main>
-      {showMenu && <Search_Bar_Medicos />}
+      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+        INICIO
+      </h1>
+      <link rel="shortcut icon" href="/favicon.ico" />
+
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
 

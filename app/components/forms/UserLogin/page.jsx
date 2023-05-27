@@ -8,10 +8,16 @@ import style from "./login.module.css";
 import Link from "next/link";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authLoginURL = `${backendURL}/auth/login`;
+import Warning from "../../warning/Warning";
+import { useState } from "react";
 
 export default function UserLogin() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [error, setError] = useState({
+    text: "",
+    alert: false,
+  });
   //! hacer el navigate al home, aviso de login y 1 seg despues al home
   const onSubmit = async (values) => {
     const { email, password } = values;
@@ -28,113 +34,130 @@ export default function UserLogin() {
           router.push("/");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        setError({ ...error, text: error.message, alert: true })
+      );
 
     //! this info must be send to the backend
   };
 
   const google = () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open(`${backendURL}/auth/google`, "_self");
   };
-
+  const FinishFailed = () => {
+    setError({ ...error, text: "", alert: false });
+  };
   return (
-    <div className={style.masterContainer}>
-      <div className={style.container}>
-        <div className={style.components}>
-          <div className={style.buttonContainer}>
-            <button id={style.google} className={style.button} onClick={google}>
-              Google
-            </button>
-            <button id={style.facebook} className={style.button}>
-              Facebook
-            </button>
-          </div>
-          <div className={style.formContainer}>
-            <Form
-              className={style.form}
-              layout="vertical"
-              onFinish={(values) => onSubmit(values)}
-            >
-              <Form.Item
-                name="email"
-                label="Usuario"
-                rules={[
-                  { required: true, message: "Por favor ingrese su usuario" },
-                  {
-                    validator: (_, value) => {
-                      return new Promise((resolve, reject) => {
-                        if (
-                          value &&
-                          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(
-                            value
-                          )
-                        ) {
-                          resolve(); // Resuelve la promesa si la contraseña es válida
-                        } else {
-                          reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                        }
-                      });
-                    },
-                    message: "El usuario no es válido",
-                  },
-                ]}
-                hasFeedback
+    <>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
+      <div className={style.masterContainer}>
+        <div className={style.container}>
+          <div className={style.components}>
+            <div className={style.buttonContainer}>
+              <button
+                id={style.google}
+                className={style.button}
+                onClick={google}
               >
-                <Input
-                  className={style.input}
-                  type="text"
-                  name="user"
-                  placeholder="Usuario"
-                />
-                {/* {errors.user && (<span>{errors.user}</span>)} */}
-              </Form.Item>
-              <Form.Item
-                name="password"
-                label="Contraseña"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor ingrese su contraseña",
-                  },
-                  {
-                    validator: (_, value) => {
-                      return new Promise((resolve, reject) => {
-                        if (
-                          value &&
-                          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(value)
-                        ) {
-                          resolve(); // Resuelve la promesa si la contraseña es válida
-                        } else {
-                          reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                        }
-                      });
-                    },
-                    message: "La contraseña no es válida",
-                  },
-                ]}
-                hasFeedback
+                Google
+              </button>
+              <button id={style.facebook} className={style.button}>
+                Facebook
+              </button>
+            </div>
+            <div className={style.formContainer}>
+              <Form
+                className={style.form}
+                layout="vertical"
+                onFinish={(values) => onSubmit(values)}
               >
-                <Input.Password
-                  className={style.input}
+                <Form.Item
+                  name="email"
+                  label="Usuario"
+                  rules={[
+                    { required: true, message: "Por favor ingrese su usuario" },
+                    {
+                      validator: (_, value) => {
+                        return new Promise((resolve, reject) => {
+                          if (
+                            value &&
+                            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(
+                              value
+                            )
+                          ) {
+                            resolve(); // Resuelve la promesa si la contraseña es válida
+                          } else {
+                            reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                          }
+                        });
+                      },
+                      message: "El usuario no es válido",
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input
+                    className={style.input}
+                    type="text"
+                    name="user"
+                    placeholder="Usuario"
+                  />
+                  {/* {errors.user && (<span>{errors.user}</span>)} */}
+                </Form.Item>
+                <Form.Item
                   name="password"
-                  placeholder="Contraseña"
-                />
-              </Form.Item>
-              {/* {errors.password && (<span>{errors.password}</span>)} */}
-              <Button block htmlType="submit">
-                boton
-              </Button>
-              <p>Una vez que inicie sesión será redirigido al inicio!</p>
-            </Form>
+                  label="Contraseña"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Por favor ingrese su contraseña",
+                    },
+                    {
+                      validator: (_, value) => {
+                        return new Promise((resolve, reject) => {
+                          if (
+                            value &&
+                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/.test(
+                              value
+                            )
+                          ) {
+                            resolve(); // Resuelve la promesa si la contraseña es válida
+                          } else {
+                            reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                          }
+                        });
+                      },
+                      message: "La contraseña no es válida",
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input.Password
+                    className={style.input}
+                    name="password"
+                    placeholder="Contraseña"
+                  />
+                </Form.Item>
+                {/* {errors.password && (<span>{errors.password}</span>)} */}
+                <Button block htmlType="submit">
+                  Iniciar
+                </Button>
+                <p>Una vez que inicie sesión será redirigido al inicio!</p>
+              </Form>
+            </div>
           </div>
+          <h2 className={style.h2}>
+            ¿No tiene un usuario?{" "}
+            <Link className={style.link} href="/components/forms/register">
+              Cree uno!
+            </Link>
+          </h2>
         </div>
-        <h2 className={style.h2}>
-          ¿No tiene un usuario?{" "}
-          <Link className={style.link} href="/components/forms/register">
-            Cree uno!
-          </Link>
-        </h2>
       </div>
-    </div>
+    </>
   );
 }
