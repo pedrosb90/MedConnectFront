@@ -6,11 +6,11 @@ import img from '../../../citas/img/iconoMed.jpg'
 import Image from 'next/image';
 import Warning from '@/app/components/warning/Warning';
 import { useSelector } from 'react-redux';
-import { usePathname } from 'next/navigation';
+
 
 
 export default function UserCard({userCitas}){
-  const router = usePathname()
+  
     const [isOpen, setIsOpen] = useState(false);
     const [contador,setContador]=useState(1)
     const userGoogle = useSelector((state) => state.login.userGoogle);
@@ -20,26 +20,26 @@ export default function UserCard({userCitas}){
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  console.log(userCitas);
+  
   
  
 
-const deleteFunc = () => {
-  if (contador === 2) {
-    setAlert(false);
-    const id = userGoogle.id ? userGoogle.id : userLocal.id;
-     axios
-      .delete('http://localhost:3001/users/' + id)
-      .then(() => {
-        router.push('/');
+// const deleteFunc = () => {
+//   if (contador === 2) {
+//     setAlert(false);
+//     const id = userGoogle.id ? userGoogle.id : userLocal.id;
+//      axios
+//       .delete('http://localhost:3001/users/' + id)
+//       .then(() => {
+//         homeReturn()
         
-      }).catch((err)=>{alert(err.message)})
-    setContador(1);
-  } else {
-    setContador(contador + 1);
-    setAlert(true);
-  }
-};
+//       }).catch((err)=>{alert(err.message)})
+//     setContador(1);
+//   } else {
+//     setContador(contador + 1);
+//     setAlert(true);
+//   }
+// };
 const FinishFailed =()=>{
   setAlert(false)
 
@@ -52,7 +52,7 @@ const FinishFailed =()=>{
           <Warning alert={alerta} text={'Seguro que quieres continuar? se borrara tu perfil'} FinishFailed={FinishFailed}></Warning>
          
     <div className="flex justify-end px-4 pt-4">
-    <button
+    {/* <button
         id="dropdownButton"
         data-dropdown-toggle="dropdown"
         className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
@@ -69,9 +69,9 @@ const FinishFailed =()=>{
         >
           <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
         </svg>
-      </button>
+      </button> */}
 
-      {isOpen && (
+      {/* {isOpen && (
         <div className="absolute mt-12 z-30 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-34 dark:bg-gray-700">
           <ul className="py-2" aria-labelledby="dropdownButton">
             <li>
@@ -93,7 +93,7 @@ const FinishFailed =()=>{
             </li>
           </ul>
         </div>
-      )}
+      )} */}
     </div>
     {Object.keys(userGoogle).length === 0 ? (
   <div className="flex flex-col items-center pb-10">

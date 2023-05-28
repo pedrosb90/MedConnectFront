@@ -12,8 +12,35 @@ const { Option } = Select;
 
 
 
-export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
+export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen,Med_id}){
   const [form] = Form.useForm();
+  const [horas,setHoras]=useState([])
+const HorasDisponibles =(date)=>{
+  const fecha = new Date(date);
+        const año = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const día = String(fecha.getDate()).padStart(2, '0');
+
+const fechaFormateada = `${año}-${mes}-${día}`;
+console.log(fechaFormateada);
+  if (fechaFormateada.length) {
+    axios.get('http://localhost:3001/appointment')
+    .then((res)=>{
+      const diasHorasFiltradas = res.data.filter(cita => cita.scheduledDate === fechaFormateada && cita.user.id === Med_id);
+const horariosFiltrados = horarios.filter(horario => !diasHorasFiltradas.some(cita => cita.scheduledTime === horario));
+      
+      return setHoras(horariosFiltrados)
+
+    })
+    .catch((err)=>alert(err.message))
+
+    
+  }else{
+    return horarios
+  }
+
+}
+
 
     
       const [error,setError]=useState({
@@ -45,7 +72,7 @@ export default function CardEdit ({horarios, dia ,status,setPut,id,setOpen}){
 
 const fechaFormateada = `${año}-${mes}-${día}`;
 
-        axios.put("http://localhost:3001/appointment/"+id,{ scheduledDate: fechaFormateada, scheduledTime: scheduledTime +":00", status:status },)
+        axios.put("http://localhost:3001/appointment/"+id,{ scheduledDate: fechaFormateada, scheduledTime: scheduledTime, status:status },)
           .then(() => {
             
             setPut(true)
@@ -70,6 +97,7 @@ const fechaFormateada = `${año}-${mes}-${día}`;
             <Item
         name="scheduledDate"
         label="Día"
+        
         rules={[
           {
             required: true,
@@ -77,7 +105,7 @@ const fechaFormateada = `${año}-${mes}-${día}`;
           },
         ]}
       >
-        <DatePicker disabledDate={disabledDate} />
+        <DatePicker disabledDate={disabledDate} onChange={date => HorasDisponibles(date)}/>
       </Item >
             <Item name="scheduledTime" label="Hora" rules={[
           {
@@ -86,7 +114,7 @@ const fechaFormateada = `${año}-${mes}-${día}`;
           },
         ]}>
         <Select>
-          {horarios.map((option) => (
+          {horas.map((option) => (
             <Option key={option} value={option}>
               {option}
             </Option>

@@ -6,7 +6,7 @@ import {obtenerHorarios} from './obtenerHorarios.js'
 import CardEdit from './CardEdit'
 import Success from '../../../components/success/Success'
 
-export default function Table({userCitas}){
+export default function Table({userCitas, setPut,put}){
     
     
     const [horarios, setHorarios]=useState([])
@@ -14,13 +14,9 @@ export default function Table({userCitas}){
     const [datos, setDatos]=useState({
       dia:'',
       status:'',
-      id:''
+      id:'',
+      Med_id:''
     })
-    const[put, setPut]=useState(false)
-    
-    
-
-    
 
 const editCita =async(Med_id, status, Cita_id)=>{
   const res = await axios.get('http://localhost:3001/medics')
@@ -31,20 +27,18 @@ const editCita =async(Med_id, status, Cita_id)=>{
     const hora = obtenerHorarios(hours.start_time, hours.end_time, 40);
     
     setHorarios(hora);
-    setDatos({...datos ,dia: hours.day_of_week, status:status, id:Cita_id})
+    setDatos({...datos ,dia: hours.day_of_week, status:status, id:Cita_id,Med_id:Med_id})
   }
   setOpen(true)
 }
-const success =()=>{
-  setPut(false)
-}
+
 const [totalCitas, setTotalCitas]=useState([])
 useEffect(()=>{
   axios.get('http://localhost:3001/appointment')
   .then(res=>{
     setTotalCitas(res.data)
   })
-},[])
+},[put])
 
 const arrPacientes = userCitas ? userCitas.patients :[]
 
@@ -65,9 +59,9 @@ const citas = searchCitas();
 
     return(
       <>
-      <Success alert={put} text={'Se modifico el dia y hora de su cita exitosamente'} success={success} ></Success>
+     
         <div className={ style.table_cont +" relative shadow-md sm:rounded-lg"}>
-         {open && <CardEdit horarios={horarios} dia={datos.dia} status={datos.status} setPut={setPut} id={datos.id} setOpen={setOpen}></CardEdit>}
+         {open && <CardEdit horarios={horarios} dia={datos.dia} status={datos.status} setPut={setPut} id={datos.id} setOpen={setOpen} Med_id={datos.Med_id}></CardEdit>}
             <h1 className={style.title + ' mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl'}>Citas Agendadas</h1>
     {userCitas && citas.length ? <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -6,15 +6,17 @@ import Link from 'next/link'
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+// import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation'
+import Success from '@/app/components/success/Success'
 export default function User(){
+  // const router = useRouter();
   const { id } = useParams();
-
-    const [datos, setDatos]=useState(false)
-console.log(id);
+  const[put, setPut]=useState(false)
+    const [userCitas, setDatos]=useState(false)
+    
   useEffect(() => {
-    !datos && 
+    
     axios.get('http://localhost:3001/users')
       .then((res) => {
         const citas = res.data;
@@ -25,13 +27,21 @@ console.log(id);
       .catch(() => {
         alert('Error al obtener los datos del usuario');
       });
-  }, [datos]);
+  }, [put]);
+  // const homeReturn =()=>{
+  //   router.push("/");
 
-  const userCitas = datos && datos
+  // }
+  const success =()=>{
+    setPut(false)
+  }
+
+  
     return(
         <div className={styles.container}>
-            <UserCard userCitas={userCitas}></UserCard>
-            <Table userCitas={userCitas}></Table>
+           <Success alert={put} text={'Se modifico el dia y hora de su cita exitosamente'} success={success} ></Success>
+            <UserCard userCitas={userCitas} ></UserCard>
+            <Table userCitas={userCitas} setPut={setPut} put={put}></Table>
             <Link href="/" as="/">
         <button
           type="button"

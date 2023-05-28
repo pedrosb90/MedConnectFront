@@ -10,8 +10,9 @@ import styles from './page.module.css'
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
 const local = "http://localhost:3001/auth/register";
-
+const localPatch = 'http://localhost:3001/users/'
 export default function UserLogin() {
+  const userLocal = useSelector((state) => state.login.userLocal);
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,14 +38,24 @@ export default function UserLogin() {
         password,
       })
       .then((res) => {
-        console.log(res.data);
+        
         if (res.data) {
           setRegistered(true);
           setLoading(false);
         }
       })
       .catch((error) => {
-        setError({...error,text:error.message,alert:true})
+        if (userLocal.id) {
+          axios.patch(localPatch + userLocal.id)
+          .then(()=>{
+            setRegistered(true);
+            setLoading(false);
+          }).catch(()=>{
+            setError({...error,text:'El usuario ya existe o se cayó el servidor',alert:true})
+          })
+        }
+        setError({...error,text:'El usuario ya existe o se cayó el servidor',alert:true})
+          
         
       });
 
