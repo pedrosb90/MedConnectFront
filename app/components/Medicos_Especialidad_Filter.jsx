@@ -128,8 +128,13 @@ export default function Medicos_Especialidad_Filter() {
     setCertifications("");
     setCity("");
 
-    dispatch(searchMedic([]));
-    setList(allMedicos);
+    try {
+      const response = await axios.get(medicsURL);
+      dispatch(getMedicos(response.data));
+      setList(response.data);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleSubmit = (e) => {
