@@ -129,6 +129,7 @@ export default function Medicos_Especialidad_Filter() {
     setCity("");
 
     dispatch(searchMedic([]));
+    setList(allMedicos);
   };
 
   const handleSubmit = (e) => {
@@ -203,7 +204,7 @@ export default function Medicos_Especialidad_Filter() {
         </button>
         <button
           className="text-sm bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
-          type="submit"
+          type="button"
           onClick={handleClear}
         >
           Borrar
