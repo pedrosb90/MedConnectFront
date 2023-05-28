@@ -122,16 +122,19 @@ export default function Page() {
       <Link href="/">
         <button
           type="button"
-          className={`btn_return_home text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  ${styles.btn_return_home}`}
+          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
+          style={{ position: "absolute", bottom: "8%", right: "12%" }}
         >
           Inicio
         </button>
-      </Link>{" "}
+      </Link>
+
       <Link href="/citas">
         <button
           // onClick={goBack}
           type="button"
-          className={`btn_return_citas text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  ${styles.btn_return_citas}`}
+          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
+          style={{ position: "absolute", bottom: "8%", right: "12%" }}
         >
           Citas
         </button>
