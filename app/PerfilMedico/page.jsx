@@ -10,6 +10,7 @@ import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
 import FormCal from "./FormCal";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function PerfilMedico() {
   const [user, setUser] = useState({});
@@ -25,9 +26,7 @@ export default function PerfilMedico() {
   useEffect(() => {
     if (!user.id) {
       axios
-        .get(
-          "http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37"
-        )
+        .get(`${backendURL}/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37`)
         .then((res) => {
           setUser(res.data);
         })
@@ -38,7 +37,7 @@ export default function PerfilMedico() {
 
     if (!citas.id) {
       axios
-        .get("http://localhost:3001/appointment")
+        .get(`${backendURL}/appointment`)
         .then((res) => {
           setCitas(res.data);
         })
