@@ -35,20 +35,16 @@ export default function Medicos_Especialidad_Filter() {
     }
   }, [dispatch, specialities]);
 
-  const fetchMedicosData = async () => {
-    try {
-      const response = await axios.get(medicsURL);
-      dispatch(getMedicos(response.data));
-      console.log(backendURL);
-      console.log(medicsURL);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   useEffect(() => {
-    fetchMedicosData();
-  }, []);
+    async function fetchMedicosData() {
+      try {
+        const response = await axios.get(medicsURL);
+        dispatch(getMedicos(response.data));
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  }, [dispatch]);
 
   const handleSearch = () => {
     const filteredMedics = allMedicos.filter((medic) => {
