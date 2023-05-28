@@ -129,7 +129,6 @@ export default function Medicos_Especialidad_Filter() {
     setCity("");
 
     dispatch(searchMedic([]));
-    setList(allMedicos);
   };
 
   const handleSubmit = (e) => {
