@@ -39,7 +39,7 @@ export default function Medicos_Especialidad_Filter() {
     async function fetchMedicosData() {
       try {
         const response = await axios.get(
-          `https://medconnectback-production.up.railway.app.medics`
+          `https://medconnectback-production.up.railway.app/medics`
         );
         dispatch(getMedicos(response.data));
       } catch (error) {
