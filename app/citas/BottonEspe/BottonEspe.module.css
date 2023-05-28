@@ -1,67 +1,57 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.4s ease;
-   
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.4s ease;
+  font-family: "Montserrat", sans-serif;
 }
-.button_serv{
-    background-color: #2A6074;
-    color: white;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    
-    border-radius: 8px;
-    justify-content: center;
-    font-size: 1.1em;
-    font-weight: 600;
-    margin: 20px;
-    transition: 0.1s ease;
+.button_serv {
+  background-color: #2a6074;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 
-}
-
-.button_on{
-    background-color:#91c4cd ;
-    color: black;
-    transform: scale(0.95);
-    
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    
-    border-radius: 8px;
-    justify-content: center;
-    font-size: 1.1em;
-    font-weight: 600;
-    margin: 20px;
-    transition: 0.1s ease;
-}
-.box{
-    
-    transition: 0.2s ease;
-    background-color: #2A6074;
-    color: white;
-    font-weight: 600;
-    font-size: 1em;
-    position: absolute;
-    margin-top: 70px;
-    padding: 20px;
-    
-    
-    
-    
-}
-.especiality{
-    display: flex;
-    
-    
-    
+  border-radius: 8px;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 20px;
+  transition: 0.1s ease;
 }
 
-.especiality:hover{
-    background-color: #91c4cd;
-    border-radius: 5px;
-    color: black;
-    
+.button_on {
+  background-color: #91c4cd;
+  color: black;
+  transform: scale(0.95);
+
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  border-radius: 8px;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 20px;
+  transition: 0.1s ease;
+}
+.box {
+  transition: 0.2s ease;
+  background-color: #2a6074;
+  color: white;
+  font-weight: 600;
+  font-size: 1em;
+  position: absolute;
+  margin-top: 70px;
+  padding: 20px;
+}
+.especiality {
+  display: flex;
+}
+
+.especiality:hover {
+  background-color: #91c4cd;
+  border-radius: 5px;
+  color: black;
 }
