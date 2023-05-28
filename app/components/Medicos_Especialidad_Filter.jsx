@@ -46,8 +46,11 @@ export default function Medicos_Especialidad_Filter() {
         alert(error.message);
       }
     }
-    fetchMedicosData();
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchMedicosData();
+  }, []);
 
   const handleSearch = () => {
     const filteredMedics = allMedicos.filter((medic) => {
