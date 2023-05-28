@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
-import EditPaciente from "./editPaciente";
+import EditPaciente from "../pacientes/EditPaciente";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Pacientes() {
