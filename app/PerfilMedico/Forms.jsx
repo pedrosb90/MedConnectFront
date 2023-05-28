@@ -10,11 +10,11 @@ import { Option } from 'antd/es/mentions';
 const local = "http://localhost:3001/specializations";
 
 
-export default function Forms() {
+export default function Forms({userLocal}) {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
-  const [user, setUser] = useState({})
+  
 
   const [form, setForm] = useState({
     phone: "",
@@ -36,42 +36,24 @@ export default function Forms() {
 
   useEffect(()=>{
     fetchData()
-    if(!user.id){
-      axios.get('http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37')
-      .then(res=>{
-          setUser(res.data)
-      })
-      .catch(error =>{
-        console.error( error);
-      })
-  }
+    
   },[])
 
   useEffect(() => {
     setData(especialidades);
   }, [especialidades]);
-console.log("esto es user: ",user);
+// console.log("esto es user: ",user);
 
   return (
     <div className={style.container + " top-1/3 "} >
           <h1 className={style.title}>Actualiza tu informacion</h1>
           <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
-            {/* <Form.Item name="userType" label="Usuario" 
-            rules={[
-              {required:true,
-              message:"Por favor seleccione una opción"}
-            ]}>
-              <Radio.Group >
-                  <Radio value="pacient" defaultChecked>Paciente</Radio>
-                  {logStatus.logStatus === "master" ?<Radio value="medic">Médico</Radio>:null}
-                  {logStatus.logStatus === "master" ?<Radio value="admin">Administrador</Radio>:null}
-                </Radio.Group>
-            </Form.Item> */}
+           
             <FormItem name="first_name" label="Nombre" >
-              <Input placeholder={user?.user?.first_name} disabled={true}/>
+              <Input placeholder={userLocal.first_name} disabled={true}/>
             </FormItem>
             <FormItem name="last_name" label="Apellido" >
-                <Input placeholder={user?.user?.last_name} disabled={true}/>
+                <Input placeholder={userLocal.last_name} disabled={true}/>
             </FormItem>
             <FormItem name="phone" label="Número de telefono" rules={[
                 {required:true,
@@ -96,15 +78,6 @@ console.log("esto es user: ",user);
             <Input/>
               {/* {errors.user && (<span>{errors.user}</span>)} */}
               </Form.Item>
-              
-    
-    
-             
-              {/* {errors.password && (<span>{errors.password}</span>)} */}
-              {/* {registered === "error" ? <Alert
-              message="Ocurrió un error al registrarse"
-              type="warning"
-    /> : !registered && <Button className={style.Button} htmlType='submit' loading={loading}>registrar</Button>} */}
             </Form>
         </div>
   )

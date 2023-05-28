@@ -4,6 +4,7 @@ import { useState,useEffect } from "react"
 import styles from './page.module.css'
 import Warning from "@/app/components/warning/Warning"
 import Success from "@/app/components/success/Success"
+import Forms from './form'
 export default function Especialidades(){
     const[especialidades,setEspecialidades]=useState([])
     const [isDelete,setIsDelete]=useState(false)
@@ -12,6 +13,13 @@ export default function Especialidades(){
       alert:false
     })
     const [count,setCount]=useState(1)
+    const [clickCal, setClickCal] = useState(false);
+    const [info, setInfo]=useState({
+      id:0,
+      url:"",
+      name:"",
+      description:""
+    });
     
     useEffect(() => {
       const fetchPatients = async () => {
@@ -52,7 +60,27 @@ export default function Especialidades(){
     const FinishFailed=()=>{
       setError({...error,text:'',alert:false})
     }
-    
+    const handleClickCal = (id, name, description ,url) => {
+      if (clickCal === true ) {
+        setClickCal(false);
+        setInfo({
+          id:0,
+          url:"",
+          name:"",
+          description:""
+        })
+      } else {
+        setInfo({
+          id:id,
+          url:url,
+          name:name,
+          description:description
+        })
+        setClickCal(true);
+      }
+    };
+
+   
     return(
         <div className={styles.container}>
            <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
@@ -94,7 +122,7 @@ export default function Especialidades(){
     </td>
     
     <td className="px-6 py-4">
-      <button  className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
+      <button onClick={()=> handleClickCal(esp.id, esp.name, esp.description, esp.url)} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
     </td>
     <td className="px-6 py-4">
       <button onClick={()=>deleteEsp(esp.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
@@ -105,6 +133,7 @@ export default function Especialidades(){
 
         </tbody>
     </table></div>
+    <div>{clickCal === true ? <Forms info={info}></Forms> : <div></div>}</div>
         </div>
     )
 }

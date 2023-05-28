@@ -81,29 +81,30 @@ export default function Medicos(){
             </tr>
         </thead>
         <tbody>
-        {users.length && users.map((med, index) => (
+        {users.length && users.map((user, index) => (
   <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 ">
     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
       {index+1}
     </th>
     <td className="px-4 py-2">
-    <a
-                      href={`http://localhost:3000/medicos/${med.id}`}
-                    >{`${med.first_name} ${med.last_name}`}</a>
+      <a >
+
+    {`${user.first_name} ${user.last_name}`}
+      </a>
     </td>
     
     <td className="px-6 py-4">
-      {med.email}
+      {user.email}
 
     </td>
     <td className="px-6 py-4">
-      {med.role}
+      {user.role}
 
     </td>
     
     
     <td className="px-6 py-4">
-      <button onClick={()=>deleteMed(med.user.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
+      <button onClick={()=>deleteMed(user.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
     </td>
   </tr>
 ))}
