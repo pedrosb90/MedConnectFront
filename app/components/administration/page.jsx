@@ -75,6 +75,7 @@ export default function Administration() {
   const [dataEsp, setDataEsp] = useState([]);
   const [dataCitas, setDataCitas] = useState([]);
   const [dataMedics, setDataMedics] = useState([]);
+  const userLocal = useSelector((state) => state.login.userLocal);
 
   async function fetchData() {
     try {
@@ -100,7 +101,7 @@ export default function Administration() {
     setDataMedics(medicos);
   }, [especialidades]);
 
-  if (logStatus.logStatus === "admin") {
+  if (logStatus.logStatus === "admin" || userLocal.role === "admin") {
     return (
       <div className={`bg-white ${styles.container}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
