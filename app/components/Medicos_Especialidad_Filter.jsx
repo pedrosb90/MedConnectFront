@@ -44,7 +44,6 @@ export default function Medicos_Especialidad_Filter() {
         alert(error.message);
       }
     }
-    fetchMedicosData();
   }, [dispatch]);
 
   const handleSearch = () => {
