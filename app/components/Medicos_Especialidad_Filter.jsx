@@ -121,7 +121,7 @@ export default function Medicos_Especialidad_Filter() {
     }
   };
 
-  const handleClear = () => {
+  const handleClear = async () => {
     setMedicName("");
     setSpecialty("");
     setYearsExperience("");
