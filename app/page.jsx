@@ -12,8 +12,7 @@ import Menu_Medicos from "./components/Menu_Medicos";
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-
- 
+  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -21,6 +20,9 @@ export default function Home() {
 
   return (
     <main>
+      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+        INICIO
+      </h1>
       <link rel="shortcut icon" href="/favicon.ico" />
 
       {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
