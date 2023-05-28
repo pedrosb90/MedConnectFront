@@ -17,7 +17,7 @@ export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     fetch("http://localhost:3001/auth/login/success", {
       method: "GET",
@@ -29,18 +29,13 @@ export default function Home() {
       },
     })
       .then((response) => {
-       
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        
         dispatch(getUser(resObject.user));
       })
-      .catch((err) => {
-        
-        
-      });
+      .catch((err) => {});
 
     fetch("http://localhost:3001/auth/loginn/success", {
       method: "GET",
@@ -52,31 +47,24 @@ export default function Home() {
       },
     })
       .then((response) => {
-        
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
-        
         dispatch(getLocalUser(resObject.user));
       })
-      .catch((err) => {
-        
-        
-      });
+      .catch((err) => {});
   }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-  
 
   return (
     <main>
-      
       <link rel="shortcut icon" href="/favicon.ico" />
 
-      {showMenu && <Search_Bar_Medicos />}
+      {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}
       <div className="flex flex-col gap-10">
         <Carrusel_Especialidades />
 

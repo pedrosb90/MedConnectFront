@@ -77,17 +77,23 @@ export default function Carrusel_Especialidades() {
       <div className="text white max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
         <div
           style={{
-            backgroundImage: `url(${espec.length && espec[currentIndex].url})`,
+            backgroundImage: `url(${espec?.length>0 && espec[currentIndex].url})`,
           }}
-          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans "
+          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans  "
         >
-          {espec.length && espec[currentIndex].name}
+          <div className="p-5 font-bold ">
+          {espec?.length > 0 && espec[currentIndex].name}
+
+          </div>
+          <div className="rounded-lg bg-cimPallete-300 opacity-60">
+
           <Link
             href={`/Especialidades`}
-            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-lg cursor-pointer"
+            className="font-sans  text-lg cursor-pointer"
           >
             <h1>Ver Mas Especialidades</h1>
           </Link>
+          </div>
         </div>
 
         <div className="hidden group-hover:block absolute top-[40%] -translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer ">

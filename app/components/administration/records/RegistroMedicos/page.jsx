@@ -41,8 +41,8 @@ export default function Registro() {
     request();
     // endpoint para obtener los datos de los médicos
   }, [deletedMedic]);
-
   if (AllMedicos) {
+    console.log("todos los medicos: ", AllMedicos)
     return (
       <div>
         {showAlert && (
@@ -79,6 +79,7 @@ export default function Registro() {
           dataSource={AllMedicos}
           split={true}
           renderItem={(AllMedicos) => (
+            console.log("todos los medicos: ",AllMedicos),
             <List.Item
               key={AllMedicos.id}
               actions={[
