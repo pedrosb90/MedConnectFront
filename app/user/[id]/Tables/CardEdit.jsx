@@ -1,9 +1,11 @@
 import { Button, Form, DatePicker, Select } from "antd";
 import moment from "moment";
+
 import axios from "axios";
 import styles from "./CardEdit.module.css";
-import Warning from "../../components/warning/Warning";
+import Warning from "../../../components/warning/Warning";
 import { useState } from "react";
+
 const { Item } = Form;
 const { Option } = Select;
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -15,8 +17,38 @@ export default function CardEdit({
   setPut,
   id,
   setOpen,
+  Med_id,
 }) {
   const [form] = Form.useForm();
+  const [horas, setHoras] = useState([]);
+  const HorasDisponibles = (date) => {
+    const fecha = new Date(date);
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const día = String(fecha.getDate()).padStart(2, "0");
+
+    const fechaFormateada = `${año}-${mes}-${día}`;
+
+    if (fechaFormateada.length) {
+      axios
+        .get(`${backendURL}/appointment`)
+        .then((res) => {
+          const diasHorasFiltradas = res.data.filter(
+            (cita) =>
+              cita.scheduledDate === fechaFormateada && cita.user.id === Med_id
+          );
+          const horariosFiltrados = horarios.filter(
+            (horario) =>
+              !diasHorasFiltradas.some((cita) => cita.scheduledTime === horario)
+          );
+
+          return setHoras(horariosFiltrados);
+        })
+        .catch((err) => alert(err.message));
+    } else {
+      return horarios;
+    }
+  };
 
   const [error, setError] = useState({
     text: "",
@@ -49,7 +81,7 @@ export default function CardEdit({
     axios
       .put(`${backendURL}/appointment/` + id, {
         scheduledDate: fechaFormateada,
-        scheduledTime: scheduledTime + ":00",
+        scheduledTime: scheduledTime,
         status: status,
       })
       .then(() => {
@@ -102,7 +134,10 @@ export default function CardEdit({
               },
             ]}
           >
-            <DatePicker disabledDate={disabledDate} />
+            <DatePicker
+              disabledDate={disabledDate}
+              onChange={(date) => HorasDisponibles(date)}
+            />
           </Item>
           <Item
             name="scheduledTime"
@@ -115,7 +150,7 @@ export default function CardEdit({
             ]}
           >
             <Select>
-              {horarios.map((option) => (
+              {horas.map((option) => (
                 <Option key={option} value={option}>
                   {option}
                 </Option>

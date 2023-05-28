@@ -8,8 +8,10 @@ import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
+const localPatch = `${backendURL}/users`;
 
 export default function UserLogin() {
+  const userLocal = useSelector((state) => state.login.userLocal);
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,14 +36,32 @@ export default function UserLogin() {
         password,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           setRegistered(true);
           setLoading(false);
         }
       })
       .catch((error) => {
-        setError({ ...error, text: error.message, alert: true });
+        if (userLocal.id) {
+          axios
+            .patch(localPatch + userLocal.id)
+            .then(() => {
+              setRegistered(true);
+              setLoading(false);
+            })
+            .catch(() => {
+              setError({
+                ...error,
+                text: "El usuario ya existe o se cayó el servidor",
+                alert: true,
+              });
+            });
+        }
+        setError({
+          ...error,
+          text: "El usuario ya existe o se cayó el servidor",
+          alert: true,
+        });
       });
 
     //! this info must be send to the backend

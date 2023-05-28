@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
+import Forms from "./form";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
@@ -15,6 +16,13 @@ export default function Especialidades() {
     alert: false,
   });
   const [count, setCount] = useState(1);
+  const [clickCal, setClickCal] = useState(false);
+  const [info, setInfo] = useState({
+    id: 0,
+    url: "",
+    name: "",
+    description: "",
+  });
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -30,7 +38,7 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id) => {
-    const url = specsURL;
+    const url = `${backendURL}/specializations`;
 
     count == 2 &&
       axios
@@ -57,6 +65,25 @@ export default function Especialidades() {
 
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });
+  };
+  const handleClickCal = (id, name, description, url) => {
+    if (clickCal === true) {
+      setClickCal(false);
+      setInfo({
+        id: 0,
+        url: "",
+        name: "",
+        description: "",
+      });
+    } else {
+      setInfo({
+        id: id,
+        url: url,
+        name: name,
+        description: description,
+      });
+      setClickCal(true);
+    }
   };
 
   return (
@@ -119,7 +146,17 @@ export default function Especialidades() {
                   <td className="px-6 py-4">{esp.description}</td>
 
                   <td className="px-6 py-4">
-                    <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">
+                    <button
+                      onClick={() =>
+                        handleClickCal(
+                          esp.id,
+                          esp.name,
+                          esp.description,
+                          esp.url
+                        )
+                      }
+                      className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800"
+                    >
                       Edit
                     </button>
                   </td>
@@ -136,6 +173,7 @@ export default function Especialidades() {
           </tbody>
         </table>
       </div>
+      <div>{clickCal === true ? <Forms info={info}></Forms> : <div></div>}</div>
     </div>
   );
 }

@@ -29,7 +29,7 @@ export default function Medicos() {
   }, [isDelete]);
 
   const deleteMed = (id) => {
-    const url = `${backendURL}/user/`;
+    const url = `${backendURL}/users/`;
 
     count == 2 &&
       axios
@@ -101,9 +101,6 @@ export default function Medicos() {
                 Dirección
               </th>
               <th scope="col" className="px-6 py-3">
-                <button>Edit</button>
-              </th>
-              <th scope="col" className="px-6 py-3">
                 <button>Eliminar</button>
               </th>
             </tr>
@@ -123,7 +120,7 @@ export default function Medicos() {
                   </th>
                   <td className="px-4 py-2">
                     <a
-                      href={`${backendURL}/medicos/${med.id}`}
+                      href={`http://localhost:3000/medicos/${med.id}`}
                     >{`${med.user.first_name} ${med.user.last_name}`}</a>
                   </td>
                   <td className="px-6 py-4">
@@ -134,11 +131,6 @@ export default function Medicos() {
                   <td className="px-6 py-4">{med.phone}</td>
                   <td className="px-6 py-4">{med.direccion}</td>
 
-                  <td className="px-6 py-4">
-                    <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">
-                      Edit
-                    </button>
-                  </td>
                   <td className="px-6 py-4">
                     <button
                       onClick={() => deleteMed(med.user.id)}

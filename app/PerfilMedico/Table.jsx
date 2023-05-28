@@ -2,24 +2,16 @@
 import style from "./page.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Cita from "./Cita";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Table() {
   const [citas, setCitas] = useState([]);
-  const [user, setUser] = useState({});
+
+  const userLocal = useSelector((state) => state.login.userLocal);
 
   useEffect(() => {
-    if (!user.id) {
-      axios
-        .get(`${backendURL}/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37`)
-        .then((res) => {
-          setUser(res.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
     if (!citas.id) {
       axios
         .get(`${backendURL}/appointment`)
@@ -32,17 +24,16 @@ export default function Table() {
     }
   }, []);
   const getCitasPerfil = citas?.filter(
-    (e) => e.user?.first_name === user?.user?.first_name
+    (e) => e.user.first_name === userLocal?.first_name
   );
   console.log("get citas perfil: ", getCitasPerfil);
 
-  const [status, setStatus] = useState("completed");
-
-  const handleCheckChange = async (e, citaId, scheduledDate, scheduledTime) => {
-    setStatus((prevStatus) =>
-      prevStatus === "pending" ? "completed" : "pending"
-    );
-
+  const handleCheckChange = async (
+    citaId,
+    scheduledDate,
+    scheduledTime,
+    status
+  ) => {
     await axios
       .put(`${backendURL}/appointment/${citaId}`, {
         scheduledDate: scheduledDate,
@@ -104,7 +95,6 @@ export default function Table() {
                   handleCheckChange={handleCheckChange}
                   cita={cita}
                   index={index}
-                  key={cita.id}
                 />
               ))}
           </tbody>

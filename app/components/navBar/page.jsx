@@ -100,7 +100,8 @@ const dispatch = useDispatch()
       .catch((err) => {});
   }, [logStatus]);
   
-  const userPage = userLocal.role === 'paciente' ? '/user': '/PerfilMedico'  
+  const id = userLocal.id ? userLocal.id : userGoogle.id;
+  const userPage = userLocal.role === 'paciente' || userGoogle.id ? `/user/${id}`: '/PerfilMedico'  
   return (
     <div className={styles.navbar_scroll}>
       <Image src={img} className={styles.icono} alt="fondo"></Image>
@@ -136,7 +137,7 @@ const dispatch = useDispatch()
               
               ) : (
                 <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>{userGoogle.photos && userGoogle.photos.length > 0 && (
-                  <Image width={600} height={600}  onClick={onClickFunc} class="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
+                  <Image width={600} height={600}  onClick={onClickFunc} className="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
                   )}
                 
               <Link href={userPage}><button className="text-white"><h3>Ver Perfil</h3>{`${userGoogle.displayName}`}</button></Link>
