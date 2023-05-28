@@ -24,7 +24,7 @@ export default function CardSpecial() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [especial, setEspecial] = useState([]);
   const [espeMed, setEspeMEd] = useState([]);
-  const [medico, setMedico] = useState({});
+  const [medico, setMedico] = useState(false);
 
   async function fetchData() {
     try {
@@ -75,7 +75,7 @@ export default function CardSpecial() {
   const citaInfo = useSelector((state) => state.cita.info);
 
   const onClickFunc = (name) => {
-    if (medico.user.id) {
+    if (medico) {
       const { id, last_name, first_name } = medico.user;
       dispatch(postInfo({ id, last_name, first_name, especialidad: name }));
     } else {

@@ -9,8 +9,8 @@
 }
 .btn_return_home {
   position: absolute;
-  bottom: 8%;
-  right: 12%;
+  top: 29vh;
+  right: 4%;
 }
 .btn_return:active {
   background-color: transparent;

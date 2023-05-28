@@ -6,15 +6,13 @@ import { useState, useEffect } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
-
-import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
-import Warning from "./components/warning/Warning";
+
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const dispatch = useDispatch();
+  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
