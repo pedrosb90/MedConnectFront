@@ -38,12 +38,15 @@ export default function Medicos_Especialidad_Filter() {
   useEffect(() => {
     async function fetchMedicosData() {
       try {
-        const response = await axios.get(medicsURL);
+        const response = await axios.get(
+          `https://medconnectback-production.up.railway.app.medics`
+        );
         dispatch(getMedicos(response.data));
       } catch (error) {
         alert(error.message);
       }
     }
+    fetchMedicosData();
   }, [dispatch]);
 
   const handleSearch = () => {
