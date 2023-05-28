@@ -207,7 +207,7 @@ export default function UserCard({ userCitas }) {
           </h5>
 
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>'los usuarios de google no tiene citas '
+            <b>Total de citas: </b>
           </span>
 
           <div className="flex mt-4 space-x-3 md:mt-6">
