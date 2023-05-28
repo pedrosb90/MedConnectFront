@@ -10,7 +10,7 @@ import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export default function Form({ info }) {
+export default function Form_({ info }) {
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [info.url] });
   const [loading, setLoading] = useState("");
