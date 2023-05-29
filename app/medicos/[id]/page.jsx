@@ -131,35 +131,34 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <Link href="/">
-        <button
-          type="button"
-          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
-          style={{
-            height: "40px",
-            position: "relative",
-            bottom: "5%",
-            right: "22%",
-          }}
-        >
-          Inicio
-        </button>
-      </Link>
-
-      <Link href="/citas">
-        <button
-          type="button"
-          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
-          style={{
-            height: "40px",
-            position: "relative",
-            bottom: "5%",
-            right: "16%",
-          }}
-        >
-          Citas
-        </button>
-      </Link>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          position: "absolute",
+          bottom: "5%",
+          right: "16%",
+        }}
+      >
+        <Link href="/">
+          <button
+            type="button"
+            className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
+            style={{ height: "40px", marginRight: "6px" }}
+          >
+            Inicio
+          </button>
+        </Link>
+        <Link href="/citas">
+          <button
+            type="button"
+            className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
+            style={{ height: "40px" }}
+          >
+            Citas
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
