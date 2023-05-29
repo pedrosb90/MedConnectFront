@@ -11,7 +11,7 @@ import { getSpeciality } from "../redux/reducer";
 import Warning from "./warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
-const local = "http://localhost:3001";
+const local = "https://medconnectback-production.up.railway.app";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -19,27 +19,27 @@ export default function Carrusel_Especialidades() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [espec, setEspec] = useState([]);
-  const [error,setError]=useState({
-    text:'',
-    alert:false
-    
-  })
+  const [error, setError] = useState({
+    text: "",
+    alert: false,
+  });
   async function getEspec() {
     try {
-      const respo = await axios.get(`${local}/specializations`, /*{
+      const respo = await axios.get(
+        `${local}/specializations` /*{
         withCredentials: true,
         credentials: "include",
-      }*/);
+      }*/
+      );
 
-      
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
     } catch (error) {
-      setError({...error,text:error.message,alert:true})
+      setError({ ...error, text: error.message, alert: true });
     }
   }
 
-  const filtro = espec.filter(e=>e.deletedAt===null)
+  const filtro = espec.filter((e) => e.deletedAt === null);
 
   useEffect(() => {
     !filtro?.length && getEspec();
@@ -70,31 +70,35 @@ export default function Carrusel_Especialidades() {
     }, 3000);
     return () => clearTimeout(timerRef.current);
   }, [handlerNext]);
-  const FinishFailed=()=>{
-    setError({...error,text:'',alert:false})
-  }
+  const FinishFailed = () => {
+    setError({ ...error, text: "", alert: false });
+  };
   return (
     <div>
-      <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
       <div className="text white max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
         <div
           style={{
-            backgroundImage: `url(${filtro?.length>0 && filtro[currentIndex].url})`,
+            backgroundImage: `url(${
+              filtro?.length > 0 && filtro[currentIndex].url
+            })`,
           }}
           className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans  "
         >
           <div className="p-5 font-bold ">
-          {filtro?.length > 0 && filtro[currentIndex].name}
-
+            {filtro?.length > 0 && filtro[currentIndex].name}
           </div>
           <div className="rounded-lg bg-cimPallete-300 opacity-60">
-
-          <Link
-            href={`/Especialidades`}
-            className="font-sans  text-lg cursor-pointer"
-          >
-            <h1>Ver Mas Especialidades</h1>
-          </Link>
+            <Link
+              href={`/Especialidades`}
+              className="font-sans  text-lg cursor-pointer"
+            >
+              <h1>Ver Mas Especialidades</h1>
+            </Link>
           </div>
         </div>
 

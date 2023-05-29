@@ -51,14 +51,14 @@ export default function Navbar() {
   const UserLogout = links[4];
 
   const logoutGoogle = () => {
-    //window.open("http://localhost:3001/auth/logout", "_self");
+    //window.open("https://medconnectback-production.up.railway.app/auth/logout", "_self");
     window.open(
       "https://medconnectback-production.up.railway.app/auth/logout",
       "_self"
     );
   };
   const logoutLocal = () => {
-    //window.open("http://localhost:3001/auth/logoutLocal", "_self");
+    //window.open("https://medconnectback-production.up.railway.app/auth/logoutLocal", "_self");
     window.open(
       "https://medconnectback-production.up.railway.app/auth/logoutLocal",
       "_self"

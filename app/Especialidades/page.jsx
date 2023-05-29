@@ -10,7 +10,8 @@ import SearchBar from "../components/Search_Bar_Especialidades";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
-const local = "http://localhost:3001/specializations";
+const local =
+  "https://medconnectback-production.up.railway.app/specializations";
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -21,8 +22,7 @@ export default function Especialidades() {
   const [data, setData] = useState([]);
   const [especialidad, setEspecialidad] = useState([]);
 
-
-  const filtro = especialidad.filter(e=>e.deletedAt===null)
+  const filtro = especialidad.filter((e) => e.deletedAt === null);
 
   async function fetchData() {
     try {

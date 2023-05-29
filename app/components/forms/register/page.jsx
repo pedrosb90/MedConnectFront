@@ -9,8 +9,8 @@ import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
-const local = "http://localhost:3001/auth/register";
-const localPatch = "http://localhost:3001/users/";
+const local = "https://medconnectback-production.up.railway.app/auth/register";
+const localPatch = "https://medconnectback-production.up.railway.app/users/";
 export default function UserLogin() {
   const userLocal = useSelector((state) => state.login.userLocal);
   const { logStatus } = useSelector((state) => state);

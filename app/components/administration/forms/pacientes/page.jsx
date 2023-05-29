@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
-const local = "http://localhost:3001/auth/register";
+const local = "https://medconnectback-production.up.railway.app/auth/register";
 
 export default function UserLogin() {
   const [registered, setRegistered] = useState(false);

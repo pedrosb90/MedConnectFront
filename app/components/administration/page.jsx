@@ -6,9 +6,9 @@ import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
 
-// const localSpec = "http://localhost:3001/specializations";
-// const localCitas = "http://localhost:3001/appointment";
-// const localMedic = "http://localhost:3001/medics";
+// const localSpec = "https://medconnectback-production.up.railway.app/specializations";
+// const localCitas = "https://medconnectback-production.up.railway.app/appointment";
+// const localMedic = "https://medconnectback-production.up.railway.app/medics";
 
 const backendURL = process.env.PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;

@@ -30,7 +30,7 @@ export default function form({ info }) {
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
-    //const local = `http://localhost:3001/specializations/${info.id}`;
+    //const local = `https://medconnectback-production.up.railway.app/specializations/${info.id}`;
     const data = `${specializationsURL}/${info.id}`;
     const body = {
       description,

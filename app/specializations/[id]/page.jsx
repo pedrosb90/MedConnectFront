@@ -11,7 +11,8 @@ import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
-const local = "http://localhost:3001/specializations";
+const local =
+  "https://medconnectback-production.up.railway.app/specializations";
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);

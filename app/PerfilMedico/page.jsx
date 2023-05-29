@@ -9,7 +9,7 @@ import Table from "./Table";
 import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
-import FormCal from "./FormCal"
+import FormCal from "./FormCal";
 
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});
@@ -20,26 +20,21 @@ export default function PerfilMedico() {
 
   const userLocal = useSelector((state) => state.login.userLocal);
 
-  
-
   useEffect(() => {
-  
-
     if (!citas.id) {
       axios
-        .get("http://localhost:3001/appointment")
+        .get("https://medconnectback-production.up.railway.app/appointment")
         .then((res) => {
           setCitas(res.data);
         })
         .catch((error) => {
-          console.error( error);
+          console.error(error);
         });
     }
   }, []);
 
-  console.log("esto es citas",citas);
-  console.log("esto es userLocal",userLocal);
-
+  console.log("esto es citas", citas);
+  console.log("esto es userLocal", userLocal);
 
   const getCitasPerfil = citas.filter(
     (e) => e.user.first_name === userLocal?.first_name
@@ -48,7 +43,7 @@ export default function PerfilMedico() {
   console.log(getCitasPerfil);
 
   const handleClick = () => {
-    if (clickAct === true ) {
+    if (clickAct === true) {
       setClickAct(false);
     } else {
       setClickAct(true);
@@ -56,14 +51,14 @@ export default function PerfilMedico() {
   };
 
   const handleClickHor = () => {
-    if (clickHor === true ) {
-        setClickHor(false);
+    if (clickHor === true) {
+      setClickHor(false);
     } else {
-        setClickHor(true);
+      setClickHor(true);
     }
   };
   const handleClickCal = () => {
-    if (clickCal === true ) {
+    if (clickCal === true) {
       setClickCal(false);
     } else {
       setClickCal(true);
@@ -135,7 +130,7 @@ export default function PerfilMedico() {
             />
 
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {userLocal.first_name +" "+ userLocal.last_name}
+              {userLocal.first_name + " " + userLocal.last_name}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Numero de citas: {getCitasPerfil.length}
@@ -151,7 +146,7 @@ export default function PerfilMedico() {
               </a>
               <a
                 onClick={() => {
-                    handleClickHor();
+                  handleClickHor();
                 }}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -159,7 +154,7 @@ export default function PerfilMedico() {
               </a>
               <a
                 onClick={() => {
-                    handleClickCal();
+                  handleClickCal();
                 }}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -168,10 +163,26 @@ export default function PerfilMedico() {
             </div>
           </div>
         </div>
-        
+
         <Table getCitasPerfil={getCitasPerfil}></Table>
       </div>
-      <div>{clickAct === true ? <Forms userLocal={userLocal}></Forms> : <div></div>} {clickHor=== true ? <FormsHor  userLocal={userLocal}></FormsHor> : <div></div>} {clickCal=== true ? <FormCal userLocal={userLocal}></FormCal> : <div></div>}</div>
+      <div>
+        {clickAct === true ? (
+          <Forms userLocal={userLocal}></Forms>
+        ) : (
+          <div></div>
+        )}{" "}
+        {clickHor === true ? (
+          <FormsHor userLocal={userLocal}></FormsHor>
+        ) : (
+          <div></div>
+        )}{" "}
+        {clickCal === true ? (
+          <FormCal userLocal={userLocal}></FormCal>
+        ) : (
+          <div></div>
+        )}
+      </div>
     </div>
   );
 }

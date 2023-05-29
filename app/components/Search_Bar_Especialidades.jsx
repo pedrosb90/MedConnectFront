@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 
 // const backendURL = "https://medconnectback-production.up.railway.app";
 // const specialitiesURL = `${backendURL}/specializations`;
-const local = "http://localhost:3001/specializations";
+const local =
+  "https://medconnectback-production.up.railway.app/specializations";
 
 export default function SearchBar() {
   const [name, setName] = useState("");

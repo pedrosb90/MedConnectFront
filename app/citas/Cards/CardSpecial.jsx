@@ -11,7 +11,7 @@ import { postInfo } from "../../redux/CitaReducer";
 import Warning from "@/app/components/warning/Warning";
 
 const backendURL = process.env.PUBLIC_BACKEND_URL;
-//const local = "http://localhost:3001/specializations";
+//const local = "https://medconnectback-production.up.railway.app/specializations";
 // const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 

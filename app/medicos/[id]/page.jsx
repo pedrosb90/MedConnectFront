@@ -9,7 +9,7 @@ import Warning from "../../components/warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
-const local = "http://localhost:3001/medics";
+const local = "https://medconnectback-production.up.railway.app/medics";
 
 export default function Page() {
   const [error, setError] = useState({
@@ -35,7 +35,7 @@ export default function Page() {
     setError({ ...error, text: "", alert: false });
   };
   const espe = data.id && data.specializations.map((spec) => spec.name);
-console.log(data);
+  console.log(data);
   return (
     <div>
       <Warning
@@ -114,9 +114,18 @@ console.log(data);
                         : "..."}{" "}
                       Años
                     </p>
-                    {data.id ? <><h2>Horario laboral</h2>
-                    <p>Dias: {data.schedules[0].day_of_week}</p>
-                    <p>Horario: de {data.schedules[0].start_time} hasta {data.schedules[0].end_time} </p></>: <p>No tiene horarios...</p>}
+                    {data.id ? (
+                      <>
+                        <h2>Horario laboral</h2>
+                        <p>Dias: {data.schedules[0].day_of_week}</p>
+                        <p>
+                          Horario: de {data.schedules[0].start_time} hasta{" "}
+                          {data.schedules[0].end_time}{" "}
+                        </p>
+                      </>
+                    ) : (
+                      <p>No tiene horarios...</p>
+                    )}
                   </div>
                 </dl>
               </div>

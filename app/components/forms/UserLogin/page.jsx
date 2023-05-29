@@ -48,7 +48,10 @@ export default function UserLogin() {
   };
 
   const google = () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open(
+      "https://medconnectback-production.up.railway.app/auth/google",
+      "_self"
+    );
   };
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });

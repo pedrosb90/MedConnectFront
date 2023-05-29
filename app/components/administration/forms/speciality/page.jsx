@@ -8,7 +8,8 @@ import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
-const local = "http://localhost:3001/specializations";
+const local =
+  "https://medconnectback-production.up.railway.app/specializations";
 
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;

@@ -31,7 +31,7 @@ export default function Medicos() {
   }, [isDelete]);
 
   const deleteMed = (id) => {
-    //const url = "http://localhost:3001/users/";
+    //const url = "https://medconnectback-production.up.railway.app/users/";
 
     count == 2 &&
       axios
