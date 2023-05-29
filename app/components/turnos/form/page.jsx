@@ -6,6 +6,8 @@ import { getMedicos } from "@/app/redux/reducer";
 import { use, useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import { useRouter } from "next/navigation";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
 
 export default function UserLogin() {
   const { logStatus, speciality } = useSelector((state) => state);
@@ -18,7 +20,7 @@ export default function UserLogin() {
   //! speciality has inside AllMedicos
 
   useEffect(() => {
-    axios.get("http://localhost:3001/medics").then((res) => {
+    axios.get(medicsURL).then((res) => {
       dispatch(getMedicos(res.data));
     });
   }, []);
