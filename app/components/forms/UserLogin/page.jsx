@@ -9,6 +9,9 @@ import Link from "next/link";
 import Warning from "../../warning/Warning";
 import { useState } from "react";
 
+const backendURL = "https://medconnectback-production.up.railway.app";
+const authLoginURL = `${backendURL}/auth/login`;
+
 export default function UserLogin() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -21,7 +24,7 @@ export default function UserLogin() {
     const { email, password } = values;
     axios
       .post(
-        "http://localhost:3001/auth/login",
+        authLoginURL,
         { email, password },
         { withCredentials: true, credentials: "include" }
       )
@@ -33,8 +36,13 @@ export default function UserLogin() {
         }
       })
 
-      .catch((error) => setError({...error,text:'No se a registrado ese usuario ',alert:true}))
-
+      .catch((error) =>
+        setError({
+          ...error,
+          text: "No se a registrado ese usuario ",
+          alert: true,
+        })
+      );
 
     //! this info must be send to the backend
   };

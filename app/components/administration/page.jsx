@@ -6,9 +6,14 @@ import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
 
-const localSpec = "http://localhost:3001/specializations";
-const localCitas = "http://localhost:3001/appointment";
-const localMedic = "http://localhost:3001/medics";
+// const localSpec = "http://localhost:3001/specializations";
+// const localCitas = "http://localhost:3001/appointment";
+// const localMedic = "http://localhost:3001/medics";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
+const citasURL = `${backendURL}/appointment`;
+const medicsURL = `${backendURL}/medics`;
 
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);
@@ -79,9 +84,15 @@ export default function Administration() {
 
   async function fetchData() {
     try {
-      const responseCitas = await axios.get(localCitas);
-      const response = await axios.get(localSpec);
-      const responseMedics = await axios.get(localMedic);
+      const responseCitas = await axios.get(citasURL, {
+        withCredentials: true,
+      });
+      const response = await axios.get(specializationsURL, {
+        withCredentials: true,
+      });
+      const responseMedics = await axios.get(medicsURL, {
+        withCredentials: true,
+      });
 
       dispatch(getCitas(responseCitas.data));
       dispatch(getMedicos(responseMedics.data));

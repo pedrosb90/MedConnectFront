@@ -26,15 +26,19 @@ export default function UserLogin() {
     setLoading(true);
     const { first_name, last_name, phone, userType, email, password } = values;
     axios
-      .create({ withCredentials: true })
-      .post(userType === "medic" ? local : localR, {
-        first_name,
-        last_name,
-        phone,
-        userType,
-        email,
-        password,
-      })
+      // .create({ withCredentials: true })
+      .post(
+        userType === "medic" ? createMedicURL : registerURL,
+        {
+          first_name,
+          last_name,
+          phone,
+          userType,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data) {
