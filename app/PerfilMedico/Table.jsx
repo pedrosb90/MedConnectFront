@@ -2,27 +2,20 @@
 import style from "./page.module.css"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {useSelector} from "react-redux"
 import Cita from "./Cita"
 export default function Table() {
 
 
     const [citas, setCitas] = useState([]);
-    const [user, setUser] = useState({})
     
+    const userLocal = useSelector((state) => state.login.userLocal);
 
     
     
 
     useEffect(() => {
-        if(!user.id){
-            axios.get('http://localhost:3001/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37')
-            .then(res=>{
-                setUser(res.data)
-            })
-            .catch(error =>{
-              console.error( error);
-            })
-        }
+       
         if (!citas.id){
             axios.get('http://localhost:3001/appointment')
             .then(res=>{
@@ -33,7 +26,7 @@ export default function Table() {
             })
         }
     }, []);
-    const getCitasPerfil = citas?.filter((e)=>e.user?.first_name === user?.user?.first_name)
+    const getCitasPerfil = citas?.filter((e)=>e.user.first_name === userLocal?.first_name)
     console.log("get citas perfil: ",getCitasPerfil);
     
 

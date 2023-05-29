@@ -1,19 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./page.module.css";
+import styles from "./form.module.css";
 import axios from "axios";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input } from "antd";
 import { Container } from "reactstrap";
 import Dropzone from "react-dropzone";
 import { SHA1 } from 'crypto-js';
 import Success from '@/app/components/success/Success'
 import Warning from "@/app/components/warning/Warning";
-const local = "http://localhost:3001/specializations";
 
 
-export default function SpecialtyForm() {
+
+
+
+export default function form({info}) {
   const [registered, setRegistered] = useState(false);
-  const [image, setImage] = useState({array:[]})
+  const [image, setImage] = useState({array:[info.url]})
   const [loading, setLoading] = useState ("")
   const [url, setUrl] = useState("")
   const [publicId, setPublicId] = useState("")
@@ -26,19 +28,21 @@ export default function SpecialtyForm() {
     text:'Especialidad creada exitosamente',
   })
   
-
+  
+  
   const onSubmit = (values) => {
     setRegistered(!registered);
-    const { description, name } = values;
+    const { description, name} = values;
+    const local = `http://localhost:3001/specializations/${info.id}`;
     
     const body = {
       description,
       name,
-      url,
+      url:info.url,
     };
-    
+    console.log("esto es body: ",body);
     axios
-      .post(local, body)
+    .put(local, body)
       .then(() => {
         // Código para manejar la respuesta en caso de éxito
         setSuccess({...success,alert:true})
@@ -146,15 +150,16 @@ export default function SpecialtyForm() {
   const successFunc=()=>{
     setSuccess({...success,alert:false})
   }
-
+ 
+  
   return (
         
 
-  <div className={styles.container}>
+  <div className={styles.container + " top-1/3 "}>
     <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
     <Success alert={success.alert} text={success.text} success={successFunc} ></Success>
-        <h1 className={styles.title}>Añadir Especialidad</h1>
-          <Form className={styles.form} labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields(); setImage({array:[]})}}>
+        <h1 className={styles.title}>Editar Especialidad</h1>
+          <Form className={styles.form} labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields(); setImage({array:[]})} }>
     
           <Form.Item name="name" label="Especialidad" 
                 rules={[
@@ -165,12 +170,13 @@ export default function SpecialtyForm() {
               >
                   <Input
                     name="name"
-                    placeholder="nombre..."/>
+                    defaultValue={info.name}
+                    />
               </Form.Item>
 
               
-              <Container >
-                <div className="flex justify-end">
+              {/* <Container >
+                <div className="flex justify-center">
 
                 <Dropzone
                 className="dropzone"
@@ -197,10 +203,11 @@ export default function SpecialtyForm() {
                 </div>
                 <div className={styles.container_img}>
                 <button className='active:outline-none text-white bg-red-700 hover:bg-red-800 active:ring-4 active:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:active:ring-red-900' onClick={deleteImag} >Delete</button>
+                
                 {imagePreview()}
                 </div>
                 
-              </Container>
+              </Container> */}
       
 
               <Form.Item name="description" label="Descripción"
@@ -212,8 +219,8 @@ export default function SpecialtyForm() {
               >
                   <Input.TextArea
   name="description"
-  placeholder="Descripción"
-  style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'20px' }}
+  defaultValue={info.description}
+  style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'50px' }}
 />
   
               </Form.Item> 

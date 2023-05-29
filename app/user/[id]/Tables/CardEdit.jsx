@@ -22,7 +22,7 @@ const HorasDisponibles =(date)=>{
         const día = String(fecha.getDate()).padStart(2, '0');
 
 const fechaFormateada = `${año}-${mes}-${día}`;
-console.log(fechaFormateada);
+
   if (fechaFormateada.length) {
     axios.get('http://localhost:3001/appointment')
     .then((res)=>{
@@ -33,8 +33,6 @@ const horariosFiltrados = horarios.filter(horario => !diasHorasFiltradas.some(ci
 
     })
     .catch((err)=>alert(err.message))
-
-    
   }else{
     return horarios
   }
