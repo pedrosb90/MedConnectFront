@@ -102,7 +102,7 @@ export default function Home() {
           className="rounded-lg"
           style={{
             display: "flex",
-            alignItems: "center",
+            margin: "auto",
             justifyContent: "center",
             height: "60%",
             width: "75%",
