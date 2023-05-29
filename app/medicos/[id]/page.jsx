@@ -138,7 +138,7 @@ export default function Page() {
           style={{
             position: "fixed",
             bottom: "5%",
-            right: "4%",
+            right: "6%",
             height: "40px",
           }}
         >
@@ -154,7 +154,7 @@ export default function Page() {
           style={{
             position: "fixed",
             bottom: "5%",
-            right: "11%",
+            right: "15%",
             height: "40px",
           }}
         >
