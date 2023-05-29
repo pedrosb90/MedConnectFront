@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 const medicsURL = `${backendURL}/medics`;
 import Link from "next/link";
@@ -33,9 +33,9 @@ export default function Medicos({ data }) {
   const MedFilter = med.filter((med) =>
     med.specializations.includes(data.name)
   );
-  
+
   return (
-    <div className= {styles.container + " relative"}>
+    <div className={styles.container + " relative"}>
       <h1>
         <b>Staff de medicos: </b>
       </h1>
@@ -57,11 +57,15 @@ export default function Medicos({ data }) {
               key={med.user.id}
             >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <Link href={'/medicos/'+med.user.id}>{med.user.first_name}</Link>
+                <Link href={"/medicos/" + med.user.id}>
+                  {med.user.first_name}
+                </Link>
               </td>
               <td className="px-6 py-4 font-medium text-gray-400  dark:text-grey">
-                <Link href={'/medicos/'+med.user.id}>{med.user.last_name}</Link>
-                </td>
+                <Link href={"/medicos/" + med.user.id}>
+                  {med.user.last_name}
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

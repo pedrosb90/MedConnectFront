@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function UserLogin() {

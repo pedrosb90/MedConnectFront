@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 import Warning from "./warning/Warning";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function Carrusel_Especialidades() {
     }
   }
 
-  const filtro = espec.filter(e=>e.deletedAt===null)
+  const filtro = espec.filter((e) => e.deletedAt === null);
 
   useEffect(() => {
     !filtro?.length && getEspec();
@@ -79,13 +79,14 @@ export default function Carrusel_Especialidades() {
       <div className="text white max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
         <div
           style={{
-            backgroundImage: `url(${filtro?.length>0 && filtro[currentIndex].url})`,
+            backgroundImage: `url(${
+              filtro?.length > 0 && filtro[currentIndex].url
+            })`,
           }}
           className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans  "
         >
           <div className="p-5 font-bold ">
-          {filtro?.length > 0 && filtro[currentIndex].name}
-
+            {filtro?.length > 0 && filtro[currentIndex].name}
           </div>
           <div className="rounded-lg bg-cimPallete-300 opacity-60">
             <Link

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
@@ -19,8 +19,7 @@ export default function Especialidades() {
   const [data, setData] = useState([]);
   const [especialidad, setEspecialidad] = useState([]);
 
-
-  const filtro = especialidad.filter(e=>e.deletedAt===null)
+  const filtro = especialidad.filter((e) => e.deletedAt === null);
 
   async function fetchData() {
     try {

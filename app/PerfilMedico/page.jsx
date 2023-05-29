@@ -10,7 +10,7 @@ import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
 import FormCal from "./FormCal";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});
@@ -21,11 +21,7 @@ export default function PerfilMedico() {
 
   const userLocal = useSelector((state) => state.login.userLocal);
 
-  
-
   useEffect(() => {
-  
-
     if (!citas.id) {
       axios
         .get(`${backendURL}/appointment`)
@@ -38,9 +34,8 @@ export default function PerfilMedico() {
     }
   }, []);
 
-  console.log("esto es citas",citas);
-  console.log("esto es userLocal",userLocal);
-
+  console.log("esto es citas", citas);
+  console.log("esto es userLocal", userLocal);
 
   const getCitasPerfil = citas.filter(
     (e) => e.user.first_name === userLocal?.first_name
@@ -136,7 +131,7 @@ export default function PerfilMedico() {
             />
 
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {userLocal.first_name +" "+ userLocal.last_name}
+              {userLocal.first_name + " " + userLocal.last_name}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Numero de citas: {getCitasPerfil.length}
@@ -169,10 +164,26 @@ export default function PerfilMedico() {
             </div>
           </div>
         </div>
-        
+
         <Table getCitasPerfil={getCitasPerfil}></Table>
       </div>
-      <div>{clickAct === true ? <Forms userLocal={userLocal}></Forms> : <div></div>} {clickHor=== true ? <FormsHor  userLocal={userLocal}></FormsHor> : <div></div>} {clickCal=== true ? <FormCal userLocal={userLocal}></FormCal> : <div></div>}</div>
+      <div>
+        {clickAct === true ? (
+          <Forms userLocal={userLocal}></Forms>
+        ) : (
+          <div></div>
+        )}{" "}
+        {clickHor === true ? (
+          <FormsHor userLocal={userLocal}></FormsHor>
+        ) : (
+          <div></div>
+        )}{" "}
+        {clickCal === true ? (
+          <FormCal userLocal={userLocal}></FormCal>
+        ) : (
+          <div></div>
+        )}
+      </div>
     </div>
   );
 }

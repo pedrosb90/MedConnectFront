@@ -5,7 +5,7 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 const localSpec = `${backendURL}/specializations`;
 const localCitas = `${backendURL}/appointment`;

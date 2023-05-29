@@ -2,9 +2,9 @@
 import style from "./page.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {useSelector} from "react-redux"
-import Cita from "./Cita"
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { useSelector } from "react-redux";
+import Cita from "./Cita";
+const backendURL = "http://localhost:3001";
 
 export default function Table() {
   const [citas, setCitas] = useState([]);
@@ -37,8 +37,13 @@ export default function Table() {
   );
   console.log("get citas perfil: ", getCitasPerfil);
 
-  const handleCheckChange = async ( citaId, scheduledDate, scheduledTime, status) =>{
-     await axios
+  const handleCheckChange = async (
+    citaId,
+    scheduledDate,
+    scheduledTime,
+    status
+  ) => {
+    await axios
       .put(`${backendURL}/appointment/${citaId}`, {
         scheduledDate: scheduledDate,
         scheduledTime: scheduledTime,

@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
-const localPatch = `${backendURL}/users/`
+const localPatch = `${backendURL}/users/`;
 
 export default function UserLogin() {
   const userLocal = useSelector((state) => state.login.userLocal);
@@ -36,7 +36,6 @@ export default function UserLogin() {
         password,
       })
       .then((res) => {
-        
         if (res.data) {
           setRegistered(true);
           setLoading(false);
@@ -44,17 +43,25 @@ export default function UserLogin() {
       })
       .catch((error) => {
         if (userLocal.id) {
-          axios.patch(localPatch + userLocal.id)
-          .then(()=>{
-            setRegistered(true);
-            setLoading(false);
-          }).catch(()=>{
-            setError({...error,text:'El usuario ya existe o se cayó el servidor',alert:true})
-          })
+          axios
+            .patch(localPatch + userLocal.id)
+            .then(() => {
+              setRegistered(true);
+              setLoading(false);
+            })
+            .catch(() => {
+              setError({
+                ...error,
+                text: "El usuario ya existe o se cayó el servidor",
+                alert: true,
+              });
+            });
         }
-        setError({...error,text:'El usuario ya existe o se cayó el servidor',alert:true})
-          
-        
+        setError({
+          ...error,
+          text: "El usuario ya existe o se cayó el servidor",
+          alert: true,
+        });
       });
 
     //! this info must be send to the backend

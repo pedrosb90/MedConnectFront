@@ -3,13 +3,13 @@ import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
 import Menu_Medicos from "./components/Menu_Medicos";
 
-
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const loginSuccURL = `${backendURL}/auth/login/success`;
 
 export default function Home() {

@@ -6,7 +6,7 @@ import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
 import { useRouter } from "next/navigation";
 import style from "./login.module.css";
 import Link from "next/link";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const authLoginURL = `${backendURL}/auth/login`;
 import Warning from "../../warning/Warning";
 import { useState } from "react";
@@ -35,8 +35,13 @@ export default function UserLogin() {
         }
       })
 
-      .catch((error) => setError({...error,text:'No se a registrado ese usuario ',alert:true}))
-
+      .catch((error) =>
+        setError({
+          ...error,
+          text: "No se a registrado ese usuario ",
+          alert: true,
+        })
+      );
 
     //! this info must be send to the backend
   };
