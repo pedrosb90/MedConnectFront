@@ -2,10 +2,15 @@
   position: absolute;
   top: 13vh;
 }
-.btn_return {
+.btn_return_citas {
   position: absolute;
   bottom: 8%;
-  right: 12%;
+  right: 17%;
+}
+.btn_return_home {
+  position: absolute;
+  top: 29vh;
+  right: 4%;
 }
 .btn_return:active {
   background-color: transparent;

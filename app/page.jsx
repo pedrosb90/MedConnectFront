@@ -6,9 +6,8 @@ import { useState, useEffect } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
-import Warning from "./components/warning/Warning";
+
 
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const loginSuccURL = `${backendURL}/auth/login/success`;
@@ -16,7 +15,7 @@ const loginSuccURL = `${backendURL}/auth/login/success`;
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     fetch(loginSuccURL, {

@@ -13,27 +13,18 @@ import FormCal from "./FormCal";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function PerfilMedico() {
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [citas, setCitas] = useState([]);
   const [clickAct, setClickAct] = useState(false);
   const [clickHor, setClickHor] = useState(false);
   const [clickCal, setClickCal] = useState(false);
 
-  const { logStatus } = useSelector((state) => state);
+  const userLocal = useSelector((state) => state.login.userLocal);
 
-  console.log("estado usuario", logStatus.userStatus);
+  
 
   useEffect(() => {
-    if (!user.id) {
-      axios
-        .get(`${backendURL}/medics/1adab5a6-e3a4-4409-90f7-e0d3f5cc1a37`)
-        .then((res) => {
-          setUser(res.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+  
 
     if (!citas.id) {
       axios
@@ -45,10 +36,14 @@ export default function PerfilMedico() {
           console.error(error);
         });
     }
-  });
+  }, []);
+
+  console.log("esto es citas",citas);
+  console.log("esto es userLocal",userLocal);
+
 
   const getCitasPerfil = citas.filter(
-    (e) => e.user.first_name === user?.user?.first_name
+    (e) => e.user.first_name === userLocal?.first_name
   );
 
   console.log(getCitasPerfil);
@@ -141,7 +136,7 @@ export default function PerfilMedico() {
             />
 
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {user?.user?.first_name + " " + user?.user?.last_name}
+              {userLocal.first_name +" "+ userLocal.last_name}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Numero de citas: {getCitasPerfil.length}
@@ -174,14 +169,10 @@ export default function PerfilMedico() {
             </div>
           </div>
         </div>
-
-        <Table></Table>
+        
+        <Table getCitasPerfil={getCitasPerfil}></Table>
       </div>
-      <div>
-        {clickAct === true ? <Forms></Forms> : <div></div>}{" "}
-        {clickHor === true ? <FormsHor></FormsHor> : <div></div>}{" "}
-        {clickCal === true ? <FormCal></FormCal> : <div></div>}
-      </div>
+      <div>{clickAct === true ? <Forms userLocal={userLocal}></Forms> : <div></div>} {clickHor=== true ? <FormsHor  userLocal={userLocal}></FormsHor> : <div></div>} {clickCal=== true ? <FormCal userLocal={userLocal}></FormCal> : <div></div>}</div>
     </div>
   );
 }

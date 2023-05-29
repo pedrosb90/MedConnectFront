@@ -34,9 +34,9 @@ export default function UserLogin() {
           router.push("/");
         }
       })
-      .catch((error) =>
-        setError({ ...error, text: error.message, alert: true })
-      );
+
+      .catch((error) => setError({...error,text:'No se a registrado ese usuario ',alert:true}))
+
 
     //! this info must be send to the backend
   };

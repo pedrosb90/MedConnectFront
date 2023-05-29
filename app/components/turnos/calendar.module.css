@@ -1,0 +1,15 @@
+.scheduleUl {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+  }
+
+  .scheduleLi {
+    margin-bottom: 10px;
+  }
+
+  .scheduleLi:hover{
+    background-color: #cacaca;
+  }

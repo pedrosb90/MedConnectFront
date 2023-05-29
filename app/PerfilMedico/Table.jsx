@@ -2,7 +2,8 @@
 import style from "./page.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Cita from "./Cita";
+import {useSelector} from "react-redux"
+import Cita from "./Cita"
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Table() {
@@ -36,14 +37,8 @@ export default function Table() {
   );
   console.log("get citas perfil: ", getCitasPerfil);
 
-  const [status, setStatus] = useState("completed");
-
-  const handleCheckChange = async (e, citaId, scheduledDate, scheduledTime) => {
-    setStatus((prevStatus) =>
-      prevStatus === "pending" ? "completed" : "pending"
-    );
-
-    await axios
+  const handleCheckChange = async ( citaId, scheduledDate, scheduledTime, status) =>{
+     await axios
       .put(`${backendURL}/appointment/${citaId}`, {
         scheduledDate: scheduledDate,
         scheduledTime: scheduledTime,

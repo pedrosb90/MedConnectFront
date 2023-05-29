@@ -4,7 +4,12 @@
   resize: none;
   background-color: #91c4cd;
 }
+<<<<<<< HEAD
 .container_img {
+=======
+
+.container_img{
+>>>>>>> develop
   display: flex;
   margin-bottom: 9px;
   align-items: center;

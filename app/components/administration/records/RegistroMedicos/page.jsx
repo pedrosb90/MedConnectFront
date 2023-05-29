@@ -99,13 +99,10 @@ export default function Medicos() {
               </th>
               <th scope="col" className="px-6 py-3">
                 Dirección
-              </th>
-              <th scope="col" className="px-6 py-3">
-                <button>Edit</button>
-              </th>
-              <th scope="col" className="px-6 py-3">
-                <button>Eliminar</button>
-              </th>
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    <button>Eliminar</button>
+                </th> 
             </tr>
           </thead>
           <tbody>
@@ -130,28 +127,26 @@ export default function Medicos() {
                     {med.specializations.map((e, index) => (
                       <div key={index}>{e.name}</div>
                     ))}
-                  </td>
-                  <td className="px-6 py-4">{med.phone}</td>
-                  <td className="px-6 py-4">{med.direccion}</td>
+                 
+    </td>
+    <td className="px-6 py-4">
+      {med.phone}
 
-                  <td className="px-6 py-4">
-                    <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">
-                      Edit
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => deleteMed(med.user.id)}
-                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+    </td>
+    <td className="px-6 py-4">
+      {med.direccion}
+
+    </td>
+    
+    <td className="px-6 py-4">
+      <button onClick={()=>deleteMed(med.user.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
+    </td>
+  </tr>
+))}
+            
+
+        </tbody>
+    </table></div>
+        </div>
+    )
 }
