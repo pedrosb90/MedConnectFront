@@ -33,7 +33,7 @@ export default function UserLogin() {
     const { first_name, last_name, role, email, password } = values;
     console.log({ first_name, last_name, role, email, password });
     axios
-      .post("http://localhost:3001/auth/register", {
+      .post(`${backendURL}/auth/register`, {
         first_name,
         last_name,
         role,
