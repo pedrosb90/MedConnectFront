@@ -94,20 +94,22 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        <Image
-          src="/image/pexels-migs-reyes-4205505.jpeg"
-          alt="My Image"
-          width={1000}
-          height={500}
-          className="rounded-lg"
+        <div
           style={{
             display: "flex",
-            margin: "auto",
             justifyContent: "center",
-            height: "60%",
-            width: "75%",
+            alignItems: "center",
+            height: "100%",
           }}
-        />
+        >
+          <Image
+            src="/image/pexels-migs-reyes-4205505.jpeg"
+            alt="My Image"
+            width={700}
+            height={360}
+            className="rounded-lg"
+          />
+        </div>
         <div className="text-center ">
           <h1 className="m-8 text-4xl font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
             {" "}
