@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import  style from "./calendar.module.css"
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel"
+import axios from 'axios';
+import { format } from 'date-fns';
 
 const Turnos = () => {
   // let day = date["$d"].getDay()
@@ -29,6 +31,7 @@ const Turnos = () => {
 
   const Schedules = new Set()
   const Hours = {}
+  const blockedSchedules = {}
     const dispatch = useDispatch()
     const {info} = useSelector((state)=>state.cita)
     const {AllMedicos} = useSelector(state => state.speciality)
@@ -128,6 +131,19 @@ if(!info.medico){
 
 
 const dayGetter = async () => {
+  // const appointmentGetter = 
+  await axios.get("http://localhost:3001/appointment")
+  .then(res=>{
+    res.data.forEach((appointment)=>{
+      [...avalaibleMedics].forEach((medic)=>{
+        if (medic.user.id === appointment.user.id) {
+          const fechaFormateada = format(new Date(appointment.scheduledDate), 'dd-MM-yyyy');
+          blockedSchedules[fechaFormateada] = appointment.scheduledTime
+          console.log("fechaFormateada",fechaFormateada,"hora",appointment.scheduledTime);
+        }
+      })
+    })
+  })
   if (info.especialidad) {
     const schedules = await [...avalaibleMedics]?.map((obj)=>{
       return obj.schedules
@@ -169,8 +185,10 @@ useEffect(() => {
             console.log(horario);
           }
 
-          const intervalSetter = () => {
-           const time = Hours[day.day()]
+          const intervalSetter = async () => {
+          // const time = Hours[day.day()]
+          // const test = await blockedSchedules
+         
            const horarios = [];
           const startTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.start}`).getTime();
           const endTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.end}`).getTime();
@@ -208,6 +226,7 @@ useEffect(() => {
           };
 
           //&& current && current < today.startOf('day')
+          // && current.isBefore(today.startOf("day"))
           // !current.isBefore(today.startOf('day')
           //! CHECK AND CORRECT THIS FUNCTION, ACTUALLY DOESNT WORK CORRECTLY
           const disabledDate = (current) => {
@@ -225,9 +244,6 @@ useEffect(() => {
           const onClick = () => {
 
           }
-if (day) {
-  console.log("day",day.format('DD-MM-YYYY'));
-}
 
 return (
   <>

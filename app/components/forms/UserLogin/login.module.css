@@ -1,74 +1,84 @@
-.masterContainer{
-    display: flex;
-    outline: yellow solid 3px;
-    height: 78vh;
+.masterContainer {
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  outline: yellow solid 3px;
+  height: 78vh;
 }
 
-.container{
-    width: 90%;
-    height: 75%;
-    display: flex;
-    flex-direction: column;
-    outline: red solid 3px;
-    margin: auto;
+.container {
+  font-family: "Montserrat", sans-serif;
+
+  width: 90%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  outline: red solid 3px;
+  margin: auto;
 }
 
-.components{
-    display: flex;
-    height: 90%;
+.components {
+  display: flex;
+  height: 90%;
 }
 
-.formContainer{
-    display: flex;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-    outline: green solid 3px;
+.formContainer {
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  outline: green solid 3px;
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
+.form {
+  display: flex;
+  flex-direction: column;
 }
 
-.buttonContainer{
-    width: 50%;
-    outline: blue solid 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
+.buttonContainer {
+  width: 50%;
+  outline: blue solid 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
 }
 
-.button{
-    width: 50%;
-    margin: 0 auto;
-    padding: 10px 5px;
-    font-size: 15px;
-    border-radius: 15px;
-    color: #fff;
+.button {
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px 5px;
+  font-size: 15px;
+  border-radius: 15px;
+  color: #fff;
 }
 
-#google{
-    background-color: #ea4335;
+#google {
+  background-color: #ea4335;
 }
 
-#facebook{
-    background-color: #3c5898;
+#facebook {
+  background-color: #3c5898;
 }
 
-.input{
-    width: 100%;
+.input {
+  font-family: "Montserrat", sans-serif;
+
+  width: 100%;
 }
 
-.h2{
-    display: flex;
-    height: 10%;
-    font-size: 20px;
-    margin: auto;
-    outline: pink solid 3px;
+.h2 {
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  height: 10%;
+  font-size: 20px;
+  margin: auto;
 }
 
-.link{
-    color: #477cf7;
+.link {
+  color: #477cf7;
+  font-family: "Montserrat", sans-serif;
 }

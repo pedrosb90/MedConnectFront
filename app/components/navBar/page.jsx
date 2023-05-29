@@ -1,16 +1,24 @@
 "use client";
 import Image from "next/image";
 import img from "./img/Logo.jpg";
-import { useState } from "react";
+
 import styles from "./page.module.css";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+
 import userLogo from '../../citas/img/iconoMed.jpg'
+import { getUser } from "@/app/redux/login";
+import { getLocalUser } from "@/app/redux/login";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 export default function Navbar() {
+
+
+const dispatch = useDispatch()
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
   const userGoogle = useSelector((state) => state.login.userGoogle);
   const userLocal = useSelector((state) => state.login.userLocal);
+  
   const onActive = () => {
     setClick(!click);
   };
@@ -37,6 +45,7 @@ export default function Navbar() {
       route: "/",
     },
   ];
+  
   const home = links[0];
   const UserLogin = links[1];
   const admin = links[2];
@@ -53,8 +62,46 @@ export default function Navbar() {
     setClickUser(!clickUser)
 
   }
+  useEffect(() => {
+    fetch("http://localhost:3001/auth/login/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        dispatch(getUser(resObject.user));
+      })
+      .catch((err) => {});
+
+    fetch("http://localhost:3001/auth/loginn/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        dispatch(getLocalUser(resObject.user));
+      })
+      .catch((err) => {});
+  }, [logStatus]);
   
-  const userPage = userLocal.role === 'paciente' ? '/user': '/PerfilMedico'  
+  const id = userLocal.id ? userLocal.id : userGoogle.id;
+  const userPage = userLocal.role === 'paciente' || userGoogle.id ? `/user/${id}`: '/PerfilMedico'  
   return (
     <div className={styles.navbar_scroll}>
       <Image src={img} className={styles.icono} alt="fondo"></Image>
@@ -67,7 +114,7 @@ export default function Navbar() {
         <Link href={espe.route} className={styles.links}>
           <span>Especialidades</span>
         </Link>
-        {logStatus.logStatus === "admin" ? (
+        {userLocal.role === "admin" ? (
           <Link href={admin.route} className={styles.links}>
             <span>{admin.label}</span>
           </Link>
@@ -90,7 +137,7 @@ export default function Navbar() {
               
               ) : (
                 <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>{userGoogle.photos && userGoogle.photos.length > 0 && (
-                  <Image width={600} height={600}  onClick={onClickFunc} class="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
+                  <Image width={600} height={600}  onClick={onClickFunc} className="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
                   )}
                 
               <Link href={userPage}><button className="text-white"><h3>Ver Perfil</h3>{`${userGoogle.displayName}`}</button></Link>

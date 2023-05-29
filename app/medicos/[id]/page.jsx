@@ -11,13 +11,11 @@ const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 const local = "http://localhost:3001/medics";
 
-
 export default function Page() {
-  const [error,setError]=useState({
-    text:'',
-    alert:false
-    
-  })
+  const [error, setError] = useState({
+    text: "",
+    alert: false,
+  });
   const [data, setData] = useState({});
 
   const { id } = useParams();
@@ -27,21 +25,24 @@ export default function Page() {
       const response = await axios.get(`${local}/${id}`);
       setData(response.data);
     } catch (error) {
-      setError({...error,text:error.message,alert:true})
-      
+      setError({ ...error, text: error.message, alert: true });
     }
   }
   useEffect(() => {
     fetchData(id);
   }, [id]);
-  const FinishFailed=()=>{
-    setError({...error,text:'',alert:false})
-  }
+  const FinishFailed = () => {
+    setError({ ...error, text: "", alert: false });
+  };
   const espe = data.id && data.specializations.map((spec) => spec.name);
-
+console.log(data);
   return (
     <div>
-       <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
       <section className={styles.container}>
         <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
           <div className="flex flex-wrap items-center mx-auto max-w-7xl">
@@ -69,12 +70,12 @@ export default function Page() {
                   ? `Dr. ${data.user.first_name} ${data.user.last_name}`
                   : "...Loading"}
               </h1>
-              <ul className="mb-8 text-base leading-relaxed text-left text-gray-500 font-bold">
+              <ul className=" text-base flex leading-relaxed text-left text-gray-500 font-bold">
                 Especialidades:{" "}
                 {data.id &&
                   espe.map((data) => (
-                    <li className="font-sans" key={data}>
-                      <span>{data}</span>
+                    <li className="font-sans ml-8" key={data}>
+                      <span> 🟣 {data}</span>
                     </li>
                   ))}
               </ul>
@@ -113,6 +114,9 @@ export default function Page() {
                         : "..."}{" "}
                       Años
                     </p>
+                    {data.id ? <><h2>Horario laboral</h2>
+                    <p>Dias: {data.schedules[0].day_of_week}</p>
+                    <p>Horario: de {data.schedules[0].start_time} hasta {data.schedules[0].end_time} </p></>: <p>No tiene horarios...</p>}
                   </div>
                 </dl>
               </div>
@@ -123,9 +127,18 @@ export default function Page() {
       <Link href="/" as="/">
         <button
           type="button"
-          className={`btn_return text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return}`}
+          className={`btn_return_home text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
         >
-          Regresar
+          Inicio
+        </button>
+      </Link>{" "}
+      <Link href="/citas" as="/citas">
+        <button
+          // onClick={goBack}
+          type="button"
+          className={`btn_return_citas text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
+        >
+          Citas
         </button>
       </Link>
     </div>

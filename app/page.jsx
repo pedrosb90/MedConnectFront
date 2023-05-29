@@ -6,55 +6,13 @@ import { useState, useEffect } from "react";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
-import axios from "axios";
-import { getUser } from "@/app/redux/login";
-import { getLocalUser } from "@/app/redux/login";
-import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
-import Warning from "./components/warning/Warning";
+
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch("http://localhost:3001/auth/login/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        dispatch(getUser(resObject.user));
-      })
-      .catch((err) => {});
-
-    fetch("http://localhost:3001/auth/loginn/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        dispatch(getLocalUser(resObject.user));
-      })
-      .catch((err) => {});
-  }, []);
+  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -62,6 +20,9 @@ export default function Home() {
 
   return (
     <main>
+      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+        INICIO
+      </h1>
       <link rel="shortcut icon" href="/favicon.ico" />
 
       {showMenu && <Search_Bar_Medicos setSearchResult={setSearchResult} />}

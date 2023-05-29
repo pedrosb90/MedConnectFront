@@ -11,7 +11,8 @@ export default function Admin(){
   const [showMenu, setShowMenu] = useState({
     speciality: false,
     medico:false,
-    paciente:false
+    paciente:false,
+    users:false
 });
 
   const toggleMenu = (event) => {
@@ -54,6 +55,17 @@ export default function Admin(){
             <ul className={styles.mini_menu}>
               <Link href={'/components/administration/records/pacientes'}><li>Registro</li></Link>
               <Link href={'/components/administration/forms/pacientes'}><li>Crear paciente</li></Link>
+              
+            </ul>
+          )}
+        </div>
+        <div className={styles.box_selector}>
+            
+          <button className={showMenu.users ? styles.button_on : styles.button_of} onClick={toggleMenu} name='users'>Users</button>
+          {showMenu.users && (
+            <ul className={styles.mini_menu}>
+              <Link href={'/components/administration/records/Users'}><li>Registro</li></Link>
+              <Link href={'/components/forms/register'}><li>Crear Users</li></Link>
               
             </ul>
           )}
