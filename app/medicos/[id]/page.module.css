@@ -4,13 +4,13 @@
 }
 .btn_return_citas {
   position: absolute;
-  bottom: 8%;
-  right: 17%;
+  bottom: 5%;
+  right: 20%;
 }
 .btn_return_home {
   position: absolute;
-  top: 29vh;
-  right: 4%;
+  bottom: 5%;
+  right: 10%;
 }
 .btn_return:active {
   background-color: transparent;
