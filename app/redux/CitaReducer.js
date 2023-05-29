@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     info:[],
-    citas:[]
+    citas:[],
+    schedule:[]
     
 }
 
@@ -12,7 +13,11 @@ export const citasInfo = createSlice({
     initialState,
     reducers:{
         postInfo:(state,action)=>{
-            state.info = action.payload;
+            state.info = action.payload
+        },
+
+        postSchedule:(state,action)=>{
+            state.schedule = action.payload
         },
 
         getCitas: (state, action) => {
@@ -23,5 +28,5 @@ export const citasInfo = createSlice({
     }
 })
 
-export const {postInfo, getCitas} = citasInfo.actions
+export const {postInfo,postSchedule, getCitas} = citasInfo.actions
 export default citasInfo.reducer

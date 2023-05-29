@@ -12,10 +12,12 @@ import Image from 'next/image';
 
 export default function UserLogin() {
   const {logStatus,speciality} = useSelector(state => state)
+  const {schedule} = useSelector((state)=>state.cita)
   const [registered,setRegistered] = useState(false)
   const [loading,setLoading] = useState(false);
   const dispatch = useDispatch()
   const router = useRouter()
+  console.log(schedule);
 
     //! logStatus has inside logStatus and userStatus
     //! speciality has inside AllMedicos

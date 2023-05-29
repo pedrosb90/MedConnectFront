@@ -1,7 +1,7 @@
 "use client";
 
 import {  useState } from "react";
-import styles from "../../../citas/Cards/page.module.css";
+import styles from "./medic.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import img from '../../../citas/img/iconoMed.jpg'
@@ -12,7 +12,7 @@ export default function MedicCarrousel({ medics,select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
  
   const handleNext = () => {
-    if (currentIndex === medics.length) {
+    if (currentIndex <= medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -31,8 +31,7 @@ export default function MedicCarrousel({ medics,select }) {
   }
 
   
-    const paginatedMedicos = medics
-      .slice(currentIndex, currentIndex + 5)
+    const paginatedMedicos = medics.slice(currentIndex, currentIndex + 5)
       .filter((medico) => !!medico); // Filtrar medicos nulos
   
 
@@ -40,7 +39,7 @@ export default function MedicCarrousel({ medics,select }) {
     <div className={styles.cards + " flex  justify-center"}>
       <button onClick={handlePrevious} className={styles.buttons}>
         <svg
-          className="h-8 w-8 text-white"
+          className="h-6 w-6 text-white"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -62,7 +61,7 @@ export default function MedicCarrousel({ medics,select }) {
               <button
                 onClick={() => handleClickMed(med)}
                 key={med.id}
-                className={`w-36 h-34 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardMed}`}
+                className={`text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardMed}`}
               >
                 <div className="flex justify-end px-4 pt-4"></div>
                 <div className="flex flex-col items-center pb-4">
@@ -73,7 +72,7 @@ export default function MedicCarrousel({ medics,select }) {
                     width={500}
                     height={500}
                   />
-                  <Link href={`/medicos/${med.id}`}>
+                  <Link href={`/medicos/${med.user.id}`}>
                     <h5
                       className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                     >
@@ -93,7 +92,7 @@ export default function MedicCarrousel({ medics,select }) {
       <button onClick={handleNext} className={styles.buttons}>
         Next
         <svg
-          className="h-8 w-8 text-white"
+          className="h-6 w-6 text-white"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
