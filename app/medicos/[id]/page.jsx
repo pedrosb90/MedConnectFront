@@ -149,7 +149,7 @@ export default function Page() {
                 height: "40px",
                 position: "absolute",
                 bottom: "5%",
-                right: "25%",
+                right: "80%",
               }}
             >
               Inicio
