@@ -4,7 +4,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getMedicos } from "@/app/redux/reducer";
 import { useEffect, useState } from "react";
-import { FormItem } from "antd";
 import { useRouter } from "next/navigation";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
@@ -66,14 +65,14 @@ export default function UserLogin() {
           layout="horizontal"
           onFinish={(values) => onSubmit(values)}
         >
-          <FormItem
+          <Form.Item
             name="first_name"
             label="Nombre"
             rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="last_name"
             label="Apellido"
             rules={[
@@ -81,7 +80,7 @@ export default function UserLogin() {
             ]}
           >
             <Input />
-          </FormItem>
+          </Form.Item>
           <Form.Item
             name="email"
             label="Correo electrónico"
