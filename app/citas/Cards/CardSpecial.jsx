@@ -38,7 +38,7 @@ export default function CardSpecial() {
   }
   const handleClick = (event) => {
     const nameES = event.target.name;
-    if (medico.id) {
+    if (medico) {
       const espeMed = medico.specializations.map((espe) => espe.name);
 
       if (nameES === "All")
@@ -68,16 +68,19 @@ export default function CardSpecial() {
     !especialidades.length ? fetchData() : setEspeMEd(especialidades);
     setEspecial(especialidades);
   }, [especialidades]);
+
   const buttonReset = () => {
     setEspeMEd(especialidades);
     setEspecial(especialidades);
-    setMedico([]);
+    setMedico(false);
   };
   const citaInfo = useSelector((state) => state.cita.info);
   const onClickFunc = (name) => {
     if (medico) {
       const { id, last_name, first_name } = medico.user;
-      dispatch(postInfo({ id, last_name, first_name, especialidad: name }));
+      const schedules = medico.schedules
+      dispatch(postInfo({ id, last_name, first_name,schedules, especialidad: name }));
+      
     } else {
       dispatch(postInfo({ especialidad: name }));
     }

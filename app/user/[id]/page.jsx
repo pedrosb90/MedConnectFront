@@ -21,7 +21,7 @@ export default function User(){
       .then((res) => {
         const citas = res.data;
 
-        const usuario = citas.dataFinal.find(user => user.id === id)
+        const usuario = citas.find(user => user.id === id)
         setDatos(usuario)
       })
       .catch(() => {

@@ -1,323 +1,170 @@
-"use client"
-import { Alert,Button, Col, ConfigProvider, Row, Select, Typography, theme,DatePicker } from 'antd';
-const dayjs = require('dayjs');
-const es = require('dayjs/locale/es'); 
-import locale from 'antd/locale/es_ES';
-import dayLocaleData from 'dayjs/plugin/localeData';
-dayjs.extend(dayLocaleData);
-import { useEffect, useState } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
-import  style from "./calendar.module.css"
-import MedicCarrousel from "./medicCarrousel/MedicCarrousel"
+ 'use client'
+import {Button,Form,DatePicker,Select} from 'antd';
+import moment from 'moment'
+import {obtenerHorarios} from './obtenerHorarios.js'
 import axios from 'axios';
-import { format } from 'date-fns';
-
-const Turnos = () => {
-  // let day = date["$d"].getDay()
-  dayjs.locale(es);
-  const today = dayjs()
-  const actualMonth = dayjs().month()
-  //*selected day local state
-  const [day,setDay] = useState(null)
-
-  //* allInfo must contain all info needed to request an appointment, it cannot miss anything
-  const [allInfo, setAllInfo] = useState([]);
-
-  //* state for medic selection un Carrousel component
-  const [medic,setMedic] = useState(null)
-
-  //* set structure for not repeat medics
-  const avalaibleMedics = new Set()
-
-  const Schedules = new Set()
-  const Hours = {}
-  const blockedSchedules = {}
-    const dispatch = useDispatch()
-    const {info} = useSelector((state)=>state.cita)
-    const {AllMedicos} = useSelector(state => state.speciality)
-    
-
-    //*check for not repeat the useEffect call
-    let check = false
-
-    //! speciality appointment interval
-    let interval = null
-    switch (info.especialidad) {
-      //5 min
-      case "Traumatología obra social":
-        interval = 5
-        break;
-
-        //10 min
-        case "Cardiología":
-        interval = 10
-        break;
+import styles from './CardEdit.module.css'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import MedicCarrousel from './medicCarrousel/MedicCarrousel.jsx'
+import { getMedicos } from '@/app/redux/reducer.js';
+import { useRouter } from "next/navigation";
+const { Item } = Form;
+const { Option } = Select;
 
 
-        //10 min
-        case "Ginecología":
-        interval = 10  
-        break;
+export default function Calendary (){
+  const router = useRouter();
+  const [medSelect, select] = useState(false)
+  const {info} = useSelector((state)=>state.cita)
+  const [medico, setMedico]=useState(false)
+  const especialidad = info.especialidad && info.especialidad;
+    const getMedicos = async()=>{
+      
+      const medicos = await axios.get('http://localhost:3001/medics')
+      
+      const filter = medicos.data.filter(med => {
+        return med.specializations.some(specialization => specialization.name === especialidad);
+      });
+      
+      setMedico(filter)
 
-        //! THIS CASE IS ONLY FOR TESTING, MUST BE DELETED LATER
-        case "Infectología":
-        interval = 10  
-        break;
-
-        //15 min
-        case "Mamografía":
-        interval = 15
-        break;
-
-
-        //10 min
-        case "Oftalmología":
-        interval = 10
-        break;
-
-
-        //5 min
-        case "Otorrinolaringología":
-        interval = 5
-        break;
-
-
-        //10 min
-        case "Pediatría":
-        interval = 10
-        break;
-
-
-        //10 min
-        case "Traumatología particular":
-        interval = 10
-        break;
-
-
-        //10 min
-        case "Clínica medica":
-        interval = 10
-        break;
-
-
-        //10 min
-        case "Ecografía":
-        interval = 10
-        break;
-
-
-        //15 min
-        case "Nutricionista":
-        interval = 15
-        break;
-    
-      default:
-        break;
     }
+ 
+  useEffect(()=>{
+    !info.id && info.especialidad && getMedicos()
+    !info.especialidad && router.push("/citas");
+  },[])
 
-    //! console.log(medic);
-
-if(!info.medico){
-  AllMedicos?.forEach(obj => {
-    obj.specializations?.map(({name})=>{
-      if(name === info.especialidad){
-        avalaibleMedics.add(obj)
-      }
-    })
-  });
-}else{
-  avalaibleMedics.add(info.medico)
-}
-
-
-const dayGetter = async () => {
-  // const appointmentGetter = 
-  await axios.get("http://localhost:3001/appointment")
-  .then(res=>{
-    res.data.forEach((appointment)=>{
-      [...avalaibleMedics].forEach((medic)=>{
-        if (medic.user.id === appointment.user.id) {
-          const fechaFormateada = format(new Date(appointment.scheduledDate), 'dd-MM-yyyy');
-          blockedSchedules[fechaFormateada] = appointment.scheduledTime
-          console.log("fechaFormateada",fechaFormateada,"hora",appointment.scheduledTime);
-        }
-      })
-    })
-  })
-  if (info.especialidad) {
-    const schedules = await [...avalaibleMedics]?.map((obj)=>{
-      return obj.schedules
-    })
-    schedules?.forEach((data)=>{
-        data.map(day => {
-          if (day.day_of_week) {
-            Schedules.add(day.day_of_week)
-            Schedules.add(day.start_time)
-            Schedules.add(day.end_time)
-          }
-        })
-    })
-  }
-}
-
-if(interval && avalaibleMedics){ 
-  [...avalaibleMedics].map((medic)=>{
-    medic.schedules.forEach((time)=>{
-      if (time) {
-        Hours[time.day_of_week] = {["start"]:time.start_time,["end"]:time.end_time} 
-      }
-    })
-  })
-}
-
-//! useEffect for some logic, it must be removed in a nearly future
-
-useEffect(() => {
-  if (!check) {
-    check = true;
-    dayGetter();
-  }
-}, [info]);
-
-//! DatePicker required functions
-
-          const liOnclickController = (event,horario) => {
-            console.log(horario);
-          }
-
-          const intervalSetter = async () => {
-          // const time = Hours[day.day()]
-          // const test = await blockedSchedules
-         
-           const horarios = [];
-          const startTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.start}`).getTime();
-          const endTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.end}`).getTime();
-
-          
-            let currentTime = startTime;
-            while (currentTime <= endTime) {
-              const time = new Date(currentTime).toLocaleTimeString();
-              horarios.push(time);
-          
-              currentTime += interval * 60 * 1000; // Avanzar 10 minutos en milisegundos
-            }
-          
-            return (
-              <ul className={style.scheduleUl}>
-                {horarios.map((horario, index) => (
-                  <li onClick={(event)=>liOnclickController(event,horario)} className={style.scheduleLi} key={index}>
-                    {horario}
-                  </li>
-                ))}
-              </ul>
-            );
-          }
-          
-
-          const onSelect = (newValue) => {
-            setDay(newValue);
-            // console.log(day);
-          };
-          
-          const onPanelChange = (newValue) => {
-            if (newValue) {
-              console.log(newValue.format('DD-MM-YYYY'));
-            }
-          };
-
-          //&& current && current < today.startOf('day')
-          // && current.isBefore(today.startOf("day"))
-          // !current.isBefore(today.startOf('day')
-          //! CHECK AND CORRECT THIS FUNCTION, ACTUALLY DOESNT WORK CORRECTLY
-          const disabledDate = (current) => {
-            if (info.especialidad && Schedules) { 
-              return (![...Schedules].includes(current.day())); 
-            }
-          };
-
-          // const disabledDate = (current) => {
-          //   return current && current < today.startOf('day');
-          // };
-          
-
-          //! THIS FUNCTION MUST CHECK THE REQUIRED FIELDS FOR AN APPOINTMENT AND THEN DISPATCH IT
-          const onClick = () => {
-
-          }
-
-return (
-  <>
-        {day ? <Alert message={`Seleccionaste la fecha: ${day?.format('DD-MM-YYYY')}`} /> : null}
-        <div className={style.container}>
-        {info.medico ? null : <MedicCarrousel select={setMedic} medics={[...avalaibleMedics]}></MedicCarrousel>}
-      <ConfigProvider locale={locale}>
-      <DatePicker
-      format={"DD-MM-YYYY"}
-        onSelect={onSelect}
-        className={style.calendar}
-        disabledDate={disabledDate}
-        onChange={onPanelChange}
-        fullscreen={false}
-        headerRender={({ value, type, onChange, onTypeChange }) => {
-        const start = 0;
-        const end = 12;
-        const monthOptions = [];
-        let current = value.clone();
-        const localeData = value.localeData();
-        const months = [];
-        for (let i = 0; i < 12; i++) {
-          current = current.month(i).locale(es);
-          months.push(localeData.monthsShort(current));
-        }
-        for (let i = start; i < end; i++) {
-          if (i >= actualMonth) {
-            monthOptions.push(
-              <Select.Option key={i} value={i} className="month-item">
-                  {months[i]}
-                </Select.Option>,
-              );
-            }
-          }
-          
-          const month = value.month();      
-          return (
-            <div
-            className={style.calendarHeader}
-            style={{
-              padding: 8,
-            }}
-            >
-              <Typography.Title level={4}>Custom header</Typography.Title>
-              <Row gutter={8}>
-                <Col>
-                  <p>Mes</p>
-                </Col>
-                <Col>
-                  <Select
-                    size="small"
-                    popupMatchSelectWidth={false}
-                    value={month}
-                    onChange={(newMonth) => {
-                      const now = value.clone().month(newMonth);
-                      onChange(now);
-                    }}
-                    >
-                    {monthOptions}
-                  </Select>
-                </Col>
-              </Row>
-            </div>
-          );
-        }}
-        />
-        <div>
-        {day ? intervalSetter() :null}
-        </div>
-        <Button shape='round'>Confirmar fecha y horario</Button>
-      </ConfigProvider>
-    </div>
-      </>
-    );
-  };
   
-  export default Turnos;
+  const [form] = Form.useForm();
+  const [horas,setHoras]=useState([])
+  const id= info.id ? info.id :medSelect.id 
+  const diasSelect = medSelect && medSelect.schedules.map(dia=>dia.day_of_week)
+   const dias = info.id ? info.schedules.map(dia=>dia.day_of_week):diasSelect;
+  
+   const totalHoras = info.id ? info.schedules.map(hora => ({
+    day_of_week: hora.day_of_week,
+    start_time: hora.start_time,
+    end_time: hora.end_time
+  })): medSelect.schedules 
+  
+  
+
+const HorasDisponibles =(date)=>{
+  
+
+if (date) {
+  const fecha = new Date(date);
+        const año = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const día = String(fecha.getDate()).padStart(2, '0');
+
+const fechaFormateada = `${año}-${mes}-${día}`;
+const diaSeleccionado = date.day();
+
+const diaHoras = totalHoras.find(hora => hora.day_of_week === diaSeleccionado)
+const {start_time,end_time}=diaHoras
+const horarios = obtenerHorarios(start_time,end_time,40)
+  
+if (fechaFormateada.length) {
+  axios.get('http://localhost:3001/appointment')
+  .then((res)=>{
+    const diasHorasFiltradas = res.data.filter(cita => cita.scheduledDate === fechaFormateada && cita.user.id === id);
+const horariosFiltrados = horarios.filter(horario => !diasHorasFiltradas.some(cita => cita.scheduledTime === horario));
+    
+    return setHoras(horariosFiltrados)
+
+  })
+  .catch((err)=>alert(err.message))
+}else{
+  return horarios
+}
+}else{
+  setHoras([])
+}
+  
+
+  
+
+}
+
+const disabledDate = (current) => {
+  if(dias.length){
+  const today = moment().startOf('day');
+  // Array con los días que quieres habilitar, en este caso solo viernes (5)
+
+  if (current && dias && (
+    current.isBefore(today, 'day') || // Deshabilita los días anteriores a hoy
+    !dias.includes(current.day()) // Deshabilita los días que no estén en el array
+  )) {
+    return true;
+  }
+  return false;
+}else{return true;
+
+}
+};
+
+      const onSubmit = async (values) => {
+        const { scheduledDate, scheduledTime } = values;
+        
+        const fecha = new Date(scheduledDate);
+        const año = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const día = String(fecha.getDate()).padStart(2, '0');
+
+const fechaFormateada = `${año}-${mes}-${día}`;
+ 
+      };
+      const doc = info.first_name && info.first_name;
+    return(
+      <>
+      
+
+ 
+      
+        <div className={styles.container}>
+          {doc ? <h2>{'Elegiste al doct@ '+doc}</h2>: medSelect ?<h2>{'Elegiste al doctor@ '+medSelect.user.first_name + ' '+medSelect.user.last_name}</h2>:<h2>Elige a un medico para tu cita</h2>}
+          {medico && <MedicCarrousel medics={medico} select={select}></MedicCarrousel>}
+          
+          <h1>{'Selecciona la fecha y hora de tu cita para ' +info.especialidad}</h1>
+         
+            <Form labelCol={{   span: 8, }} wrapperCol={{   span: 12, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields()}} >
+            <Item
+        name="scheduledDate"
+        label="Día"
+        
+        rules={[
+          {
+            required: true,
+            message: 'Por favor ingrese el día de la cita',
+          },
+        ]}
+      >
+        <DatePicker disabledDate={disabledDate} onChange={date => HorasDisponibles(date)}/>
+      </Item >
+            <Item name="scheduledTime" label="Hora" rules={[
+          {
+            required: true,
+            message: 'Por favor ingrese la hora la cita',
+          },
+        ]}>
+        <Select>
+          {horas.map((option) => (
+            <Option key={option} value={option}>
+              {option}
+            </Option>
+          ))}
+        </Select>
+      </Item>
+            
+    
+              {/* {errors.password && (<span>{errors.password}</span>)} */}
+              
+               <Button  htmlType='submit' className={styles.submit}>Enviar</Button>
+            </Form>
+        </div></>
+
+    )
+}
