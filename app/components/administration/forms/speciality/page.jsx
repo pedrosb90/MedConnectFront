@@ -139,7 +139,6 @@ export default function SpecialtyForm() {
       );
     }
   }
-
   const [form] = Form.useForm();
   const FinishFailed = () => {
     setError({ ...error, alert: false });
@@ -150,12 +149,28 @@ export default function SpecialtyForm() {
 
   return (
     <div className={styles.container}>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
+      <Success
+        alert={success.alert}
+        text={success.text}
+        success={successFunc}
+      ></Success>
       <h1 className={styles.title}>Añadir Especialidad</h1>
       <Form
+        className={styles.form}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 15 }}
         layout="horizontal"
-        onFinish={(values) => onSubmit(values)}
+        form={form}
+        onFinish={(values) => {
+          onSubmit(values);
+          form.resetFields();
+          setImage({ array: [] });
+        }}
       >
         <Form.Item
           name="name"
@@ -168,104 +183,63 @@ export default function SpecialtyForm() {
           <Input name="name" placeholder="nombre..." />
         </Form.Item>
 
-        <div className={styles.container}>
-          <Warning
-            alert={error.alert}
-            text={error.text}
-            FinishFailed={FinishFailed}
-          />
-          <Success
-            alert={success.alert}
-            text={success.text}
-            success={successFunc}
-          />
-          <h1 className={styles.title}>Añadir Especialidad</h1>
-          <Form
-            className={styles.form}
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 15 }}
-            layout="horizontal"
-            form={form}
-            onFinish={(values) => {
-              onSubmit(values);
-              form.resetFields();
-              deleteImag();
+        <Container>
+          <div className="flex justify-end">
+            <Dropzone
+              className="dropzone"
+              onDrop={handleDrop}
+              onChange={(e) => setImage(e.target.value)}
+              value={image}
+              rules={[
+                { required: true, message: "Por favor ingrese una imagen" },
+              ]}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps({ className: "dropzone" })}>
+                    <input {...getInputProps()} />
+                    <span className="cursor-pointer text-3xl">📂</span>
+                    <p className="cursor-pointer">
+                      Suelta tu imagen aqui, O da click para seleccionar
+                    </p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+          <div className={styles.container_img}>
+            <button
+              className="active:outline-none text-white bg-red-700 hover:bg-red-800 active:ring-4 active:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:active:ring-red-900"
+              onClick={deleteImag}
+            >
+              Delete
+            </button>
+            {imagePreview()}
+          </div>
+        </Container>
+
+        <Form.Item
+          name="description"
+          label="Descripción"
+          rules={[
+            { required: true, message: "Por favor ingrese una descripción" },
+          ]}
+          hasFeedback
+        >
+          <Input.TextArea
+            name="description"
+            placeholder="Descripción"
+            style={{
+              resize: "none",
+              overflow: "hidden",
+              paddingRight: "25px",
+              height: "20px",
             }}
-          >
-            <Form.Item
-              name="name"
-              label="Especialidad"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingrese una especialidad",
-                },
-              ]}
-              hasFeedback
-            >
-              <Input name="name" placeholder="nombre..." />
-            </Form.Item>
-
-            <Container>
-              <Dropzone
-                className="dropzone"
-                onDrop={handleDrop}
-                onChange={(e) => setImage(e.target.value)}
-                value={image}
-                rules={[
-                  { required: true, message: "Por favor ingrese una imagen" },
-                ]}
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps({ className: "dropzone" })}>
-                      <input {...getInputProps()} />
-                      <span className="cursor-pointer text-3xl">📂</span>
-                      <p className="cursor-pointer">
-                        Suelta tu imagen aqui, O da click para seleccionar
-                      </p>
-                    </div>
-                  </section>
-                )}
-              </Dropzone>
-              <div className={styles.container_img}>
-                <button
-                  className="active:outline-none text-white bg-red-700 hover:bg-red-800 active:ring-4 active:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:active:ring-red-900"
-                  onClick={deleteImag}
-                >
-                  Delete
-                </button>
-                {imagePreview()}
-              </div>
-            </Container>
-
-            <Form.Item
-              name="description"
-              label="Descripción"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingrese una descripción",
-                },
-              ]}
-              hasFeedback
-            >
-              <Input.TextArea
-                name="description"
-                placeholder="Descripción"
-                style={{
-                  resize: "none",
-                  overflow: "hidden",
-                  paddingRight: "25px",
-                  height: "20px",
-                }}
-              />
-            </Form.Item>
-            <Button htmlType="submit" className={styles.Button}>
-              Enviar
-            </Button>
-          </Form>
-        </div>
+          />
+        </Form.Item>
+        <Button htmlType="submit" className={styles.Button}>
+          Enviar
+        </Button>
       </Form>
     </div>
   );

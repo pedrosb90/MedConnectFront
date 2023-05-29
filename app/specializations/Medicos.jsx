@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 const medicsURL = `${backendURL}/medics`;
+import Link from "next/link";
 
 export default function Medicos({ data }) {
   const medicosRE = useSelector((state) => state.speciality.AllMedicos);
@@ -32,19 +33,19 @@ export default function Medicos({ data }) {
   const MedFilter = med.filter((med) =>
     med.specializations.includes(data.name)
   );
-  console.log(MedFilter);
+
   return (
-    <div class="  relative overflow-x-auto">
+    <div className={styles.container + " relative"}>
       <h1>
         <b>Staff de medicos: </b>
       </h1>
-      <table class=" text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Nombre
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Apellido
             </th>
           </tr>
@@ -52,13 +53,19 @@ export default function Medicos({ data }) {
         <tbody>
           {MedFilter.map((med) => (
             <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              key={med.id}
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              key={med.user.id}
             >
-              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {med.first_name}
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <Link href={"/medicos/" + med.user.id}>
+                  {med.user.first_name}
+                </Link>
               </td>
-              <td class="px-6 py-4">{med.last_name}</td>
+              <td className="px-6 py-4 font-medium text-gray-400  dark:text-grey">
+                <Link href={"/medicos/" + med.user.id}>
+                  {med.user.last_name}
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

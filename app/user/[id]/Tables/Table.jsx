@@ -4,32 +4,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { obtenerHorarios } from "./obtenerHorarios.js";
 import CardEdit from "./CardEdit";
-import Success from "../../components/success/Success";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import Success from "../../../components/success/Success";
+const backendURL = "http://localhost:3001";
 
-export default function Table() {
-  const [userCitas, setUserCitas] = useState([]);
+export default function Table({ userCitas, setPut, put }) {
   const [horarios, setHorarios] = useState([]);
   const [open, setOpen] = useState(false);
   const [datos, setDatos] = useState({
     dia: "",
     status: "",
     id: "",
+    Med_id: "",
   });
-  const [put, setPut] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get(`${backendURL}/appointment`)
-      .then((res) => {
-        const citas = res.data;
-        setUserCitas(citas.filter((cita) => cita.id === "1"));
-        console.log(citas);
-      })
-      .catch(() => {
-        alert("Error al obtener los datos del usuario");
-      });
-  }, []);
 
   const editCita = async (Med_id, status, Cita_id) => {
     const res = await axios.get(`${backendURL}/medics`);
@@ -45,21 +31,36 @@ export default function Table() {
         dia: hours.day_of_week,
         status: status,
         id: Cita_id,
+        Med_id: Med_id,
       });
     }
     setOpen(true);
   };
-  const success = () => {
-    setPut(false);
+
+  const [totalCitas, setTotalCitas] = useState([]);
+  useEffect(() => {
+    axios.get(`${backendURL}/appointment`).then((res) => {
+      setTotalCitas(res.data);
+    });
+  }, [put]);
+
+  const arrPacientes = userCitas ? userCitas.patients : [];
+
+  const searchCitas = () => {
+    const array = [];
+    if (totalCitas.length && arrPacientes.length)
+      for (const citas of arrPacientes) {
+        const cita = totalCitas.find((cita) => cita.patient.id === citas.id);
+        if (cita) {
+          array.push(cita);
+        } else continue;
+      }
+    return array;
   };
+  const citas = searchCitas();
 
   return (
     <>
-      <Success
-        alert={put}
-        text={"Se modifico el dia y hora de su cita exitosamente"}
-        success={success}
-      ></Success>
       <div className={style.table_cont + " relative shadow-md sm:rounded-lg"}>
         {open && (
           <CardEdit
@@ -69,6 +70,7 @@ export default function Table() {
             setPut={setPut}
             id={datos.id}
             setOpen={setOpen}
+            Med_id={datos.Med_id}
           ></CardEdit>
         )}
         <h1
@@ -79,7 +81,7 @@ export default function Table() {
         >
           Citas Agendadas
         </h1>
-        {userCitas.length && (
+        {userCitas && citas.length ? (
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
@@ -107,8 +109,8 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              {userCitas &&
-                userCitas.map((cita, index) => (
+              {citas.length &&
+                citas.map((cita, index) => (
                   <tr
                     key={index}
                     className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
@@ -144,6 +146,15 @@ export default function Table() {
                 ))}
             </tbody>
           </table>
+        ) : (
+          <h1
+            className={
+              style.title_und +
+              " mb-8 text-2xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl"
+            }
+          >
+            No tiene ninguna cita agendada.
+          </h1>
         )}
       </div>
     </>

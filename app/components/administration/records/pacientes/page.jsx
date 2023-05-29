@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
-import EditPaciente from "../pacientes/EditPaciente";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import EditPaciente from "./editPaciente";
+const backendURL = "http://localhost:3001";
 
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
@@ -25,14 +25,10 @@ export default function Pacientes() {
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(`${backendURL}/patients`);
-        const usersResponse = await axios.get(`${backendURL}/users`);
 
         const patientsData = patientsResponse.data;
-        const filteredUsersData = usersResponse.data.filter(
-          (user) => user.role === "paciente"
-        );
 
-        const combinedData = [...patientsData, ...filteredUsersData];
+        const combinedData = [...patientsData];
         setPacientes(combinedData);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -43,7 +39,9 @@ export default function Pacientes() {
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    const url = isUser ? `${backendURL}/users` : `${backendURL}/patients`;
+    const url = isUser
+      ? "http://localhost:3001/users/"
+      : "http://localhost:3001/patients/";
 
     count == 2 &&
       axios
@@ -117,10 +115,6 @@ export default function Pacientes() {
               <th scope="col" className="px-6 py-3">
                 DNI
               </th>
-
-              <th scope="col" className="px-6 py-3">
-                <button>Edit</button>
-              </th>
               <th scope="col" className="px-6 py-3">
                 <button>Eliminar</button>
               </th>
@@ -140,36 +134,15 @@ export default function Pacientes() {
                     {index + 1}
                   </th>
                   <td className="px-4 py-2">
-                    {paci.firstName || paci.first_name} <br />
-                    {paci.lastName || paci.last_name}
+                    {paci.firstName} <br />
+                    {paci.lastName}
                   </td>
                   <td className="px-6 py-4">{paci.email}</td>
                   <td className="px-6 py-4">{paci.appointments.length}</td>
                   <td className="px-6 py-4">{paci.dni || "pendiente"}</td>
-
                   <td className="px-6 py-4">
                     <button
-                      onClick={() =>
-                        onClickEdit(
-                          paci.id,
-                          paci.email,
-                          paci.role ? true : false
-                        )
-                      }
-                      className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800"
-                    >
-                      Edit
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() =>
-                        deletePaci(
-                          paci.id,
-                          paci.role ? true : false,
-                          paci.email
-                        )
-                      }
+                      onClick={() => deletePaci(paci.id, paci.email)}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
                     >
                       Delete

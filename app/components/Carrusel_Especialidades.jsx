@@ -8,10 +8,8 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
-import Warning from "../../app/components/warning/Warning";
-
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-const specsURL = `${backendURL}/specializations`;
+import Warning from "./warning/Warning";
+const backendURL = "http://localhost:3001";
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -25,7 +23,7 @@ export default function Carrusel_Especialidades() {
   });
   async function getEspec() {
     try {
-      const respo = await axios.get(specsURL, {
+      const respo = await axios.get(`${backendURL}/specializations`, {
         withCredentials: true,
         credentials: "include",
       });
@@ -37,21 +35,23 @@ export default function Carrusel_Especialidades() {
     }
   }
 
+  const filtro = espec.filter((e) => e.deletedAt === null);
+
   useEffect(() => {
-    !espec?.length && getEspec();
-  }, [espec, getEspec]);
+    !filtro?.length && getEspec();
+  }, [filtro, getEspec]);
 
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
-    const nextIndex = isFirstSlide ? espec.length - 1 : currentIndex - 1;
+    const nextIndex = isFirstSlide ? esfiltropec.length - 1 : currentIndex - 1;
     setCurrentIndex(nextIndex);
   };
 
   const handlerNext = useCallback(() => {
-    const isFirstSlide = currentIndex === espec.length - 1;
+    const isFirstSlide = currentIndex === filtro.length - 1;
     const nextIndex = isFirstSlide ? 0 : currentIndex + 1;
     setCurrentIndex(nextIndex);
-  }, [currentIndex, espec]);
+  }, [currentIndex, filtro]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -80,13 +80,13 @@ export default function Carrusel_Especialidades() {
         <div
           style={{
             backgroundImage: `url(${
-              espec?.length > 0 && espec[currentIndex].url
+              filtro?.length > 0 && filtro[currentIndex].url
             })`,
           }}
           className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans  "
         >
           <div className="p-5 font-bold ">
-            {espec?.length > 0 && espec[currentIndex].name}
+            {filtro?.length > 0 && filtro[currentIndex].name}
           </div>
           <div className="rounded-lg bg-cimPallete-300 opacity-60">
             <Link
@@ -106,7 +106,7 @@ export default function Carrusel_Especialidades() {
           <BsChevronCompactRight onClick={handlerNext} size={30} />
         </div>
         <div className="font-sans flex top-4 justify-center py-2">
-          {espec.map((_, index) => (
+          {filtro.map((_, index) => (
             <div
               key={index}
               onClick={() => goToSlide(index)}

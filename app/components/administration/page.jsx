@@ -5,7 +5,7 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 const localSpec = `${backendURL}/specializations`;
 const localCitas = `${backendURL}/appointment`;
@@ -76,6 +76,7 @@ export default function Administration() {
   const [dataEsp, setDataEsp] = useState([]);
   const [dataCitas, setDataCitas] = useState([]);
   const [dataMedics, setDataMedics] = useState([]);
+  const userLocal = useSelector((state) => state.login.userLocal);
 
   async function fetchData() {
     try {
@@ -101,7 +102,7 @@ export default function Administration() {
     setDataMedics(medicos);
   }, [especialidades]);
 
-  if (logStatus.logStatus === "admin") {
+  if (logStatus.logStatus === "admin" || userLocal.role === "admin") {
     return (
       <div className={`bg-white ${styles.container}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

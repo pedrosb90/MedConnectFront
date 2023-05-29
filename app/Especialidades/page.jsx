@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
@@ -19,6 +19,8 @@ export default function Especialidades() {
   const [data, setData] = useState([]);
   const [especialidad, setEspecialidad] = useState([]);
 
+  const filtro = especialidad.filter((e) => e.deletedAt === null);
+
   async function fetchData() {
     try {
       const response = await axios.get(specsURL);
@@ -29,9 +31,9 @@ export default function Especialidades() {
     }
   }
   const next = () => {
-    if (especialidad.length < data.length) {
+    if (filtro.length < data.length) {
       setCurrentEsp(currentEsp + 4);
-      setEspecialidad(data.slice(0, especialidad.length + 4));
+      setEspecialidad(data.slice(0, filtro.length + 4));
     } else {
       setHasMore(false);
     }
@@ -58,11 +60,11 @@ export default function Especialidades() {
       </div>
 
       <div>
-        <Cards_Especialidades_Display especialidad={especialidad} />
+        <Cards_Especialidades_Display especialidad={filtro} />
       </div>
       <div className="m-auto mt-20 h-96 max-w-4xl overflow-auto">
         <InfiniteScroll
-          dataLength={especialidad.length}
+          dataLength={filtro.length}
           next={() => setTimeout(next, 250)}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}

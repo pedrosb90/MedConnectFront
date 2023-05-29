@@ -3,66 +3,19 @@ import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
 import Menu_Medicos from "./components/Menu_Medicos";
-import Warning from "./components/warning/Warning";
 
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const loginSuccURL = `${backendURL}/auth/login/success`;
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch(loginSuccURL, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        console.log(resObject);
-        dispatch(getUser(resObject.user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    fetch(loginSuccURL, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        console.log(resObject);
-        dispatch(getLocalUser(resObject.user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -166,5 +119,6 @@ export default function Home() {
       </div>
       <Menu_Medicos showMenu={showMenu} />
     </main>
+    //demo
   );
 }

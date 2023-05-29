@@ -7,9 +7,11 @@ import { getSpeciality } from "../../redux/reducer";
 import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
+import { postInfo } from "../../redux/CitaReducer";
+
 import Warning from "../../components/warning/Warning";
 
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {
@@ -21,7 +23,7 @@ export default function CardSpecial() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [especial, setEspecial] = useState([]);
   const [espeMed, setEspeMEd] = useState([]);
-  const [medico, setMedico] = useState({});
+  const [medico, setMedico] = useState(false);
 
   async function fetchData() {
     try {
@@ -34,7 +36,7 @@ export default function CardSpecial() {
   }
   const handleClick = (event) => {
     const nameES = event.target.name;
-    if (medico.id) {
+    if (medico) {
       const espeMed = medico.specializations.map((espe) => espe.name);
 
       if (nameES === "All")
@@ -64,17 +66,20 @@ export default function CardSpecial() {
     !especialidades.length ? fetchData() : setEspeMEd(especialidades);
     setEspecial(especialidades);
   }, [especialidades]);
+
   const buttonReset = () => {
     setEspeMEd(especialidades);
     setEspecial(especialidades);
-    setMedico([]);
+    setMedico(false);
   };
   const citaInfo = useSelector((state) => state.cita.info);
-
   const onClickFunc = (name) => {
-    if (medico.user.id) {
+    if (medico) {
       const { id, last_name, first_name } = medico.user;
-      dispatch(postInfo({ id, last_name, first_name, especialidad: name }));
+      const schedules = medico.schedules;
+      dispatch(
+        postInfo({ id, last_name, first_name, schedules, especialidad: name })
+      );
     } else {
       dispatch(postInfo({ especialidad: name }));
     }
@@ -133,25 +138,27 @@ export default function CardSpecial() {
                       {espe.description}
                     </p>
                   </div>
-                  <button
-                    onClick={() => onClickFunc(espe.name)}
-                    className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Agregar servicio
-                    <svg
-                      className="h-5 w-5 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <Link href={"/components/turnos"}>
+                    <button
+                      onClick={() => onClickFunc(espe.name)}
+                      className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                  </button>
+                      Agregar servicio
+                      <svg
+                        className="h-5 w-5 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               );
             })

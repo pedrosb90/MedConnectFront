@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function Admin(){
   
   const {logStatus} = useSelector(state => state)
-
+  const userLocal = useSelector((state) => state.login.userLocal);
   const [showMenu, setShowMenu] = useState({
     speciality: false,
     medico:false,
@@ -22,7 +22,7 @@ export default function Admin(){
     
   };
 
-  if(logStatus.logStatus === "admin" ){
+  if(logStatus.logStatus === "admin" || userLocal.role === "admin"){
         return(
           <div className={styles.container}>
           <h1 className={styles.title}>Panel de administrador</h1>

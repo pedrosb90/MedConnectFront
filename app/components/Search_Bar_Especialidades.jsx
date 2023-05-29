@@ -3,7 +3,7 @@ import { searchBar, sortEspecsAZ } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 
 export default function SearchBar() {
@@ -48,7 +48,7 @@ export default function SearchBar() {
   return (
     <div className="flex z-20 fixed left-96 relative">
       <div className="bg-gray-800 py-2 px-6 flex items-center space-x-4 gap-5 rounded-md">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => handleSubmit(event)}>
           {" "}
           <input
             className="py-1 px-2 rounded-md"
