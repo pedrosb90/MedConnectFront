@@ -131,7 +131,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <div style={{ position: "fixed", bottom: "5%", right: "6%" }}>
+      <div style={{ position: "fixed", bottom: "5%", right: "20%" }}>
         <Link href="/">
           <button
             type="button"
