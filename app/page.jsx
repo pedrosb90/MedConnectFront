@@ -104,8 +104,8 @@ export default function Home() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            height: "100%",
-            width: "100%",
+            height: "60%",
+            width: "75%",
           }}
         />
         <div className="text-center ">
