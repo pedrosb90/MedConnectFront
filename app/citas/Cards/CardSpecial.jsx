@@ -10,10 +10,11 @@ import Link from "next/link";
 import { postInfo } from "../../redux/CitaReducer";
 import Warning from "@/app/components/warning/Warning";
 
+
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "http://localhost:3001/specializations";
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
+// const backendURL = "https://medconnectback-production.up.railway.app";
+// const specializationsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {
   const [error, setError] = useState({
@@ -37,7 +38,7 @@ export default function CardSpecial() {
   }
   const handleClick = (event) => {
     const nameES = event.target.name;
-    if (medico.id) {
+    if (medico) {
       const espeMed = medico.specializations.map((espe) => espe.name);
 
       if (nameES === "All")
@@ -67,17 +68,19 @@ export default function CardSpecial() {
     !especialidades.length ? fetchData() : setEspeMEd(especialidades);
     setEspecial(especialidades);
   }, [especialidades]);
+
   const buttonReset = () => {
     setEspeMEd(especialidades);
     setEspecial(especialidades);
-    setMedico([]);
+    setMedico(false);
   };
   const citaInfo = useSelector((state) => state.cita.info);
-
   const onClickFunc = (name) => {
     if (medico) {
       const { id, last_name, first_name } = medico.user;
-      dispatch(postInfo({ id, last_name, first_name, especialidad: name }));
+      const schedules = medico.schedules
+      dispatch(postInfo({ id, last_name, first_name,schedules, especialidad: name }));
+      
     } else {
       dispatch(postInfo({ especialidad: name }));
     }
@@ -137,6 +140,7 @@ export default function CardSpecial() {
                       {espe.description}
                     </p>
                   </div>
+                  <Link href={"/components/turnos"}>
                   <button
                     onClick={() => onClickFunc(espe.name)}
                     className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -156,6 +160,7 @@ export default function CardSpecial() {
                       />
                     </svg>
                   </button>
+                  </Link>
                 </div>
               );
             })
