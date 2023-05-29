@@ -1,74 +1,85 @@
-.title{
-    font-size: 1.8em;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: 550;
+.title {
+  font-size: 1.8em;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 550;
 }
-.container{
-    height: fit-content;
+.container {
+  height: fit-content;
 }
-.cards{
-    display: flex;
-    margin: 30px;
-    gap: 10px;
-    
-    
-    
+.cards {
+  display: flex;
+  margin: 30px;
+  gap: 10px;
 }
-.buttons{
-    display: flex;
-    align-items: center;
-   background-color: #2A6074;
-   align-self: center;
-   height: fit-content;
-   padding: 10px;
-   color: white;
-   border-radius: 5px;
-   transition: 0.2s ease;
-   font-weight: 600;
-    
+.buttons {
+  display: flex;
+  align-items: center;
+  background-color: #2a6074;
+  align-self: center;
+  height: fit-content;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  transition: 0.2s ease;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
 }
-.buttons:hover{
-    background-color: #91c4cd;
+.buttons:hover {
+  background-color: #91c4cd;
   color: black;
-
 }
-.buttons:active{
-    transform: scale(0.9);
+.buttons:active {
+  transform: scale(0.9);
 }
-.subTitle{
-    margin-top: 40px;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 500;
+.subTitle {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
 }
-.name:hover{
-    text-decoration: underline;
-
+.name:hover {
+  text-decoration: underline;
 }
-.cars_Espe{
-    width: 100%;
-    
-    
-    
+.cars_Espe {
+  width: 100%;
+  padding-bottom: 50px;
 }
-.box_espe{
-    display: flex;
-    margin: 15px 5%;
-    gap: 30px;
-    width: 100%;
-    
-    flex-wrap: wrap;
+.box_espe {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  margin: 3% 10px;
+  flex-wrap: wrap;
 }
-.cardMed{
-    transition: 0.3s ease;
-    font-weight: 600;
-
+.cardMed {
+  transition: 0.3s ease;
+  font-weight: 600;
 }
-.cardMed:hover{
-    transform: scale(1.06);
-    background-color: #91c4cd;
-    border: none;
+.cardMed:hover {
+  transform: scale(1.06);
+  background-color: #91c4cd;
+  border: none;
 }
-.cardMed:hover span{
-    color: black;
+.cardMed:hover span {
+  color: black;
+}
+.buttonReset {
+  background-color: #2a6074;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  transition: 0.2s ease;
+  font-weight: 600;
+}
+.buttonReset:hover {
+  background-color: #91c4cd;
+  color: black;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
 }

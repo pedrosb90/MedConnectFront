@@ -8,6 +8,10 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
+import Warning from "../../app/components/warning/Warning";
+
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const specsURL = `${backendURL}/specializations`;
 
 export default function Carrusel_Especialidades() {
   const dispatch = useDispatch();
@@ -15,22 +19,27 @@ export default function Carrusel_Especialidades() {
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [espec, setEspec] = useState([]);
-
+  const [error, setError] = useState({
+    text: "",
+    alert: false,
+  });
   async function getEspec() {
     try {
-      const URL = "http://localhost:3001";
-      const respo = await axios.get(`${URL}/specializations`);
-      console.log(respo.data);
+      const respo = await axios.get(specsURL, {
+        withCredentials: true,
+        credentials: "include",
+      });
+
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
     } catch (error) {
-      alert(error.message);
+      setError({ ...error, text: error.message, alert: true });
     }
   }
 
   useEffect(() => {
     !espec?.length && getEspec();
-  }, [espec]);
+  }, [espec, getEspec]);
 
   const handlerPrev = () => {
     const isFirstSlide = currentIndex === 0;
@@ -56,24 +65,37 @@ export default function Carrusel_Especialidades() {
       handlerNext();
     }, 3000);
     return () => clearTimeout(timerRef.current);
-  }, []);
-
+  }, [handlerNext]);
+  const FinishFailed = () => {
+    setError({ ...error, text: "", alert: false });
+  };
   return (
     <div>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
       <div className="text white max-w-[800px] h-[500px] w-full m-auto py-16 px-4 relative group">
         <div
           style={{
-            backgroundImage: `url(${espec.length && espec[currentIndex].url})`,
+            backgroundImage: `url(${
+              espec?.length > 0 && espec[currentIndex].url
+            })`,
           }}
-          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans "
+          className="flex justify-between items-end w-full h-full rounded-2xl bg-center bg-cover duration-500 text-2xl text-grey font-sans  "
         >
-          {espec.length && espec[currentIndex].name}
-          <Link
-            href={`/Especialidades`}
-            className="font-sans rounded-lg bg-cimPallete-300 opacity-60 text-lg cursor-pointer"
-          >
-            <h1>Ver Mas Especialidades</h1>
-          </Link>
+          <div className="p-5 font-bold ">
+            {espec?.length > 0 && espec[currentIndex].name}
+          </div>
+          <div className="rounded-lg bg-cimPallete-300 opacity-60">
+            <Link
+              href={`/Especialidades`}
+              className="font-sans  text-lg cursor-pointer"
+            >
+              <h1>Ver Mas Especialidades</h1>
+            </Link>
+          </div>
         </div>
 
         <div className="hidden group-hover:block absolute top-[40%] -translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer ">

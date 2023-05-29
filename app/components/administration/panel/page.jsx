@@ -10,7 +10,9 @@ export default function Admin(){
 
   const [showMenu, setShowMenu] = useState({
     speciality: false,
-    medico:false
+    medico:false,
+    paciente:false,
+    users:false
 });
 
   const toggleMenu = (event) => {
@@ -20,7 +22,7 @@ export default function Admin(){
     
   };
 
-  if(logStatus.logStatus === "master" ){
+  if(logStatus.logStatus === "admin" ){
         return(
           <div className={styles.container}>
           <h1 className={styles.title}>Panel de administrador</h1>
@@ -32,7 +34,7 @@ export default function Admin(){
             <ul className={styles.mini_menu}>
               <Link href={'/components/administration/records/speciality'}><li>Registro</li></Link>
               <Link href={'/components/administration/forms/speciality'}><li>Crear especialidad</li></Link>
-              <li>Remover especialidad</li>
+              
             </ul>
           )}
         </div>
@@ -42,7 +44,29 @@ export default function Admin(){
             <ul className={styles.mini_menu}>
               <Link href={'/components/administration/records/RegistroMedicos'}><li>Registro</li></Link>
               <Link href={'/components/forms/register'}><li>Añadir medico</li></Link>
-              <li>Remover medico</li>
+              
+            </ul>
+          )}
+        </div>
+        <div className={styles.box_selector}>
+            
+          <button className={showMenu.paciente ? styles.button_on : styles.button_of} onClick={toggleMenu} name='paciente'>Pacientes</button>
+          {showMenu.paciente && (
+            <ul className={styles.mini_menu}>
+              <Link href={'/components/administration/records/pacientes'}><li>Registro</li></Link>
+              <Link href={'/components/administration/forms/pacientes'}><li>Crear paciente</li></Link>
+              
+            </ul>
+          )}
+        </div>
+        <div className={styles.box_selector}>
+            
+          <button className={showMenu.users ? styles.button_on : styles.button_of} onClick={toggleMenu} name='users'>Users</button>
+          {showMenu.users && (
+            <ul className={styles.mini_menu}>
+              <Link href={'/components/administration/records/Users'}><li>Registro</li></Link>
+              <Link href={'/components/forms/register'}><li>Crear Users</li></Link>
+              
             </ul>
           )}
         </div>

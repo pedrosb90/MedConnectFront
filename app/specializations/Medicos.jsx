@@ -3,13 +3,17 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+const medicsURL = `${backendURL}/medics`;
+
 export default function Medicos({ data }) {
   const medicosRE = useSelector((state) => state.speciality.AllMedicos);
 
   const dispatch = useDispatch();
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/medics");
+      const response = await axios.get(medicsURL);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);
