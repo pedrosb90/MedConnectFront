@@ -105,7 +105,7 @@ export default function Home() {
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
-            width={700}
+            width={900}
             height={360}
             className="rounded-lg"
           />
