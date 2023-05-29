@@ -15,53 +15,7 @@ const loginSuccURL = `${backendURL}/auth/login/success`;
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  
-
-  useEffect(() => {
-    fetch(loginSuccURL, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        console.log(resObject);
-        dispatch(getUser(resObject.user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    fetch(loginSuccURL, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-        console.log(resObject);
-        dispatch(getLocalUser(resObject.user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -165,5 +119,6 @@ export default function Home() {
       </div>
       <Menu_Medicos showMenu={showMenu} />
     </main>
+    //demo
   );
 }
