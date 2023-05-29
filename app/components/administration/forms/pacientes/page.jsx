@@ -6,8 +6,7 @@ import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
 import styles from "./page.module.css";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
 
 export default function UserLogin() {
