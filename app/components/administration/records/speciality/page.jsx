@@ -14,6 +14,7 @@ export default function Especialidades(){
     })
     const [count,setCount]=useState(1)
     const [clickCal, setClickCal] = useState(false);
+    
     const [info, setInfo]=useState({
       id:0,
       url:"",
@@ -35,26 +36,33 @@ export default function Especialidades(){
     }, [isDelete]);
     
 
-    const deleteEsp =(id)=>{
+    const deleteEsp = (id, deletedAt)=>{
       
       const url = 'http://localhost:3001/specializations/';
       
-      count == 2 && axios.delete(`${url}${id}`)
-      .then(()=>{
-        setIsDelete(!isDelete)
-        setCount(1)
-        
-      })
-      .catch ((err) => {
-        setError({...error,text:err.message,alert:true})
-        setCount(1)
-      })
-      setCount(2)
-      const borrar = especialidades?.length && especialidades?.find(e=>e.id===id)
+      if(deletedAt !==null){
       
-      
-      count == 1 && setError({...error,text:`Se borrara la especialidad: ${borrar.name} de click otra vez para confirmar`,alert:true})
+        axios.patch(`${url}${id}`)
+      }else {
+
+        count == 2 &&  axios.delete(`${url}${id}`)
+        .then(()=>{
+          setIsDelete(!isDelete)
+          setCount(1)
+          
+        })
+        .catch ((err) => {
+          setError({...error,text:err.message,alert:true})
+          setCount(1)
+        })
+        setCount(2)
+        const borrar = especialidades?.length && especialidades?.find(e=>e.id===id)
         
+        
+        count == 1 && setError({...error,text:`Se borrara la especialidad: ${borrar.name} de click otra vez para confirmar`,alert:true})
+      }
+
+      setDeshabilitar(!deshabilitar)
       }
     
     const FinishFailed=()=>{
@@ -125,7 +133,7 @@ export default function Especialidades(){
       <button onClick={()=> handleClickCal(esp.id, esp.name, esp.description, esp.url)} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800">Edit</button>
     </td>
     <td className="px-6 py-4">
-      <button onClick={()=>deleteEsp(esp.id)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
+      <button onClick={()=>deleteEsp(esp.id, esp.deletedAt)}  className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900">Delete</button>
     </td>
   </tr>
 ))}
