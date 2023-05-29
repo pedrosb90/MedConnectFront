@@ -149,7 +149,7 @@ export default function Page() {
                 height: "40px",
                 position: "absolute",
                 bottom: "5%",
-                right: "10%",
+                right: "25%",
               }}
             >
               Inicio
@@ -163,7 +163,7 @@ export default function Page() {
                 height: "40px",
                 position: "absolute",
                 bottom: "5%",
-                right: "20%",
+                right: "40%",
               }}
             >
               Citas
