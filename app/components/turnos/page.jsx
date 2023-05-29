@@ -181,40 +181,40 @@ useEffect(() => {
 
 //! DatePicker required functions
 
-          const liOnclickController = (event,horario) => {
-            console.log(horario);
-          }
+const liOnclickController = (event,horario) => {
+  console.log(horario);
+}
 
-          const intervalSetter = async () => {
-          // const time = Hours[day.day()]
-          // const test = await blockedSchedules
-         
-           const horarios = [];
-          const startTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.start}`).getTime();
-          const endTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.end}`).getTime();
+const intervalSetter = async (day, time, interval, liOnclickController) => {
+  const horarios = [];
+  console.log(day, time,);
+  const startTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.start}`).getTime();
+  const endTime = new Date(`${day?.format('DD-MM-YYYY')} ${time.end}`).getTime();
+  return
+  // let currentTime = startTime;
+  // while (currentTime <= endTime) {
+  //   const time = new Date(currentTime).toLocaleTimeString();
+  //   horarios.push(time);
+
+  //   currentTime += interval * 60 * 1000; // Avanzar 10 minutos en milisegundos
+  // }
+
+  // return (
+  //   <ul className={style.scheduleUl}>
+  //     {horarios.map((horario, index) => (
+  //       <li onClick={(event) => liOnclickController(event, horario)} className={style.scheduleLi} key={index}>
+  //         {horario}
+  //       </li>
+  //     ))}
+  //   </ul>
+  // );
+};
 
           
-            let currentTime = startTime;
-            while (currentTime <= endTime) {
-              const time = new Date(currentTime).toLocaleTimeString();
-              horarios.push(time);
-          
-              currentTime += interval * 60 * 1000; // Avanzar 10 minutos en milisegundos
-            }
-          
-            return (
-              <ul className={style.scheduleUl}>
-                {horarios.map((horario, index) => (
-                  <li onClick={(event)=>liOnclickController(event,horario)} className={style.scheduleLi} key={index}>
-                    {horario}
-                  </li>
-                ))}
-              </ul>
-            );
-          }
           
 
           const onSelect = (newValue) => {
+            console.log("testing");
             setDay(newValue);
             // console.log(day);
           };
@@ -311,7 +311,7 @@ return (
         }}
         />
         <div>
-        {day ? intervalSetter() :null}
+        {/* {day ? intervalSetter(today,Hours[day.day()],interval,liOnclickController) :null} */}
         </div>
         <Button shape='round'>Confirmar fecha y horario</Button>
       </ConfigProvider>
