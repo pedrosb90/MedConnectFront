@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Warning from "../../components/warning/Warning";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Page() {

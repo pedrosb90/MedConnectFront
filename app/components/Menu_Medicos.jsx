@@ -7,7 +7,7 @@ import { getMedicos } from "@/app/redux/reducer";
 import axios from "axios";
 import Link from "next/link";
 import Warning from "./warning/Warning";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Menu_Medicos({ showMenu }) {

@@ -8,9 +8,6 @@ import { useRouter } from "next/navigation";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
 
-// export default function UserLogin() {
-//   <h1>Dummy</h1>;
-// }
 export default function UserLogin() {
   const speciality = useSelector((state) => state.speciality);
   const logStatus = useSelector((state) => state.logStatus);

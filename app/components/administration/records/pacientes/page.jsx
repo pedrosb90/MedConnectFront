@@ -25,14 +25,10 @@ export default function Pacientes() {
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(`${backendURL}/patients`);
-        const usersResponse = await axios.get(`${backendURL}/users`);
 
         const patientsData = patientsResponse.data;
-        const filteredUsersData = usersResponse.data.filter(
-          (user) => user.role === "paciente"
-        );
 
-        const combinedData = [...patientsData, ...filteredUsersData];
+        const combinedData = [...patientsData];
         setPacientes(combinedData);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -43,7 +39,7 @@ export default function Pacientes() {
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    const url = isUser ? `${backendURL}/users` : `${backendURL}/patients`;
+    const url = isUser ? `${backendURL}/users/` : `${backendURL}/patients/`;
 
     count == 2 &&
       axios

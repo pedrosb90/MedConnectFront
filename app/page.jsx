@@ -3,6 +3,7 @@ import Cards_Obras_Display from "./components/Cards_Obras_Display";
 import { array } from "./components/ObrasSociales";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Carrusel_Especialidades from "./components/Carrusel_Especialidades";
 import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
@@ -60,6 +61,7 @@ export default function Home() {
         console.log(err);
       });
   }, []);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -171,5 +173,6 @@ export default function Home() {
       </div>
       <Menu_Medicos showMenu={showMenu} />
     </main>
+    //demo
   );
 }

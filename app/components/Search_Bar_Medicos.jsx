@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { searchMedic, sortMedicos, sortAv } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function Search_Bar_Medicos({ setSearchResult }) {

@@ -6,6 +6,7 @@ import img from "../../../citas/img/iconoMed.jpg";
 import Image from "next/image";
 import Warning from "@/app/components/warning/Warning";
 import { useSelector } from "react-redux";
+
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function UserCard({ userCitas }) {

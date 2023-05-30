@@ -8,7 +8,7 @@ import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
-const localPatch = `${backendURL}/users`;
+const localPatch = `${backendURL}/users/`;
 
 export default function UserLogin() {
   const userLocal = useSelector((state) => state.login.userLocal);

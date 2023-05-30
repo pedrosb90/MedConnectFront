@@ -10,7 +10,7 @@ import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
 import FormCal from "./FormCal";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 const specsURL = `${backendURL}/specializations`;
 
@@ -195,7 +195,7 @@ export default function Medicos_Especialidad_Filter() {
         >
           <option value="">Ciudad...</option>
           {allMedicos.map((c) => (
-            <option key={c.city.name} value={c.city.name}>
+            <option key={index} value={c.city.name}>
               {c.city.name}
             </option>
           ))}

@@ -5,10 +5,11 @@ import axios from "axios";
 import styles from "./CardEdit.module.css";
 import Warning from "../../../components/warning/Warning";
 import { useState } from "react";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const appoURL = `${backendURL}/appointment`;
 
 const { Item } = Form;
 const { Option } = Select;
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function CardEdit({
   horarios,
@@ -31,7 +32,7 @@ export default function CardEdit({
 
     if (fechaFormateada.length) {
       axios
-        .get(`${backendURL}/appointment`)
+        .get(appoURL)
         .then((res) => {
           const diasHorasFiltradas = res.data.filter(
             (cita) =>
@@ -79,7 +80,7 @@ export default function CardEdit({
     const fechaFormateada = `${año}-${mes}-${día}`;
 
     axios
-      .put(`${backendURL}/appointment/` + id, {
+      .put(`${appoURL}/` + id, {
         scheduledDate: fechaFormateada,
         scheduledTime: scheduledTime,
         status: status,

@@ -4,7 +4,7 @@ import styles from "./editPaciente.module.css";
 import Warning from "@/app/components/warning/Warning";
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 
 export default function EditPaciente({ setOpen, datos }) {
   const [form] = Form.useForm();
