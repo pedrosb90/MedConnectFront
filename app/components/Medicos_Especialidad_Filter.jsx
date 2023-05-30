@@ -195,7 +195,7 @@ export default function Medicos_Especialidad_Filter() {
         >
           <option value="">Ciudad...</option>
           {allMedicos.map((c) => (
-            <option key={index} value={c.city.name}>
+            <option key={c.city.name} value={c.city.name}>
               {c.city.name}
             </option>
           ))}

@@ -1,39 +1,36 @@
 "use client";
 
-import {  useState } from "react";
+import { useState } from "react";
 import styles from "./medic.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import img from '../../../citas/img/iconoMed.jpg'
+import img from "../../../citas/img/iconoMed.jpg";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
 // const medicsURL = `${backendURL}/medics`;
-export default function MedicCarrousel({ medics,select }) {
+export default function MedicCarrousel({ medics, select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
- 
+
   const handleNext = () => {
-    if (currentIndex <= medics.length) {
+    if (currentIndex >= medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   const handlePrevious = () => {
-    if (currentIndex === 0) {
+    if (currentIndex <= 0) {
       return; // No retroceder más si es el primer médico
     }
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
-
   const handleClickMed = (medic) => {
-    select(medic)
-  }
+    select(medic);
+  };
 
-  
-    const paginatedMedicos = medics.slice(currentIndex, currentIndex + 5)
-      .filter((medico) => !!medico); // Filtrar medicos nulos
-  
+  const paginatedMedicos = medics
+    .slice(currentIndex, currentIndex + 3)
+    .filter((medico) => !!medico); // Filtrar medicos nulos
 
   return (
     <div className={styles.cards + " flex  justify-center"}>
@@ -76,7 +73,9 @@ export default function MedicCarrousel({ medics,select }) {
                     <h5
                       className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                     >
-                      {med.user.first_name ? "Dr. " + med.user.first_name : "...Cargando"}
+                      {med.user.first_name
+                        ? "Dr. " + med.user.first_name
+                        : "...Cargando"}
                     </h5>
                   </Link>
                   <span className="text-xs text-gray-500 dark:text-gray-400">

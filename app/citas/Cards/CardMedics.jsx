@@ -36,7 +36,7 @@ export default function CardMedics({ handleClickMed }) {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
   }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
-    if (currentIndex + 3 === medicos.length) {
+    if (currentIndex === medicos.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -52,9 +52,8 @@ export default function CardMedics({ handleClickMed }) {
     setError({ ...error, text: "", alert: false });
   };
 
-  const paginatedMedicos = medicos
-    .slice(currentIndex, currentIndex + 5)
-    .filter((medico) => !!medico); // Filtrar medicos nulos
+  const paginatedMedicos = medicos.slice(currentIndex, currentIndex + 5);
+  // Filtrar medicos nulos
   return (
     <>
       <Warning
