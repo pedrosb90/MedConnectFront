@@ -24,11 +24,25 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.resumenText {
+.resumenTitle {
   text-align: center;
   margin-top: 10px;
   font-size: 1.1em;
   font-weight: 600;
+}
+.resumenText {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 200;
+  margin-left: 10px;
+}
+.costo {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-weight: 200;
+  margin-left: 10px;
 }
 
 .container h1 {
