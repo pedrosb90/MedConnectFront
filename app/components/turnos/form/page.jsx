@@ -12,6 +12,7 @@ import Image from 'next/image';
 
 export default function UserLogin() {
   const {logStatus,speciality} = useSelector(state => state)
+  const {info} = useSelector((state)=>state.cita)
   const {schedule} = useSelector((state)=>state.cita)
   const [registered,setRegistered] = useState(false)
   const [loading,setLoading] = useState(false);
@@ -98,18 +99,30 @@ const cityGetter = async () => {
   }
 }
 
-
 const onSubmit = async (values) => {
   if (validateObject(values)) {
     try {
       const cityId = await cityGetter();
       const patient = { ...values, userId: logStatus.userStatus.id,cityId:cityId[0],direccion:schedule.medSelect.direccion };
-      const appointment = {...schedule,patientId:logStatus.userStatus.id,status: "pending"}
       if (schedule && logStatus.userStatus) {
-        const patientsPost = axios.post("http://localhost:3001/patients/create",patient).then(res=>res.data)
-        const appointmentPost = axios.post("http://localhost:3001/appointment/create",appointment).then(res=>res.data)
-        console.log("patient",patientsPost);
-        console.log("appointment",appointmentPost);
+      const testing = axios.post("http://localhost:3001/patients/create",patient).then(res=>{
+          const appointment = {...schedule,status: "pending",patientId:res.data.id}
+         return axios.post("http://localhost:3001/appointment/create",appointment)
+        }).then(res=> {
+          console.log("entro");
+          const mp = {
+            title: info.especialidad,
+            quantity: 1,
+            currency_id: "ARG",
+            unit_price: 500,
+          }
+          axios.post("http://localhost:3001/payment/create-order",mp).then(res=>{
+            console.log(res.data.sandbox_init_point);
+            window.open(res.data.sandbox_init_point, '_blank');
+
+          })
+        })
+       
       }
     } catch (error) {
       console.error("Error al obtener el ID de la ciudad:", error);
@@ -293,7 +306,7 @@ const onSubmit = async (values) => {
               {registered === "error" ? <Alert
               message="Ocurrió un error al registrarse"
               type="warning"
-    /> : !registered && <Button block htmlType='submit' loading={loading}>registrarse</Button>}
+    /> : !registered && <Button block htmlType='submit' loading={loading}>registrarse y pagar</Button>}
             </Form>
         </div>
       );
