@@ -113,12 +113,12 @@ const onSubmit = async (values) => {
           const mp = {
             title: info.especialidad,
             quantity: 1,
-            currency_id: "ARG",
+            currency_id: "ARS",
             unit_price: 500,
           }
           axios.post("http://localhost:3001/payment/create-order",mp).then(res=>{
-            console.log(res.data.sandbox_init_point);
-            window.open(res.data.sandbox_init_point, '_blank');
+            console.log(res.data.init_point);
+            window.open(res.data.init_point, '_blank');
 
           })
         })

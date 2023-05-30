@@ -112,7 +112,7 @@ const disabledDate = (current) => {
 
       const onSubmit = async (values) => {
         const { scheduledDate, scheduledTime } = values;
-        
+        console.log(values);
         const fecha = new Date(scheduledDate);
         const año = fecha.getFullYear();
         const mes = String(fecha.getMonth() + 1).padStart(2, '0');
@@ -126,6 +126,7 @@ const disabledDate = (current) => {
 
 
       const doc = info.first_name && info.first_name;
+      console.log();
     return(
       <>
       
@@ -139,10 +140,9 @@ const disabledDate = (current) => {
           <h1>{'Selecciona la fecha y hora de tu cita para ' +info.especialidad}</h1>
          
             <Form labelCol={{   span: 8, }} wrapperCol={{   span: 12, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields()}} >
-            <Item
+            <Form.Item
         name="scheduledDate"
         label="Día"
-        
         rules={[
           {
             required: true,
@@ -150,11 +150,11 @@ const disabledDate = (current) => {
           },
         ]}
       >
-        <ConfigProvider locale={locale}>
-        <DatePicker locale={locale} disabledDate={disabledDate} placeholder='Seleccione un dia' onChange={date => HorasDisponibles(date)}/>
-        </ConfigProvider>
-      </Item >
-            <Item name="scheduledTime" label="Hora" rules={[
+        {/* <ConfigProvider locale={locale}> */}
+        <DatePicker locale={locale}  disabledDate={disabledDate} placeholder='Seleccione un dia' onChange={date => HorasDisponibles(date)}/>
+        {/* </ConfigProvider> */}
+      </Form.Item >
+            <Form.Item name="scheduledTime" label="Hora" rules={[
           {
             required: true,
             message: 'Por favor ingrese la hora la cita',
@@ -167,7 +167,7 @@ const disabledDate = (current) => {
             </Option>
           ))}
         </Select>
-      </Item>
+      </Form.Item>
             
     
               {/* {errors.password && (<span>{errors.password}</span>)} */}
