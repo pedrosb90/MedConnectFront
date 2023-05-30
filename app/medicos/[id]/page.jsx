@@ -44,7 +44,7 @@ export default function Page() {
         FinishFailed={FinishFailed}
       ></Warning>
       <section className={styles.container}>
-        <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
+        <div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
           <div className="flex flex-wrap items-center mx-auto max-w-7xl">
             <div className="w-full lg:max-w-lg lg:w-1/2 rounded-xl">
               <div>
@@ -64,7 +64,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
+            <div className="flex flex-col items-start mt-12 mb-12 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-14 md:mb-0 xl:mt-0">
               <h1 className="mb-8 text-4xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
                 {data.id
                   ? `Dr. ${data.user.first_name} ${data.user.last_name}`
@@ -74,7 +74,7 @@ export default function Page() {
                 Especialidades:{" "}
                 {data.id &&
                   espe.map((data) => (
-                    <li className="font-sans ml-8" key={data}>
+                    <li className="flex font-sans ml-8" key={data}>
                       <span> 🟣 {data}</span>
                     </li>
                   ))}
@@ -116,11 +116,11 @@ export default function Page() {
                     </p>
                     {data.id ? (
                       <>
-                        <h2>Horario laboral</h2>
-                        <p>Dias: {data.schedules[0].day_of_week}</p>
                         <p>
-                          Horario: de {data.schedules[0].start_time} hasta{" "}
-                          {data.schedules[0].end_time}{" "}
+                          Horario: de{" "}
+                          {data.schedules.length &&
+                            data.schedules[0].start_time}{" "}
+                          hasta {data.schedules[0].end_time}{" "}
                         </p>
                       </>
                     ) : (

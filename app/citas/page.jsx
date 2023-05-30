@@ -1,13 +1,23 @@
+'use client'
 import Image from "next/image";
 import img from "./img/fondo.jpg";
 import styles from "./Cards/page.module.css";
 import Medicos_Especialidad_Filter from "../components/Medicos_Especialidad_Filter";
 import CardSpecial from "./Cards/CardSpecial";
-
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function Citas() {
+  const nav = useRouter()
+  const { logStatus } = useSelector((state) => state);
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
   return (
     <div className={styles.container + " bg-gray-200"}>
-      <div className=" mx-auto  sm:p-8  ">
+      {logStatus.logStatus ? <div className=" mx-auto  sm:p-8  ">
         <div
           className="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl w-full"
           style={{ minHeight: "19rem" }}
@@ -56,7 +66,7 @@ export default function Citas() {
             </svg>
           </div>
         </div>
-      </div>
+      </div>: <p>Necesitas iniciar sesion</p>}
       <Medicos_Especialidad_Filter />
       <CardSpecial />
     </div>

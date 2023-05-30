@@ -1,5 +1,5 @@
 "use client";
-import { Button, Form, DatePicker, Select } from "antd";
+import { Button, Form, DatePicker, Select, ConfigProvider } from "antd";
 import moment from "moment";
 import { obtenerHorarios } from "./obtenerHorarios.js";
 import axios from "axios";
@@ -11,9 +11,14 @@ import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
 const { Item } = Form;
 const { Option } = Select;
+import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
+import { useDispatch } from "react-redux";
+import "dayjs/locale/es";
+import locale from "antd/es/date-picker/locale/es_ES";
 
 export default function Calendary() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [medSelect, select] = useState(false);
   const { info } = useSelector((state) => state.cita);
   const [medico, setMedico] = useState(false);
@@ -39,7 +44,7 @@ export default function Calendary() {
 
   const [form] = Form.useForm();
   const [horas, setHoras] = useState([]);
-  const id = info.id ? info.id : medSelect.id;
+  const id = info.id ? info.id : medSelect.user?.id;
   const diasSelect =
     medSelect && medSelect.schedules.map((dia) => dia.day_of_week);
   const dias = info.id
@@ -72,7 +77,7 @@ export default function Calendary() {
 
       if (fechaFormateada.length) {
         axios
-          .get("https://medconnectback-production.up.railway.app/appointment")
+          .get("http://localhost:3001/appointment")
           .then((res) => {
             const diasHorasFiltradas = res.data.filter(
               (cita) =>
@@ -117,15 +122,27 @@ export default function Calendary() {
 
   const onSubmit = async (values) => {
     const { scheduledDate, scheduledTime } = values;
-
+    console.log(values);
     const fecha = new Date(scheduledDate);
     const año = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
     const día = String(fecha.getDate()).padStart(2, "0");
-
     const fechaFormateada = `${año}-${mes}-${día}`;
+    if (medSelect || (info.id && scheduledTime)) {
+      dispatch(
+        postSchedule({
+          medSelect,
+          scheduledTime,
+          scheduledDate: fechaFormateada,
+          userId: id,
+        })
+      );
+      router.push("/components/turnos/form");
+    }
   };
+
   const doc = info.first_name && info.first_name;
+  console.log();
   return (
     <>
       <div className={styles.container}>
@@ -159,7 +176,7 @@ export default function Calendary() {
             form.resetFields();
           }}
         >
-          <Item
+          <Form.Item
             name="scheduledDate"
             label="Día"
             rules={[
@@ -169,12 +186,16 @@ export default function Calendary() {
               },
             ]}
           >
+            {/* <ConfigProvider locale={locale}> */}
             <DatePicker
+              locale={locale}
               disabledDate={disabledDate}
+              placeholder="Seleccione un dia"
               onChange={(date) => HorasDisponibles(date)}
             />
-          </Item>
-          <Item
+            {/* </ConfigProvider> */}
+          </Form.Item>
+          <Form.Item
             name="scheduledTime"
             label="Hora"
             rules={[
@@ -191,7 +212,7 @@ export default function Calendary() {
                 </Option>
               ))}
             </Select>
-          </Item>
+          </Form.Item>
 
           {/* {errors.password && (<span>{errors.password}</span>)} */}
 
