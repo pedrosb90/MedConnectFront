@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "http://localhost:3001/medics/create";
-const localR = "http://localhost:3001/medics/register";
+const local = "https://medconnectback-production.up.railway.app/medics/create";
+const localR =
+  "https://medconnectback-production.up.railway.app/medics/register";
 
 const backendURL = "https://medconnectback-production.up.railway.app";
 const createMedicURL = `${backendURL}/medics/create`;
@@ -26,15 +27,19 @@ export default function UserLogin() {
     setLoading(true);
     const { first_name, last_name, phone, userType, email, password } = values;
     axios
-      .create({ withCredentials: true })
-      .post(userType === "medic" ? local : localR, {
-        first_name,
-        last_name,
-        phone,
-        userType,
-        email,
-        password,
-      })
+      // .create({ withCredentials: true })
+      .post(
+        userType === "medic" ? createMedicURL : registerURL,
+        {
+          first_name,
+          last_name,
+          phone,
+          userType,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data) {

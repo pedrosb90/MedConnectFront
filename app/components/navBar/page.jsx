@@ -5,24 +5,22 @@ import img from "./img/Logo.jpg";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-import userLogo from '../../citas/img/iconoMed.jpg'
+import userLogo from "../../citas/img/iconoMed.jpg";
 import { getUser } from "@/app/redux/login";
 import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 export default function Navbar() {
-
-
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
   const userGoogle = useSelector((state) => state.login.userGoogle);
   const userLocal = useSelector((state) => state.login.userLocal);
-  
+
   const onActive = () => {
     setClick(!click);
   };
-  const [clickUser,setClickUser]=useState(false)
+  const [clickUser, setClickUser] = useState(false);
   const links = [
     {
       label: "Inicio",
@@ -45,7 +43,7 @@ const dispatch = useDispatch()
       route: "/",
     },
   ];
-  
+
   const home = links[0];
   const UserLogin = links[1];
   const admin = links[2];
@@ -53,25 +51,35 @@ const dispatch = useDispatch()
   const UserLogout = links[4];
 
   const logoutGoogle = () => {
-    window.open("http://localhost:3001/auth/logout", "_self");
+    //window.open("https://medconnectback-production.up.railway.app/auth/logout", "_self");
+    window.open(
+      "https://medconnectback-production.up.railway.app/auth/logout",
+      "_self"
+    );
   };
   const logoutLocal = () => {
-    window.open("http://localhost:3001/auth/logoutLocal", "_self");
+    //window.open("https://medconnectback-production.up.railway.app/auth/logoutLocal", "_self");
+    window.open(
+      "https://medconnectback-production.up.railway.app/auth/logoutLocal",
+      "_self"
+    );
   };
-  const onClickFunc=()=>{
-    setClickUser(!clickUser)
-
-  }
+  const onClickFunc = () => {
+    setClickUser(!clickUser);
+  };
   useEffect(() => {
-    fetch("http://localhost:3001/auth/login/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
+    fetch(
+      "https://medconnectback-production.up.railway.app/auth/login/success",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      }
+    )
       .then((response) => {
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
@@ -81,15 +89,18 @@ const dispatch = useDispatch()
       })
       .catch((err) => {});
 
-    fetch("http://localhost:3001/auth/loginn/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
+    fetch(
+      "https://medconnectback-production.up.railway.app/auth/loginn/success",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      }
+    )
       .then((response) => {
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
@@ -99,9 +110,12 @@ const dispatch = useDispatch()
       })
       .catch((err) => {});
   }, [logStatus]);
-  
+
   const id = userLocal.id ? userLocal.id : userGoogle.id;
-  const userPage = userLocal.role === 'paciente' || userGoogle.id ? `/user/${id}`: '/PerfilMedico'  
+  const userPage =
+    userLocal.role === "paciente" || userGoogle.id
+      ? `/user/${id}`
+      : "/PerfilMedico";
   return (
     <div className={styles.navbar_scroll}>
       <Image src={img} className={styles.icono} alt="fondo"></Image>
@@ -124,26 +138,54 @@ const dispatch = useDispatch()
       Object.keys(userLocal).length !== 0 ? (
         <div>
           {Object.keys(userGoogle).length === 0 ? (
-          
-            <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>
-            <Image onClick={onClickFunc} className='w-14 h-14 rounded-full' src={userLogo} width={600}
-        height={600} alt="NOT_FOUND" />
-            <Link href={userPage} ><button onClick={()=>setClickUser(false)} style={{ color: "white" }}>
-              <h3 >Ver Perfil</h3>
-              {`${userLocal.first_name} ${userLocal.last_name}`}
-              </button>
-               </Link> 
-              </div>
-              
-              ) : (
-                <div className={clickUser ? styles.userGoogle : styles.userGoogle_off}>{userGoogle.photos && userGoogle.photos.length > 0 && (
-                  <Image width={600} height={600}  onClick={onClickFunc} className="w-14 h-14 rounded-full" src={userGoogle.photos[0].value ? userGoogle.photos[0].value: userLogo} alt="NOT_FOUND" />
-                  )}
-                
-              <Link href={userPage}><button className="text-white"><h3>Ver Perfil</h3>{`${userGoogle.displayName}`}</button></Link>
-              
-  </div>
-)}
+            <div
+              className={clickUser ? styles.userGoogle : styles.userGoogle_off}
+            >
+              <Image
+                onClick={onClickFunc}
+                className="w-14 h-14 rounded-full"
+                src={userLogo}
+                width={600}
+                height={600}
+                alt="NOT_FOUND"
+              />
+              <Link href={userPage}>
+                <button
+                  onClick={() => setClickUser(false)}
+                  style={{ color: "white" }}
+                >
+                  <h3>Ver Perfil</h3>
+                  {`${userLocal.first_name} ${userLocal.last_name}`}
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div
+              className={clickUser ? styles.userGoogle : styles.userGoogle_off}
+            >
+              {userGoogle.photos && userGoogle.photos.length > 0 && (
+                <Image
+                  width={600}
+                  height={600}
+                  onClick={onClickFunc}
+                  className="w-14 h-14 rounded-full"
+                  src={
+                    userGoogle.photos[0].value
+                      ? userGoogle.photos[0].value
+                      : userLogo
+                  }
+                  alt="NOT_FOUND"
+                />
+              )}
+
+              <Link href={userPage}>
+                <button className="text-white">
+                  <h3>Ver Perfil</h3>
+                  {`${userGoogle.displayName}`}
+                </button>
+              </Link>
+            </div>
+          )}
 
           {Object.keys(userLocal).length !== 0 && (
             <Link as={UserLogout.route} href={UserLogout.route}>
