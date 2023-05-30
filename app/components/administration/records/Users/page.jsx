@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Medicos() {
   const [users, setUsers] = useState([]);

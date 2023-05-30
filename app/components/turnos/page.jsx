@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const { Item } = Form;
 const { Option } = Select;

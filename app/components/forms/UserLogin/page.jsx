@@ -6,7 +6,7 @@ import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
 import { useRouter } from "next/navigation";
 import style from "./login.module.css";
 import Link from "next/link";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authLoginURL = `${backendURL}/auth/login`;
 import Warning from "../../warning/Warning";
 import { useState } from "react";

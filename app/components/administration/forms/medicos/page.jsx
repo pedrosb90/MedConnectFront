@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 

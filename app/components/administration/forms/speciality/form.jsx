@@ -8,7 +8,7 @@ import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {

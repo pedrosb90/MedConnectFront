@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 import { Option } from "antd/es/mentions";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Forms({ userLocal }) {
   const [data, setData] = useState([]);

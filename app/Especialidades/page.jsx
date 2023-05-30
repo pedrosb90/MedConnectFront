@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
