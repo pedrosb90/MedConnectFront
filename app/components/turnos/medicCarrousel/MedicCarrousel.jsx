@@ -12,14 +12,14 @@ export default function MedicCarrousel({ medics, select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    if (currentIndex <= medics.length) {
+    if (currentIndex >= medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   const handlePrevious = () => {
-    if (currentIndex === 0) {
+    if (currentIndex <= 0) {
       return; // No retroceder más si es el primer médico
     }
     setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -29,9 +29,16 @@ export default function MedicCarrousel({ medics, select }) {
     select(medic);
   };
 
+<<<<<<< HEAD
   const paginatedMedicos = medics
     .slice(currentIndex, currentIndex + 5)
     .filter((medico) => !!medico); // Filtrar medicos nulos
+=======
+  
+    const paginatedMedicos = medics.slice(currentIndex, currentIndex + 3)
+      .filter((medico) => !!medico); // Filtrar medicos nulos
+  
+>>>>>>> develop
 
   return (
     <div className={styles.cards + " flex  justify-center"}>

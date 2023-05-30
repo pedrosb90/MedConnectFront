@@ -9,9 +9,6 @@ import style from "./form.module.css";
 const { TextArea } = Input;
 import { PhoneOutlined } from "@ant-design/icons";
 import Image from "next/image";
-const backendURL = "http://localhost:3001";
-const medicsURL = `${backendURL}/medics`;
-const citiesURL = `${backendURL}/cities`;
 
 export default function UserLogin() {
   const { logStatus, speciality } = useSelector((state) => state);
@@ -26,7 +23,7 @@ export default function UserLogin() {
   //! speciality has inside AllMedicos
 
   useEffect(() => {
-    axios.get(medicsURL).then((res) => {
+    axios.get("http://localhost:3001/medics").then((res) => {
       dispatch(getMedicos(res.data));
     });
   }, []);
@@ -97,7 +94,7 @@ export default function UserLogin() {
 
   const cityGetter = async () => {
     try {
-      const response = await axios.get(citiesURL);
+      const response = await axios.get("http://localhost:3001/cities");
       const citiesData = response.data;
 
       if (citiesData && schedule && Object.keys(schedule).length > 0) {
@@ -135,7 +132,7 @@ export default function UserLogin() {
         };
         if (schedule && logStatus.userStatus) {
           const testing = axios
-            .post(`${backendURL}/patients/create`, patient)
+            .post("http://localhost:3001/patients/create", patient)
             .then((res) => {
               const appointment = {
                 ...schedule,
@@ -143,7 +140,7 @@ export default function UserLogin() {
                 patientId: res.data.id,
               };
               return axios.post(
-                `${backendURL}/appointment/create`,
+                "http://localhost:3001/appointment/create",
                 appointment
               );
             })
@@ -152,14 +149,14 @@ export default function UserLogin() {
               const mp = {
                 title: info.especialidad,
                 quantity: 1,
-                currency_id: "ARG",
+                currency_id: "ARS",
                 unit_price: 500,
               };
               axios
-                .post(`${backendURL}/payment/create-order`, mp)
+                .post("http://localhost:3001/payment/create-order", mp)
                 .then((res) => {
-                  console.log(res.data.sandbox_init_point);
-                  window.open(res.data.sandbox_init_point, "_blank");
+                  console.log(res.data.init_point);
+                  window.open(res.data.init_point, "_blank");
                 });
             });
         }
