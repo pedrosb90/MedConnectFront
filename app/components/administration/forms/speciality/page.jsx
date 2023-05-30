@@ -10,11 +10,18 @@ import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 const local =
   "https://medconnectback-production.up.railway.app/specializations";
-
+  import { useRouter } from "next/navigation";
+  import { useSelector } from "react-redux";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {
+  const nav = useRouter()
+  const { logStatus } = useSelector((state) => state);
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [] });
   const [loading, setLoading] = useState("");

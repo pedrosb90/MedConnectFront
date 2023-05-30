@@ -4,13 +4,15 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
-
+import { useRouter } from "next/navigation";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const userssURL = `${backendURL}/users`;
 
 export default function Medicos() {
   const [users, setUsers] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
+  const { logStatus } = useSelector((state) => state);
+  const nav = useRouter()
   const [error, setError] = useState({
     text: "",
     alert: false,
@@ -18,6 +20,8 @@ export default function Medicos() {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  
     const fetchPatients = async () => {
       try {
         const response = await axios.get(userssURL);

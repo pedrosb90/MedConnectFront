@@ -10,14 +10,26 @@ import styles from "./page.module.css";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
 const local = "https://medconnectback-production.up.railway.app/auth/register";
+import { useRouter } from "next/navigation";
+
+
 
 export default function UserLogin() {
+  const nav = useRouter()
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     text: "",
     alert: false,
   });
+
+
+  const { logStatus } = useSelector((state) => state);
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = async (values) => {
     setLoading(true);
