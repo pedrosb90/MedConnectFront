@@ -15,6 +15,7 @@ import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
 import { useDispatch } from "react-redux";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
+import SideCard from "../turnos/SideCard/SideCard";
 
 const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
@@ -221,6 +222,7 @@ export default function Calendary() {
             Enviar
           </Button>
         </Form>
+        <SideCard />
       </div>
     </>
   );

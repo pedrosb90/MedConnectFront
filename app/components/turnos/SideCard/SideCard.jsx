@@ -7,3 +7,5 @@ const SideCard = () => {
     </div>
   );
 };
+
+export default SideCard;
