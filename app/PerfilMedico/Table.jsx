@@ -26,16 +26,32 @@ export default function Table() {
   );
   console.log("get citas perfil: ", getCitasPerfil);
 
-  const handleCheckChange = async (
-    citaId,
-    scheduledDate,
-    scheduledTime,
-    status
-  ) => {
-    await axios
-      .put(
-        `https://medconnectback-production.up.railway.app/appointment/${citaId}`,
-        {
+
+    
+    
+
+    useEffect(() => {
+       
+        if (!citas.id){
+            axios.get('http://localhost:3001/appointment')
+            .then(res=>{
+                setCitas(res.data)
+            })
+            .catch(error =>{
+              console.error(error);
+            })
+        }
+    }, []);
+    const getCitasPerfil = citas?.filter((e)=>e.user.first_name === userLocal?.first_name)
+    
+    
+
+ 
+    const handleCheckChange = async ( citaId, scheduledDate, scheduledTime, status) =>{
+      
+          
+          await axios.put(`http://localhost:3001/appointment/${citaId}`,{ 
+
           scheduledDate: scheduledDate,
           scheduledTime: scheduledTime,
           status: status,

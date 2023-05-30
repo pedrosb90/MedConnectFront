@@ -36,6 +36,26 @@ export default function form({ info }) {
 
   },[logStatus])
 
+
+
+export default function form({info}) {
+  const [registered, setRegistered] = useState(false);
+  const [image, setImage] = useState({array:[info.url]})
+  const [loading, setLoading] = useState ("")
+  const [url, setUrl] = useState("")
+  const [publicId, setPublicId] = useState("")
+  const [error, setError]= useState({
+    alert:false,
+    text:'Error al crear especialidad, el servidor esta caido o la especialidad ya existe'
+  })
+  const [success,setSuccess]=useState({
+    alert:false,
+    text:'Especialidad Actualizada exitosamente',
+  })
+  
+  
+  
+
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
@@ -159,6 +179,32 @@ export default function form({ info }) {
   };
 
   return (
+
+        
+
+  <div className={styles.container + " top-1/3 "}>
+    <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+    <Success alert={success.alert} text={success.text} success={successFunc} ></Success>
+        <h1 className={styles.title}>Editar Especialidad</h1>
+          <Form className={styles.form} labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields(); setImage({array:[]})} }>
+    
+          <Form.Item name="name" label="Especialidad" 
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese una especialidad"},
+                ]}
+                hasFeedback
+                initialValue={info.name}
+              >
+                  <Input
+                    name="name"
+                   
+                    />
+              </Form.Item>
+
+              
+              {/* <Container >
+
     <div className={styles.container + " top-1/3 "}>
       <Warning
         alert={error.alert}
@@ -195,6 +241,7 @@ export default function form({ info }) {
         </Form.Item>
 
         {/* <Container >
+
                 <div className="flex justify-center">
 
                 <Dropzone
@@ -228,29 +275,25 @@ export default function form({ info }) {
                 
               </Container> */}
 
-        <Form.Item
-          name="description"
-          label="Descripción"
-          rules={[
-            { required: true, message: "Por favor ingrese una descripción" },
-          ]}
-          hasFeedback
-        >
-          <Input.TextArea
-            name="description"
-            defaultValue={info.description}
-            style={{
-              resize: "none",
-              overflow: "hidden",
-              paddingRight: "25px",
-              height: "50px",
-            }}
-          />
-        </Form.Item>
-        <Button htmlType="submit" className={styles.Button}>
-          Enviar
-        </Button>
-      </Form>
-    </div>
-  );
+
+              <Form.Item name="description" label="Descripción"
+                rules={[
+                  {required:true,
+                  message:"Por favor ingrese una descripción"},
+                ]}
+                hasFeedback
+                initialValue={info.description}
+              >
+                  <Input.TextArea
+  name="description"
+  
+  style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'50px' }}
+/>
+  
+              </Form.Item> 
+              <Button  htmlType='submit' className={styles.Button}>Enviar</Button>
+            </Form>
+        </div>
+  )
 }
+
