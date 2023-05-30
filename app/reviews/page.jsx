@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Form, Input, Select, Button, message } from "antd";
-
+import styles from './page.module.css'
+import img from './img/logo.jpeg'
+import Image from "next/image";
 const { Option } = Select;
 
 const ReviewForm = () => {
@@ -19,8 +21,11 @@ const ReviewForm = () => {
   };
 
   return (
-    <div className="flex justify-center content-center  m-52 pt-12 rounded-lg bg-blue-950  text-slate-400">
-      <Form form={form} onFinish={handleSubmit} className="w-3/5">
+    <div className={styles.container}>
+      <Image src={img} className={styles.icono} alt="fondo" ></Image>
+      <div>
+      <h1 className={styles.title}>Danos tu opinión sobre la cita y déjanos tu calificación:</h1>
+      <Form className={styles.form} form={form} onFinish={handleSubmit}>
         <Form.Item
           className=" text-slate-400"
           name="review"
@@ -48,17 +53,20 @@ const ReviewForm = () => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item>
+        
           <Button
             type="primary"
             htmlType="submit"
             loading={loading}
-            className="bg-slate-500 text-slate-950"
+            className={styles.button + ' text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'}
           >
             Enviar
           </Button>
-        </Form.Item>
+        
       </Form>
+
+      </div>
+      
     </div>
   );
 };
