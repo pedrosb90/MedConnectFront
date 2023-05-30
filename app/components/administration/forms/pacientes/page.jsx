@@ -5,58 +5,73 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
-import styles from './page.module.css'
+import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
-const local = "http://localhost:3001/auth/register";
+const local = "https://medconnectback-production.up.railway.app/auth/register";
+import { useRouter } from "next/navigation";
+
+
 
 export default function UserLogin() {
-  
+  const nav = useRouter()
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error,setError]=useState({
-    text:'',
-    alert:false
-    
-  })
+  const [error, setError] = useState({
+    text: "",
+    alert: false,
+  });
+
+
+  const { logStatus } = useSelector((state) => state);
   
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = async (values) => {
     setLoading(true);
     const { first_name, last_name, role, email, password } = values;
-    
+
     axios
-      .post(local, {
-        first_name,
-        last_name,
-        role,
-        email,
-        password,
-      })
+      .post(
+        authRegisterURL,
+        {
+          first_name,
+          last_name,
+          role,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
-        
         if (res.data) {
           setRegistered(true);
           setLoading(false);
         }
       })
       .catch((error) => {
-        setError({...error,text:error.message,alert:true})
-        
+        setError({ ...error, text: error.message, alert: true });
       });
 
     //! this info must be send to the backend
   };
-  const FinishFailed=()=>{
-    setError({...error,text:'',alert:false})
-  }
+  const FinishFailed = () => {
+    setError({ ...error, text: "", alert: false });
+  };
 
   if (!registered) {
     return (
       <div className={styles.container}>
-        <Warning alert={error.alert} text={error.text + '/  Este usuario ya existe o el servidor se cayó'} FinishFailed={FinishFailed}></Warning>
-        
+        <Warning
+          alert={error.alert}
+          text={error.text + "/  Este usuario ya existe o el servidor se cayó"}
+          FinishFailed={FinishFailed}
+        ></Warning>
+
         <Form
           labelCol={{ span: 9 }}
           wrapperCol={{ span: 14 }}
@@ -76,7 +91,6 @@ export default function UserLogin() {
               <Radio value="paciente" defaultChecked>
                 Paciente
               </Radio>
-              
             </Radio.Group>
           </Form.Item>
           <FormItem
@@ -173,12 +187,13 @@ export default function UserLogin() {
               placeholder="Confirmar contraseña"
             />
           </Form.Item>
-          
-              <Button htmlType="submit"  className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
-                registrarse
-              </Button>
-            
-          
+
+          <Button
+            htmlType="submit"
+            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          >
+            registrarse
+          </Button>
         </Form>
       </div>
     );

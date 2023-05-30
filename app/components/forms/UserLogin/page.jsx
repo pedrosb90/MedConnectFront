@@ -1,5 +1,5 @@
 "use client";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Divider } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
@@ -8,6 +8,9 @@ import style from "./login.module.css";
 import Link from "next/link";
 import Warning from "../../warning/Warning";
 import { useState } from "react";
+
+const backendURL = "https://medconnectback-production.up.railway.app";
+const authLoginURL = `${backendURL}/auth/login`;
 
 export default function UserLogin() {
   const dispatch = useDispatch();
@@ -21,7 +24,7 @@ export default function UserLogin() {
     const { email, password } = values;
     axios
       .post(
-        "http://localhost:3001/auth/login",
+        authLoginURL,
         { email, password },
         { withCredentials: true, credentials: "include" }
       )
@@ -32,13 +35,23 @@ export default function UserLogin() {
           router.push("/");
         }
       })
-      .catch((error) => setError({...error,text:'No se a registrado ese usuario ',alert:true}))
+
+      .catch((error) =>
+        setError({
+          ...error,
+          text: "No se a registrado ese usuario ",
+          alert: true,
+        })
+      );
 
     //! this info must be send to the backend
   };
 
   const google = () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open(
+      "https://medconnectback-production.up.railway.app/auth/google",
+      "_self"
+    );
   };
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });
@@ -139,15 +152,15 @@ export default function UserLogin() {
                   />
                 </Form.Item>
                 {/* {errors.password && (<span>{errors.password}</span>)} */}
-                <Button block htmlType="submit">
-                  Iniciar
+                <Button className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center mr-2 mb-2" block htmlType="submit">
+                  Iniciar Sesión
                 </Button>
                 <p>Una vez que inicie sesión será redirigido al inicio!</p>
               </Form>
             </div>
           </div>
           <h2 className={style.h2}>
-            ¿No tiene un usuario?{" "}
+            ¿No tiene un usuario?
             <Link className={style.link} href="/components/forms/register">
               Cree uno!
             </Link>

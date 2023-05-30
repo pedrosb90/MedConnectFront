@@ -5,36 +5,46 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
+import { useRouter } from "next/navigation";
+
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "http://localhost:3001/medics/create";
-const localR = "http://localhost:3001/medics/register";
+const local = "https://medconnectback-production.up.railway.app/medics/create";
+const localR =
+  "https://medconnectback-production.up.railway.app/medics/register";
 
 const backendURL = "https://medconnectback-production.up.railway.app";
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
+  const nav = useRouter()
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(logStatus);
-  }, [logStatus]);
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = async (values) => {
     setLoading(true);
     const { first_name, last_name, phone, userType, email, password } = values;
     axios
-      .create({ withCredentials: true })
-      .post(userType === "medic" ? local : localR, {
-        first_name,
-        last_name,
-        phone,
-        userType,
-        email,
-        password,
-      })
+      // .create({ withCredentials: true })
+      .post(
+        userType === "medic" ? createMedicURL : registerURL,
+        {
+          first_name,
+          last_name,
+          phone,
+          userType,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data) {

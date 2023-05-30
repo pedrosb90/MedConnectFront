@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
-const local = "http://localhost:3001/medics";
+const local = "https://medconnectback-production.up.railway.app/medics";
 
 export default function Medicos_Especialidad_Filter() {
   const allMedicos = useSelector((state) => state.speciality.AllMedicos);
@@ -29,7 +29,7 @@ export default function Medicos_Especialidad_Filter() {
     async function fetchSpecialitiesData() {
       try {
         const response = await axios.get(
-          "http://localhost:3001/specializations"
+          "https://medconnectback-production.up.railway.app/specializations"
         );
         dispatch(getSpeciality(response.data));
       } catch (error) {
@@ -41,7 +41,9 @@ export default function Medicos_Especialidad_Filter() {
   useEffect(() => {
     async function fetchMedicosData() {
       try {
-        const response = await axios.get("http://localhost:3001/medics");
+        const response = await axios.get(
+          "https://medconnectback-production.up.railway.app/medics"
+        );
         dispatch(getMedicos(response.data));
       } catch (error) {
         alert(error.message);

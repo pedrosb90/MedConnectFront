@@ -1,3 +1,4 @@
+
 "use client"
 import style from './Forms.module.css'
 import {Button,Form,Input,Radio,Alert, Select} from 'antd';
@@ -13,16 +14,18 @@ const localMedic = "http://localhost:3001/medics/create"
 
 
 
-export default function Forms({userLocal}) {
+export default function Forms({ userLocal }) {
   const [data, setData] = useState([]);
   const [cities, setCities] = useState([]);
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
+
   const globalCities = useSelector((state)=>state.speciality.cities)
 
 
   
   const filtro = data.filter(e=>e.deletedAt===null)
+
 
   async function fetchData() {
     try {
@@ -36,14 +39,14 @@ export default function Forms({userLocal}) {
     }
   }
 
-  useEffect(()=>{
-    fetchData()
-    
-  },[])
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setCities(globalCities)
     setData(especialidades);
+
   }, [especialidades , globalCities]);
 
 
@@ -111,4 +114,5 @@ const res= await axios.post(localMedic, body);
             </Form>
         </div>
   )
+
 }

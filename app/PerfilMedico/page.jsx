@@ -13,6 +13,7 @@ import FormCal from "./FormCal"
 import FormsPut from "./FormsPut";
 import TableHorarios from "./TableHorarios"
 
+
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});
   const [citas, setCitas] = useState([]);
@@ -23,6 +24,7 @@ export default function PerfilMedico() {
   const [horarios, setHorarios] = useState([])
 
   const userLocal = useSelector((state) => state.login.userLocal);
+
 
   //en filtromedico traigo todo lo de un medico
   const filtromedico = medicos.filter(e=>e.user.id===userLocal.id)
@@ -42,14 +44,15 @@ export default function PerfilMedico() {
         });
   }
 
+
     if (!citas.id) {
       axios
-        .get("http://localhost:3001/appointment")
+        .get("https://medconnectback-production.up.railway.app/appointment")
         .then((res) => {
           setCitas(res.data);
         })
         .catch((error) => {
-          console.error( error);
+          console.error(error);
         });
     }
 
@@ -65,7 +68,6 @@ export default function PerfilMedico() {
     }
   }, []);
 
- 
 
 
   const getCitasPerfil = citas.filter(
@@ -75,7 +77,7 @@ export default function PerfilMedico() {
 
 
   const handleClick = () => {
-    if (clickAct === true ) {
+    if (clickAct === true) {
       setClickAct(false);
     } else {
       setClickAct(true);
@@ -83,14 +85,14 @@ export default function PerfilMedico() {
   };
 
   const handleClickHor = () => {
-    if (clickHor === true ) {
-        setClickHor(false);
+    if (clickHor === true) {
+      setClickHor(false);
     } else {
-        setClickHor(true);
+      setClickHor(true);
     }
   };
   const handleClickCal = () => {
-    if (clickCal === true ) {
+    if (clickCal === true) {
       setClickCal(false);
     } else {
       setClickCal(true);
@@ -163,7 +165,7 @@ export default function PerfilMedico() {
             />
 
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {userLocal.first_name +" "+ userLocal.last_name}
+              {userLocal.first_name + " " + userLocal.last_name}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Numero de citas: {getCitasPerfil.length}
@@ -180,7 +182,7 @@ export default function PerfilMedico() {
               {filtromedico?.length
                 ?<a
                 onClick={() => {
-                    handleClickHor();
+                  handleClickHor();
                 }}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -192,7 +194,7 @@ export default function PerfilMedico() {
                 filtromedico?.length
                 ?<a
                 onClick={() => {
-                    handleClickCal();
+                  handleClickCal();
                 }}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -208,9 +210,10 @@ export default function PerfilMedico() {
           }
           </div>
         </div>
-        
+
         <Table getCitasPerfil={getCitasPerfil}></Table>
       </div>
+
       <div>{
         filtromedico.length === 0
         ?clickAct === true ? <Forms userLocal={userLocal} ></Forms> : <div></div>
@@ -218,6 +221,7 @@ export default function PerfilMedico() {
       }
        {clickHor=== true ? <FormsHor  userLocal={userLocal} filtromedico={filtromedico}></FormsHor> : <div></div>} 
        {clickCal=== true ? <FormCal userLocal={userLocal} filtromedicos={filtromedico}></FormCal> : <div></div>}</div>
+
     </div>
   );
 }
