@@ -11,10 +11,13 @@ import { getMedicos } from '@/app/redux/reducer.js';
 import { useRouter } from "next/navigation";
 const { Item } = Form;
 const { Option } = Select;
+import {postInfo,postSchedule} from "../../redux/CitaReducer.js"
+import { useDispatch } from 'react-redux';
 
 
 export default function Calendary (){
   const router = useRouter();
+  const dispatch = useDispatch()
   const [medSelect, select] = useState(false)
   const {info} = useSelector((state)=>state.cita)
   const [medico, setMedico]=useState(false)
@@ -39,7 +42,7 @@ export default function Calendary (){
   
   const [form] = Form.useForm();
   const [horas,setHoras]=useState([])
-  const id= info.id ? info.id :medSelect.id 
+  const id= info.id ? info.id :medSelect.user?.id 
   const diasSelect = medSelect && medSelect.schedules.map(dia=>dia.day_of_week)
    const dias = info.id ? info.schedules.map(dia=>dia.day_of_week):diasSelect;
   
@@ -113,10 +116,14 @@ const disabledDate = (current) => {
         const año = fecha.getFullYear();
         const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const día = String(fecha.getDate()).padStart(2, '0');
-
-const fechaFormateada = `${año}-${mes}-${día}`;
- 
+        const fechaFormateada = `${año}-${mes}-${día}`;
+        if(medSelect && scheduledTime){
+          dispatch(postSchedule({medSelect,scheduledTime,scheduledDate:fechaFormateada,userId:id}))
+          router.push("/components/turnos/form")
+        }
       };
+
+
       const doc = info.first_name && info.first_name;
     return(
       <>
