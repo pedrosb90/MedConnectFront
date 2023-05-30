@@ -8,11 +8,14 @@ import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
-
+import { useRouter } from "next/navigation";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
+import { useSelector } from "react-redux";
 
 export default function form({ info }) {
+  const nav = useRouter()
+  const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [info.url] });
   const [loading, setLoading] = useState("");
@@ -26,6 +29,12 @@ export default function form({ info }) {
     alert: false,
     text: "Especialidad creada exitosamente",
   });
+
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = (values) => {
     setRegistered(!registered);

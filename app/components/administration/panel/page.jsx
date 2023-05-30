@@ -3,9 +3,10 @@ import Link from 'next/link';
 import styles from './page.module.css'
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function Admin(){
-  
+  const nav = useRouter()  
   const {logStatus} = useSelector(state => state)
   const userLocal = useSelector((state) => state.login.userLocal);
   const [showMenu, setShowMenu] = useState({
@@ -14,6 +15,12 @@ export default function Admin(){
     paciente:false,
     users:false
 });
+
+  
+useEffect(()=>{
+  !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+},[logStatus])
 
   const toggleMenu = (event) => {
   const value = event.target.name;

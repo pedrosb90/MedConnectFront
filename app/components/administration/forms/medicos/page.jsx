@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
+import { useRouter } from "next/navigation";
+
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const local = "https://medconnectback-production.up.railway.app/medics/create";
 const localR =
@@ -15,13 +17,16 @@ const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
+  const nav = useRouter()
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(logStatus);
-  }, [logStatus]);
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = async (values) => {
     setLoading(true);

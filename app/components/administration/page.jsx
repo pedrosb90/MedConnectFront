@@ -5,7 +5,7 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
 // const localSpec = "https://medconnectback-production.up.railway.app/specializations";
 // const localCitas = "https://medconnectback-production.up.railway.app/appointment";
 // const localMedic = "https://medconnectback-production.up.railway.app/medics";
@@ -72,6 +72,11 @@ const medicsURL = `${backendURL}/medics`;
 //                     <button className={styles.button}>Ver Detalles</button></dd>
 
 export default function Administration() {
+  const nav = useRouter()  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const citas = useSelector((state) => state.cita.citas);

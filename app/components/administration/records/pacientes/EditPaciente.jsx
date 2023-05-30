@@ -4,13 +4,19 @@ import styles from "./editPaciente.module.css";
 import Warning from "@/app/components/warning/Warning";
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
-
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const backendURL = "https://medconnectback-production.up.railway.app";
 const patientsURL = `${backendURL}/patients`;
 
 export default function EditPaciente({ setOpen, datos }) {
   const [form] = Form.useForm();
+  const nav = useRouter()
+  const { logStatus } = useSelector((state) => state);
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
 
+  },[logStatus])
   const [error, setError] = useState({
     text: "",
     alert: false,
