@@ -1,5 +1,5 @@
  'use client'
-import {Button,Form,DatePicker,Select} from 'antd';
+import {Button,Form,DatePicker,Select, ConfigProvider} from 'antd';
 import moment from 'moment'
 import {obtenerHorarios} from './obtenerHorarios.js'
 import axios from 'axios';
@@ -13,7 +13,8 @@ const { Item } = Form;
 const { Option } = Select;
 import {postInfo,postSchedule} from "../../redux/CitaReducer.js"
 import { useDispatch } from 'react-redux';
-
+import 'dayjs/locale/es';
+import locale from 'antd/es/date-picker/locale/es_ES';
 
 export default function Calendary (){
   const router = useRouter();
@@ -149,7 +150,9 @@ const disabledDate = (current) => {
           },
         ]}
       >
-        <DatePicker disabledDate={disabledDate} onChange={date => HorasDisponibles(date)}/>
+        <ConfigProvider locale={locale}>
+        <DatePicker locale={locale} disabledDate={disabledDate} placeholder='Seleccione un dia' onChange={date => HorasDisponibles(date)}/>
+        </ConfigProvider>
       </Item >
             <Item name="scheduledTime" label="Hora" rules={[
           {
