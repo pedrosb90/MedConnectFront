@@ -1,10 +1,9 @@
-import { useSelector,useDispatch } from 'react-redux';
-
+import { useSelector, useDispatch } from "react-redux";
 
 const SideCard = () => {
-    return(
-        <div>
-            
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Resumen de orden</h1>
+    </div>
+  );
+};

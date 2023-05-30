@@ -78,7 +78,7 @@ export default function Navbar() {
       })
       .catch((err) => {});
 
-    fetch(`${backendURL}/auth/login/success`, {
+    fetch(`${backendURL}/auth/loginn/success`, {
       method: "GET",
       credentials: "include",
       headers: {
