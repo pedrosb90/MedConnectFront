@@ -154,8 +154,10 @@ const onSubmit = async (values) => {
 
   // if(logStatus.userStatus){
     return (
-        <div >
-          <Form labelCol={{   span: 3, }} wrapperCol={{   span: 10, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+      <>
+        <div className={style.container}>
+          <h1 className={style.title}>Completa tus datos para la cita</h1>
+          <Form labelCol={{   span: 7, }} wrapperCol={{   span: 16, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} className={style.form}>
           <Form.Item
             name="firstName"
             label="Nombre"
@@ -297,8 +299,8 @@ const onSubmit = async (values) => {
             </Select>
               </Form.Item>
 
-              <Form.Item name={"observaciones"} label={"Observaciones del paciente"}>
-                <TextArea rows={4} name={"observaciones"} placeholder="Observaciones" maxLength={150} />
+              <Form.Item name={"observaciones"} label={"Observaciones"}>
+                <TextArea style={{ resize: 'none' }}rows={4} name={"observaciones"} placeholder="Observaciones" maxLength={150} />
               </Form.Item>
               
     
@@ -306,9 +308,9 @@ const onSubmit = async (values) => {
               {registered === "error" ? <Alert
               message="Ocurrió un error al registrarse"
               type="warning"
-    /> : !registered && <Button block htmlType='submit' loading={loading}>registrarse y pagar</Button>}
+    /> : !registered && <Button htmlType='submit' loading={loading} className={style.Button}>registrarse y pagar</Button>}
             </Form>
-        </div>
+        </div></>
       );
   //   }else{
   //     return(
