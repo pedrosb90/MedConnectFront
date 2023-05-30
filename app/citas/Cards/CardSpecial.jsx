@@ -27,7 +27,9 @@ export default function CardSpecial() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(specsURL);
+      const response = await axios.get(specsURL, {
+        withCredentials: true,
+      });
 
       dispatch(getSpeciality(response.data));
     } catch (error) {

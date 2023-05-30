@@ -39,14 +39,14 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id, deletedAt) => {
-    const url = specsURL;
+    //const url = "https://medconnectback-production.up.railway.app/specializations/";
 
     if (deletedAt !== null) {
-      axios.patch(`${url}${id}`);
+      axios.patch(`${specsURL}/${id}`, { withCredentials: true });
     } else {
       count == 2 &&
         axios
-          .delete(`${url}${id}`)
+          .delete(`${specsURL}/${id}`, { withCredentials: true })
           .then(() => {
             setIsDelete(!isDelete);
             setCount(1);

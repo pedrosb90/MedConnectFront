@@ -3,13 +3,20 @@ import Table from "./Tables/Table";
 import UserCard from "./Cards/UserCard";
 import styles from "./page.module.css";
 import Link from "next/link";
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 import { useEffect, useState } from "react";
 import axios from "axios";
 // import { useRouter } from 'next/navigation';
 import { useParams } from "next/navigation";
 import Success from "@/app/components/success/Success";
+<<<<<<< HEAD
 const backendURL = "http://localhost:3001";
 const usersURL = `${backendURL}/users`;
+=======
+>>>>>>> develop
 export default function User() {
   // const router = useRouter();
   const { id } = useParams();
@@ -18,7 +25,11 @@ export default function User() {
 
   useEffect(() => {
     axios
+<<<<<<< HEAD
       .get(usersURL)
+=======
+      .get("https://medconnectback-production.up.railway.app/users")
+>>>>>>> develop
       .then((res) => {
         const citas = res.data;
 

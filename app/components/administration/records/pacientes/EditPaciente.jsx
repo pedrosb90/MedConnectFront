@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Button, Form, Input } from "antd";
 const backendURL = "http://localhost:3001";
 
+const patientsURL = `${backendURL}/patients`;
+
 export default function EditPaciente({ setOpen, datos }) {
   const [form] = Form.useForm();
 
@@ -16,7 +18,7 @@ export default function EditPaciente({ setOpen, datos }) {
 
   const onSubmit = (values) => {
     axios
-      .put(`${backendURL}/patients/` + id, {})
+      .put(patientsURL + id, {}, { withCredentials: true })
       .then(() => {
         setPut(true);
       })

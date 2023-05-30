@@ -6,8 +6,8 @@ import axios from "axios";
 import styles from "./CardEdit.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import SideCard from "../turnos/SideCard/SideCard";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
+
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -131,7 +131,7 @@ export default function Calendary() {
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
     const día = String(fecha.getDate()).padStart(2, "0");
     const fechaFormateada = `${año}-${mes}-${día}`;
-    if (medSelect && scheduledTime) {
+    if (medSelect || (info.id && scheduledTime)) {
       dispatch(
         postSchedule({
           medSelect,
@@ -148,9 +148,6 @@ export default function Calendary() {
   console.log();
   return (
     <>
-      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
-        AGENDA{" "}
-      </h1>
       <div className={styles.container}>
         {doc ? (
           <h2>{"Elegiste al doct@ " + doc}</h2>
@@ -226,24 +223,8 @@ export default function Calendary() {
             Enviar
           </Button>
         </Form>
+        <SideCard />
       </div>
-      <SideCard />
-      <br />
-      <Link href="/citas">
-        <button
-          type="button"
-          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 `}
-          style={{
-            height: "40px",
-            width: "83px",
-            position: "absolute",
-            bottom: "5%",
-            left: "15%",
-          }}
-        >
-          Volver
-        </button>
-      </Link>
     </>
   );
 }

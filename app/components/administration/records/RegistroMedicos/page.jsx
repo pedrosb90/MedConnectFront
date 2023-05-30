@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 const backendURL = "http://localhost:3001";
+const medicsRegister = `${backendURL}/medics`;
 
 export default function Medicos() {
   const [medicos, setMedicos] = useState([]);
@@ -18,7 +19,9 @@ export default function Medicos() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(`${backendURL}/medics`);
+        const response = await axios.get(medicsRegister, {
+          withCredentials: true,
+        });
         setMedicos(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });

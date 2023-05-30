@@ -6,8 +6,15 @@ import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
 import styles from "./page.module.css";
+<<<<<<< HEAD
 const backendURL = process.env.PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
+=======
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "https://medconnectback-production.up.railway.app";
+const authRegisterURL = `${backendURL}/auth/register`;
+const local = "https://medconnectback-production.up.railway.app/auth/register";
+>>>>>>> develop
 
 export default function UserLogin() {
   const [registered, setRegistered] = useState(false);
@@ -22,6 +29,7 @@ export default function UserLogin() {
     const { first_name, last_name, role, email, password } = values;
 
     axios
+<<<<<<< HEAD
       .post(authRegisterURL, {
         first_name,
         last_name,
@@ -29,6 +37,19 @@ export default function UserLogin() {
         email,
         password,
       })
+=======
+      .post(
+        authRegisterURL,
+        {
+          first_name,
+          last_name,
+          role,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+>>>>>>> develop
       .then((res) => {
         if (res.data) {
           setRegistered(true);

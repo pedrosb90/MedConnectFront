@@ -25,7 +25,7 @@ export default function UserCard({ userCitas }) {
   //     setAlert(false);
   //     const id = userGoogle.id ? userGoogle.id : userLocal.id;
   //      axios
-  //       .delete('http://localhost:3001/users/' + id)
+  //       .delete('https://medconnectback-production.up.railway.app/users/' + id)
   //       .then(() => {
   //         homeReturn()
 
@@ -38,18 +38,6 @@ export default function UserCard({ userCitas }) {
   // };
   const FinishFailed = () => {
     setAlert(false);
-
-    const [alert, setAlert] = useState(false);
-
-    const FinishFailed = async () => {
-      if (contador === 2) {
-        setAlert(!alert);
-        setContador(1);
-      } else {
-        setContador(contador + 1);
-        setAlert(!alert);
-      }
-    };
   };
 
   return (

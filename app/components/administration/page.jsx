@@ -7,9 +7,12 @@ import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
 const backendURL = "http://localhost:3001";
 
-const localSpec = `${backendURL}/specializations`;
-const localCitas = `${backendURL}/appointment`;
-const localMedic = `${backendURL}/medics`;
+const specsURL = `${backendURL}/specializations`;
+const citasURL = `${backendURL}/appointment`;
+const medicsURL = `${backendURL}/medics`;
+// const localSpec = "https://medconnectback-production.up.railway.app/specializations";
+// const localCitas = "https://medconnectback-production.up.railway.app/appointment";
+// const localMedic = "https://medconnectback-production.up.railway.app/medics";
 
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);
@@ -80,9 +83,15 @@ export default function Administration() {
 
   async function fetchData() {
     try {
-      const responseCitas = await axios.get(localCitas);
-      const response = await axios.get(localSpec);
-      const responseMedics = await axios.get(localMedic);
+      const responseCitas = await axios.get(citasURL, {
+        withCredentials: true,
+      });
+      const response = await axios.get(specsURL, {
+        withCredentials: true,
+      });
+      const responseMedics = await axios.get(medicsURL, {
+        withCredentials: true,
+      });
 
       dispatch(getCitas(responseCitas.data));
       dispatch(getMedicos(responseMedics.data));

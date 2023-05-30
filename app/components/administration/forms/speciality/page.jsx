@@ -37,7 +37,7 @@ export default function SpecialtyForm() {
     };
 
     axios
-      .post(specsURL, body)
+      .post(specsURL, body, { withCredentials: true })
       .then(() => {
         // Código para manejar la respuesta en caso de éxito
         setSuccess({ ...success, alert: true });

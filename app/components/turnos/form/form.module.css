@@ -1,0 +1,35 @@
+.container{
+    margin: 20px;
+    margin-top: 18px;
+    width: 60%;
+    border-radius: 14px;
+    box-shadow: -1px 9px 23px 9px rgba(0,0,0,0.75);
+    position: absolute;
+}
+.form{
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 20px;
+}
+.Button{
+    grid-column: span 2;
+    width: 35%;
+    height: 6vh;
+    margin: auto;
+    font-weight: 600;
+    color: white;
+    background-color:rgb(30 41 59) ;
+}
+.title{
+    text-align: center;
+    font-size: 1.4em;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+.TextArea{
+    
+    resize: none;
+    
+}
