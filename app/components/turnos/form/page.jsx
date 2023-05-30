@@ -17,7 +17,6 @@ export default function UserLogin() {
   const [loading,setLoading] = useState(false);
   const dispatch = useDispatch()
   const router = useRouter()
-  console.log(schedule);
 
     //! logStatus has inside logStatus and userStatus
     //! speciality has inside AllMedicos
@@ -54,14 +53,112 @@ const handleObraChange = (event) => {
   setSelectedObra(event);
 };
 
-  const onSubmit = async (values) => {
-    console.log(values);
+function validateObject(obj) {
+  const requiredProperties = [
+    "firstName",
+    "lastName",
+    "phone",
+    "email",
+    "dni",
+    "observaciones"
+  ];
+
+  for (const prop of requiredProperties) {
+    if (!obj.hasOwnProperty(prop) || obj[prop] === "") {
+      return false;
+    }
   }
+
+  return true;
+}
+
+const cityGetter = async () => {
+  try {
+    const response = await axios.get("http://localhost:3001/cities");
+    const citiesData = response.data;
+
+    if (citiesData && schedule && Object.keys(schedule).length > 0) {
+      const cityIds = Object.values(schedule).map(element => {
+        if (element.city) {
+          const city = citiesData.find(city => city.name === element.city.name);
+          if (city) {
+            return city.id;
+          }
+        }
+        return null;
+      });
+
+      return cityIds.filter(id => id !== null);
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Error al obtener los datos de las ciudades:", error);
+    throw error;
+  }
+}
+
+
+const onSubmit = async (values) => {
+  if (validateObject(values)) {
+    try {
+      const cityId = await cityGetter();
+      const patient = { ...values, userId: logStatus.userStatus.id,cityId:cityId[0],direccion:schedule.medSelect.direccion };
+      const appointment = {...schedule,patientId:logStatus.userStatus.id,status: "pending"}
+      if (schedule && logStatus.userStatus) {
+        const patientsPost = axios.post("http://localhost:3001/patients/create",patient).then(res=>res.data)
+        const appointmentPost = axios.post("http://localhost:3001/appointment/create",appointment).then(res=>res.data)
+        console.log("patient",patientsPost);
+        console.log("appointment",appointmentPost);
+      }
+    } catch (error) {
+      console.error("Error al obtener el ID de la ciudad:", error);
+    }
+  }
+}
+
+// {
+//   "scheduledDate": "2023-06-03",
+//   "scheduledTime": "12:45:00",
+//   "status": "pending",
+//   "userId": "4403843d-b15c-49de-94da-f1fbfff22341",(user_id: rol medico)
+//   "patientId": 2
+// }
+
+// appointment
+
+// {
+//   "firstName": "Guillermo ",
+//   "lastName": "Dimas Rivero",
+//   "phone": "333333333",
+//   "email": "adhemirsabino@gmail.com",
+//   "direccion": "159 Cedar St",
+//   "dni": "333333333",
+//   "observaciones": "Some observations about the patient",
+//   "userId": "be965039-a1ce-44e7-9d00-3ddb5f15616c", (userId: usuario paciente)
+//   "cityId": 15
+// }
 
   // if(logStatus.userStatus){
     return (
         <div >
           <Form labelCol={{   span: 3, }} wrapperCol={{   span: 10, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
+          <Form.Item
+            name="firstName"
+            label="Nombre"
+            rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="lastName"
+            label="Apellido"
+            rules={[
+              { required: true, message: "Por favor ingrese su apellido" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item
                 name="email"
                 label="Email"
@@ -88,7 +185,7 @@ const handleObraChange = (event) => {
                 <Input
                   className={style.input}
                   type="text"
-                  name="user"
+                  name="email"
                   placeholder="xxxx@mail.com"
                 />
               </Form.Item>
@@ -187,8 +284,8 @@ const handleObraChange = (event) => {
             </Select>
               </Form.Item>
 
-              <Form.Item name={"comments"} label={"Observaciones del paciente"}>
-                <TextArea rows={4} placeholder="Observaciones" maxLength={150} />
+              <Form.Item name={"observaciones"} label={"Observaciones del paciente"}>
+                <TextArea rows={4} name={"observaciones"} placeholder="Observaciones" maxLength={150} />
               </Form.Item>
               
     
