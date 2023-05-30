@@ -25,7 +25,7 @@ export default function form({info}) {
   })
   const [success,setSuccess]=useState({
     alert:false,
-    text:'Especialidad creada exitosamente',
+    text:'Especialidad Actualizada exitosamente',
   })
   
   
@@ -167,10 +167,11 @@ export default function form({info}) {
                   message:"Por favor ingrese una especialidad"},
                 ]}
                 hasFeedback
+                initialValue={info.name}
               >
                   <Input
                     name="name"
-                    defaultValue={info.name}
+                   
                     />
               </Form.Item>
 
@@ -216,10 +217,11 @@ export default function form({info}) {
                   message:"Por favor ingrese una descripción"},
                 ]}
                 hasFeedback
+                initialValue={info.description}
               >
                   <Input.TextArea
   name="description"
-  defaultValue={info.description}
+  
   style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'50px' }}
 />
   

@@ -27,7 +27,7 @@ export default function Table() {
         }
     }, []);
     const getCitasPerfil = citas?.filter((e)=>e.user.first_name === userLocal?.first_name)
-    console.log("get citas perfil: ",getCitasPerfil);
+    
     
 
  

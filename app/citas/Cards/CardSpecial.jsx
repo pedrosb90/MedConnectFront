@@ -26,6 +26,9 @@ export default function CardSpecial() {
   const [espeMed, setEspeMEd] = useState([]);
   const [medico, setMedico] = useState(false);
 
+
+  const filtro = especialidades.filter(e=>e.deletedAt===null)
+
   async function fetchData() {
     try {
       const response = await axios.get(local);
@@ -42,34 +45,34 @@ export default function CardSpecial() {
 
       if (nameES === "All")
         setEspecial(
-          especialidades.filter((espe) => espeMed.includes(espe.name))
+          filtro.filter((espe) => espeMed.includes(espe.name))
         );
       else {
-        setEspecial(especialidades.filter((espe) => espe.name === nameES));
+        setEspecial(filtro.filter((espe) => espe.name === nameES));
         setEspeMEd(medico.specializations);
       }
     } else {
-      if (nameES === "All") setEspecial(especialidades);
+      if (nameES === "All") setEspecial(filtro);
       else {
-        setEspecial(especialidades.filter((espe) => espe.name === nameES));
+        setEspecial(filtro.filter((espe) => espe.name === nameES));
       }
     }
   };
   const handleClickMed = (event) => {
     setMedico(event);
     const espeMed = event.specializations.map((espe) => espe.name);
-    const data = especialidades.filter((espe) => espeMed.includes(espe.name));
+    const data = filtro.filter((espe) => espeMed.includes(espe.name));
     setEspecial(data);
     setEspeMEd(event.specializations);
   };
 
   useEffect(() => {
-    !especialidades.length ? fetchData() : setEspeMEd(especialidades);
-    setEspecial(especialidades);
-  }, [especialidades]);
+    !filtro.length ? fetchData() : setEspeMEd(filtro);
+    setEspecial(filtro);
+  }, [filtro]);
   const buttonReset = () => {
-    setEspeMEd(especialidades);
-    setEspecial(especialidades);
+    setEspeMEd(filtro);
+    setEspecial(filtro);
     setMedico([]);
   };
   const citaInfo = useSelector((state) => state.cita.info);
@@ -120,7 +123,7 @@ export default function CardSpecial() {
           handleClick={handleClick}
         ></BottonEspe>
         <div className={styles.box_espe}>
-          {especialidades.length ? (
+          {filtro.length ? (
             especial.map((espe) => {
               return (
                 <div
