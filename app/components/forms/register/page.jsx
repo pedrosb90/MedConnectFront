@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from './page.module.css'
+import Link from "next/link";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
 const backendURL = "https://medconnectback-production.up.railway.app";
 const authRegisterURL = `${backendURL}/auth/register`;
@@ -206,7 +207,7 @@ export default function UserLogin() {
     );
   } else {
     return (
-      <div>
+      <div className={styles.cardSuccess}>
         {registered && (
           <div>
             <svg
@@ -285,6 +286,7 @@ export default function UserLogin() {
           </div>
         )}
         <h1>Usuario registrado con exito</h1>
+        <Link href='/components/forms/UserLogin'><button className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Iniciar Sesión</button></Link>
       </div>
     );
   }

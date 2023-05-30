@@ -118,7 +118,7 @@ const disabledDate = (current) => {
         const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const día = String(fecha.getDate()).padStart(2, '0');
         const fechaFormateada = `${año}-${mes}-${día}`;
-        if(medSelect && scheduledTime){
+        if(medSelect || info.id && scheduledTime){
           dispatch(postSchedule({medSelect,scheduledTime,scheduledDate:fechaFormateada,userId:id}))
           router.push("/components/turnos/form")
         }
