@@ -6,6 +6,7 @@ import axios from "axios";
 import styles from "./CardEdit.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import SideCard from "../turnos/SideCard/SideCard";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,9 @@ import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
 import { useDispatch } from "react-redux";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
+const backendURL = "http//:localhost:3001";
+const medicsURL = `${backendURL}/medics`;
+const appointURL = `${backendURL}/appointment`;
 
 export default function Calendary() {
   const router = useRouter();
@@ -24,7 +28,7 @@ export default function Calendary() {
   const [medico, setMedico] = useState(false);
   const especialidad = info.especialidad && info.especialidad;
   const getMedicos = async () => {
-    const medicos = await axios.get("http://localhost:3001/medics");
+    const medicos = await axios.get(medicsURL);
 
     const filter = medicos.data.filter((med) => {
       return med.specializations.some(
@@ -75,7 +79,7 @@ export default function Calendary() {
 
       if (fechaFormateada.length) {
         axios
-          .get("http://localhost:3001/appointment")
+          .get(appointURL)
           .then((res) => {
             const diasHorasFiltradas = res.data.filter(
               (cita) =>
@@ -143,6 +147,9 @@ export default function Calendary() {
   console.log();
   return (
     <>
+      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
+        AGENDA{" "}
+      </h1>
       <div className={styles.container}>
         {doc ? (
           <h2>{"Elegiste al doct@ " + doc}</h2>
@@ -219,6 +226,7 @@ export default function Calendary() {
           </Button>
         </Form>
       </div>
+      <SideCard />
     </>
   );
 }

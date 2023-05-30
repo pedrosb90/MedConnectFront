@@ -5,9 +5,8 @@ import styles from "./medic.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import img from "../../../citas/img/iconoMed.jpg";
-const backendURL = "http://localhost:3001";
-// const backendURL = "https://medconnectback-production.up.railway.app";
-const medicsURL = `${backendURL}/medics`;
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+// const medicsURL = `${backendURL}/medics`;
 export default function MedicCarrousel({ medics, select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -29,16 +28,9 @@ export default function MedicCarrousel({ medics, select }) {
     select(medic);
   };
 
-<<<<<<< HEAD
   const paginatedMedicos = medics
-    .slice(currentIndex, currentIndex + 5)
+    .slice(currentIndex, currentIndex + 3)
     .filter((medico) => !!medico); // Filtrar medicos nulos
-=======
-  
-    const paginatedMedicos = medics.slice(currentIndex, currentIndex + 3)
-      .filter((medico) => !!medico); // Filtrar medicos nulos
-  
->>>>>>> develop
 
   return (
     <div className={styles.cards + " flex  justify-center"}>

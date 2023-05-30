@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
+import styles from "../../turnos/CardEdit.module.css";
 
 const SideCard = () => {
   return (
-    <div>
-      <h1>Resumen de orden</h1>
+    <div className={styles.resumen}>
+      <h1 className={styles.resumenText}>Resumen de orden</h1>
     </div>
   );
 };

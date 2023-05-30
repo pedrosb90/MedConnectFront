@@ -112,24 +112,18 @@ export default function Page() {
                         : "..."}{" "}
                       Años
                     </p>
-<<<<<<< HEAD
                     {data.id ? (
                       <>
-                        <h2>Horario laboral</h2>
-                        <p>Dias: {data.schedules[0].day_of_week}</p>
                         <p>
-                          Horario: de {data.schedules[0].start_time} hasta{" "}
-                          {data.schedules[0].end_time}{" "}
+                          Horario: de{" "}
+                          {data.schedules.length &&
+                            data.schedules[0].start_time}{" "}
+                          hasta {data.schedules[0].end_time}{" "}
                         </p>
                       </>
                     ) : (
                       <p>No tiene horarios...</p>
                     )}
-=======
-                    {data.id ? <>
-                    
-                    <p>Horario: de {data.schedules.length && data.schedules[0].start_time} hasta {data.schedules[0].end_time} </p></>: <p>No tiene horarios...</p>}
->>>>>>> develop
                   </div>
                 </dl>
               </div>
