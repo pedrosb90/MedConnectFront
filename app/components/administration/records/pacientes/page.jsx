@@ -20,28 +20,29 @@ export default function Pacientes() {
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const patientsResponse = await axios.get(
-          "https://localhost:3001/patients"
-        );
-
-        const patientsData = patientsResponse.data;
+    
+     axios.get(
+          "http://localhost:3001/patients"
+        ).then((res)=>{
+          const patientsData = res.data;
 
         const combinedData = [...patientsData];
         setPacientes(combinedData);
-      } catch (err) {
-        setError({ ...error, text: err.message, alert: true });
-      }
-    };
 
-    fetchPatients();
+        })
+       .catch ((err)=> {
+        setError({ ...error, text: err.message, alert: true })
+      });
+      
+
+
+    
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    const url = isUser
-      ? "http://localhost:3001/users/"
-      : "http://localhost:3001/patients/";
+    
+      
+      const url = "http://localhost:3001/patients/";
 
     count == 2 &&
       axios
