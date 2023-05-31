@@ -18,11 +18,7 @@ export default function User() {
 
   useEffect(() => {
     axios
-<<<<<<< HEAD
       .get(usersURL)
-=======
-      .get("http://localhost:3001/users")
->>>>>>> final
       .then((res) => {
         const citas = res.data;
 
