@@ -29,13 +29,7 @@ export default function Calendary() {
   const [medico, setMedico] = useState(false);
   const especialidad = info.especialidad && info.especialidad;
   const getMedicos = async () => {
-<<<<<<< HEAD
     const medicos = await axios.get(medicsURL);
-=======
-    const medicos = await axios.get(
-      "http://localhost:3001/medics"
-    );
->>>>>>> final
 
     const filter = medicos.data.filter((med) => {
       return med.specializations.some(

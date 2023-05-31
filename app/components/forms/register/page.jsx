@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
+import Link from "react-dom";
 const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
 const localPatch = `${backendURL}/users/`;

@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
@@ -12,7 +13,7 @@ export default function Medicos() {
   const [users, setUsers] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   const { logStatus } = useSelector((state) => state);
-  const nav = useRouter()
+  const nav = useRouter();
   const [error, setError] = useState({
     text: "",
     alert: false,
@@ -21,7 +22,7 @@ export default function Medicos() {
 
   useEffect(() => {
     !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-  
+
     const fetchPatients = async () => {
       try {
         const response = await axios.get(userssURL);

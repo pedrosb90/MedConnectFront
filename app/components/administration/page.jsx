@@ -5,23 +5,19 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
-const backendURL = "http://localhost:3001";
+import { useRouter } from "next/navigation";
 
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 const citasURL = `${backendURL}/appointment`;
 const medicsURL = `${backendURL}/medics`;
 
-
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);
 
-
 export default function Administration() {
-  const nav = useRouter()  
-  useEffect(()=>{
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  const nav = useRouter();
 
-  },[logStatus])
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const citas = useSelector((state) => state.cita.citas);
@@ -31,6 +27,9 @@ export default function Administration() {
   const [dataCitas, setDataCitas] = useState([]);
   const [dataMedics, setDataMedics] = useState([]);
   const userLocal = useSelector((state) => state.login.userLocal);
+  useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  }, [logStatus]);
 
   async function fetchData() {
     try {
@@ -52,7 +51,7 @@ export default function Administration() {
     }
   }
 
-  const filtro = dataEsp.filter(e=>e.deletedAt===null)
+  const filtro = dataEsp.filter((e) => e.deletedAt === null);
 
   useEffect(() => {
     fetchData();
