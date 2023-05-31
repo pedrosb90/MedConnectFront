@@ -11,6 +11,7 @@ import { PhoneOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
 export default function UserLogin() {
+  const nav = useRouter()
   const { logStatus, speciality } = useSelector((state) => state);
   const { info } = useSelector((state) => state.cita);
   const { schedule } = useSelector((state) => state.cita);
@@ -23,10 +24,11 @@ export default function UserLogin() {
   //! speciality has inside AllMedicos
 
   useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
     axios.get("http://localhost:3001/medics").then((res) => {
       dispatch(getMedicos(res.data));
     });
-  }, []);
+  }, [logStatus]);
 
   const countries = [
     {
@@ -190,180 +192,193 @@ export default function UserLogin() {
 
   // if(logStatus.userStatus){
   return (
-    <div>
-      <Form
-        labelCol={{ span: 3 }}
-        wrapperCol={{ span: 10 }}
-        layout="horizontal"
-        onFinish={(values) => onSubmit(values)}
-      >
-        <Form.Item
-          name="firstName"
-          label="Nombre"
-          rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
+    <>
+      <div className={style.container}>
+        <h1 className={style.title}>Completa tus datos para la cita</h1>
+        <Form
+          labelCol={{ span: 7 }}
+          wrapperCol={{ span: 16 }}
+          layout="horizontal"
+          onFinish={(values) => onSubmit(values)}
+          className={style.form}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="lastName"
-          label="Apellido"
-          rules={[{ required: true, message: "Por favor ingrese su apellido" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          label="Email"
-          rules={[
-            { required: true, message: "Por favor ingrese su email" },
-            {
-              validator: (_, value) => {
-                return new Promise((resolve, reject) => {
-                  if (
-                    value &&
-                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)
-                  ) {
-                    resolve(); // Resuelve la promesa si la contraseña es válida
-                  } else {
-                    reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                  }
-                });
-              },
-              message: "El email no es válido",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input
-            className={style.input}
-            type="text"
+          <Form.Item
+            name="firstName"
+            label="Nombre"
+            rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="lastName"
+            label="Apellido"
+            rules={[
+              { required: true, message: "Por favor ingrese su apellido" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
             name="email"
-            placeholder="xxxx@mail.com"
-          />
-        </Form.Item>
-
-        <Form.Item label={"Pais"}>
-          <Select
-            value={selectedCountry.code}
-            showArrow={true}
-            onChange={handleCountryChange}
-          >
-            {countries.map((country) => (
-              <option
-                value={country.code}
-                key={country.code}
-                style={{
-                  backgroundImage: `url(${country.flag})`,
-                  backgroundSize: "contain",
-                  backgroundRepeat: "no-repeat",
-                  paddingLeft: "25px", // Ajusta el espaciado según sea necesario
-                }}
-              >
-                {country.name}
-                {/* <Image width={50} height={50} src={country.flag} alt="" /> */}
-              </option>
-            ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="phone"
-          label="Teléfono"
-          rules={[
-            {
-              required: true,
-              message: "Por favor ingrese su número de teléfono",
-            },
-            {
-              validator: (_, value) => {
-                return new Promise((resolve, reject) => {
-                  if (value && /^[0-9]{6,14}$/.test(value)) {
-                    resolve(); // Resuelve la promesa si la contraseña es válida
-                  } else {
-                    reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                  }
-                });
+            label="Email"
+            rules={[
+              { required: true, message: "Por favor ingrese su email" },
+              {
+                validator: (_, value) => {
+                  return new Promise((resolve, reject) => {
+                    if (
+                      value &&
+                      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(value)
+                    ) {
+                      resolve(); // Resuelve la promesa si la contraseña es válida
+                    } else {
+                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                    }
+                  });
+                },
+                message: "El email no es válido",
               },
-              message: "el teléfono es incorrecto",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input
-            className={style.input}
-            type="number"
+            ]}
+            hasFeedback
+          >
+            <Input
+              className={style.input}
+              type="text"
+              name="email"
+              placeholder="xxxx@mail.com"
+            />
+          </Form.Item>
+
+          <Form.Item label={"Pais"}>
+            <Select
+              value={selectedCountry.code}
+              showArrow={true}
+              onChange={handleCountryChange}
+            >
+              {countries.map((country) => (
+                <option
+                  value={country.code}
+                  key={country.code}
+                  style={{
+                    backgroundImage: `url(${country.flag})`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    paddingLeft: "25px", // Ajusta el espaciado según sea necesario
+                  }}
+                >
+                  {country.name}
+                  {/* <Image width={50} height={50} src={country.flag} alt="" /> */}
+                </option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
             name="phone"
-            placeholder="Número de teléfono"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="dni"
-          label="dni"
-          rules={[
-            { required: true, message: "Por favor ingrese su documento" },
-            {
-              validator: (_, value) => {
-                return new Promise((resolve, reject) => {
-                  if (value && /^\w{8}/.test(value)) {
-                    resolve(); // Resuelve la promesa si la contraseña es válida
-                  } else {
-                    reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
-                  }
-                });
+            label="Teléfono"
+            rules={[
+              {
+                required: true,
+                message: "Por favor ingrese su número de teléfono",
               },
-              message: "El documento no es válido",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input
-            className={style.input}
-            type="text"
-            name="dni"
-            placeholder="Número de documento"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name={"obra"}
-          label={"Obra social"}
-          rules={[{ required: true, message: "Por favor seleccione un campo" }]}
-        >
-          <Select
-            value={selectedObra}
-            showArrow={true}
-            onChange={handleObraChange}
+              {
+                validator: (_, value) => {
+                  return new Promise((resolve, reject) => {
+                    if (value && /^[0-9]{6,14}$/.test(value)) {
+                      resolve(); // Resuelve la promesa si la contraseña es válida
+                    } else {
+                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                    }
+                  });
+                },
+                message: "el teléfono es incorrecto",
+              },
+            ]}
+            hasFeedback
           >
-            {obrasSociales.map((obra) => (
-              <option value={obra} key={obra}>
-                {obra}
-              </option>
-            ))}
-          </Select>
-        </Form.Item>
+            <Input
+              className={style.input}
+              type="number"
+              name="phone"
+              placeholder="Número de teléfono"
+            />
+          </Form.Item>
 
-        <Form.Item name={"observaciones"} label={"Observaciones del paciente"}>
-          <TextArea
-            rows={4}
-            name={"observaciones"}
-            placeholder="Observaciones"
-            maxLength={150}
-          />
-        </Form.Item>
+          <Form.Item
+            name="dni"
+            label="dni"
+            rules={[
+              { required: true, message: "Por favor ingrese su documento" },
+              {
+                validator: (_, value) => {
+                  return new Promise((resolve, reject) => {
+                    if (value && /^\w{8}/.test(value)) {
+                      resolve(); // Resuelve la promesa si la contraseña es válida
+                    } else {
+                      reject(); // Rechaza la promesa con un mensaje de error si la contraseña no es válida
+                    }
+                  });
+                },
+                message: "El documento no es válido",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input
+              className={style.input}
+              type="text"
+              name="dni"
+              placeholder="Número de documento"
+            />
+          </Form.Item>
 
-        {/* {errors.password && (<span>{errors.password}</span>)} */}
-        {registered === "error" ? (
-          <Alert message="Ocurrió un error al registrarse" type="warning" />
-        ) : (
-          !registered && (
-            <Button block htmlType="submit" loading={loading}>
-              registrarse y pagar
-            </Button>
-          )
-        )}
-      </Form>
-    </div>
+          <Form.Item
+            name={"obra"}
+            label={"Obra social"}
+            rules={[
+              { required: true, message: "Por favor seleccione un campo" },
+            ]}
+          >
+            <Select
+              value={selectedObra}
+              showArrow={true}
+              onChange={handleObraChange}
+            >
+              {obrasSociales.map((obra) => (
+                <option value={obra} key={obra}>
+                  {obra}
+                </option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item name={"observaciones"} label={"Observaciones"}>
+            <TextArea
+              style={{ resize: "none" }}
+              rows={4}
+              name={"observaciones"}
+              placeholder="Observaciones"
+              maxLength={150}
+            />
+          </Form.Item>
+
+          {/* {errors.password && (<span>{errors.password}</span>)} */}
+          {registered === "error" ? (
+            <Alert message="Ocurrió un error al registrarse" type="warning" />
+          ) : (
+            !registered && (
+              <Button
+                htmlType="submit"
+                loading={loading}
+                className={style.Button}
+              >
+                registrarse y pagar
+              </Button>
+            )
+          )}
+        </Form>
+      </div>
+    </>
   );
   //   }else{
   //     return(

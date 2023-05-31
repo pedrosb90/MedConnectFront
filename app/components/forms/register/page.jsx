@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
+import Link from "react-dom";
 const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
 const localPatch = `${backendURL}/users/`;
@@ -124,7 +125,7 @@ export default function UserLogin() {
           </FormItem>
           <Form.Item
             name="email"
-            label="Correo electrónico"
+            label="Correo"
             rules={[
               {
                 required: true,
@@ -206,6 +207,7 @@ export default function UserLogin() {
           ) : (
             !registered && (
               <Button
+                block
                 htmlType="submit"
                 loading={loading}
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
@@ -219,7 +221,7 @@ export default function UserLogin() {
     );
   } else {
     return (
-      <div>
+      <div className={styles.cardSuccess}>
         {registered && (
           <div>
             <svg
@@ -298,6 +300,11 @@ export default function UserLogin() {
           </div>
         )}
         <h1>Usuario registrado con exito</h1>
+        <Link href="/components/forms/UserLogin">
+          <button className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Iniciar Sesión
+          </button>
+        </Link>
       </div>
     );
   }

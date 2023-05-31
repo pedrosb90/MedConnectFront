@@ -5,8 +5,6 @@ import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
 import EditPaciente from "./editPaciente";
-const backendURL = "http://localhost:3001";
-
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -24,7 +22,9 @@ export default function Pacientes() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const patientsResponse = await axios.get(`${backendURL}/patients`);
+        const patientsResponse = await axios.get(
+          "https://localhost:3001/patients"
+        );
 
         const patientsData = patientsResponse.data;
 

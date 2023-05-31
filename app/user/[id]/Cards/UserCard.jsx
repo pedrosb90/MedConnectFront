@@ -38,18 +38,6 @@ export default function UserCard({ userCitas }) {
   // };
   const FinishFailed = () => {
     setAlert(false);
-
-    const [alert, setAlert] = useState(false);
-
-    const FinishFailed = async () => {
-      if (contador === 2) {
-        setAlert(!alert);
-        setContador(1);
-      } else {
-        setContador(contador + 1);
-        setAlert(!alert);
-      }
-    };
   };
 
   return (

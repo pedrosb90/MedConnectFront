@@ -5,69 +5,19 @@ import axios from "axios";
 import { getMedicos, getSpeciality } from "../../redux/reducer";
 import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
-const backendURL = "http://localhost:3001";
+import { useRouter } from "next/navigation";
 
-const localSpec = `${backendURL}/specializations`;
-const localCitas = `${backendURL}/appointment`;
-const localMedic = `${backendURL}/medics`;
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
+const citasURL = `${backendURL}/appointment`;
+const medicsURL = `${backendURL}/medics`;
 
 // export default function Administration() {
 //   const { logStatus } = useSelector((state) => state);
 
-//   if (logStatus.logStatus === "admin" || logStatus.logStatus === "master") {
-//     return (
-//       <div className={`bg-white ${styles.container}`}>
-//         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-//           <div className="mx-auto max-w-2xl lg:text-center">
-//             <h2 className="text-base font-semibold leading-7 text-indigo-600">
-//               Administración
-//             </h2>
-//             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-//               Bienvenido a Administración
-//             </p>
-//             <p className="mt-6 text-lg leading-8 text-gray-600">
-//               Aquí podrás administrar toda la información de la página web,
-//               crear médicos, especialidades, modificarlas y ver un registro de
-//               las citas activas y ya resueltas.
-//             </p>
-//           </div>
-//           {/* Rest of the code */}
-//         </div>
-//       </div>
-//     );
-//   } else {
-//     return (
-//       <div>
-//         <h1>No posee los permisos requeridos</h1>
-//       </div>
-//     );
-//   }
-// }
-
-// export default function Administration(){
-//     const {logStatus} = useSelector(state => state)
-//     if(logStatus.logStatus === "admin" ){
-//         return(
-//             <div className={`bg-white   ${styles.container}`} >
-//             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-//               <div className="mx-auto max-w-2xl lg:text-center">
-//                 <h2 className="text-base font-semibold leading-7 text-indigo-600">Administración</h2>
-//                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Bienvenido a Administración</p>
-//                 <p className="mt-6 text-lg leading-8 text-gray-600">Aqui podras administrar toda la informacion de la pagina web, crear medicos, especialidades, modificarlas y ver un registro de las citas activas y ya resueltas.</p>
-//               </div>
-//               <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-10 lg:max-w-4xl">
-//                 <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-//                   <div className="relative pl-16">
-//                     <dt className="text-base font-semibold leading-7 text-gray-900">
-//                       <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-//                       <svg className="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="5" y="3" width="14" height="18" rx="2" />  <line x1="9" y1="7" x2="15" y2="7" />  <line x1="9" y1="11" x2="15" y2="11" />  <line x1="9" y1="15" x2="13" y2="15" /></svg>
-//                       </div>
-//                       Total de citas
-//                     </dt>
-//                     <dd className={styles.citas}>44
-//                     <button className={styles.button}>Ver Detalles</button></dd>
-
 export default function Administration() {
+  const nav = useRouter();
+
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
   const citas = useSelector((state) => state.cita.citas);
@@ -77,12 +27,21 @@ export default function Administration() {
   const [dataCitas, setDataCitas] = useState([]);
   const [dataMedics, setDataMedics] = useState([]);
   const userLocal = useSelector((state) => state.login.userLocal);
+  useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  }, [logStatus]);
 
   async function fetchData() {
     try {
-      const responseCitas = await axios.get(localCitas);
-      const response = await axios.get(localSpec);
-      const responseMedics = await axios.get(localMedic);
+      const responseCitas = await axios.get(citasURL, {
+        withCredentials: true,
+      });
+      const response = await axios.get(specsURL, {
+        withCredentials: true,
+      });
+      const responseMedics = await axios.get(medicsURL, {
+        withCredentials: true,
+      });
 
       dispatch(getCitas(responseCitas.data));
       dispatch(getMedicos(responseMedics.data));
@@ -91,6 +50,8 @@ export default function Administration() {
       alert(error.message);
     }
   }
+
+  const filtro = dataEsp.filter((e) => e.deletedAt === null);
 
   useEffect(() => {
     fetchData();
@@ -211,7 +172,7 @@ export default function Administration() {
                     <h2>Total de Medicos</h2>
                   </dd>
                   <dd className={styles.citas_con}>
-                    {dataEsp.length}
+                    {filtro.length}
                     <h2>Total de Especialidades</h2>
                   </dd>
                 </div>

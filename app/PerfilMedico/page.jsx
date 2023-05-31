@@ -9,8 +9,10 @@ import Table from "./Table";
 import style from "./page.module.css";
 import Forms from "./Forms";
 import FormsHor from "./FormHor";
-import FormCal from "./FormCal";
-const backendURL = "http://localhost:3001";
+import FormCal from "./FormCal"
+import FormsPut from "./FormsPut";
+import TableHorarios from "./TableHorarios"
+
 
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});
@@ -18,13 +20,34 @@ export default function PerfilMedico() {
   const [clickAct, setClickAct] = useState(false);
   const [clickHor, setClickHor] = useState(false);
   const [clickCal, setClickCal] = useState(false);
+  const [medicos, setMedicos] = useState([])
+  const [horarios, setHorarios] = useState([])
 
   const userLocal = useSelector((state) => state.login.userLocal);
 
+
+  //en filtromedico traigo todo lo de un medico
+  const filtromedico = medicos.filter(e=>e.user.id===userLocal.id)
+  const filtroHorarios = horarios?.filter(e=>e.medico.phone===filtromedico[0]?.phone)
+  
+  
+
   useEffect(() => {
+  if(!medicos.id){
+    axios
+        .get("http://localhost:3001/medics")
+        .then((res) => {
+          setMedicos(res.data);
+        })
+        .catch((error) => {
+          console.error( error);
+        });
+  }
+
+
     if (!citas.id) {
       axios
-        .get(`${backendURL}/appointment`)
+        .get("http://localhost:3001/appointment")
         .then((res) => {
           setCitas(res.data);
         })
@@ -32,16 +55,26 @@ export default function PerfilMedico() {
           console.error(error);
         });
     }
+
+    if (!horarios.id){
+      axios
+      .get("http://localhost:3001/schedule")
+      .then((res)=>{
+        setHorarios(res.data);
+      })
+      .catch((error)=>{
+        console.error(error)
+      })
+    }
   }, []);
 
-  console.log("esto es citas", citas);
-  console.log("esto es userLocal", userLocal);
+
 
   const getCitasPerfil = citas.filter(
     (e) => e.user.first_name === userLocal?.first_name
   );
 
-  console.log(getCitasPerfil);
+
 
   const handleClick = () => {
     if (clickAct === true) {
@@ -65,6 +98,7 @@ export default function PerfilMedico() {
       setClickCal(true);
     }
   };
+
 
   return (
     <div className="flex flex-col">
@@ -145,7 +179,8 @@ export default function PerfilMedico() {
               >
                 Actualizar Info
               </a>
-              <a
+              {filtromedico?.length
+                ?<a
                 onClick={() => {
                   handleClickHor();
                 }}
@@ -153,7 +188,11 @@ export default function PerfilMedico() {
               >
                 Horarios
               </a>
-              <a
+              :<div></div>
+              }
+              {
+                filtromedico?.length
+                ?<a
                 onClick={() => {
                   handleClickCal();
                 }}
@@ -161,29 +200,28 @@ export default function PerfilMedico() {
               >
                 Experencias
               </a>
+              :<div></div>
+              }
             </div>
+          </div>
+          <div>
+          {
+          filtroHorarios.length?<div><TableHorarios filtroHorarios={filtroHorarios}/></div>:<div></div>
+          }
           </div>
         </div>
 
         <Table getCitasPerfil={getCitasPerfil}></Table>
       </div>
-      <div>
-        {clickAct === true ? (
-          <Forms userLocal={userLocal}></Forms>
-        ) : (
-          <div></div>
-        )}{" "}
-        {clickHor === true ? (
-          <FormsHor userLocal={userLocal}></FormsHor>
-        ) : (
-          <div></div>
-        )}{" "}
-        {clickCal === true ? (
-          <FormCal userLocal={userLocal}></FormCal>
-        ) : (
-          <div></div>
-        )}
-      </div>
+
+      <div>{
+        filtromedico.length === 0
+        ?clickAct === true ? <Forms userLocal={userLocal} ></Forms> : <div></div>
+        :clickAct === true ? <FormsPut userLocal={userLocal} medico={filtromedico}></FormsPut> : <div></div>
+      }
+       {clickHor=== true ? <FormsHor  userLocal={userLocal} filtromedico={filtromedico}></FormsHor> : <div></div>} 
+       {clickCal=== true ? <FormCal userLocal={userLocal} filtromedicos={filtromedico}></FormCal> : <div></div>}</div>
+
     </div>
   );
 }

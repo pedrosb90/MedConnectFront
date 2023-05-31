@@ -1,12 +1,13 @@
 'use client';
 import Link from 'next/link';
 import styles from './page.module.css'
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useSelector} from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function Admin(){
-  
-  const {logStatus} = useSelector(state => state)
+  const nav = useRouter()  
+  // const {logStatus} = useSelector(state => state)
   const userLocal = useSelector((state) => state.login.userLocal);
   const [showMenu, setShowMenu] = useState({
     speciality: false,
@@ -15,6 +16,12 @@ export default function Admin(){
     users:false
 });
 
+  
+// useEffect(()=>{
+//   !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+// },[logStatus])
+
   const toggleMenu = (event) => {
   const value = event.target.name;
   
@@ -22,7 +29,7 @@ export default function Admin(){
     
   };
 
-  if(logStatus.logStatus === "admin" || userLocal.role === "admin"){
+  // if(logStatus.logStatus === "admin" || userLocal.role === "admin"){
         return(
           <div className={styles.container}>
           <h1 className={styles.title}>Panel de administrador</h1>
@@ -72,11 +79,11 @@ export default function Admin(){
         </div>
         </div> 
         )
-    }else{
-        return(
-            <div>
+    // }else{
+    //     return(
+    //         <div>
                 
-            </div>
-        )
-    }
+    //         </div>
+    //     )
+    // }
   }

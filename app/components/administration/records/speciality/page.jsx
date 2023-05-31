@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
@@ -17,7 +17,6 @@ export default function Especialidades() {
   });
   const [count, setCount] = useState(1);
   const [clickCal, setClickCal] = useState(false);
-
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -39,14 +38,12 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id, deletedAt) => {
-    const url = specsURL;
-
     if (deletedAt !== null) {
-      axios.patch(`${url}${id}`);
+      axios.patch(`${specsURL}/${id}`, { withCredentials: true });
     } else {
       count == 2 &&
         axios
-          .delete(`${url}${id}`)
+          .delete(`${specsURL}/${id}`, { withCredentials: true })
           .then(() => {
             setIsDelete(!isDelete);
             setCount(1);

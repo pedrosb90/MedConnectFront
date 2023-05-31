@@ -4,11 +4,19 @@ import styles from "./editPaciente.module.css";
 import Warning from "@/app/components/warning/Warning";
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const backendURL = "http://localhost:3001";
+const patientsURL = `${backendURL}/patients`;
 
 export default function EditPaciente({ setOpen, datos }) {
   const [form] = Form.useForm();
+  const nav = useRouter()
+  const { logStatus } = useSelector((state) => state);
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
 
+  },[logStatus])
   const [error, setError] = useState({
     text: "",
     alert: false,
@@ -16,7 +24,7 @@ export default function EditPaciente({ setOpen, datos }) {
 
   const onSubmit = (values) => {
     axios
-      .put(`${backendURL}/patients/` + id, {})
+      .put(patientsURL + id, {}, { withCredentials: true })
       .then(() => {
         setPut(true);
       })

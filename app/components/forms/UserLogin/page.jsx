@@ -1,7 +1,8 @@
 "use client";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Divider } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { getLogStatus, userChequer } from "@/app/redux/LogReducer";
 import { useRouter } from "next/navigation";
 import style from "./login.module.css";
@@ -9,7 +10,6 @@ import Link from "next/link";
 const backendURL = "http://localhost:3001";
 const authLoginURL = `${backendURL}/auth/login`;
 import Warning from "../../warning/Warning";
-import { useState } from "react";
 
 export default function UserLogin() {
   const dispatch = useDispatch();
@@ -148,15 +148,19 @@ export default function UserLogin() {
                   />
                 </Form.Item>
                 {/* {errors.password && (<span>{errors.password}</span>)} */}
-                <Button block htmlType="submit">
-                  Iniciar
+                <Button
+                  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center mr-2 mb-2"
+                  block
+                  htmlType="submit"
+                >
+                  Iniciar Sesión
                 </Button>
                 <p>Una vez que inicie sesión será redirigido al inicio!</p>
               </Form>
             </div>
           </div>
           <h2 className={style.h2}>
-            ¿No tiene un usuario?{" "}
+            ¿No tiene un usuario?
             <Link className={style.link} href="/components/forms/register">
               Cree uno!
             </Link>

@@ -6,10 +6,11 @@ import axios from "axios";
 import styles from "./CardEdit.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import SideCard from "../turnos/SideCard/SideCard";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
+import SideCard from "./SideCard/SideCard";
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 const { Item } = Form;
 const { Option } = Select;
 import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
@@ -130,7 +131,7 @@ export default function Calendary() {
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
     const día = String(fecha.getDate()).padStart(2, "0");
     const fechaFormateada = `${año}-${mes}-${día}`;
-    if (medSelect && scheduledTime) {
+    if (medSelect || (info.id && scheduledTime)) {
       dispatch(
         postSchedule({
           medSelect,
@@ -147,9 +148,6 @@ export default function Calendary() {
   console.log();
   return (
     <>
-      <h1 className="m-8 text-4xl text-center font-sans bg-cimPallete-gold text-white py-4 px-6 rounded-lg shadow-lg items-center w-200">
-        AGENDA{" "}
-      </h1>
       <div className={styles.container}>
         {doc ? (
           <h2>{"Elegiste al doct@ " + doc}</h2>
@@ -225,8 +223,8 @@ export default function Calendary() {
             Enviar
           </Button>
         </Form>
+        <SideCard />
       </div>
-      <SideCard />
     </>
   );
 }
