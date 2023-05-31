@@ -7,7 +7,7 @@ import styles from "./CardEdit.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
-
+import SideCard from "./SideCard/SideCard";
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

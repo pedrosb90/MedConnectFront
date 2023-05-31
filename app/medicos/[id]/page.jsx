@@ -8,10 +8,6 @@ import Image from "next/image";
 import Warning from "../../components/warning/Warning";
 const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
-<<<<<<< HEAD
-=======
-const local = "https://medconnectback-production.up.railway.app/medics";
->>>>>>> develop
 
 export default function Page() {
   const [error, setError] = useState({
