@@ -21,7 +21,7 @@ export default function Medicos() {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
 
     const fetchPatients = async () => {
       try {
@@ -84,7 +84,7 @@ export default function Medicos() {
           " mb-8 text-3xl font-sans leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl"
         }
       >
-        Tabla de Medicos
+        Tabla de Usuarios
       </h1>
       <div className={styles.table + " rounded-md overflow-hidden"}>
         <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">

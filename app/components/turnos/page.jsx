@@ -27,6 +27,7 @@ export default function Calendary() {
   const [medSelect, select] = useState(false);
   const { info } = useSelector((state) => state.cita);
   const [medico, setMedico] = useState(false);
+  const [loading,setLoading] = useState(false)
   const especialidad = info.especialidad && info.especialidad;
   const getMedicos = async () => {
     const medicos = await axios.get(medicsURL);
@@ -126,8 +127,8 @@ export default function Calendary() {
   console.log("info",info);
 
   const onSubmit = async (values) => {
+    setLoading(true);
     const { scheduledDate, scheduledTime } = values;
-    console.log(values);
     const fecha = new Date(scheduledDate);
     const año = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
@@ -143,6 +144,7 @@ export default function Calendary() {
         })
       );
       router.push("/components/turnos/form");
+      setLoading(false)
     }
   };
 
@@ -221,7 +223,7 @@ export default function Calendary() {
 
           {/* {errors.password && (<span>{errors.password}</span>)} */}
 
-          <Button htmlType="submit" className={styles.submit}>
+          <Button loading={loading} htmlType="submit" className={styles.submit}>
             Enviar
           </Button>
         </Form>

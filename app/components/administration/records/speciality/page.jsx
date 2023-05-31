@@ -7,7 +7,7 @@ import Success from "@/app/components/success/Success";
 import Forms from "./form";
 const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
-
+import { useSelector } from "react-redux";
 export default function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -17,6 +17,7 @@ export default function Especialidades() {
   });
   const [count, setCount] = useState(1);
   const [clickCal, setClickCal] = useState(false);
+  const { logStatus } = useSelector((state) => state);
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -25,6 +26,8 @@ export default function Especialidades() {
   });
 
   useEffect(() => {
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+ 
     const fetchPatients = async () => {
       try {
         const response = await axios.get(specsURL);
