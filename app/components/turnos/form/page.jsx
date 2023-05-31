@@ -11,6 +11,7 @@ import { PhoneOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
 export default function UserLogin() {
+  const nav = useRouter()
   const { logStatus, speciality } = useSelector((state) => state);
   const { info } = useSelector((state) => state.cita);
   const { schedule } = useSelector((state) => state.cita);
@@ -23,10 +24,13 @@ export default function UserLogin() {
   //! speciality has inside AllMedicos
 
   useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
     axios.get("http://localhost:3001/medics").then((res) => {
       dispatch(getMedicos(res.data));
     });
-  }, []);
+  }, [logStatus]);
+
+console.log("schedule",schedule);
 
   const countries = [
     {

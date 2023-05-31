@@ -10,11 +10,6 @@ import Medicos from "../Medicos";
 import styles from "./page.module.css";
 const backendURL = "http://localhost:3001";
 const specializationsURL = `${backendURL}/specializations`;
-<<<<<<< HEAD
-=======
-const local =
-  "https://medconnectback-production.up.railway.app/specializations";
->>>>>>> develop
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);

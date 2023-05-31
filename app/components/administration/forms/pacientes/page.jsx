@@ -2,21 +2,18 @@
 import { Button, Form, Input, Radio, Alert } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
 import styles from "./page.module.css";
-<<<<<<< HEAD
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+
+const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
-=======
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const authRegisterURL = `${backendURL}/auth/register`;
-const local = "https://medconnectback-production.up.railway.app/auth/register";
->>>>>>> develop
+
+import { useRouter } from "next/navigation";
 
 export default function UserLogin() {
+  const nav = useRouter();
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -24,20 +21,17 @@ export default function UserLogin() {
     alert: false,
   });
 
+  const { logStatus } = useSelector((state) => state);
+
+  useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  }, [logStatus]);
+
   const onSubmit = async (values) => {
     setLoading(true);
     const { first_name, last_name, role, email, password } = values;
 
     axios
-<<<<<<< HEAD
-      .post(authRegisterURL, {
-        first_name,
-        last_name,
-        role,
-        email,
-        password,
-      })
-=======
       .post(
         authRegisterURL,
         {
@@ -49,7 +43,6 @@ export default function UserLogin() {
         },
         { withCredentials: true }
       )
->>>>>>> develop
       .then((res) => {
         if (res.data) {
           setRegistered(true);

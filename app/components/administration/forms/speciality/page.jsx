@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
 import { Button, Form, Input, Upload } from "antd";
@@ -8,10 +8,14 @@ import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {
+  const nav = useRouter();
+  const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [] });
   const [loading, setLoading] = useState("");
@@ -26,6 +30,10 @@ export default function SpecialtyForm() {
     text: "Especialidad creada exitosamente",
   });
 
+  useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  }, [logStatus]);
+
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
@@ -35,7 +43,6 @@ export default function SpecialtyForm() {
       name,
       url,
     };
-
     axios
       .post(specsURL, body, { withCredentials: true })
       .then(() => {

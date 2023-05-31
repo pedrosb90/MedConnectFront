@@ -7,7 +7,7 @@ import styles from "./CardEdit.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MedicCarrousel from "./medicCarrousel/MedicCarrousel.jsx";
-
+import SideCard from "./SideCard/SideCard";
 import { getMedicos } from "@/app/redux/reducer.js";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -17,7 +17,7 @@ import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
 import { useDispatch } from "react-redux";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
-const backendURL = "http//:localhost:3001";
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 const appointURL = `${backendURL}/appointment`;
 
@@ -122,6 +122,8 @@ export default function Calendary() {
       return true;
     }
   };
+
+  console.log("info",info);
 
   const onSubmit = async (values) => {
     const { scheduledDate, scheduledTime } = values;

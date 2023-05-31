@@ -1,19 +1,18 @@
 .masterContainer {
   font-family: "Montserrat", sans-serif;
-
+  border: 15px outset #b8b8b8;
   display: flex;
-  outline: yellow solid 3px;
   height: 78vh;
 }
 
 .container {
+  background-color: #e6e6e6;
+  border-radius: 80px 0px 80px 0px;
   font-family: "Montserrat", sans-serif;
-
   width: 90%;
   height: 75%;
   display: flex;
   flex-direction: column;
-  outline: red solid 3px;
   margin: auto;
 }
 
@@ -29,7 +28,6 @@
   width: 50%;
   justify-content: center;
   align-items: center;
-  outline: green solid 3px;
 }
 
 .form {
@@ -38,8 +36,8 @@
 }
 
 .buttonContainer {
+  border-right: 5px solid #B3B3B3;
   width: 50%;
-  outline: blue solid 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,6 +51,10 @@
   font-size: 15px;
   border-radius: 15px;
   color: #fff;
+}
+
+.submit{
+  background-color: #fff;
 }
 
 #google {

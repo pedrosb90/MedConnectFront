@@ -1,57 +1,163 @@
-import {Button,Form,Input,Radio,Alert, Select, TimePicker} from 'antd';
-import style from "./Forms.module.css"
-import FormItem from 'antd/es/form/FormItem';
+"use client";
+import {
+  Button,
+  Form,
+  Input,
+  Radio,
+  Alert,
+  Select,
+  Space,
+  Divider,
+} from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import axios from "axios";
+import style from "./Forms.module.css";
+import FormItem from "antd/es/form/FormItem";
+import { useRef, useState } from "react";
+let index = 0;
+const localCal = "http://localhost:3001/medicoCalification";
 
-export default function FormCal() {
+export default function FormCal({
+  filtromedicos,
+  setSuccess,
+  setError,
+  success,
+  error,
+}) {
+  const [form] = Form.useForm();
+  const [items, setItems] = useState([]);
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const onSubmit = (values) => {
+    const body = { ...values, medicoId: filtromedicos[0].id };
+
+    axios
+      .post(localCal, body)
+      .then(() => {
+        // Código para manejar la respuesta en caso de éxito
+        setSuccess({ ...success, alert: true });
+        form.resetFields();
+      })
+      .catch(() => {
+        // Código para manejar la respuesta en caso de error
+        setError({ ...error, alert: true });
+      });
+  };
+
   return (
-    <div className={style.container + " top-1/3 "} >
-          <h1 className={style.title}>Experiencia</h1>
-          <Form labelCol={{   span: 0, }} wrapperCol={{   span: 14, }} layout="horizontal" onFinish={(values)=>onSubmit(values)} >
-            {/* <Form.Item name="userType" label="Usuario" 
-            rules={[
-              {required:true,
-              message:"Por favor seleccione una opción"}
-            ]}>
-              <Radio.Group >
-                  <Radio value="pacient" defaultChecked>Paciente</Radio>
-                  {logStatus.logStatus === "master" ?<Radio value="medic">Médico</Radio>:null}
-                  {logStatus.logStatus === "master" ?<Radio value="admin">Administrador</Radio>:null}
-                </Radio.Group>
-            </Form.Item> */}
-            <FormItem name="academic_degree" label="Titulo Academico" >
-              <Input placeholder="" />
-            </FormItem>
-            <FormItem name="years_of_experience" label="Años de experiencia" rules={[
-                {required:true,
-                message:"Por favor ingrese sus años de experiencia"
-            }
-            ]} >
-                <Input type='number'/>
-            </FormItem>
-            <FormItem name="certifications" label="Certificados" rules={[
-                {required:true,
-                message:"Por favor ingrese su número de telefono"
-            }
-            ]}>
-                <Input />
-            </FormItem>
-           
-            <Form.Item name='research' label="Investigacion">
+    <div className={style.container + " top-1/3 "}>
+      <h1 className={style.title}>Experiencia</h1>
+      <Form
+        labelCol={{ span: 0 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        onFinish={(values) => onSubmit(values)}
+      >
+        <FormItem
+          name="academic_degree"
+          label="Titulo Academico"
+          rules={[
+            {
+              required: true,
+              message: "Por favor ingrese su Titulo Academico",
+            },
+          ]}
+        >
+          <Input placeholder="Doctor en..." />
+        </FormItem>
+        <FormItem
+          name="years_of_experience"
+          label="Años de experiencia"
+          rules={[
+            {
+              required: true,
+              message: "Por favor ingrese sus años de experiencia",
+            },
+          ]}
+        >
+          <Input type="number" />
+        </FormItem>
+        <FormItem
+          name="certifications"
+          label="Certificados"
+          rules={[
+            {
+              required: true,
+              message: "Por favor ingrese su número de telefono",
+            },
+          ]}
+        >
+          {/* <Input inputMode='multiple'/> */}
+          <Select
+            mode="multiple"
+            style={{
+              width: 220,
+            }}
+            placeholder="Certificación en..."
+            dropdownRender={(menu) => (
+              <>
+                {menu}
+                <Divider
+                  style={{
+                    margin: "8px 0",
+                  }}
+                />
+                <Space
+                  style={{
+                    padding: "0 8px 4px",
+                  }}
+                >
+                  <Input
+                    placeholder="Please enter item"
+                    ref={inputRef}
+                    value={name}
+                    onChange={onNameChange}
+                  />
+                  <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+                    Add item
+                  </Button>
+                </Space>
+              </>
+            )}
+            options={items.map((item) => ({
+              label: item,
+              value: item,
+            }))}
+          />
+        </FormItem>
+
+        <Form.Item
+          name="research"
+          label="Investigacion"
+          rules={[
+            {
+              required: true,
+              message: "Por favor indica si eres de investigacion",
+            },
+          ]}
+        >
           <Radio.Group>
             <Radio value="true"> Si </Radio>
             <Radio value="false"> No </Radio>
           </Radio.Group>
         </Form.Item>
-              
-    
-    
-             
-              {/* {errors.password && (<span>{errors.password}</span>)} */}
-              {/* {registered === "error" ? <Alert
-              message="Ocurrió un error al registrarse"
-              type="warning"
-    /> : !registered && <Button className={style.Button} htmlType='submit' loading={loading}>registrar</Button>} */}
-            </Form>
-        </div>
-  )
+
+        <Button htmlType="submit" className={style.Button}>
+          Enviar
+        </Button>
+      </Form>
+    </div>
+  );
 }

@@ -8,6 +8,7 @@ const initialState = {
   deletedMedic: null,
   deletedEsp: null,
   selectList: [],
+  cities:[]
 };
 export const medicalReducer = createSlice({
   name: "speciality",
@@ -16,6 +17,10 @@ export const medicalReducer = createSlice({
     getSpeciality: (state, action) => {
       const data = action.payload;
       state.AllSpecial = [...data];
+    },
+    getCities: (state, action) => {
+      const data = action.payload;
+      state.cities = [...data];
     },
     getMedicos: (state, action) => {
       const response = action.payload;
@@ -102,6 +107,7 @@ export const {
   sortEspecsAZ,
   sortMedicos,
   sortAv,
+  getCities
 } = medicalReducer.actions;
 
 export default medicalReducer.reducer;
