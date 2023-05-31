@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 const backendURL = "http://localhost:3001";
 const specializationsURL = `${backendURL}/specializations`;
 
-export default function form({ info }) {
+export default function Forms({ info }) {
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [info.url] });
   const [loading, setLoading] = useState("");
