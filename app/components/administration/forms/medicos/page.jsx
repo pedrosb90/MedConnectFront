@@ -10,13 +10,16 @@ const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
+  const nav = useRouter()
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(logStatus);
-  }, [logStatus]);
+  
+  useEffect(()=>{
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+
+  },[logStatus])
 
   const onSubmit = async (values) => {
     setLoading(true);

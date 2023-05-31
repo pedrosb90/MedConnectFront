@@ -39,7 +39,7 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id, deletedAt) => {
-    //const url = "https://medconnectback-production.up.railway.app/specializations/";
+    //const url = "http://localhost:3001/specializations/";
 
     if (deletedAt !== null) {
       axios.patch(`${specsURL}/${id}`, { withCredentials: true });

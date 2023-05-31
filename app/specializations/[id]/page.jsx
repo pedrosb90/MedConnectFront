@@ -8,8 +8,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Medicos from "../Medicos";
 import styles from "./page.module.css";
+<<<<<<< HEAD
 const backendURL = "http://localhost:3001";
 const specializationsURL = `${backendURL}/specializations`;
+=======
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
+const specializationsURL = `${backendURL}/specializations`;
+const local =
+  "http://localhost:3001/specializations";
+>>>>>>> final
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);

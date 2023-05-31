@@ -6,8 +6,15 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Warning from "../../components/warning/Warning";
+<<<<<<< HEAD
 const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
+=======
+// const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
+const medicsURL = `${backendURL}/medics`;
+const local = "http://localhost:3001/medics";
+>>>>>>> final
 
 export default function Page() {
   const [error, setError] = useState({
