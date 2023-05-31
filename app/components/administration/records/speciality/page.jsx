@@ -1,21 +1,23 @@
 "use client";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
 const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
+const specURLAll = `${specsURL}/all`
 
 export default function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
+  const [habilitado, setHabilitado] = useState(false)
   const [error, setError] = useState({
     text: "",
     alert: false,
   });
-  const [count, setCount] = useState(1);
+  
   const [clickCal, setClickCal] = useState(false);
   const [info, setInfo] = useState({
     id: 0,
@@ -27,7 +29,7 @@ export default function Especialidades() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(specsURL);
+        const response = await axios.get(specURLAll);
         setEspecialidades(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -35,36 +37,34 @@ export default function Especialidades() {
     };
 
     fetchPatients();
-  }, [isDelete]);
+  }, [isDelete,habilitado]);
 
   const deleteEsp = (id, deletedAt) => {
     if (deletedAt !== null) {
-      axios.patch(`${specsURL}/${id}`, { withCredentials: true });
+      axios.patch(`${specsURL}/${id}`, { withCredentials: true })
+      .then(() => {
+        setHabilitado(!habilitado);
+        
+      })
+      .catch((err) => {
+        setError({ ...error, text: err.message, alert: true });
+        
+      });
     } else {
-      count == 2 &&
         axios
           .delete(`${specsURL}/${id}`, { withCredentials: true })
           .then(() => {
             setIsDelete(!isDelete);
-            setCount(1);
+            
           })
           .catch((err) => {
             setError({ ...error, text: err.message, alert: true });
-            setCount(1);
+            
           });
-      setCount(2);
-      const borrar =
-        especialidades?.length && especialidades?.find((e) => e.id === id);
-
-      count == 1 &&
-        setError({
-          ...error,
-          text: `Se borrara la especialidad: ${borrar.name} de click otra vez para confirmar`,
-          alert: true,
-        });
+     
     }
 
-    setDeshabilitar(!deshabilitar);
+   
   };
 
   const FinishFailed = () => {
@@ -90,20 +90,13 @@ export default function Especialidades() {
     }
   };
 
+  // const filtro = especialidades.filter((e) => e.deletedAt === null);
+
   return (
     <div className={styles.container}>
-      <Warning
-        alert={error.alert}
-        text={error.text}
-        FinishFailed={FinishFailed}
-      ></Warning>
-      <Success
-        alert={isDelete}
-        text={"El paciente fue eliminado correctamente"}
-        success={() => {
-          setIsDelete(false);
-        }}
-      ></Success>
+      <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+      <Success alert={isDelete} text={"Deshabilitado Correctamente"}success={() => {setIsDelete(false);}}></Success>
+      <Success alert={habilitado} text={"Habilitado Correctamente"}success={() => {setHabilitado(false);}}></Success>
       <h1
         className={
           styles.title +
@@ -136,13 +129,15 @@ export default function Especialidades() {
           <tbody>
             {especialidades.length &&
               especialidades.map((esp, index) => (
+                esp.deletedAt===null?
                 <tr
                   key={index}
-                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
+                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700  "
                 >
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  
                   >
                     {index + 1}
                   </th>
@@ -169,7 +164,33 @@ export default function Especialidades() {
                       onClick={() => deleteEsp(esp.id, esp.deletedAt)}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
                     >
-                      Delete
+                      Deshabilitar
+                    </button>
+                  </td>
+                </tr>
+                :
+                <tr
+                  key={index}
+                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {index + 1}
+                  </th>
+                  <td className="px-4 py-2 text-red-300">{esp.name}</td>
+                  <td className="px-6 py-4  text-red-300">{esp.description}</td>
+
+                  <td className="px-6 py-4  text-red-300">
+                    <div></div>
+                  </td>
+                  <td className="px-6 py-4  text-red-300">
+                    <button
+                      onClick={() => deleteEsp(esp.id, esp.deletedAt)}
+                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
+                    >
+                      Habilitar
                     </button>
                   </td>
                 </tr>

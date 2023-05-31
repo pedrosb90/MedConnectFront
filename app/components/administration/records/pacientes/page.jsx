@@ -23,7 +23,7 @@ export default function Pacientes() {
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(
-          "https://localhost:3001/patients"
+          "http://localhost:3001/patients"
         );
 
         const patientsData = patientsResponse.data;
