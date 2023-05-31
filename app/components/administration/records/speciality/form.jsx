@@ -9,13 +9,12 @@ import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 import { useRouter } from "next/navigation";
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
 import { useSelector } from "react-redux";
 
-export default function form({ info }) {
-  const nav = useRouter()
-  const { logStatus } = useSelector((state) => state);
+const backendURL = "http://localhost:3001";
+const specializationsURL = `${backendURL}/specializations`;
+
+export default function Forms({ info }) {
   const [registered, setRegistered] = useState(false);
   const [image, setImage] = useState({ array: [info.url] });
   const [loading, setLoading] = useState("");
@@ -27,39 +26,15 @@ export default function form({ info }) {
   });
   const [success, setSuccess] = useState({
     alert: false,
-    text: "Especialidad creada exitosamente",
+    text: "Especialidad Actualizada exitosamente",
   });
-
-  
-  useEffect(()=>{
+  useEffect(() => {
     !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-
-  },[logStatus])
-
-
-
-export default function form({info}) {
-  const [registered, setRegistered] = useState(false);
-  const [image, setImage] = useState({array:[info.url]})
-  const [loading, setLoading] = useState ("")
-  const [url, setUrl] = useState("")
-  const [publicId, setPublicId] = useState("")
-  const [error, setError]= useState({
-    alert:false,
-    text:'Error al crear especialidad, el servidor esta caido o la especialidad ya existe'
-  })
-  const [success,setSuccess]=useState({
-    alert:false,
-    text:'Especialidad Actualizada exitosamente',
-  })
-  
-  
-  
+  }, [logStatus]);
 
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
-    //const local = `https://medconnectback-production.up.railway.app/specializations/${info.id}`;
     const data = `${specializationsURL}/${info.id}`;
     const body = {
       description,
@@ -179,31 +154,43 @@ export default function form({info}) {
   };
 
   return (
+    <div className={styles.container + " top-1/3 "}>
+      <Warning
+        alert={error.alert}
+        text={error.text}
+        FinishFailed={FinishFailed}
+      ></Warning>
+      <Success
+        alert={success.alert}
+        text={success.text}
+        success={successFunc}
+      ></Success>
+      <h1 className={styles.title}>Editar Especialidad</h1>
+      <Form
+        className={styles.form}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 15 }}
+        layout="horizontal"
+        form={form}
+        onFinish={(values) => {
+          onSubmit(values);
+          form.resetFields();
+          setImage({ array: [] });
+        }}
+      >
+        <Form.Item
+          name="name"
+          label="Especialidad"
+          rules={[
+            { required: true, message: "Por favor ingrese una especialidad" },
+          ]}
+          hasFeedback
+          initialValue={info.name}
+        >
+          <Input name="name" />
+        </Form.Item>
 
-        
-
-  <div className={styles.container + " top-1/3 "}>
-    <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
-    <Success alert={success.alert} text={success.text} success={successFunc} ></Success>
-        <h1 className={styles.title}>Editar Especialidad</h1>
-          <Form className={styles.form} labelCol={{   span: 6, }} wrapperCol={{   span: 15, }} layout="horizontal" form={form} onFinish={(values)=>{onSubmit(values); form.resetFields(); setImage({array:[]})} }>
-    
-          <Form.Item name="name" label="Especialidad" 
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese una especialidad"},
-                ]}
-                hasFeedback
-                initialValue={info.name}
-              >
-                  <Input
-                    name="name"
-                   
-                    />
-              </Form.Item>
-
-              
-              {/* <Container >
+        {/* <Container >
 
     <div className={styles.container + " top-1/3 "}>
       <Warning
@@ -275,25 +262,29 @@ export default function form({info}) {
                 
               </Container> */}
 
-
-              <Form.Item name="description" label="Descripción"
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese una descripción"},
-                ]}
-                hasFeedback
-                initialValue={info.description}
-              >
-                  <Input.TextArea
-  name="description"
-  
-  style={{ resize: 'none', overflow: 'hidden',paddingRight: '25px',height:'50px' }}
-/>
-  
-              </Form.Item> 
-              <Button  htmlType='submit' className={styles.Button}>Enviar</Button>
-            </Form>
-        </div>
-  )
+        <Form.Item
+          name="description"
+          label="Descripción"
+          rules={[
+            { required: true, message: "Por favor ingrese una descripción" },
+          ]}
+          hasFeedback
+          initialValue={info.description}
+        >
+          <Input.TextArea
+            name="description"
+            style={{
+              resize: "none",
+              overflow: "hidden",
+              paddingRight: "25px",
+              height: "50px",
+            }}
+          />
+        </Form.Item>
+        <Button htmlType="submit" className={styles.Button}>
+          Enviar
+        </Button>
+      </Form>
+    </div>
+  );
 }
-

@@ -7,6 +7,8 @@ import Image from "next/image";
 import Warning from "@/app/components/warning/Warning";
 import { useSelector } from "react-redux";
 
+const backendURL = "http://localhost:3001";
+
 export default function UserCard({ userCitas }) {
   const [isOpen, setIsOpen] = useState(false);
   const [contador, setContador] = useState(1);
@@ -23,7 +25,7 @@ export default function UserCard({ userCitas }) {
   //     setAlert(false);
   //     const id = userGoogle.id ? userGoogle.id : userLocal.id;
   //      axios
-  //       .delete('https://medconnectback-production.up.railway.app/users/' + id)
+  //       .delete('http://localhost:3001/users/' + id)
   //       .then(() => {
   //         homeReturn()
 
@@ -83,15 +85,71 @@ export default function UserCard({ userCitas }) {
               </button>
             </li>
 
-            <li>
-              <button
-                onClick={deleteFunc}
-                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >
-                Delete
-              </button>
-            </li>
-          </ul>
+              <li>
+                <button
+                  onClick={deleteFunc}
+                  className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Delete
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+      {Object.keys(userGoogle).length === 0 ? (
+        <div className="flex flex-col items-center pb-10">
+          {userLocal.first_name && (
+            <Image
+              className="w-28 h-25 mb-3 rounded-full shadow-lg"
+              width={600}
+              height={600}
+              src={img}
+              alt="NOT_FOUND"
+            />
+          )}
+          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            {userLocal.first_name
+              ? userLocal.first_name + " " + userLocal.last_name
+              : "Loading..."}
+          </h5>
+
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            <b>Total de citas: </b>
+          </span>
+          <div className="flex mt-4 space-x-3 md:mt-6">
+            <a
+              href="/citas"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Agendar cita
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center pb-10">
+          <Image
+            className="w-28 h-25 mb-3 rounded-full shadow-lg"
+            width={28}
+            height={25}
+            src={img}
+            alt="NOT_FOUND"
+          />
+          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            {userGoogle.displayName ? userGoogle.displayName : "Loading..."}
+          </h5>
+
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            <b>Total de citas: </b>
+          </span>
+          <div className="flex mt-4 space-x-3 md:mt-6">
+            <a
+              href="/citas"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Agendar cita
+            </a>
+          </div>
         </div>
       )} */}
       </div>
@@ -138,7 +196,7 @@ export default function UserCard({ userCitas }) {
           </h5>
 
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            <b>Total de citas: </b>'los usuarios de google no tiene citas '
+            <b>Total de citas: </b>
           </span>
 
           <div className="flex mt-4 space-x-3 md:mt-6">

@@ -8,10 +8,10 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
-import Warning from "./warning/Warning";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const local = "https://medconnectback-production.up.railway.app";
+import Warning from "../../components/warning/Warning";
+
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
 
 export default function Carrusel() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function Carrusel() {
   });
   async function getEspec() {
     try {
-      const respo = await axios.get(`${local}/specializations`, {
+      const respo = await axios.get(specsURL, {
         withCredentials: true,
         credentials: "include",
       });

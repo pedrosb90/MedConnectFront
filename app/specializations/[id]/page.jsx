@@ -8,11 +8,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Medicos from "../Medicos";
 import styles from "./page.module.css";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const specializationsURL = `${backendURL}/specializations`;
-const local =
-  "https://medconnectback-production.up.railway.app/specializations";
 
 export default function Page() {
   const detail = useSelector((state) => state.speciality.Detail);
@@ -22,7 +19,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`${local}/${id}`);
+      const response = await axios.get(`${specializationsURL}/${id}`);
 
       dispatch(getId(response.data.data));
     } catch (error) {
@@ -32,7 +29,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData(id);
-  }, [id, useSelector, useDispatch, useState, useParams]);
+  }, [id]);
 
   useEffect(() => {
     detail.name && setData(detail);

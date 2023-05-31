@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import img from "./img/fondo.jpg";
 import styles from "./Cards/page.module.css";
@@ -8,65 +8,68 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 export default function Citas() {
-  const nav = useRouter()
+  const nav = useRouter();
   const { logStatus } = useSelector((state) => state);
-  
-  useEffect(()=>{
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
 
-  },[logStatus])
+  useEffect(() => {
+    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+  }, [logStatus]);
   return (
     <div className={styles.container + " bg-gray-200"}>
-      {logStatus.logStatus ? <div className=" mx-auto  sm:p-8  ">
-        <div
-          className="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl w-full"
-          style={{ minHeight: "19rem" }}
-        >
+      {logStatus.logStatus ? (
+        <div className=" mx-auto  sm:p-8  ">
           <div
-            className="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg"
+            className="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl w-full"
             style={{ minHeight: "19rem" }}
           >
-            <Image
-              className="absolute inset-0 object-cover object-center"
-              src={img}
-              alt="NOT_FOUND"
-            />
-
-            <div className="absolute inset-0 w-full h-full bg-indigo-900 opacity-50"></div>
-            <div className="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white"></div>
-          </div>
-          <div className="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
-            <div className="p-12 md:pr-24 md:pl-16 md:py-12">
-              <div className="text-gray-600">
-                <span className="text-gray-900">
-                  <h1 className={styles.title}>¡Agenda tu cita ya!</h1>
-                </span>
-              </div>
-              <p>
-                Tenemos una amplia lista de profesionales y servicios médicos.
-                Ofrecemos traumatología, cardiología, ginecología/obstetricia,
-                mamografías, oftalmología, otorrinolaringología, pediatría, y
-                más. Selecciona tus servicios y elige al medico de tu
-                preferencia.
-              </p>
-              <button
-                className="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900"
-                href=""
-              >
-                <span>Sobre nosotros</span>
-                <span className="text-xs ml-1">&#x279c;</span>
-              </button>
-            </div>
-            <svg
-              className="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
+            <div
+              className="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg"
+              style={{ minHeight: "19rem" }}
             >
-              <polygon points="50,0 100,0 50,100 0,100" />
-            </svg>
+              <Image
+                className="absolute inset-0 object-cover object-center"
+                src={img}
+                alt="NOT_FOUND"
+              />
+
+              <div className="absolute inset-0 w-full h-full bg-indigo-900 opacity-50"></div>
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white"></div>
+            </div>
+            <div className="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
+              <div className="p-12 md:pr-24 md:pl-16 md:py-12">
+                <div className="text-gray-600">
+                  <span className="text-gray-900">
+                    <h1 className={styles.title}>¡Agenda tu cita ya!</h1>
+                  </span>
+                </div>
+                <p>
+                  Tenemos una amplia lista de profesionales y servicios médicos.
+                  Ofrecemos traumatología, cardiología, ginecología/obstetricia,
+                  mamografías, oftalmología, otorrinolaringología, pediatría, y
+                  más. Selecciona tus servicios y elige al medico de tu
+                  preferencia.
+                </p>
+                <button
+                  className="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900"
+                  href=""
+                >
+                  <span>Sobre nosotros</span>
+                  <span className="text-xs ml-1">&#x279c;</span>
+                </button>
+              </div>
+              <svg
+                className="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+              >
+                <polygon points="50,0 100,0 50,100 0,100" />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>: <p>Necesitas iniciar sesion</p>}
+      ) : (
+        <p>Necesitas iniciar sesion</p>
+      )}
       <Medicos_Especialidad_Filter />
       <CardSpecial />
     </div>

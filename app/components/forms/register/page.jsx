@@ -6,12 +6,11 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
-import Link from "next/link";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+import Link from "react-dom";
+const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
-const local = "https://medconnectback-production.up.railway.app/auth/register";
-const localPatch = "https://medconnectback-production.up.railway.app/users/";
+const localPatch = `${backendURL}/users/`;
+
 export default function UserLogin() {
   const userLocal = useSelector((state) => state.login.userLocal);
   const { logStatus } = useSelector((state) => state);
@@ -46,7 +45,7 @@ export default function UserLogin() {
       .catch((error) => {
         if (userLocal.id) {
           axios
-            .patch(`${authRegisterURL}` + userLocal.id)
+            .patch(localPatch + userLocal.id)
             .then(() => {
               setRegistered(true);
               setLoading(false);

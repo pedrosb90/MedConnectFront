@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { getMedicos } from "../redux/reducer";
 import axios from "axios";
 import styles from "./Medicos.module.css";
+const backendURL = "http://localhost:3001";
+
+const medicsURL = `${backendURL}/medics`;
 import Link from "next/link";
 
 export default function Medicos({ data }) {
@@ -11,9 +14,7 @@ export default function Medicos({ data }) {
   const dispatch = useDispatch();
   const fetchMedicos = async () => {
     try {
-      const response = await axios.get(
-        "https://medconnectback-production.up.railway.app/medics"
-      );
+      const response = await axios.get(medicsURL);
       dispatch(getMedicos(response.data));
     } catch (error) {
       alert(error);

@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import { useRouter } from "next/navigation";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const medicsRegister = `${backendURL}/medics`;
 import { useSelector } from "react-redux";
 
@@ -40,7 +40,7 @@ export default function Medicos() {
   }, [isDelete]);
 
   const deleteMed = (id) => {
-    const url = "https://medconnectback-production.up.railway.app/user/";
+    const url = `${backendURL}/user/`;
 
     count == 2 &&
       axios
@@ -131,7 +131,7 @@ export default function Medicos() {
                   </th>
                   <td className="px-4 py-2">
                     <a
-                      href={`http://localhost:3000/medicos/${med.id}`}
+                      href={`${backendURL}/medicos/${med.id}`}
                     >{`${med.user.first_name} ${med.user.last_name}`}</a>
                   </td>
                   <td className="px-6 py-4">

@@ -7,11 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../components/Search_Bar_Especialidades";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
-const local =
-  "https://medconnectback-production.up.railway.app/specializations";
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
   const dispatch = useDispatch();
@@ -26,7 +23,7 @@ export default function Especialidades() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(local);
+      const response = await axios.get(specsURL);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {

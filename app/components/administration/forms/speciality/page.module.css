@@ -1,30 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap");
 
-.descri{
+.descri {
   resize: none;
   background-color: #91c4cd;
-
 }
 
-.container_img{
+.container_img {
   display: flex;
   margin-bottom: 9px;
   align-items: center;
-
 }
-.container_img button{
+.container_img button {
   height: fit-content;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
-  
 }
 .container {
   display: flex;
   flex-direction: column;
- 
+
   font-family: "Montserrat", sans-serif;
   border-radius: 10px;
   background-color: #91c4cd;
@@ -34,8 +31,6 @@
   font-weight: 600;
   margin-top: 1%;
   padding: 10px;
-  
-  
 }
 
 .title {
@@ -44,20 +39,16 @@
   align-self: center;
   margin: 8px;
   text-align: center;
-  
+
   font-family: "Montserrat", sans-serif;
-  
 }
-.Button{
+.Button {
   display: flex;
   color: white;
-  background-color:rgb(30 41 59) ;
+  background-color: rgb(30 41 59);
   width: 25%;
   margin: auto;
   justify-content: center;
   font-size: 1em;
   font-weight: 600;
-  
-  
 }
-

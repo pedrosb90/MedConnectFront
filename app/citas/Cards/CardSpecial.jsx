@@ -8,12 +8,11 @@ import { useEffect, useState } from "react";
 import CardMedics from "./CardMedics";
 import Link from "next/link";
 import { postInfo } from "../../redux/CitaReducer";
-import Warning from "@/app/components/warning/Warning";
 
-const backendURL = process.env.PUBLIC_BACKEND_URL;
-//const local = "https://medconnectback-production.up.railway.app/specializations";
-// const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
+import Warning from "../../components/warning/Warning";
+
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {
   const [error, setError] = useState({
@@ -26,14 +25,9 @@ export default function CardSpecial() {
   const [espeMed, setEspeMEd] = useState([]);
   const [medico, setMedico] = useState(false);
 
-
-  const filtro = especialidades.filter(e=>e.deletedAt===null)
-
   async function fetchData() {
     try {
-      const response = await axios.get(specializationsURL, {
-        withCredentials: true,
-      });
+      const response = await axios.get(specsURL);
 
       dispatch(getSpeciality(response.data));
     } catch (error) {
@@ -47,37 +41,36 @@ export default function CardSpecial() {
 
       if (nameES === "All")
         setEspecial(
-          filtro.filter((espe) => espeMed.includes(espe.name))
+          especialidades.filter((espe) => espeMed.includes(espe.name))
         );
       else {
-        setEspecial(filtro.filter((espe) => espe.name === nameES));
+        setEspecial(especialidades.filter((espe) => espe.name === nameES));
         setEspeMEd(medico.specializations);
       }
     } else {
-      if (nameES === "All") setEspecial(filtro);
+      if (nameES === "All") setEspecial(especialidades);
       else {
-        setEspecial(filtro.filter((espe) => espe.name === nameES));
+        setEspecial(especialidades.filter((espe) => espe.name === nameES));
       }
     }
   };
   const handleClickMed = (event) => {
     setMedico(event);
     const espeMed = event.specializations.map((espe) => espe.name);
-    const data = filtro.filter((espe) => espeMed.includes(espe.name));
+    const data = especialidades.filter((espe) => espeMed.includes(espe.name));
     setEspecial(data);
     setEspeMEd(event.specializations);
   };
 
   useEffect(() => {
+    !especialidades.length ? fetchData() : setEspeMEd(especialidades);
+    setEspecial(especialidades);
+  }, [especialidades]);
 
-    !filtro.length ? fetchData() : setEspeMEd(filtro);
-    setEspecial(filtro);
-  }, [filtro]);
   const buttonReset = () => {
-    setEspeMEd(filtro);
-    setEspecial(filtro);
-    setMedico([]);
-
+    setEspeMEd(especialidades);
+    setEspecial(especialidades);
+    setMedico(false);
   };
   const citaInfo = useSelector((state) => state.cita.info);
   const onClickFunc = (name) => {
@@ -128,7 +121,7 @@ export default function CardSpecial() {
           handleClick={handleClick}
         ></BottonEspe>
         <div className={styles.box_espe}>
-          {filtro.length ? (
+          {especialidades.length ? (
             especial.map((espe) => {
               return (
                 <div

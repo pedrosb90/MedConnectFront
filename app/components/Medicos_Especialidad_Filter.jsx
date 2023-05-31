@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
-const local = "https://medconnectback-production.up.railway.app/medics";
+const specsURL = `${backendURL}/specializations`;
 
 export default function Medicos_Especialidad_Filter() {
   const allMedicos = useSelector((state) => state.speciality.AllMedicos);
@@ -28,9 +27,7 @@ export default function Medicos_Especialidad_Filter() {
   useEffect(() => {
     async function fetchSpecialitiesData() {
       try {
-        const response = await axios.get(
-          "https://medconnectback-production.up.railway.app/specializations"
-        );
+        const response = await axios.get(specsURL);
         dispatch(getSpeciality(response.data));
       } catch (error) {
         alert(error.message);
@@ -41,15 +38,13 @@ export default function Medicos_Especialidad_Filter() {
   useEffect(() => {
     async function fetchMedicosData() {
       try {
-        const response = await axios.get(
-          "https://medconnectback-production.up.railway.app/medics"
-        );
+        const response = await axios.get(medicsURL);
         dispatch(getMedicos(response.data));
       } catch (error) {
         alert(error.message);
       }
     }
-  }, [dispatch, allMedicos]);
+  }, [dispatch]);
 
   const handleSearch = () => {
     const filteredMedics = allMedicos.filter((medic) => {
@@ -126,15 +121,20 @@ export default function Medicos_Especialidad_Filter() {
     }
   };
 
-  const handleClear = () => {
+  const handleClear = async () => {
     setMedicName("");
     setSpecialty("");
     setYearsExperience("");
     setCertifications("");
     setCity("");
 
-    dispatch(searchMedic([]));
-    setList(allMedicos);
+    try {
+      const response = await axios.get(medicsURL);
+      dispatch(getMedicos(response.data));
+      setList(response.data);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -146,7 +146,7 @@ export default function Medicos_Especialidad_Filter() {
     <div className="w-full bg-gray-300 py-2 px-6 flex justify-center rounded-md">
       <form onSubmit={handleSubmit} className="justify-end">
         <select
-          className="py-1 px-2 rounded-md mb-2"
+          className="text-sm py-1 px-2 rounded-md mb-2"
           value={medicName}
           onChange={(e) => setMedicName(e.target.value)}
         >
@@ -158,7 +158,7 @@ export default function Medicos_Especialidad_Filter() {
           ))}
         </select>
         <select
-          className="py-1 px-2 rounded-md mb-2 ml-10"
+          className="text-sm py-1 px-2 rounded-md mb-2 ml-10"
           value={speciality}
           onChange={(e) => setSpecialty(e.target.value)}
         >
@@ -170,7 +170,7 @@ export default function Medicos_Especialidad_Filter() {
           ))}
         </select>
         <select
-          className="py-1 px-2 rounded-md mb-2 ml-5"
+          className=" text-sm py-1 px-2 rounded-md mb-2 ml-5"
           value={yearsExperience}
           onChange={(e) => setYearsExperience(e.target.value)}
         >
@@ -180,7 +180,7 @@ export default function Medicos_Especialidad_Filter() {
           <option value="15plus">15+</option>
         </select>
         <select
-          className="py-1 px-2 rounded-md mb-2 ml-5"
+          className="text-sm py-1 px-2 rounded-md mb-2 ml-5"
           value={certifications}
           onChange={(e) => setCertifications(e.target.value)}
         >
@@ -189,7 +189,7 @@ export default function Medicos_Especialidad_Filter() {
           <option value="2<0">Mas de 2</option>
         </select>
         <select
-          className="py-1 px-2 rounded-md mb-2 ml-5"
+          className="text-sm py-1 px-2 rounded-md mb-2 ml-5"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         >
@@ -201,15 +201,15 @@ export default function Medicos_Especialidad_Filter() {
           ))}
         </select>
         <button
-          className="bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
+          className="text-sm bg-cimPallete-600 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
           type="submit"
           onClick={handleSearch}
         >
           Aplicar
         </button>
         <button
-          className="bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
-          type="submit"
+          className="text-sm bg-cimPallete-100 hover:bg-cimPallete-gold text-white font-bold py-1 px-2 rounded ml-5"
+          type="button"
           onClick={handleClear}
         >
           Borrar

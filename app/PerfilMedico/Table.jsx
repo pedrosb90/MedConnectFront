@@ -4,6 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Cita from "./Cita";
+
+const backendURL = `http://localhost:3001`;
 export default function Table() {
   const [citas, setCitas] = useState([]);
 
@@ -12,7 +14,7 @@ export default function Table() {
   useEffect(() => {
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get(`${backendURL}/appointment`)
         .then((res) => {
           setCitas(res.data);
         })
@@ -21,10 +23,10 @@ export default function Table() {
         });
     }
   }, []);
-  const getCitasPerfil = citas?.filter(
-    (e) => e.user.first_name === userLocal?.first_name
-  );
-  console.log("get citas perfil: ", getCitasPerfil);
+  // const getCitasPerfil = citas?.filter(
+  //   (e) => e.user.first_name === userLocal?.first_name
+  // );
+  // console.log("get citas perfil: ", getCitasPerfil);
 
 
     
@@ -112,6 +114,7 @@ export default function Table() {
                   handleCheckChange={handleCheckChange}
                   cita={cita}
                   index={index}
+                  key={cita.id}
                 />
               ))}
           </tbody>

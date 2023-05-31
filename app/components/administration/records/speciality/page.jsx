@@ -1,13 +1,12 @@
 "use client";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
-
-const backendURL = "https://medconnectback-production.up.railway.app";
-const specializationsURL = `${backendURL}/specializations`;
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
@@ -18,7 +17,6 @@ export default function Especialidades() {
   });
   const [count, setCount] = useState(1);
   const [clickCal, setClickCal] = useState(false);
-
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -29,9 +27,7 @@ export default function Especialidades() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(specializationsURL, {
-          withCredentials: true,
-        });
+        const response = await axios.get(specsURL);
         setEspecialidades(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -42,14 +38,12 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id, deletedAt) => {
-    //const url = "https://medconnectback-production.up.railway.app/specializations/";
-
     if (deletedAt !== null) {
-      axios.patch(`${specializationsURL}/${id}`, { withCredentials: true });
+      axios.patch(`${specsURL}/${id}`, { withCredentials: true });
     } else {
       count == 2 &&
         axios
-          .delete(`${specializationsURL}/${id}`, { withCredentials: true })
+          .delete(`${specsURL}/${id}`, { withCredentials: true })
           .then(() => {
             setIsDelete(!isDelete);
             setCount(1);

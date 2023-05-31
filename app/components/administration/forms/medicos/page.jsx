@@ -3,48 +3,35 @@ import { Button, Form, Input, Radio, Alert } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import FormItem from "antd/es/form/FormItem";
+import { useRouter } from "next/router";
 import style from "./page.module.css";
-import { useRouter } from "next/navigation";
-
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "https://medconnectback-production.up.railway.app/medics/create";
-const localR =
-  "https://medconnectback-production.up.railway.app/medics/register";
-
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
-  const nav = useRouter()
+  const nav = useRouter();
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-
-  },[logStatus])
+  }, [logStatus]);
 
   const onSubmit = async (values) => {
     setLoading(true);
     const { first_name, last_name, phone, userType, email, password } = values;
     axios
-      // .create({ withCredentials: true })
-      .post(
-        userType === "medic" ? createMedicURL : registerURL,
-        {
-          first_name,
-          last_name,
-          phone,
-          userType,
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+      .create({ withCredentials: true })
+      .post(userType === "medic" ? createMedicURL : registerURL, {
+        first_name,
+        last_name,
+        phone,
+        userType,
+        email,
+        password,
+      })
       .then((res) => {
         console.log(res.data);
         if (res.data) {
@@ -89,14 +76,14 @@ export default function UserLogin() {
               ) : null}
             </Radio.Group>
           </Form.Item>
-          <FormItem
+          <Form.Item
             name="first_name"
             label="Nombre"
             rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="last_name"
             label="Apellido"
             rules={[
@@ -104,8 +91,8 @@ export default function UserLogin() {
             ]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="phone"
             label="Número de telefono"
             rules={[
@@ -116,7 +103,7 @@ export default function UserLogin() {
             ]}
           >
             <Input type="number" />
-          </FormItem>
+          </Form.Item>
           <Form.Item
             name="email"
             label="Correo electrónico"

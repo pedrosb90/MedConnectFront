@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import img from "./img/Logo.jpg";
-
 import styles from "./page.module.css";
 import Link from "next/link";
-
 import userLogo from "../../citas/img/iconoMed.jpg";
 import { getUser } from "@/app/redux/login";
 import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+const backendURL = "http://localhost:3001";
+
 export default function Navbar() {
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
@@ -51,35 +51,24 @@ export default function Navbar() {
   const UserLogout = links[4];
 
   const logoutGoogle = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logout", "_self");
-    window.open(
-      "https://medconnectback-production.up.railway.app/auth/logout",
-      "_self"
-    );
+    window.open(`${backendURL}/auth/logout`, "_self");
   };
   const logoutLocal = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logoutLocal", "_self");
-    window.open(
-      "https://medconnectback-production.up.railway.app/auth/logoutLocal",
-      "_self"
-    );
+    window.open(`${backendURL}/auth/logoutLocal`, "_self");
   };
   const onClickFunc = () => {
     setClickUser(!clickUser);
   };
   useEffect(() => {
-    fetch(
-      "https://medconnectback-production.up.railway.app/auth/login/success",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      }
-    )
+    fetch(`${backendURL}/auth/login/success`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
       .then((response) => {
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");
@@ -89,18 +78,15 @@ export default function Navbar() {
       })
       .catch((err) => {});
 
-    fetch(
-      "https://medconnectback-production.up.railway.app/auth/loginn/success",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      }
-    )
+    fetch(`${backendURL}/auth/loginn/success`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
       .then((response) => {
         if (response.status === 200) return response.json();
         throw new Error("authentication has been failed!");

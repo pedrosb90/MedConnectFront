@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { obtenerHorarios } from "./obtenerHorarios.js";
 import CardEdit from "./CardEdit";
 import Success from "../../../components/success/Success";
+const backendURL = "http://localhost:3001";
 
 export default function Table({ userCitas, setPut, put }) {
   const [horarios, setHorarios] = useState([]);
@@ -17,9 +18,7 @@ export default function Table({ userCitas, setPut, put }) {
   });
 
   const editCita = async (Med_id, status, Cita_id) => {
-    const res = await axios.get(
-      "https://medconnectback-production.up.railway.app/medics"
-    );
+    const res = await axios.get(`${backendURL}/medics`);
 
     const medico = res.data.find((med) => med.user.id === Med_id);
 
@@ -40,11 +39,9 @@ export default function Table({ userCitas, setPut, put }) {
 
   const [totalCitas, setTotalCitas] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://medconnectback-production.up.railway.app/appointment")
-      .then((res) => {
-        setTotalCitas(res.data);
-      });
+    axios.get(`${backendURL}/appointment`).then((res) => {
+      setTotalCitas(res.data);
+    });
   }, [put]);
 
   const arrPacientes = userCitas ? userCitas.patients : [];

@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   // useEffect(()=>{
-  //   axios.get("https://medconnectback-production.up.railway.app/medics",{ withCredentials: true})
+  //   axios.get("http://localhost:3001/medics",{ withCredentials: true})
   //   .then((res)=>{
   //     console.log(res.data);
 

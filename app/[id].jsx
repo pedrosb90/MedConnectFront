@@ -1,4 +1,6 @@
 import style from "detail.module.css";
+const backendURL = "http://localhost:3001";
+const specsURL = `${backendURL}/specializations`;
 
 export default function Detail({ data }) {
   return (
@@ -11,9 +13,7 @@ export default function Detail({ data }) {
 }
 export async function getStaticPaths() {
   try {
-    const res = await fetch(
-      "https://medconnectback-production.up.railway.app/specializations"
-    );
+    const res = await fetch(specsURL);
     const data = await res.json();
     const paths = data.map(({ id }) => ({ params: { id: `${id}` } }));
 
@@ -29,9 +29,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const res = await fetch(
-      `https://medconnectback-production.up.railway.app/specializations/${params.id}`
-    );
+    const res = await fetch(`${specsURL}/${params.id}`);
     const data = await res.json();
     return {
       props: {

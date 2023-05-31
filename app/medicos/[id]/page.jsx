@@ -6,10 +6,8 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Warning from "../../components/warning/Warning";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
-const local = "https://medconnectback-production.up.railway.app/medics";
 
 export default function Page() {
   const [error, setError] = useState({
@@ -22,7 +20,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`${local}/${id}`);
+      const response = await axios.get(`${medicsURL}/${id}`);
       setData(response.data);
     } catch (error) {
       setError({ ...error, text: error.message, alert: true });
@@ -133,19 +131,33 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <Link href="/" as="/">
+
+      <Link href="/">
         <button
           type="button"
-          className={`btn_return_home text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_home}`}
+          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 `}
+          style={{
+            height: "40px",
+            width: "83px",
+            position: "absolute",
+            bottom: "5%",
+            right: "7%",
+          }}
         >
           Inicio
         </button>
-      </Link>{" "}
-      <Link href="/citas" as="/citas">
+      </Link>
+      <Link href="/citas">
         <button
-          // onClick={goBack}
           type="button"
-          className={`btn_return_citas text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ${styles.btn_return_citas}`}
+          className={`text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 `}
+          style={{
+            height: "40px",
+            width: "83px",
+            position: "absolute",
+            bottom: "5%",
+            right: "15%",
+          }}
         >
           Citas
         </button>
