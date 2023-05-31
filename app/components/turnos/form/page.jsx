@@ -30,6 +30,8 @@ export default function UserLogin() {
     });
   }, [logStatus]);
 
+console.log("schedule",schedule);
+
   const countries = [
     {
       name: "Argentina",
