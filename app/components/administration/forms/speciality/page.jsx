@@ -29,10 +29,10 @@ export default function SpecialtyForm() {
     alert: false,
     text: "Especialidad creada exitosamente",
   });
-
+  
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-  }, [logStatus]);
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
 
   const onSubmit = (values) => {
     setRegistered(!registered);
