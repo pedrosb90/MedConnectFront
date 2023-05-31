@@ -5,7 +5,13 @@ import axios from "axios";
 const format = "HH:mm";
 const localHorario = "http://localhost:3001/schedule/create";
 
-export default function FormHor({ filtromedico }) {
+export default function FormHor({
+  filtromedico,
+  setSuccess,
+  setError,
+  success,
+  error,
+}) {
   const diasSemana = [
     "Domingo",
     "Lunes",
@@ -16,6 +22,7 @@ export default function FormHor({ filtromedico }) {
     "Sabado",
   ];
 
+  const [form] = Form.useForm();
   const onSubmit = async (fieldsValue) => {
     const values = {
       start_time: fieldsValue["start_time"].format("HH:mm"),
@@ -23,10 +30,19 @@ export default function FormHor({ filtromedico }) {
       day_of_week: fieldsValue["day_of_week"],
       medicoId: filtromedico[0].id,
     };
-    const res = await axios.post(localHorario, values);
-    console.log(res.data);
-
-    window.location.reload();
+    axios
+      .post(localHorario, values)
+      .then(() => {
+        // Código para manejar la respuesta en caso de éxito
+        setSuccess({ ...success, alert: true });
+        console.log("Antes de resetFields");
+        form.resetFields();
+        console.log("Después de resetFields");
+      })
+      .catch(() => {
+        // Código para manejar la respuesta en caso de error
+        setError({ ...error, alert: true });
+      });
   };
 
   return (
@@ -48,9 +64,9 @@ export default function FormHor({ filtromedico }) {
           <Select showSearch optionFilterProp="children">
             {diasSemana.map((e, index) => {
               return (
-                <Select.Option key={index} value={index}>
+                <Option key={index} value={index}>
                   {e}
-                </Select.Option>
+                </Option>
               );
             })}
           </Select>
