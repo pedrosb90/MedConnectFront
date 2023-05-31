@@ -9,9 +9,10 @@ import style from "./form.module.css";
 const { TextArea } = Input;
 import { PhoneOutlined } from "@ant-design/icons";
 import Image from "next/image";
+import SideCard from "../SideCard/SideCard";
 
 export default function UserLogin() {
-  const nav = useRouter()
+  const nav = useRouter();
   const { logStatus, speciality } = useSelector((state) => state);
   const { info } = useSelector((state) => state.cita);
   const { schedule } = useSelector((state) => state.cita);
@@ -30,7 +31,7 @@ export default function UserLogin() {
     });
   }, [logStatus]);
 
-console.log("schedule",schedule);
+  console.log("schedule", schedule);
 
   const countries = [
     {
@@ -374,11 +375,12 @@ console.log("schedule",schedule);
                 loading={loading}
                 className={style.Button}
               >
-                registrarse y pagar
+                Registrarse y Pagar
               </Button>
             )
           )}
         </Form>
+        <SideCard />
       </div>
     </>
   );
