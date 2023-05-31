@@ -12,10 +12,9 @@ import { useSelector } from "react-redux";
 export default function Medicos() {
   const nav = useRouter()
   const { logStatus } = useSelector((state) => state);
-  useEffect(()=>{
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-
-  },[logStatus])
+  useEffect(() => {
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
   const [medicos, setMedicos] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   const [error, setError] = useState({

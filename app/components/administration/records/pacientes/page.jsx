@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
 import EditPaciente from "./editPaciente";
+import { useSelector } from "react-redux";
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -19,7 +20,10 @@ export default function Pacientes() {
   });
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
+  const { logStatus } = useSelector((state) => state);
   useEffect(() => {
+      !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(
