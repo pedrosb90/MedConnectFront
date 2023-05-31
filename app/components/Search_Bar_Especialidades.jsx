@@ -3,10 +3,10 @@ import { searchBar, sortEspecsAZ } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-// const backendURL = "https://medconnectback-production.up.railway.app";
+// const backendURL = "http://localhost:3001";
 // const specialitiesURL = `${backendURL}/specializations`;
 const local =
-  "https://medconnectback-production.up.railway.app/specializations";
+  "http://localhost:3001/specializations";
 
 export default function SearchBar() {
   const [name, setName] = useState("");

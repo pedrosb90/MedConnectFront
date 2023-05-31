@@ -23,7 +23,7 @@ export default function Pacientes() {
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(
-          "https://medconnectback-production.up.railway.app/patients"
+          "http://localhost:3001/patients"
         );
 
         const patientsData = patientsResponse.data;
@@ -40,8 +40,8 @@ export default function Pacientes() {
 
   const deletePaci = (id, isUser, email) => {
     const url = isUser
-      ? "https://medconnectback-production.up.railway.app/users/"
-      : "https://medconnectback-production.up.railway.app/patients/";
+      ? "http://localhost:3001/users/"
+      : "http://localhost:3001/patients/";
 
     count == 2 &&
       axios

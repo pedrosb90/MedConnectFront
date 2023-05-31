@@ -47,7 +47,7 @@ export default function PerfilMedico() {
 
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get("http://localhost:3001/appointment")
         .then((res) => {
           setCitas(res.data);
         })

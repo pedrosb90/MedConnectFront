@@ -9,7 +9,7 @@ import Link from "next/link";
 import Warning from "../../warning/Warning";
 import { useState } from "react";
 
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const authLoginURL = `${backendURL}/auth/login`;
 
 export default function UserLogin() {
@@ -49,7 +49,7 @@ export default function UserLogin() {
 
   const google = () => {
     window.open(
-      "https://medconnectback-production.up.railway.app/auth/google",
+      "http://localhost:3001/auth/google",
       "_self"
     );
   };

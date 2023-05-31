@@ -12,7 +12,7 @@ export default function Table() {
   useEffect(() => {
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get("http://localhost:3001/appointment")
         .then((res) => {
           setCitas(res.data);
         })
@@ -21,10 +21,10 @@ export default function Table() {
         });
     }
   }, []);
-  const getCitasPerfil = citas?.filter(
-    (e) => e.user.first_name === userLocal?.first_name
-  );
-  console.log("get citas perfil: ", getCitasPerfil);
+  // const getCitasPerfil = citas?.filter(
+  //   (e) => e.user.first_name === userLocal?.first_name
+  // );
+  // console.log("get citas perfil: ", getCitasPerfil);
 
 
     

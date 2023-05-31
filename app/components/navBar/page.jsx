@@ -51,16 +51,16 @@ export default function Navbar() {
   const UserLogout = links[4];
 
   const logoutGoogle = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logout", "_self");
+    //window.open("http://localhost:3001/auth/logout", "_self");
     window.open(
-      "https://medconnectback-production.up.railway.app/auth/logout",
+      "http://localhost:3001/auth/logout",
       "_self"
     );
   };
   const logoutLocal = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logoutLocal", "_self");
+    //window.open("http://localhost:3001/auth/logoutLocal", "_self");
     window.open(
-      "https://medconnectback-production.up.railway.app/auth/logoutLocal",
+      "http://localhost:3001/auth/logoutLocal",
       "_self"
     );
   };
@@ -69,7 +69,7 @@ export default function Navbar() {
   };
   useEffect(() => {
     fetch(
-      "https://medconnectback-production.up.railway.app/auth/login/success",
+      "http://localhost:3001/auth/login/success",
       {
         method: "GET",
         credentials: "include",
@@ -90,7 +90,7 @@ export default function Navbar() {
       .catch((err) => {});
 
     fetch(
-      "https://medconnectback-production.up.railway.app/auth/loginn/success",
+      "http://localhost:3001/auth/loginn/success",
       {
         method: "GET",
         credentials: "include",

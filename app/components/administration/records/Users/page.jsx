@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import { useRouter } from "next/navigation";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const userssURL = `${backendURL}/users`;
 
 export default function Medicos() {
@@ -35,7 +35,7 @@ export default function Medicos() {
   }, [isDelete]);
 
   const deleteMed = (id) => {
-    //const url = "https://medconnectback-production.up.railway.app/users/";
+    //const url = "http://localhost:3001/users/";
 
     count == 2 &&
       axios

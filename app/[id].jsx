@@ -12,7 +12,7 @@ export default function Detail({ data }) {
 export async function getStaticPaths() {
   try {
     const res = await fetch(
-      "https://medconnectback-production.up.railway.app/specializations"
+      "http://localhost:3001/specializations"
     );
     const data = await res.json();
     const paths = data.map(({ id }) => ({ params: { id: `${id}` } }));
@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     const res = await fetch(
-      `https://medconnectback-production.up.railway.app/specializations/${params.id}`
+      `http://localhost:3001/specializations/${params.id}`
     );
     const data = await res.json();
     return {

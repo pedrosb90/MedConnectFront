@@ -8,11 +8,11 @@ import style from "./page.module.css";
 import { useRouter } from "next/navigation";
 
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "https://medconnectback-production.up.railway.app/medics/create";
+const local = "http://localhost:3001/medics/create";
 const localR =
-  "https://medconnectback-production.up.railway.app/medics/register";
+  "http://localhost:3001/medics/register";
 
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 

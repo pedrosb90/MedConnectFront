@@ -7,9 +7,9 @@ import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
 import styles from "./page.module.css";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
 const authRegisterURL = `${backendURL}/auth/register`;
-const local = "https://medconnectback-production.up.railway.app/auth/register";
+const local = "http://localhost:3001/auth/register";
 import { useRouter } from "next/navigation";
 
 

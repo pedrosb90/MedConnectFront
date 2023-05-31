@@ -30,7 +30,7 @@ export default function CardEdit({
 
     if (fechaFormateada.length) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get("http://localhost:3001/appointment")
         .then((res) => {
           const diasHorasFiltradas = res.data.filter(
             (cita) =>
@@ -79,7 +79,7 @@ export default function CardEdit({
 
     axios
       .put(
-        "https://medconnectback-production.up.railway.app/appointment/" + id,
+        "http://localhost:3001/appointment/" + id,
         {
           scheduledDate: fechaFormateada,
           scheduledTime: scheduledTime,

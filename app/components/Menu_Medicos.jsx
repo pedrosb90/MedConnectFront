@@ -18,7 +18,7 @@ export default function Menu_Medicos({ showMenu }) {
   const fetchMedicos = async () => {
     try {
       const response = await axios.get(
-        "https://medconnectback-production.up.railway.app/medics"
+        "http://localhost:3001/medics"
       );
       dispatch(getMedicos(response.data));
     } catch (error) {

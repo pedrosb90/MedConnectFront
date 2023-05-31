@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import img from '../../../citas/img/iconoMed.jpg'
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
+// const backendURL = "http://localhost:3001";
 // const medicsURL = `${backendURL}/medics`;
 export default function MedicCarrousel({ medics,select }) {
   const [currentIndex, setCurrentIndex] = useState(0);

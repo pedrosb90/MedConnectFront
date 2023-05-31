@@ -10,8 +10,8 @@ import axios from "axios";
 import { getSpeciality } from "../redux/reducer";
 import Warning from "./warning/Warning";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const local = "https://medconnectback-production.up.railway.app";
+const backendURL = "http://localhost:3001";
+const local = "http://localhost:3001";
 
 export default function Carrusel() {
   const dispatch = useDispatch();

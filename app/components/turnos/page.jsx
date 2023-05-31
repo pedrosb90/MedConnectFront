@@ -25,7 +25,7 @@ export default function Calendary() {
   const especialidad = info.especialidad && info.especialidad;
   const getMedicos = async () => {
     const medicos = await axios.get(
-      "https://medconnectback-production.up.railway.app/medics"
+      "http://localhost:3001/medics"
     );
 
     const filter = medicos.data.filter((med) => {

@@ -11,8 +11,8 @@ import { postInfo } from "../../redux/CitaReducer";
 import Warning from "@/app/components/warning/Warning";
 
 const backendURL = process.env.PUBLIC_BACKEND_URL;
-//const local = "https://medconnectback-production.up.railway.app/specializations";
-// const backendURL = "https://medconnectback-production.up.railway.app";
+//const local = "http://localhost:3001/specializations";
+// const backendURL = "http://localhost:3001";
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function CardSpecial() {

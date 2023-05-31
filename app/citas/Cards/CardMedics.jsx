@@ -11,7 +11,7 @@ import Image from "next/image";
 import img from "../img/iconoMed.jpg";
 import Warning from "@/app/components/warning/Warning";
 const backendURL = process.env.PUBLIC_BACKEND_URL;
-// const backendURL = "https://medconnectback-production.up.railway.app";
+// const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 export default function CardMedics({ handleClickMed }) {
   const [medicos, setMedicos] = useState([]);
