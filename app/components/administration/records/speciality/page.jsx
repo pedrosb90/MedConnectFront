@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
+import {useSelector} from "react-redux"
 const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
 const specURLAll = `${specsURL}/all`
@@ -19,6 +20,7 @@ export default function Especialidades() {
   });
   
   const [clickCal, setClickCal] = useState(false);
+  const { logStatus } = useSelector((state) => state);
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -27,6 +29,8 @@ export default function Especialidades() {
   });
 
   useEffect(() => {
+    
+ 
     const fetchPatients = async () => {
       try {
         const response = await axios.get(specURLAll);

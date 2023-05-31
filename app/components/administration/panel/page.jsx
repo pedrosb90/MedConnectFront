@@ -13,7 +13,8 @@ export default function Admin(){
     speciality: false,
     medico:false,
     paciente:false,
-    users:false
+    users:false,
+    reviews:false,
 });
 
   
@@ -55,6 +56,7 @@ export default function Admin(){
             </ul>
           )}
         </div>
+        
         <div className={styles.box_selector}>
             
           <button className={showMenu.paciente ? styles.button_on : styles.button_of} onClick={toggleMenu} name='paciente'>Pacientes</button>
@@ -76,8 +78,19 @@ export default function Admin(){
               
             </ul>
           )}
+          
+        
         </div>
-        </div> 
+        <div className={styles.box_selector}>
+          <button className={showMenu.medico ? styles.button_on : styles.button_of} onClick={toggleMenu} name='reviews'>reviews</button>
+          {showMenu.reviews && (
+            <ul className={styles.mini_menu}>
+              <Link href={'/components/administration/reviews'}><li>Registro</li></Link>
+            </ul>
+          )}
+          </div>
+        </div>
+        
         )
     // }else{
     //     return(

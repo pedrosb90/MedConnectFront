@@ -14,10 +14,11 @@ export default function UserLogin() {
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-  }, [logStatus]);
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
+
 
   const onSubmit = async (values) => {
     setLoading(true);

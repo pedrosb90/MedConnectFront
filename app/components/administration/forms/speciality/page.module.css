@@ -2,7 +2,8 @@
 
 .descri {
   resize: none;
-  background-color: #91c4cd;
+  background-color: #e6e6e6;
+  border-radius: 80px 0px 80px 0px;
 }
 
 .container_img {
@@ -24,7 +25,8 @@
 
   font-family: "Montserrat", sans-serif;
   border-radius: 10px;
-  background-color: #91c4cd;
+  background-color: #e6e6e6;
+  border-radius: 80px 0px 80px 0px;
   width: 50%;
   margin: auto;
   height: fit-content;

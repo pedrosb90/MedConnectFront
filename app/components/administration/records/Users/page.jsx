@@ -23,7 +23,7 @@ export default function Medicos() {
  
 
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
 
     const fetchPatients = async () => {
       try {
