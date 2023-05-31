@@ -13,10 +13,9 @@ export default function EditPaciente({ setOpen, datos }) {
   const [form] = Form.useForm();
   const nav = useRouter()
   const { logStatus } = useSelector((state) => state);
-  useEffect(()=>{
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-
-  },[logStatus])
+  useEffect(() => {
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
   const [error, setError] = useState({
     text: "",
     alert: false,

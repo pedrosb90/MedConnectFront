@@ -19,18 +19,13 @@ export default function UserLogin() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  
   //! logStatus has inside logStatus and userStatus
   //! speciality has inside AllMedicos
-
+  
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-    axios.get("http://localhost:3001/medics").then((res) => {
-      dispatch(getMedicos(res.data));
-    });
-  }, [logStatus]);
-
-console.log("schedule",schedule);
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
 
   const countries = [
     {
@@ -100,7 +95,6 @@ console.log("schedule",schedule);
     try {
       const response = await axios.get("http://localhost:3001/cities");
       const citiesData = response.data;
-
       if (citiesData && schedule && Object.keys(schedule).length > 0) {
         const cityIds = Object.values(schedule).map((element) => {
           if (element.city) {
@@ -113,8 +107,8 @@ console.log("schedule",schedule);
           }
           return null;
         });
-
-        return cityIds.filter((id) => id !== null);
+        const response = cityIds.filter((id) => id !== null);
+        return response[0];
       }
 
       return [];
@@ -125,18 +119,18 @@ console.log("schedule",schedule);
   };
 
   const onSubmit = async (values) => {
+    setLoading(true)
     if (validateObject(values)) {
       try {
-        const cityId = await cityGetter();
         const patient = {
           ...values,
           userId: logStatus.userStatus.id,
-          cityId: cityId[0],
+          cityId: await cityGetter(),
           direccion: schedule.medSelect.direccion,
         };
-        if (schedule && logStatus.userStatus) {
-          const testing = axios
-            .post("http://localhost:3001/patients/create", patient)
+        console.log(patient);
+          if (schedule && logStatus.userStatus) {
+            axios.post("http://localhost:3001/patients/create", patient)
             .then((res) => {
               const appointment = {
                 ...schedule,
@@ -146,55 +140,55 @@ console.log("schedule",schedule);
               return axios.post(
                 "http://localhost:3001/appointment/create",
                 appointment
-              );
-            })
-            .then((res) => {
-              console.log("entro");
-              const mp = {
-                title: info.especialidad,
-                quantity: 1,
-                currency_id: "ARS",
-                unit_price: 500,
-              };
-              axios
-                .post("http://localhost:3001/payment/create-order", mp)
+                );
+              })
+              .then((res) => {
+                console.log("entro");
+                const mp = {
+                  title: info.especialidad,
+                  quantity: 1,
+                  currency_id: "ARS",
+                  unit_price: 500,
+                };
+                axios.post("http://localhost:3001/payment/create-order", mp)
                 .then((res) => {
                   console.log(res.data.init_point);
+                  setLoading(false)
                   window.open(res.data.init_point, "_blank");
                 });
-            });
+              });
+            }
+          } catch (error) {
+            console.error("Error al obtener el ID de la ciudad:", error.message);
+          }
         }
-      } catch (error) {
-        console.error("Error al obtener el ID de la ciudad:", error);
-      }
-    }
-  };
-
-  // {
-  //   "scheduledDate": "2023-06-03",
-  //   "scheduledTime": "12:45:00",
-  //   "status": "pending",
-  //   "userId": "4403843d-b15c-49de-94da-f1fbfff22341",(user_id: rol medico)
-  //   "patientId": 2
-  // }
-
-  // appointment
-
-  // {
-  //   "firstName": "Guillermo ",
-  //   "lastName": "Dimas Rivero",
-  //   "phone": "333333333",
-  //   "email": "adhemirsabino@gmail.com",
-  //   "direccion": "159 Cedar St",
-  //   "dni": "333333333",
-  //   "observaciones": "Some observations about the patient",
-  //   "userId": "be965039-a1ce-44e7-9d00-3ddb5f15616c", (userId: usuario paciente)
-  //   "cityId": 15
-  // }
-
-  // if(logStatus.userStatus){
-  return (
-    <>
+      };
+      
+      // {
+        //   "scheduledDate": "2023-06-03",
+        //   "scheduledTime": "12:45:00",
+        //   "status": "pending",
+        //   "userId": "4403843d-b15c-49de-94da-f1fbfff22341",(user_id: rol medico)
+        //   "patientId": 2
+        // }
+        
+        // appointment
+        
+        // {
+          //   "firstName": "Guillermo ",
+          //   "lastName": "Dimas Rivero",
+          //   "phone": "333333333",
+          //   "email": "adhemirsabino@gmail.com",
+          //   "direccion": "159 Cedar St",
+          //   "dni": "333333333",
+          //   "observaciones": "Some observations about the patient",
+          //   "userId": "be965039-a1ce-44e7-9d00-3ddb5f15616c", (userId: usuario paciente)
+          //   "cityId": 15
+          // }
+          
+          // if(logStatus.userStatus){
+            return (
+              <>
       <div className={style.container}>
         <h1 className={style.title}>Completa tus datos para la cita</h1>
         <Form
@@ -354,12 +348,13 @@ console.log("schedule",schedule);
             </Select>
           </Form.Item>
 
-          <Form.Item name={"observaciones"} label={"Observaciones"}>
+          <Form.Item name={"observaciones"} label={"Observaciones"} 
+          rules={[{ required: true, message: "Por favor complete este campo" }]}>
             <TextArea
               style={{ resize: "none" }}
               rows={4}
               name={"observaciones"}
-              placeholder="Observaciones"
+              placeholder="Si no tiene, ingrese no"
               maxLength={150}
             />
           </Form.Item>
