@@ -24,9 +24,8 @@ export default function UserLogin() {
   //! speciality has inside AllMedicos
   
   const { login } = useSelector((state) => state);
-  useEffect(() => {
-    (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
-  }, []);
+  (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
+
 
   if (!info || !info.especialidad) {
     especialidad = schedule?.medSelect?.especialidad;
