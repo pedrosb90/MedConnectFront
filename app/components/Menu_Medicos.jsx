@@ -47,7 +47,7 @@ export default function Menu_Medicos({ showMenu }) {
             {estadoMed.map((med) => {
               return (
                 <span key={med.id}>
-                  <Link href={`/medicos/${med.user.id}`}>
+                  <Link href={`/medicos/${med.id}`}>
                     <li className="font-normal font-sans text-sm flex flex-wrap my-2 ">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
