@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import { useRouter } from "next/navigation";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsRegister = `${backendURL}/medics`;
 import { useSelector } from "react-redux";
 

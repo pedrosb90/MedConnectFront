@@ -10,7 +10,7 @@ import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const specsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {

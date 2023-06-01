@@ -26,14 +26,14 @@ const ReviewForm = () => {
       
     }else{
       
-      axios.get('http://localhost:3001/users')
+      axios.get('https://medconnectback-production.up.railway.app/users')
       .then(res=>{
         const response = res.data;
         const filter = response.find(user=>user.id === usuario)
         
         const id = filter.patients[0].id
         
-        axios.post('http://localhost:3001/reviews/create',{comment,rating,recommend:true,userId,patientId:id})
+        axios.post('https://medconnectback-production.up.railway.app/reviews/create',{comment,rating,recommend:true,userId,patientId:id})
     .then(()=>{
       setLoading(false);
       form.resetFields();
@@ -68,7 +68,7 @@ const ReviewForm = () => {
 
 useEffect(() => {
   
-    axios.get('http://localhost:3001/medics')
+    axios.get('https://medconnectback-production.up.railway.app/medics')
       .then(res => {
         setMedicos(res.data);
       })

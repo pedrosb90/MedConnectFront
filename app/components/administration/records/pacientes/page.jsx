@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
-import EditPaciente from "./editPaciente";
+import EditPaciente from "./EditPaciente";
 import { useSelector } from "react-redux";
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
@@ -23,11 +23,10 @@ export default function Pacientes() {
   const { login } = useSelector((state) => state);
  
   useEffect(() => {
-    
-     axios.get(
-          "http://localhost:3001/patients"
-        ).then((res)=>{
-          const patientsData = res.data;
+    axios
+      .get("https://medconnectback-production.up.railway.app/patients")
+      .then((res) => {
+        const patientsData = res.data;
 
         const combinedData = [...patientsData];
         setPacientes(combinedData);
@@ -43,9 +42,7 @@ export default function Pacientes() {
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    
-      
-      const url = "http://localhost:3001/patients/";
+    const url = "https://medconnectback-production.up.railway.app/patients/";
 
     count == 2 &&
       axios

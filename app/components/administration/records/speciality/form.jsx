@@ -6,7 +6,7 @@ import { Button, Form, Input } from "antd";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function Forms({ info }) {

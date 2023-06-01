@@ -25,7 +25,7 @@ export default function UserCard({ userCitas }) {
   //     setAlert(false);
   //     const id = userGoogle.id ? userGoogle.id : userLocal.id;
   //      axios
-  //       .delete('http://localhost:3001/users/' + id)
+  //       .delete('https://medconnectback-production.up.railway.app/users/' + id)
   //       .then(() => {
   //         homeReturn()
 

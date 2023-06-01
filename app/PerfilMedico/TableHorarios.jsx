@@ -10,7 +10,7 @@ export default function TableHorarios({
 }) {
   const handleEliminar = (e) => {
     const id = e.id;
-    const url = `http://localhost:3001/schedule/`;
+    const url = `https://medconnectback-production.up.railway.app/schedule/`;
     axios
       .delete(`${url}${id}`)
       .then(() => {

@@ -6,7 +6,7 @@ import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
 import { useSelector } from "react-redux";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const specsURL = `${backendURL}/specializations`;
 const specURLAll = `${specsURL}/all`;
 

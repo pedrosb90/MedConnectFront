@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { getSpeciality, getCities } from "../redux/reducer";
 import { Option } from "antd/es/mentions";
-const local = "http://localhost:3001/specializations";
-const localCites = "http://localhost:3001/cities";
+const local = "https://medconnectback-production.up.railway.app/specializations";
+const localCites = "https://medconnectback-production.up.railway.app/cities";
 
 export default function Forms({
   userLocal,
@@ -17,6 +17,8 @@ export default function Forms({
   setError,
   success,
   error,
+  setClickAct,
+  clickAct
 }) {
   const [data, setData] = useState([]);
   const [cities, setCities] = useState([]);
@@ -49,7 +51,7 @@ export default function Forms({
   }, [especialidades, globalCities]);
 
   const valoresSubmit = (values) => {
-    const localMedic = `http://localhost:3001/medics/${medico[0].id}`;
+    const localMedic = `https://medconnectback-production.up.railway.app/medics/${medico[0].id}`;
 
     const { first_name, last_name, ...a } = values;
 
@@ -67,10 +69,27 @@ export default function Forms({
         setError({ ...error, alert: true });
       });
   };
+  const handleClick = () => {
+    if (clickAct === true) {
+      setClickAct(false);
+    } else {
+      setClickAct(true);
+    }
+  };
 
   return (
-    <div className={style.container + " top-1/3 "}>
+    <div className={style.container + " top-1/3 flex "}>
+      <div className="flex justify-between">
+
+<div>
+
       <h1 className={style.title}>Actualiza tu informacion</h1>
+</div>
+      <div>
+
+<Button onClick={handleClick} type="dashed">X</Button>
+</div>
+      </div>
       <Form
         labelCol={{ span: 0 }}
         wrapperCol={{ span: 14 }}
@@ -141,7 +160,7 @@ export default function Forms({
           <Input type="string" defaultValue={medico[0].direccion} />
           {/* {errors.user && (<span>{errors.user}</span>)} */}
         </Form.Item>
-        <Button htmlType="submit" className={style.Button}>
+        <Button  htmlType="submit" className={style.Button} onClick={() => setTimeout(handleClick, 1000)}>
           Enviar
         </Button>
       </Form>

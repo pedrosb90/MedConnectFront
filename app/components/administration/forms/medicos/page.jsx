@@ -1,9 +1,10 @@
 "use client";
+import { useRouter } from 'next/compat/router'
 import { Button, Form, Input, Radio, Alert } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import style from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const createMedicURL = `${backendURL}/medics/create`;

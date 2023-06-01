@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { getSpeciality, getCities } from "../redux/reducer";
 import { Option } from "antd/es/mentions";
-const local = "http://localhost:3001/specializations";
-const localCites = "http://localhost:3001/cities";
-const localMedic = "http://localhost:3001/medics/create";
+const local = "https://medconnectback-production.up.railway.app/specializations";
+const localCites = "https://medconnectback-production.up.railway.app/cities";
+const localMedic = "https://medconnectback-production.up.railway.app/medics/create";
 
 export default function Forms({
   userLocal,
@@ -18,6 +18,8 @@ export default function Forms({
   setError,
   success,
   error,
+  setClickAct,
+  clickAct
 }) {
   const [data, setData] = useState([]);
   const [cities, setCities] = useState([]);
@@ -66,10 +68,26 @@ export default function Forms({
         setError({ ...error, alert: true });
       });
   };
-
+  const handleClick = () => {
+    if (clickAct === true) {
+      setClickAct(false);
+    } else {
+      setClickAct(true);
+    }
+  };
   return (
     <div className={style.container + " top-1/3 "}>
+      <div className="flex justify-between">
+
+<div>
+
       <h1 className={style.title}>Actualiza tu informacion</h1>
+</div>
+      <div>
+
+<Button onClick={handleClick} type="dashed">X</Button>
+</div>
+      </div>
       <Form
         labelCol={{ span: 0 }}
         wrapperCol={{ span: 14 }}

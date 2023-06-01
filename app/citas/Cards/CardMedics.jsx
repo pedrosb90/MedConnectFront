@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import img from "../img/iconoMed.jpg";
 import Warning from "@/app/components/warning/Warning";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 
 export default function CardMedics({ handleClickMed }) {
