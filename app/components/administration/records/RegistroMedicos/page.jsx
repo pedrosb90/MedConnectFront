@@ -10,10 +10,10 @@ const medicsRegister = `${backendURL}/medics`;
 import { useSelector } from "react-redux";
 
 export default function Medicos() {
-  const nav = useRouter();
-  const { logStatus } = useSelector((state) => state);
+  const nav = useRouter()
+  const { login } = useSelector((state) => state);
   useEffect(() => {
-    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    !login && nav.push("/components/forms/UserLogin");
   }, []);
   const [medicos, setMedicos] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -39,7 +39,7 @@ export default function Medicos() {
   }, [isDelete]);
 
   const deleteMed = (id) => {
-    const url = `${backendURL}/users/`;
+    const url = `${backendURL}/user/`;
 
     count == 2 &&
       axios
@@ -130,7 +130,7 @@ export default function Medicos() {
                   </th>
                   <td className="px-4 py-2">
                     <a
-                      href={`http://localhost:3000/medicos/${med.id}`}
+                      href={`${backendURL}/medicos/${med.id}`}
                     >{`${med.user.first_name} ${med.user.last_name}`}</a>
                   </td>
                   <td className="px-6 py-4">

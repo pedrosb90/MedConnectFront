@@ -27,30 +27,35 @@ export default function Calendary() {
   const [medSelect, select] = useState(false);
   const { info } = useSelector((state) => state.cita);
   const [medico, setMedico] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading,setLoading] = useState(false)
   const especialidad = info.especialidad && info.especialidad;
+
   const getMedicos = async () => {
     const medicos = await axios.get(medicsURL);
-
     const filter = medicos.data.filter((med) => {
       return med.specializations.some(
         (specialization) => specialization.name === especialidad
-      );
-    });
+        );
+      });
+      
+      setMedico(filter);
+    };
 
-    setMedico(filter);
-  };
-
+    console.log(info);
+    
   useEffect(() => {
-    !info.id && info.especialidad && getMedicos();
+    !info.medico && info.especialidad && getMedicos();
+    if (info.medico) {
+      select(info.medico)
+    }
     !info.especialidad && router.push("/citas");
   }, []);
+
 
   const [form] = Form.useForm();
   const [horas, setHoras] = useState([]);
   const id = info.id ? info.id : medSelect.user?.id;
-  const diasSelect =
-    medSelect && medSelect.schedules.map((dia) => dia.day_of_week);
+  const diasSelect = medSelect && medSelect.schedules.map((dia) => dia.day_of_week);
   const dias = info.id
     ? info.schedules.map((dia) => dia.day_of_week)
     : diasSelect;
@@ -124,7 +129,7 @@ export default function Calendary() {
     }
   };
 
-  console.log("info", info);
+  console.log(medSelect);
 
   const onSubmit = async (values) => {
     setLoading(true);
@@ -144,12 +149,12 @@ export default function Calendary() {
         })
       );
       router.push("/components/turnos/form");
-      setLoading(false);
+      setLoading(false)
     }
   };
 
-  const doc = info.first_name && info.first_name;
-  console.log();
+  console.log("medico",medico);
+  const doc = medSelect.first_name && medSelect.first_name;
   return (
     <>
       <div className={styles.container}>
@@ -165,9 +170,9 @@ export default function Calendary() {
         ) : (
           <h2>Elige a un medico para tu cita</h2>
         )}
-        {medico && (
+        {medico ? (
           <MedicCarrousel medics={medico} select={select}></MedicCarrousel>
-        )}
+        ):null}
 
         <h1>
           {"Selecciona la fecha y hora de tu cita para " + info.especialidad}
