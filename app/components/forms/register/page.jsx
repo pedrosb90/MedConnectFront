@@ -14,6 +14,7 @@ const localPatch = `${backendURL}/users/`;
 export default function UserLogin() {
   const userLocal = useSelector((state) => state.login.userLocal);
   const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -21,8 +22,8 @@ export default function UserLogin() {
     alert: false,
   });
   useEffect(() => {
-    console.log(logStatus);
-  }, [logStatus]);
+    (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
+  }, []);
 
   const onSubmit = async (values) => {
     setLoading(true);
@@ -99,10 +100,10 @@ export default function UserLogin() {
               <Radio value="paciente" defaultChecked>
                 Paciente
               </Radio>
-              {logStatus.logStatus === "admin" ? (
+              {login.userLocal.role === "admin" ? (
                 <Radio value="medico">Médico</Radio>
               ) : null}
-              {logStatus.logStatus === "admin" ? (
+              {login.userLocal.role === "admin" ? (
                 <Radio value="admin">Administrador</Radio>
               ) : null}
             </Radio.Group>
