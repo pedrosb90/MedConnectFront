@@ -23,17 +23,10 @@ export default function Table() {
         });
     }
   }, []);
-<<<<<<< HEAD
-  const getCitasPerfil = citas?.filter(
-    (e) => e.user.first_name === userLocal?.first_name
-  );
-  console.log("get citas perfil: ", getCitasPerfil);
-=======
   // const getCitasPerfil = citas?.filter(
   //   (e) => e.user.first_name === userLocal?.first_name
   // );
   // console.log("get citas perfil: ", getCitasPerfil);
->>>>>>> 3baf6b7ee0b8daad03c6afcfa9e88f34ac561ab0
 
 
     
