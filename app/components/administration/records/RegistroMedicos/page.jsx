@@ -110,9 +110,7 @@ export default function Medicos() {
               <th scope="col" className="px-6 py-3">
                 Dirección
               </th>
-              <th scope="col" className="px-6 py-3">
-                <button>Eliminar</button>
-              </th>
+              
             </tr>
           </thead>
           <tbody>
@@ -141,14 +139,7 @@ export default function Medicos() {
                   <td className="px-6 py-4">{med.phone}</td>
                   <td className="px-6 py-4">{med.direccion}</td>
 
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => deleteMed(med.user.id)}
-                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  
                 </tr>
               ))}
           </tbody>
