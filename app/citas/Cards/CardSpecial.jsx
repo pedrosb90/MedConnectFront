@@ -78,7 +78,7 @@ export default function CardSpecial() {
       const { id, last_name, first_name } = medico.user;
       const schedules = medico.schedules;
       dispatch(
-        postInfo({ id, last_name, first_name, schedules, especialidad: name })
+        postInfo({ medico, especialidad: name })
       );
     } else {
       dispatch(postInfo({ especialidad: name }));
