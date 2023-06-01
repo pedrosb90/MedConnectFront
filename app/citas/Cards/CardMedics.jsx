@@ -36,17 +36,15 @@ export default function CardMedics({ handleClickMed }) {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
   }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
-    if (currentIndex === medicos.length) {
-      return; // No avanzar más si es el último médico
-    }
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    const isFirstSlide = currentIndex === medicos.length - 1;
+    const nextIndex = isFirstSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(nextIndex);
   };
 
   const handlePrevious = () => {
-    if (currentIndex === 0) {
-      return; // No retroceder más si es el primer médico
-    }
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    const isFirstSlide = currentIndex === 0;
+    const nextIndex = isFirstSlide ? medicos.length - 1 : currentIndex - 1;
+    setCurrentIndex(nextIndex);
   };
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });
