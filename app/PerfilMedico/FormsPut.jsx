@@ -1,7 +1,6 @@
 "use client";
 import style from "./Forms.module.css";
 import { Button, Form, Input, Radio, Alert, Select } from "antd";
-
 import FormItem from "antd/es/form/FormItem";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,10 +9,10 @@ import { getSpeciality, getCities } from "../redux/reducer";
 import { Option } from "antd/es/mentions";
 const local = "http://localhost:3001/specializations";
 const localCites = "http://localhost:3001/cities";
-const localMedic = "http://localhost:3001/medics/create";
 
 export default function Forms({
   userLocal,
+  medico,
   setSuccess,
   setError,
   success,
@@ -23,8 +22,8 @@ export default function Forms({
   const [cities, setCities] = useState([]);
   const dispatch = useDispatch();
   const especialidades = useSelector((state) => state.speciality.AllSpecial);
-  const [form] = Form.useForm();
   const globalCities = useSelector((state) => state.speciality.cities);
+  const [form] = Form.useForm();
 
   const filtro = data.filter((e) => e.deletedAt === null);
 
@@ -49,13 +48,15 @@ export default function Forms({
     setData(especialidades);
   }, [especialidades, globalCities]);
 
-  const valoresSubmit = async (values) => {
+  const valoresSubmit = (values) => {
+    const localMedic = `http://localhost:3001/medics/${medico[0].id}`;
+
     const { first_name, last_name, ...a } = values;
 
-    const body = { ...a, userId: userLocal.id };
+    const body = { ...a };
 
     axios
-      .post(localMedic, body)
+      .put(localMedic, body)
       .then(() => {
         // Código para manejar la respuesta en caso de éxito
         setSuccess({ ...success, alert: true });
@@ -85,14 +86,9 @@ export default function Forms({
         <FormItem
           name="phone"
           label="Número de telefono"
-          rules={[
-            {
-              required: true,
-              message: "Por favor ingrese su número de telefono",
-            },
-          ]}
+          initialValue={medico[0].phone}
         >
-          <Input type="number" name="phone" placeholder="Numero de telefono" />
+          <Input type="number" defaultValue={medico[0].phone} />
         </FormItem>
         <FormItem
           name="specializations"
@@ -140,11 +136,9 @@ export default function Forms({
         <Form.Item
           name="direccion"
           label="Direccion"
-          rules={[
-            { required: true, message: "Por favor ingrese su dirección" },
-          ]}
+          initialValue={medico[0].direccion}
         >
-          <Input type="string" name="direccion" placeholder="Direccion" />
+          <Input type="string" defaultValue={medico[0].direccion} />
           {/* {errors.user && (<span>{errors.user}</span>)} */}
         </Form.Item>
         <Button htmlType="submit" className={style.Button}>

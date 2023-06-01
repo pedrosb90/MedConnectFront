@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
-import EditPaciente from "../pacientes/EditPaciente";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-
+import EditPaciente from "./editPaciente";
+import { useSelector } from "react-redux";
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -21,25 +20,23 @@ export default function Pacientes() {
   });
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
+  const { logStatus } = useSelector((state) => state);
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const patientsResponse = await axios.get(`${backendURL}/patients`);
-
-        const patientsData = patientsResponse.data;
+    axios
+      .get("http://localhost:3001/patients")
+      .then((res) => {
+        const patientsData = res.data;
 
         const combinedData = [...patientsData];
         setPacientes(combinedData);
-      } catch (err) {
+      })
+      .catch((err) => {
         setError({ ...error, text: err.message, alert: true });
-      }
-    };
-
-    fetchPatients();
+      });
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    const url = isUser ? `${backendURL}/users/` : `${backendURL}/patients/`;
+    const url = "http://localhost:3001/patients/";
 
     count == 2 &&
       axios

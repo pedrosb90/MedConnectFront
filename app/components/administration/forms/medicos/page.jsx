@@ -3,20 +3,22 @@ import { Button, Form, Input, Radio, Alert } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import FormItem from "antd/es/form/FormItem";
+import { useRouter } from "next/router";
 import style from "./page.module.css";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const createMedicURL = `${backendURL}/medics/create`;
 const registerURL = `${backendURL}/medics/register`;
 
 export default function UserLogin() {
+  const nav = useRouter();
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
-    console.log(logStatus);
-  }, [logStatus]);
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
+
 
   const onSubmit = async (values) => {
     setLoading(true);
@@ -75,14 +77,14 @@ export default function UserLogin() {
               ) : null}
             </Radio.Group>
           </Form.Item>
-          <FormItem
+          <Form.Item
             name="first_name"
             label="Nombre"
             rules={[{ required: true, message: "Por favor ingrese su nombre" }]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="last_name"
             label="Apellido"
             rules={[
@@ -90,8 +92,8 @@ export default function UserLogin() {
             ]}
           >
             <Input />
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
             name="phone"
             label="Número de telefono"
             rules={[
@@ -102,7 +104,7 @@ export default function UserLogin() {
             ]}
           >
             <Input type="number" />
-          </FormItem>
+          </Form.Item>
           <Form.Item
             name="email"
             label="Correo electrónico"

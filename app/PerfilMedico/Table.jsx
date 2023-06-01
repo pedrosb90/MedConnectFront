@@ -4,8 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Cita from "./Cita";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+const backendURL = `http://localhost:3001`;
 export default function Table() {
   const [citas, setCitas] = useState([]);
 
@@ -23,23 +23,49 @@ export default function Table() {
         });
     }
   }, []);
+<<<<<<< HEAD
   const getCitasPerfil = citas?.filter(
     (e) => e.user.first_name === userLocal?.first_name
   );
   console.log("get citas perfil: ", getCitasPerfil);
+=======
+  // const getCitasPerfil = citas?.filter(
+  //   (e) => e.user.first_name === userLocal?.first_name
+  // );
+  // console.log("get citas perfil: ", getCitasPerfil);
+>>>>>>> 3baf6b7ee0b8daad03c6afcfa9e88f34ac561ab0
 
-  const handleCheckChange = async (
-    citaId,
-    scheduledDate,
-    scheduledTime,
-    status
-  ) => {
-    await axios
-      .put(`${backendURL}/appointment/${citaId}`, {
-        scheduledDate: scheduledDate,
-        scheduledTime: scheduledTime,
-        status: status,
-      })
+
+    
+    
+
+    useEffect(() => {
+       
+        if (!citas.id){
+            axios.get('http://localhost:3001/appointment')
+            .then(res=>{
+                setCitas(res.data)
+            })
+            .catch(error =>{
+              console.error(error);
+            })
+        }
+    }, []);
+    const getCitasPerfil = citas?.filter((e)=>e.user.first_name === userLocal?.first_name)
+    
+    
+
+ 
+    const handleCheckChange = async ( citaId, scheduledDate, scheduledTime, status) =>{
+      
+          
+          await axios.put(`http://localhost:3001/appointment/${citaId}`,{ 
+
+          scheduledDate: scheduledDate,
+          scheduledTime: scheduledTime,
+          status: status,
+        }
+      )
       .then((response) => {
         console.log("Estado de la cita actualizado:", response.data);
       })

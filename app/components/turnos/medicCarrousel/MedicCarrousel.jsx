@@ -6,20 +6,20 @@ import Link from "next/link";
 import Image from "next/image";
 import img from "../../../citas/img/iconoMed.jpg";
 // const backendURL = process.env.PUBLIC_BACKEND_URL;
-// const backendURL = "process.env.NEXT_PUBLIC_BACKEND_URL";
-// const medicsURL = `${backendURL}/medics`;
+const backendURL = "http://localhost:3001";
+const medicsURL = `${backendURL}/medics`;
 export default function MedicCarrousel({ medics, select }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    if (currentIndex <= medics.length) {
+    if (currentIndex >= medics.length) {
       return; // No avanzar más si es el último médico
     }
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   const handlePrevious = () => {
-    if (currentIndex === 0) {
+    if (currentIndex <= 0) {
       return; // No retroceder más si es el primer médico
     }
     setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -30,7 +30,7 @@ export default function MedicCarrousel({ medics, select }) {
   };
 
   const paginatedMedicos = medics
-    .slice(currentIndex, currentIndex + 5)
+    .slice(currentIndex, currentIndex + 3)
     .filter((medico) => !!medico); // Filtrar medicos nulos
 
   return (

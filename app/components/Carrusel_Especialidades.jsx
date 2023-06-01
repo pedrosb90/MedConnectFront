@@ -1,7 +1,7 @@
 "use client";
 
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
+// import { RxDotFilled } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import Link from "next/link";
@@ -23,10 +23,12 @@ export default function Carrusel_Especialidades() {
   });
   async function getEspec() {
     try {
-      const respo = await axios.get(`${backendURL}/specializations`, {
+      const respo = await axios.get(
+        `${backendURL}/specializations` /*{
         withCredentials: true,
         credentials: "include",
-      });
+      }*/
+      );
 
       dispatch(getSpeciality(respo.data));
       setEspec(especialidades);
@@ -112,7 +114,7 @@ export default function Carrusel_Especialidades() {
               onClick={() => goToSlide(index)}
               className="cursor-pointer text-4xl"
             >
-              <RxDotFilled />
+              {/* <RxDotFilled /> */}
             </div>
           ))}
         </div>

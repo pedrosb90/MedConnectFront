@@ -5,18 +5,22 @@ import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { useSelector } from "react-redux";
+const backendURL = "http://localhost:3001";
 const specsURL = `${backendURL}/specializations`;
+const specURLAll = `${specsURL}/all`;
 
 export default function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
+  const [habilitado, setHabilitado] = useState(false);
   const [error, setError] = useState({
     text: "",
     alert: false,
   });
-  const [count, setCount] = useState(1);
+
   const [clickCal, setClickCal] = useState(false);
+  const { logStatus } = useSelector((state) => state);
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -27,7 +31,7 @@ export default function Especialidades() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(specsURL);
+        const response = await axios.get(specURLAll);
         setEspecialidades(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -35,38 +39,28 @@ export default function Especialidades() {
     };
 
     fetchPatients();
-  }, [isDelete]);
+  }, [isDelete, habilitado]);
 
   const deleteEsp = (id, deletedAt) => {
-    const url = specsURL;
-
     if (deletedAt !== null) {
-      axios.patch(`${url}${id}`);
+      axios
+        .patch(`${specsURL}/${id}`, { withCredentials: true })
+        .then(() => {
+          setHabilitado(!habilitado);
+        })
+        .catch((err) => {
+          setError({ ...error, text: err.message, alert: true });
+        });
     } else {
-      count == 2 &&
-        axios
-          .delete(`${url}${id}`)
-          .then(() => {
-            setIsDelete(!isDelete);
-            setCount(1);
-          })
-          .catch((err) => {
-            setError({ ...error, text: err.message, alert: true });
-            setCount(1);
-          });
-      setCount(2);
-      const borrar =
-        especialidades?.length && especialidades?.find((e) => e.id === id);
-
-      count == 1 &&
-        setError({
-          ...error,
-          text: `Se borrara la especialidad: ${borrar.name} de click otra vez para confirmar`,
-          alert: true,
+      axios
+        .delete(`${specsURL}/${id}`, { withCredentials: true })
+        .then(() => {
+          setIsDelete(!isDelete);
+        })
+        .catch((err) => {
+          setError({ ...error, text: err.message, alert: true });
         });
     }
-
-    setDeshabilitar(!deshabilitar);
   };
 
   const FinishFailed = () => {
@@ -92,6 +86,8 @@ export default function Especialidades() {
     }
   };
 
+  // const filtro = especialidades.filter((e) => e.deletedAt === null);
+
   return (
     <div className={styles.container}>
       <Warning
@@ -101,9 +97,16 @@ export default function Especialidades() {
       ></Warning>
       <Success
         alert={isDelete}
-        text={"El paciente fue eliminado correctamente"}
+        text={"Deshabilitado Correctamente"}
         success={() => {
           setIsDelete(false);
+        }}
+      ></Success>
+      <Success
+        alert={habilitado}
+        text={"Habilitado Correctamente"}
+        success={() => {
+          setHabilitado(false);
         }}
       ></Success>
       <h1
@@ -137,45 +140,75 @@ export default function Especialidades() {
           </thead>
           <tbody>
             {especialidades.length &&
-              especialidades.map((esp, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              especialidades.map((esp, index) =>
+                esp.deletedAt === null ? (
+                  <tr
+                    key={index}
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700  "
                   >
-                    {index + 1}
-                  </th>
-                  <td className="px-4 py-2">{esp.name}</td>
-                  <td className="px-6 py-4">{esp.description}</td>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {index + 1}
+                    </th>
+                    <td className="px-4 py-2">{esp.name}</td>
+                    <td className="px-6 py-4">{esp.description}</td>
 
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() =>
-                        handleClickCal(
-                          esp.id,
-                          esp.name,
-                          esp.description,
-                          esp.url
-                        )
-                      }
-                      className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800"
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() =>
+                          handleClickCal(
+                            esp.id,
+                            esp.name,
+                            esp.description,
+                            esp.url
+                          )
+                        }
+                        className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-blue-500 dark:text-blue-500 dark:active:text-white dark:active:bg-blue-500 dark:active:ring-blue-800"
+                      >
+                        Edit
+                      </button>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => deleteEsp(esp.id, esp.deletedAt)}
+                        className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
+                      >
+                        Deshabilitar
+                      </button>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr
+                    key={index}
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      Edit
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => deleteEsp(esp.id, esp.deletedAt)}
-                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      {index + 1}
+                    </th>
+                    <td className="px-4 py-2 text-red-300">{esp.name}</td>
+                    <td className="px-6 py-4  text-red-300">
+                      {esp.description}
+                    </td>
+
+                    <td className="px-6 py-4  text-red-300">
+                      <div></div>
+                    </td>
+                    <td className="px-6 py-4  text-red-300">
+                      <button
+                        onClick={() => deleteEsp(esp.id, esp.deletedAt)}
+                        className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
+                      >
+                        Habilitar
+                      </button>
+                    </td>
+                  </tr>
+                )
+              )}
           </tbody>
         </table>
       </div>

@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import img from "../img/iconoMed.jpg";
 import Warning from "@/app/components/warning/Warning";
-const backendURL = process.env.PUBLIC_BACKEND_URL;
+const backendURL = "http://localhost:3001";
 const medicsURL = `${backendURL}/medics`;
 
 export default function CardMedics({ handleClickMed }) {
@@ -36,25 +36,22 @@ export default function CardMedics({ handleClickMed }) {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
   }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
-    if (currentIndex + 3 === medicos.length) {
-      return; // No avanzar más si es el último médico
-    }
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    const isFirstSlide = currentIndex === medicos.length - 1;
+    const nextIndex = isFirstSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(nextIndex);
   };
 
   const handlePrevious = () => {
-    if (currentIndex === 0) {
-      return; // No retroceder más si es el primer médico
-    }
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    const isFirstSlide = currentIndex === 0;
+    const nextIndex = isFirstSlide ? medicos.length - 1 : currentIndex - 1;
+    setCurrentIndex(nextIndex);
   };
   const FinishFailed = () => {
     setError({ ...error, text: "", alert: false });
   };
 
-  const paginatedMedicos = medicos
-    .slice(currentIndex, currentIndex + 5)
-    .filter((medico) => !!medico); // Filtrar medicos nulos
+  const paginatedMedicos = medicos.slice(currentIndex, currentIndex + 5);
+  // Filtrar medicos nulos
   return (
     <>
       <Warning

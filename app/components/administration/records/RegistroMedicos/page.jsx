@@ -4,9 +4,17 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
-const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { useRouter } from "next/navigation";
+const backendURL = "http://localhost:3001";
+const medicsRegister = `${backendURL}/medics`;
+import { useSelector } from "react-redux";
 
 export default function Medicos() {
+  const nav = useRouter();
+  const { logStatus } = useSelector((state) => state);
+  useEffect(() => {
+    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+  }, []);
   const [medicos, setMedicos] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   const [error, setError] = useState({
@@ -18,7 +26,9 @@ export default function Medicos() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(`${backendURL}/medics`);
+        const response = await axios.get(medicsRegister, {
+          withCredentials: true,
+        });
         setMedicos(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
