@@ -15,9 +15,10 @@ export default function UserLogin() {
   const { logStatus } = useSelector((state) => state);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { login } = useSelector((state) => state);
   
   useEffect(() => {
-    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    !login && nav.push("/components/forms/UserLogin");
   }, []);
 
 

@@ -9,14 +9,13 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 export default function Citas() {
   const nav = useRouter();
-  const { logStatus } = useSelector((state) => state);
-
+  const { login } = useSelector((state) => state);
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-  }, [logStatus]);
+    !login && nav.push("/components/forms/UserLogin");
+  }, []);
   return (
     <div className={styles.container + " bg-gray-200"}>
-      {logStatus.logStatus ? (
+      {login ? (
         <div className=" mx-auto  sm:p-8  ">
           <div
             className="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl w-full"
