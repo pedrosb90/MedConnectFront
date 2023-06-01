@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../warning/Warning";
 import styles from "./page.module.css";
+import Link from "next/link";
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const authRegisterURL = `${backendURL}/auth/register`;
 const localPatch = `${backendURL}/users/`;
