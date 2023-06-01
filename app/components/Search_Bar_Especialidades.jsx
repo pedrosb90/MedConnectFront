@@ -3,7 +3,7 @@ import { searchBar, sortEspecsAZ } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
 export default function SearchBar() {

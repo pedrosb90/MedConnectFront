@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { obtenerHorarios } from "./obtenerHorarios.js";
 import CardEdit from "./CardEdit";
 import Success from "../../../components/success/Success";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Table({ userCitas, setPut, put }) {
   const [horarios, setHorarios] = useState([]);

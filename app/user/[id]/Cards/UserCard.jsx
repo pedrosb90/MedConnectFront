@@ -7,7 +7,7 @@ import Image from "next/image";
 import Warning from "@/app/components/warning/Warning";
 import { useSelector } from "react-redux";
 
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function UserCard({ userCitas }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function UserCard({ userCitas }) {
   //     setAlert(false);
   //     const id = userGoogle.id ? userGoogle.id : userLocal.id;
   //      axios
-  //       .delete('http://localhost:3001/users/' + id)
+  //       .delete('https://medconnectback-production.up.railway.app/users/' + id)
   //       .then(() => {
   //         homeReturn()
 

@@ -5,6 +5,7 @@ import styles from "../../turnos/CardEdit.module.css";
 const SideCard = () => {
   const info = useSelector((state) => state.cita.info);
   const schedule = useSelector((state) => state.cita.schedule);
+
   const dispatch = useDispatch();
 
   // useEffect(() => {

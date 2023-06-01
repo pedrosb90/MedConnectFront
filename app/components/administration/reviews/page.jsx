@@ -11,7 +11,7 @@ export default function Review(){
     const [medicos, setMedicos]=useState(false)
     const [dele,setDele]=useState(false)
     const deleteEsp=(id)=>{
-        axios.delete('http://localhost:3001/reviews'+id)
+        axios.delete('https://medconnectback-production.up.railway.app/reviews'+id)
         .then(()=>{
             message.success('Se borro con exito')
             setDele(true)
@@ -23,7 +23,7 @@ export default function Review(){
     }
     useEffect(()=>{
         const verificar = !reviews || dele 
-        verificar && axios.get('http://localhost:3001/reviews')
+        verificar && axios.get('https://medconnectback-production.up.railway.app/reviews')
         .then((res)=>{
             setReviews(res.data)
             setDele(false)

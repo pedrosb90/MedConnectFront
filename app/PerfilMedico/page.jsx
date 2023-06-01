@@ -51,7 +51,7 @@ export default function PerfilMedico() {
   useEffect(() => {
     if (!medicos.id) {
       axios
-        .get("http://localhost:3001/medics")
+        .get("https://medconnectback-production.up.railway.app/medics")
         .then((res) => {
           setMedicos(res.data);
         })
@@ -62,7 +62,7 @@ export default function PerfilMedico() {
 
     if (!citas.id) {
       axios
-        .get("http://localhost:3001appointment")
+        .get("https://medconnectback-production.up.railway.appappointment")
         .then((res) => {
           setCitas(res.data);
         })
@@ -73,7 +73,7 @@ export default function PerfilMedico() {
 
     if (!horarios.id) {
       axios
-        .get("http://localhost:3001/schedule")
+        .get("https://medconnectback-production.up.railway.app/schedule")
         .then((res) => {
           setHorarios(res.data);
         })
@@ -272,6 +272,8 @@ export default function PerfilMedico() {
               setSuccess={setSuccess}
               setError={setError}
               userLocal={userLocal}
+              setClickAct={setClickAct}
+            clickAct={clickAct}
             ></Forms>
           ) : (
             <div></div>
@@ -284,6 +286,9 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             medico={filtromedico}
+            setClickAct={setClickAct}
+            clickAct={clickAct}
+            
           ></FormsPut>
         ) : (
           <div></div>
@@ -296,6 +301,8 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             filtromedico={filtromedico}
+            setClickHor={setClickHor}
+            clickHor={clickHor}
           ></FormsHor>
         ) : (
           <div></div>
@@ -308,6 +315,8 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             filtromedicos={filtromedico}
+            setClickCal={setClickCal}
+            clickCal={clickCal}
           ></FormCal>
         ) : (
           <div></div>

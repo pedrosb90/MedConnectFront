@@ -1,5 +1,5 @@
 import style from "detail.module.css";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const specsURL = `${backendURL}/specializations`;
 
 export default function Detail({ data }) {

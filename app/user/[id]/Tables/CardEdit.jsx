@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from "./CardEdit.module.css";
 import Warning from "../../../components/warning/Warning";
 import { useState } from "react";
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const appoURL = `${backendURL}/appointment`;
 
 const { Item } = Form;

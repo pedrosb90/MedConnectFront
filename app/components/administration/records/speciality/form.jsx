@@ -6,13 +6,12 @@ import { Button, Form, Input } from "antd";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 
-
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function Forms({ info }) {
   const [registered, setRegistered] = useState(false);
- 
+
   const [error, setError] = useState({
     alert: false,
     text: "Error al crear especialidad, el servidor esta caido o la especialidad ya existe",
@@ -21,7 +20,6 @@ export default function Forms({ info }) {
     alert: false,
     text: "Especialidad Actualizada exitosamente",
   });
-  
 
   const onSubmit = (values) => {
     setRegistered(!registered);
@@ -45,7 +43,6 @@ export default function Forms({ info }) {
       });
   };
 
-  
   const [form] = Form.useForm();
   const FinishFailed = () => {
     setError({ ...error, alert: false });
@@ -76,7 +73,6 @@ export default function Forms({ info }) {
         onFinish={(values) => {
           onSubmit(values);
           form.resetFields();
-         
         }}
       >
         <Form.Item

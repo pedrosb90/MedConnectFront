@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Medicos from "../Medicos";
 import styles from "./page.module.css";
-const backendURL = "http://localhost:3001";
+const backendURL ='https://medconnectback-production.up.railway.app';
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function Page() {

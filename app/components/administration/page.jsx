@@ -7,7 +7,7 @@ import { getCitas } from "../../redux/CitaReducer";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const specsURL = `${backendURL}/specializations`;
 const citasURL = `${backendURL}/appointment`;
 const medicsURL = `${backendURL}/medics`;

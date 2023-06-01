@@ -9,12 +9,58 @@ import Search_Bar_Medicos from "./components/Search_Bar_Medicos";
 import Link from "next/link";
 import Menu_Medicos from "./components/Menu_Medicos";
 
-const backendURL = "http://localhost:3001";
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const loginSuccURL = `${backendURL}/auth/login/success`;
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(() => {
+    fetch(loginSuccURL, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log(resObject);
+        dispatch(getUser(resObject.user));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetch(loginSuccURL, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log(resObject);
+        dispatch(getLocalUser(resObject.user));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
@@ -50,12 +96,20 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        <div className="flex items-center justify-center h-full w-full p--20 m--20 rounded-lg ">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
           <Image
             src="/image/pexels-migs-reyes-4205505.jpeg"
             alt="My Image"
             width={1000}
-            height={500}
+            height={400}
+            className="rounded-lg"
           />
         </div>
         <div className="text-center ">
