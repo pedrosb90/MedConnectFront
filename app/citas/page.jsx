@@ -13,10 +13,7 @@ export default function Citas() {
   const { login } = useSelector((state) => state);
 
 
-  
-  useEffect(() => {
-    (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
-  }, []);
+  (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
 
   return (
     <div className={styles.container + " bg-gray-200"}>
