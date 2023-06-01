@@ -20,9 +20,10 @@ export default function Pacientes() {
   });
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
-  const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
+ 
   useEffect(() => {
-      !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    !login && nav.push("/components/forms/UserLogin");
 
     const fetchPatients = async () => {
       try {

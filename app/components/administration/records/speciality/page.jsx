@@ -17,7 +17,7 @@ export default function Especialidades() {
   });
   const [count, setCount] = useState(1);
   const [clickCal, setClickCal] = useState(false);
-  const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -26,7 +26,7 @@ export default function Especialidades() {
   });
 
   useEffect(() => {
-    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    !login && nav.push("/components/forms/UserLogin");
  
     const fetchPatients = async () => {
       try {

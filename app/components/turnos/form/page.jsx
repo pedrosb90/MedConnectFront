@@ -19,16 +19,22 @@ export default function UserLogin() {
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
-  
+  let especialidad 
   //! logStatus has inside logStatus and userStatus
   //! speciality has inside AllMedicos
   
+  const { login } = useSelector((state) => state);
   useEffect(() => {
-    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
   }, []);
-   
 
+  if (!info.especialidad) {
+    especialidad = schedule?.medSelect.especialidad
+  }else{
+    especialidad = info?.especialidad
+  }
+
+  
   const countries = [
     {
       name: "Argentina",
@@ -49,7 +55,7 @@ export default function UserLogin() {
     { name: "Chile", code: "CL", prefix: "+56", flag: "./img/chile.png" },
     // Agrega más países según tus necesidades
   ];
-
+  
   const obrasSociales = [
     "particular",
     "IOMA",
@@ -61,19 +67,19 @@ export default function UserLogin() {
     "APRES",
     "PAMI",
   ];
-
+  
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [selectedObra, setSelectedObra] = useState(null);
-
+  
   const handleCountryChange = (event) => {
     const country = countries.find((c) => c.code === event);
     setSelectedCountry(country);
   };
-
+  
   const handleObraChange = (event) => {
     setSelectedObra(event);
   };
-
+  
   function validateObject(obj) {
     const requiredProperties = [
       "firstName",
@@ -83,35 +89,35 @@ export default function UserLogin() {
       "dni",
       "observaciones",
     ];
-
+    
     for (const prop of requiredProperties) {
       if (!obj.hasOwnProperty(prop) || obj[prop] === "") {
         return false;
       }
     }
-
+    
     return true;
-  }
-
+  }    
+      
   const cityGetter = async () => {
     try {
       const response = await axios.get("http://localhost:3001/cities");
       const citiesData = response.data;
-      if (citiesData && schedule && Object.keys(schedule).length > 0) {
-        const cityIds = Object.values(schedule).map((element) => {
-          if (element.city) {
-            const city = citiesData.find(
-              (city) => city.name === element.city.name
-            );
-            if (city) {
-              return city.id;
-            }
+    if (citiesData && schedule && Object.keys(schedule).length > 0) {
+    const cityIds = Object.values(schedule).map((element) => {
+      if (element.city) {
+        const city = citiesData.find(
+          (city) => city.name === element.city.name
+          );
+          if (city) {
+            return city.id;
           }
-          return null;
-        });
-        const response = cityIds.filter((id) => id !== null);
-        return response[0];
-      }
+        }
+        return null;
+      });
+      const response = cityIds.filter((id) => id !== null);
+      return response[0]; 
+    }
 
       return [];
     } catch (error) {
@@ -121,19 +127,21 @@ export default function UserLogin() {
   };
 
   const onSubmit = async (values) => {
+    const {cityId,direccion,dni,email,firstName,lastName,observaciones,phone} = values
     setLoading(true)
     if (validateObject(values)) {
       try {
         const patient = {
-          ...values,
-          userId: logStatus.userStatus.id,
+          cityId,direccion,dni,email,firstName,lastName,observaciones,phone,
+          userId: login.userGoogle ? login.userGoogle.id : login.userLocal.id,
           cityId: await cityGetter(),
           direccion: schedule.medSelect.direccion,
         };
-        console.log(patient);
-          if (schedule && logStatus.userStatus) {
+        console.log("paciente",patient);
+          if (schedule && login) {
             axios.post("http://localhost:3001/patients/create", patient)
             .then((res) => {
+              console.log("etapa 1");
               const appointment = {
                 ...schedule,
                 status: "pending",
@@ -147,7 +155,7 @@ export default function UserLogin() {
               .then((res) => {
                 console.log("entro");
                 const mp = {
-                  title: info.especialidad,
+                  title: especialidad,
                   quantity: 1,
                   currency_id: "ARS",
                   unit_price: 500,
@@ -257,12 +265,12 @@ export default function UserLogin() {
                 <option
                   value={country.code}
                   key={country.code}
-                  style={{
-                    backgroundImage: `url(${country.flag})`,
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                    paddingLeft: "25px", // Ajusta el espaciado según sea necesario
-                  }}
+                  // style={{
+                  //   backgroundImage: `url(${country.flag})`,
+                  //   backgroundSize: "contain",
+                  //   backgroundRepeat: "no-repeat",
+                  //   paddingLeft: "25px", // Ajusta el espaciado según sea necesario
+                  // }}
                 >
                   {country.name}
                   {/* <Image width={50} height={50} src={country.flag} alt="" /> */}
