@@ -12,6 +12,8 @@ export default function FormHor({
   setError,
   success,
   error,
+  clickHor,
+  setClickHor
 }) {
   const diasSemana = [
     "Domingo",
@@ -45,10 +47,27 @@ export default function FormHor({
         setError({ ...error, alert: true });
       });
   };
+  const handleClick = () => {
+    if (clickHor === true) {
+      setClickHor(false);
+    } else {
+      setClickHor(true);
+    }
+  };
 
   return (
     <div className={style.container + " top-1/3 "}>
-      <h1 className={style.title}>Horario de Atencion</h1>
+      <div className="flex justify-between">
+
+<div>
+
+      <h1 className={style.title}>Horarios de Atención</h1>
+</div>
+      <div>
+
+<Button onClick={handleClick} type="dashed">X</Button>
+</div>
+      </div>
       <Form
         labelCol={{ span: 0 }}
         wrapperCol={{ span: 14 }}
@@ -73,7 +92,7 @@ export default function FormHor({
           </Select>
         </FormItem>
 
-        <Button htmlType="submit" className={style.Button}>
+        <Button htmlType="submit" className={style.Button} onClick={() => setTimeout(handleClick, 1000)}>
           Enviar
         </Button>
       </Form>

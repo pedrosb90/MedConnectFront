@@ -272,6 +272,8 @@ export default function PerfilMedico() {
               setSuccess={setSuccess}
               setError={setError}
               userLocal={userLocal}
+              setClickAct={setClickAct}
+            clickAct={clickAct}
             ></Forms>
           ) : (
             <div></div>
@@ -284,6 +286,9 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             medico={filtromedico}
+            setClickAct={setClickAct}
+            clickAct={clickAct}
+            
           ></FormsPut>
         ) : (
           <div></div>
@@ -296,6 +301,8 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             filtromedico={filtromedico}
+            setClickHor={setClickHor}
+            clickHor={clickHor}
           ></FormsHor>
         ) : (
           <div></div>
@@ -308,6 +315,8 @@ export default function PerfilMedico() {
             setError={setError}
             userLocal={userLocal}
             filtromedicos={filtromedico}
+            setClickCal={setClickCal}
+            clickCal={clickCal}
           ></FormCal>
         ) : (
           <div></div>

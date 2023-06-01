@@ -18,6 +18,8 @@ export default function Forms({
   setError,
   success,
   error,
+  setClickAct,
+  clickAct
 }) {
   const [data, setData] = useState([]);
   const [cities, setCities] = useState([]);
@@ -66,10 +68,26 @@ export default function Forms({
         setError({ ...error, alert: true });
       });
   };
-
+  const handleClick = () => {
+    if (clickAct === true) {
+      setClickAct(false);
+    } else {
+      setClickAct(true);
+    }
+  };
   return (
     <div className={style.container + " top-1/3 "}>
+      <div className="flex justify-between">
+
+<div>
+
       <h1 className={style.title}>Actualiza tu informacion</h1>
+</div>
+      <div>
+
+<Button onClick={handleClick} type="dashed">X</Button>
+</div>
+      </div>
       <Form
         labelCol={{ span: 0 }}
         wrapperCol={{ span: 14 }}

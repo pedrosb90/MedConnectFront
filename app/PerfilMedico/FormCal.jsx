@@ -24,6 +24,8 @@ export default function FormCal({
   setError,
   success,
   error,
+  clickCal,
+  setClickCal
 }) {
   const [form] = Form.useForm();
   const [items, setItems] = useState([]);
@@ -56,10 +58,26 @@ export default function FormCal({
         setError({ ...error, alert: true });
       });
   };
-
+  const handleClick = () => {
+    if (clickCal === true) {
+      setClickCal(false);
+    } else {
+      setClickCal(true);
+    }
+  };
   return (
     <div className={style.container + " top-1/3 "}>
-      <h1 className={style.title}>Experiencia</h1>
+      <div className="flex justify-between">
+
+<div>
+
+      <h1 className={style.title}>Experencia</h1>
+</div>
+      <div>
+
+<Button onClick={handleClick} type="dashed">X</Button>
+</div>
+      </div>
       <Form
         labelCol={{ span: 0 }}
         wrapperCol={{ span: 14 }}
@@ -155,10 +173,11 @@ export default function FormCal({
           </Radio.Group>
         </Form.Item>
 
-        <Button htmlType="submit" className={style.Button}>
+        <Button htmlType="submit" className={style.Button} onClick={() => setTimeout(handleClick, 1000)}>
           Enviar
         </Button>
       </Form>
     </div>
   );
 }
+
