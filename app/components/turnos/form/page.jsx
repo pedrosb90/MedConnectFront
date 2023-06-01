@@ -28,10 +28,10 @@ export default function UserLogin() {
     (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
   }, []);
 
-  if (!info.especialidad) {
-    especialidad = schedule?.medSelect.especialidad
-  }else{
-    especialidad = info?.especialidad
+  if (!info || !info.especialidad) {
+    especialidad = schedule?.medSelect?.especialidad;
+  } else {
+    especialidad = info.especialidad;
   }
 
   
