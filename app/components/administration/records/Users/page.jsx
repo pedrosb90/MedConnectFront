@@ -8,9 +8,11 @@ import Success from "@/app/components/success/Success";
 import { useRouter } from "next/navigation";
 const backendURL = "http://localhost:3001";
 const userssURL = `${backendURL}/users`;
+const specURLAll = `${userssURL}/all`
 
 export default function Medicos() {
   const [users, setUsers] = useState([]);
+  const [habilitado, setHabilitado] = useState(false)
   const [isDelete, setIsDelete] = useState(false);
   const { logStatus } = useSelector((state) => state);
   const nav = useRouter();
@@ -18,14 +20,14 @@ export default function Medicos() {
     text: "",
     alert: false,
   });
-  const [count, setCount] = useState(1);
+ 
 
   useEffect(() => {
     !logStatus.userStatus && nav.push("/components/forms/UserLogin");
 
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(userssURL);
+        const response = await axios.get(specURLAll);
         setUsers(response.data);
       } catch (err) {
         setError({ ...error, text: err.message, alert: true });
@@ -33,31 +35,32 @@ export default function Medicos() {
     };
 
     fetchPatients();
-  }, [isDelete]);
+  }, [isDelete,habilitado]);
 
-  const deleteMed = (id) => {
-    //const url = "http://localhost:3001/users/";
-
-    count == 2 &&
+  const deleteMed = (id, deletedAt) => {
+    if (deletedAt !== null) {
+      axios.patch(`${userssURL}/${id}`, { withCredentials: true })
+      .then(() => {
+        setHabilitado(!habilitado);
+        
+      })
+      .catch((err) => {
+        setError({ ...error, text: err.message, alert: true });
+        
+      });
+    } else {
       axios
-        .delete(`${userssURL}/${id}`)
+        .delete(`${userssURL}/${id}`, { withCredentials: true })
         .then(() => {
           setIsDelete(!isDelete);
-          setCount(1);
+         
         })
         .catch((err) => {
           setError({ ...error, text: err.message, alert: true });
-          setCount(1);
+          
         });
-    setCount(2);
-    const borrar = users?.length && users?.find((e) => e.id === id);
-
-    count == 1 &&
-      setError({
-        ...error,
-        text: `Se borrara el Medico: ${borrar?.first_name} de click otra vez para confirmar`,
-        alert: true,
-      });
+      }
+    
   };
 
   const FinishFailed = () => {
@@ -66,18 +69,9 @@ export default function Medicos() {
 
   return (
     <div className={styles.container}>
-      <Warning
-        alert={error.alert}
-        text={error.text}
-        FinishFailed={FinishFailed}
-      ></Warning>
-      <Success
-        alert={isDelete}
-        text={"El paciente fue eliminado correctamente"}
-        success={() => {
-          setIsDelete(false);
-        }}
-      ></Success>
+      <Warning alert={error.alert} text={error.text} FinishFailed={FinishFailed}></Warning>
+      <Success alert={isDelete} text={"Deshabilitado Correctamente"}success={() => {setIsDelete(false);}}></Success>
+      <Success alert={habilitado} text={"Habilitado Correctamente"}success={() => {setHabilitado(false);}}></Success>
       <h1
         className={
           styles.title +
@@ -111,6 +105,7 @@ export default function Medicos() {
           <tbody>
             {users.length &&
               users.map((user, index) => (
+                user.deletedAt===null?
                 <tr
                   key={index}
                   className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
@@ -130,13 +125,40 @@ export default function Medicos() {
 
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => deleteMed(user.id)}
+                      onClick={() => deleteMed(user.id,user.deletedAt)}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
                     >
-                      Delete
+                      Deshabilitar
                     </button>
                   </td>
                 </tr>
+                :
+                <tr
+                  key={index}
+                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {index + 1}
+                  </th>
+                  <td className="px-4 py-2 text-red-300">{`${user.first_name} ${user.last_name}`}</td>
+                  <td className="px-6 py-4  text-red-300">{user.email}</td>
+
+                  <td className="px-6 py-4  text-red-300">
+                  {user.role}
+                  </td>
+                  <td className="px-6 py-4  text-red-300">
+                    <button
+                      onClick={() => deleteMed(user.id, user.deletedAt)}
+                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 active:ring-4 active:outline-none active:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-1 mb-1 dark:border-red-500 dark:text-red-500 dark:active:text-white dark:active:bg-red-600 dark:active:ring-red-900"
+                    >
+                      Habilitar
+                    </button>
+                  </td>
+                </tr>
+
               ))}
           </tbody>
         </table>
