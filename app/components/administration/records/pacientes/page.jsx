@@ -23,11 +23,7 @@ export default function Pacientes() {
   const { login } = useSelector((state) => state);
  
   useEffect(() => {
-
-    !login && nav.push("/components/forms/UserLogin");
-
-    const fetchPatients = async () => {
-      try {
+    
      axios.get(
           "http://localhost:3001/patients"
         ).then((res)=>{

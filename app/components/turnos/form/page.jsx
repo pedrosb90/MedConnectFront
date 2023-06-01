@@ -141,7 +141,6 @@ export default function UserLogin() {
           if (schedule && login) {
             axios.post("http://localhost:3001/patients/create", patient)
             .then((res) => {
-              console.log("etapa 1");
               const appointment = {
                 ...schedule,
                 status: "pending",
