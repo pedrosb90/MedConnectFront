@@ -45,8 +45,7 @@ export default function PerfilMedico() {
   //en filtromedico traigo todo lo de un medico
   const filtromedico = medicos.filter((e) => e.user.id === userLocal.id);
   const filtroHorarios = horarios?.filter(
-    (e) => e.medico.phone === filtromedico[0]?.phone
-  );
+    (e) => e.medico.phone === filtromedico[0]?.phone);
 
   useEffect(() => {
     if (!medicos.id) {

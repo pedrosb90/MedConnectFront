@@ -1,24 +1,22 @@
 "use client";
-import { Button, Form, Input, Radio, Alert, Select } from "antd";
+import { Button, Form, Input, Alert, Select } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getMedicos } from "@/app/redux/reducer";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "./form.module.css";
 const { TextArea } = Input;
-import { PhoneOutlined } from "@ant-design/icons";
-import Image from "next/image";
+
 import SideCard from "../SideCard/SideCard";
 
 export default function UserLogin() {
   const nav = useRouter();
-  const { logStatus, speciality } = useSelector((state) => state);
+  
   const { info } = useSelector((state) => state.cita);
   const { schedule } = useSelector((state) => state.cita);
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+ 
   let especialidad 
   //! logStatus has inside logStatus and userStatus
   //! speciality has inside AllMedicos
@@ -178,30 +176,7 @@ export default function UserLogin() {
           }
         }
       };
-      
-      // {
-        //   "scheduledDate": "2023-06-03",
-        //   "scheduledTime": "12:45:00",
-        //   "status": "pending",
-        //   "userId": "4403843d-b15c-49de-94da-f1fbfff22341",(user_id: rol medico)
-        //   "patientId": 2
-        // }
-        
-        // appointment
-        
-        // {
-          //   "firstName": "Guillermo ",
-          //   "lastName": "Dimas Rivero",
-          //   "phone": "333333333",
-          //   "email": "adhemirsabino@gmail.com",
-          //   "direccion": "159 Cedar St",
-          //   "dni": "333333333",
-          //   "observaciones": "Some observations about the patient",
-          //   "userId": "be965039-a1ce-44e7-9d00-3ddb5f15616c", (userId: usuario paciente)
-          //   "cityId": 15
-          // }
-          
-          // if(logStatus.userStatus){
+ 
             return (
               <>
       <div className={style.container}>
