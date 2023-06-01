@@ -26,6 +26,7 @@ export default function Calendary() {
   const dispatch = useDispatch();
   const [medSelect, select] = useState(false);
   const { info } = useSelector((state) => state.cita);
+  const { login } = useSelector((state) => state);
   const [medico, setMedico] = useState(false);
   const [loading,setLoading] = useState(false)
   const especialidad = info.especialidad && info.especialidad;
@@ -41,14 +42,18 @@ export default function Calendary() {
       setMedico(filter);
     };
 
-    console.log(info);
     
   useEffect(() => {
-    !info.medico && info.especialidad && getMedicos();
-    if (info.medico) {
-      select(info.medico)
+    if ((!login.userGoogle || !login.userLocal)) {
+      nav.push("/components/forms/UserLogin");
+      
+    }else{
+      !info.medico && info.especialidad && getMedicos();
+      if (info.medico) {
+        select(info.medico)
+      }
+      !info.especialidad && router.push("/citas");
     }
-    !info.especialidad && router.push("/citas");
   }, []);
 
 
