@@ -27,9 +27,10 @@ export default function Administration() {
   const [dataCitas, setDataCitas] = useState([]);
   const [dataMedics, setDataMedics] = useState([]);
   const userLocal = useSelector((state) => state.login.userLocal);
+  const { login } = useSelector((state) => state);
   useEffect(() => {
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-  }, [logStatus]);
+    !login && nav.push("/components/forms/UserLogin");
+  }, []);
 
   async function fetchData() {
     try {

@@ -20,7 +20,7 @@ export default function Especialidades() {
   });
 
   const [clickCal, setClickCal] = useState(false);
-  const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
   const [info, setInfo] = useState({
     id: 0,
     url: "",
@@ -29,6 +29,9 @@ export default function Especialidades() {
   });
 
   useEffect(() => {
+
+    !login && nav.push("/components/forms/UserLogin");
+
     const fetchPatients = async () => {
       try {
         const response = await axios.get(specURLAll);

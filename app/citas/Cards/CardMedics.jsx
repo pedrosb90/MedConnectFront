@@ -36,14 +36,21 @@ export default function CardMedics({ handleClickMed }) {
     !estadoMed?.length ? fetchMedicos() : setMedicos(estadoMed);
   }, [estadoMed, fetchMedicos]);
   const handleNext = () => {
-    const isFirstSlide = currentIndex === medicos.length - 1;
-    const nextIndex = isFirstSlide ? 0 : currentIndex + 1;
+    const isFirstSlide = currentIndex + 5 >= medicos.length;
+    if (isFirstSlide) {
+      return   
+    }
+    const nextIndex = currentIndex + 1;
     setCurrentIndex(nextIndex);
   };
 
   const handlePrevious = () => {
     const isFirstSlide = currentIndex === 0;
-    const nextIndex = isFirstSlide ? medicos.length - 1 : currentIndex - 1;
+    if (isFirstSlide) {
+      return 
+      
+    }
+    const nextIndex = currentIndex - 1;
     setCurrentIndex(nextIndex);
   };
   const FinishFailed = () => {
@@ -83,7 +90,7 @@ export default function CardMedics({ handleClickMed }) {
               return (
                 <button
                   onClick={() => handleClickMed(med)}
-                  key={med.user.id}
+                  key={med.id}
                   className={`w-36 h-34 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardMed}`}
                 >
                   <div className="flex justify-end px-4 pt-4"></div>
@@ -95,7 +102,7 @@ export default function CardMedics({ handleClickMed }) {
                       width={500}
                       height={500}
                     />
-                    <Link href={`/medicos/${med.user.id}`}>
+                    <Link href={`/medicos/${med.id}`}>
                       <h5
                         className={`mb-1 text-xs font-medium text-gray-900 dark:text-white text-center ${styles.name}`}
                       >

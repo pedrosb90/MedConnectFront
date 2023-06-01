@@ -28,10 +28,10 @@ export default function UserLogin() {
     (!login.userGoogle || !login.userLocal) && nav.push("/components/forms/UserLogin");
   }, []);
 
-  if (!info.especialidad) {
-    especialidad = schedule?.medSelect.especialidad
-  }else{
-    especialidad = info?.especialidad
+  if (!info || !info.especialidad) {
+    especialidad = schedule?.medSelect?.especialidad;
+  } else {
+    especialidad = info.especialidad;
   }
 
   
@@ -137,10 +137,12 @@ export default function UserLogin() {
           cityId: await cityGetter(),
           direccion: schedule.medSelect.direccion,
         };
+
         console.log(patient);
-        if (schedule && logStatus.userStatus) {
+        if (schedule && login) {
           axios
             .post("https://medconnectback-production.up.railway.app/patients/create", patient)
+
             .then((res) => {
               const appointment = {
                 ...schedule,
@@ -150,6 +152,7 @@ export default function UserLogin() {
               return axios.post(
                 "https://medconnectback-production.up.railway.app/appointment/create",
                 appointment
+
               );
             })
             .then((res) => {
@@ -162,6 +165,7 @@ export default function UserLogin() {
               };
               axios
                 .post("https://medconnectback-production.up.railway.app/payment/create-order", mp)
+
                 .then((res) => {
                   console.log(res.data.init_point);
                   setLoading(false)
