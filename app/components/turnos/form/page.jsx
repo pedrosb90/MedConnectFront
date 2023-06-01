@@ -94,7 +94,7 @@ export default function UserLogin() {
 
   const cityGetter = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/cities");
+      const response = await axios.get("https://medconnectback-production.up.railway.app/cities");
       const citiesData = response.data;
       if (citiesData && schedule && Object.keys(schedule).length > 0) {
         const cityIds = Object.values(schedule).map((element) => {
@@ -132,7 +132,7 @@ export default function UserLogin() {
         console.log(patient);
         if (schedule && logStatus.userStatus) {
           axios
-            .post("http://localhost:3001/patients/create", patient)
+            .post("https://medconnectback-production.up.railway.app/patients/create", patient)
             .then((res) => {
               const appointment = {
                 ...schedule,
@@ -140,7 +140,7 @@ export default function UserLogin() {
                 patientId: res.data.id,
               };
               return axios.post(
-                "http://localhost:3001/appointment/create",
+                "https://medconnectback-production.up.railway.app/appointment/create",
                 appointment
               );
             })
@@ -153,7 +153,7 @@ export default function UserLogin() {
                 unit_price: 500,
               };
               axios
-                .post("http://localhost:3001/payment/create-order", mp)
+                .post("https://medconnectback-production.up.railway.app/payment/create-order", mp)
                 .then((res) => {
                   console.log(res.data.init_point);
                   setLoading(false);

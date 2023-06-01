@@ -17,7 +17,7 @@ import { postInfo, postSchedule } from "../../redux/CitaReducer.js";
 import { useDispatch } from "react-redux";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const medicsURL = `${backendURL}/medics`;
 const appointURL = `${backendURL}/appointment`;
 

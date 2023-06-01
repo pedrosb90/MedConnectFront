@@ -23,7 +23,7 @@ export default function Pacientes() {
   const { logStatus } = useSelector((state) => state);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/patients")
+      .get("https://medconnectback-production.up.railway.app/patients")
       .then((res) => {
         const patientsData = res.data;
 
@@ -36,7 +36,7 @@ export default function Pacientes() {
   }, [isDelete]);
 
   const deletePaci = (id, isUser, email) => {
-    const url = "http://localhost:3001/patients/";
+    const url = "https://medconnectback-production.up.railway.app/patients/";
 
     count == 2 &&
       axios

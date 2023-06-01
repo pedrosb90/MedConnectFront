@@ -34,7 +34,7 @@ export default function Registro() {
 
   const DeleteMedic = (value) => {
     setShowAlert(true);
-    axios.delete(`http://localhost:3001/medics/${value}`).then((res) => {
+    axios.delete(`https://medconnectback-production.up.railway.app/medics/${value}`).then((res) => {
       dispatch(deleteMedic(res.data.message));
     });
   };

@@ -8,7 +8,7 @@ import axios from "axios";
 // import { useRouter } from 'next/navigation';
 import { useParams } from "next/navigation";
 import Success from "@/app/components/success/Success";
-const backendURL = "http://localhost:3001";
+const backendURL = "https://medconnectback-production.up.railway.app";
 const usersURL = `${backendURL}/users`;
 export default function User() {
   // const router = useRouter();
