@@ -20,9 +20,14 @@ export default function Pacientes() {
   });
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
-  const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
+ 
   useEffect(() => {
-    
+
+    !login && nav.push("/components/forms/UserLogin");
+
+    const fetchPatients = async () => {
+      try {
      axios.get(
           "http://localhost:3001/patients"
         ).then((res)=>{

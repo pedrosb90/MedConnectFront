@@ -70,9 +70,9 @@ export default function UserLogin() {
               >
                 Google
               </button>
-              <button id={style.facebook} className={style.button}>
+              {/* <button id={style.facebook} className={style.button}>
                 Facebook
-              </button>
+              </button> */}
             </div>
             <div className={style.formContainer}>
               <Form

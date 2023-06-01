@@ -14,7 +14,7 @@ export default function Medicos() {
   const [users, setUsers] = useState([]);
   const [habilitado, setHabilitado] = useState(false)
   const [isDelete, setIsDelete] = useState(false);
-  const { logStatus } = useSelector((state) => state);
+  const { login } = useSelector((state) => state);
   const nav = useRouter();
   const [error, setError] = useState({
     text: "",
@@ -23,7 +23,7 @@ export default function Medicos() {
  
 
   useEffect(() => {
-    !logStatus.userStatus && nav.push("/components/forms/UserLogin");
+    !login && nav.push("/components/forms/UserLogin");
 
     const fetchPatients = async () => {
       try {
